@@ -5,7 +5,7 @@
 <div class="topbar">
     <div class="topbar-left">
         <div class="logo">
-            <h1><a href="#"><img src="assets/img/logo.png" alt="Logo"></a></h1>
+            <h1><a href="#"><img src="<?php echo base_url(); ?>assets/img/logo.png" alt="Logo"></a></h1>
         </div>
         <button class="button-menu-mobile open-left">
         <i class="fa fa-bars"></i>
@@ -115,21 +115,21 @@
                             <li class="dropdown-header notif-header"><i class="icon-mail-2"></i> New Messages</li>
                             <li class="unread">
                                 <a href="#" class="clearfix">
-                                    <img src="images/users/chat/2.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+                                    <img src="<?php echo base_url(); ?>images/users/chat/2.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
                                     <strong>John Doe</strong><i class="pull-right msg-time">5 minutes ago</i><br />
                                     <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
                                 </a>
                             </li>
                             <li class="unread">
                                 <a href="#" class="clearfix">
-                                    <img src="images/users/chat/1.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+                                    <img src="<?php echo base_url(); ?>images/users/chat/1.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
                                     <strong>Sandra Kraken</strong><i class="pull-right msg-time">22 minutes ago</i><br />
                                     <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="clearfix">
-                                    <img src="images/users/chat/3.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
+                                    <img src="<?php echo base_url(); ?>images/users/chat/3.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
                                     <strong>Zoey Lombardo</strong><i class="pull-right msg-time">41 minutes ago</i><br />
                                     <p>Duis autem vel eum iriure dolor in hendrerit ...</p>
                                 </a>
@@ -139,7 +139,7 @@
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="images/users/user-35.jpg"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="<?php echo site_url(); ?>images/users/user-35.jpg"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">Change Password</a></li>

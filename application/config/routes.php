@@ -37,9 +37,17 @@
 | in the URL cannot be matched to a valid route.
 |
 */
-
-$route['default_controller'] = "login";
-$route['404_override'] = '';
+$route['login'] = 'login';
+$route['form'] = 'form';
+$route['slcs_staff/create_member'] = 'slcs_staff/create_member';
+$route['slcs_staff'] = 'slcs_staff';
+$route['news/view/(:any)'] = 'news/view/$1';
+$route['news/create'] = 'news/create';
+//$route['news/view/(:any)'] = 'news/view/$1';
+$route['news'] = 'news';
+$route['default_controller'] = 'pages/view';
+$route['(:any)'] = 'pages/view/$1';
+//$route['404_override'] = 'errors/page_missing';
 
 
 /* End of file routes.php */

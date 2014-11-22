@@ -1,8 +1,10 @@
-<?php
-class Tb_slcs_staff_model extends CI_Model {
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Slcs_staff_model extends CI_Model {
 
 	public function __construct()
 	{
+		parent::__construct();
 		$this->load->database();
 	}
 
@@ -10,22 +12,29 @@ class Tb_slcs_staff_model extends CI_Model {
 	{
 		if ($username === FALSE)
 		{
-			$query = $this->db->get('tb_slcs_staff');
+			$query = $this->db->get('slcs_staff');
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('tb_slcs_staff', array('username' => $username));
+		$query = $this->db->get_where('slcs_staff', array('username' => $username));
 		return $query->row_array();
 	}
 
 	public function create_staff() {
 
+		//$this->load->helper('url');
+		//$slug = url_title($this->input->post('title'), 'dash', TRUE);
+
 		$username = $this->input->post('username');
+		$fname 	  =	$this->input->post('fname');
+		$lname    = $this->input->post('lname');
+		$fullname = $fname." ".$lname;
 
 		$new_staff_insert_data = array(
-			'fname' => $this->input->post('first_name'),
-			'lname' => $this->input->post('last_name'),
-			'fullname' =>  $this->input->post('first_name').' '.$this->input->post('last_name'),
+			'fname' => $fname,
+			'lname' => $lname,
+			'fullname' =>  $fullname,
+			'email' =>$this->input->post('email'),
 			'gender' => $this->input->post('gender'),
 			'placeofbirth' => $this->input->post('placeofbirth'),
 			'passport_no' => $this->input->post('passport_no'),
@@ -40,7 +49,7 @@ class Tb_slcs_staff_model extends CI_Model {
 			'acctype' => $this->input->post('acctype')
 		);
 
-		$insert = $this->db->insert('tb_slcs_staff', $new_staff_insert_data);
+		$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
 		return $insert;
 	}
 

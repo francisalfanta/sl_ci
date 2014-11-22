@@ -53,7 +53,7 @@ $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 $db['default']['database'] = 'softlinecsdb';
 $db['default']['dbdriver'] = 'mysql';
-$db['default']['dbprefix'] = '';
+$db['default']['dbprefix'] = 'tb_';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
@@ -63,6 +63,7 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+$db['default']['port'] = 3306;
 
 
 /* End of file database.php */

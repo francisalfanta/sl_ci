@@ -12,7 +12,7 @@
                 <!--- Profile -->
                 <div class="profile-info">
                     <div class="col-xs-4">
-                      <a href="profile.html" class="rounded-image profile-image"><img src="images/users/user-100.jpg"></a>
+                      <a href="profile.html" class="rounded-image profile-image"><img src="<?php echo base_url(); ?>images/users/user-100.jpg"></a>
                     </div>
                     <div class="col-xs-8">
                         <div class="profile-text">Welcome <b>Jane</b></div>
@@ -30,34 +30,52 @@
                 <!--- Divider -->
                 <div id="sidebar-menu">
                     <ul>
-                    <li class='has_sub'>
-                        <a href='javascript:void(0);'>
-                            <i class='icon-home-3'></i>
-                            <span>Home</span> 
-                            <span class="pull-right"><i class="fa fa-angle-down"></i></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href='index.html' class='active'><span>Dashboard v1</span></a>
-                            </li>
-                            <li><a href='index2.html'><span>Dashboard v2</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class='has_sub'>
-                        <a href='javascript:void(0);'>
-                            <i class='icon-home-3'></i>
-                            <span>Tables</span> 
-                            <span class="pull-right"><i class="fa fa-angle-down"></i></span>
-                        </a>
-                        <ul>
-                            <li>
-                                <a href='index.html' class='active'><span>SL Staff</span></a>
-                            </li>
-                            <li><a href='index2.html'><span>Add Table</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                        <?php foreach($sections as $section) { ?>
+                        <li class='has_sub'>
+                            <a href='javascript:void(0);'>
+                                <i class='icon-home-3'></i>
+                                <span><?php echo $section['section_name']; ?></span> 
+                                <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href='index.html' class='active'><span>Dashboard v1</span></a>
+                                </li>
+                                <li><a href='index2.html'><span>Dashboard v2</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php } ?>
+                        <li class='has_sub'>
+                            <a href='javascript:void(0);'>
+                                <i class='icon-home-3'></i>
+                                <span>Add List</span> 
+                                <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href='' class='active'><span>Add Sub-Section</span></a>
+                                </li>
+                                <li><a href='index2.html'><span>Add Table</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--
+                        <li class='has_sub'>
+                            <a href='javascript:void(0);'>
+                                <i class='icon-home-3'></i>
+                                <span>Tables</span> 
+                                <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href='' class='active'><span>SL Staff</span></a>
+                                </li>
+                                <li><a href='index2.html'><span>Add Table</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        -->
                     </ul>
 
                 </div>

@@ -5,7 +5,7 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('tb_slcs_staff_model');
+		$this->load->model('slcs_staff_model');
 	}
 
 	public function index() {
@@ -19,6 +19,25 @@ class Login extends CI_Controller {
 		$this->load->view('login_form');
 		$this->load->view('layout/footer');
 	}	
+
+	public function validate_credentials()
+	{
+		//$this->load->model('slcs_staff_model'); //already called in __construct()
+		$query = $this->slcs_staff_model->validate();
+
+
+		if ($query)  // if the user's credentials validated...
+		{
+			$data = array(
+				'username' => $this->input->post('username'),
+				'is_logged_in' => true
+			);
+
+			$this->session->set_userdata($data);
+			//redirect('site/member_area');
+			redirect('dashboard');
+		}
+	}
 	/*
 	public function view($slug)
 	{
