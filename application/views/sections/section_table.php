@@ -16,10 +16,10 @@
 					<div class="col-md-12">
 						<div class="widget">
 							<div class="widget-header transparent">
-								<h2><strong>Soft Line Staff</strong> Table</h2>
+								<h2><strong>Departments</strong> Table</h2>
 
 								<div class="additional-btn">
-									<a href="slcs_staff/create_member" class="hidden"><i class="icon-user-add"></i></a>									
+									<a href="departments/create_sec" class="hidden"><i class="icon-user-add"></i></a>									
 									<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
 									<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
 									<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
@@ -33,9 +33,7 @@
 												<th>No</th>
 												<th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
 												<th>Full Name</th>
-												<th>Location</th>
-												<th>Date of birth</th>
-												<th>Email</th>
+												<th>Location</th>												
 												<th data-sortable="false">Sort : Off</th>
 												<th>Status</th>
 												<th data-sortable="false">Option</th>
@@ -44,17 +42,15 @@
 										
 										<tbody>
 
-											<?php 
-												$i = 1; // counter
-												foreach($staffs as $staff) { ?>
+											<?php
+												$i = 1; // counter 
+												foreach($sections as $section) { ?>
 
 											<tr>
 												<td><?php echo $i; ?></td>
 												<td><input type="checkbox" class="rows-check"></td>
-												<td><strong><?php echo $staff['fullname']; ?></strong></td>
-												<td>Yogyakarta, Indonesia</td>
-												<td><?php echo $staff['dob']; ?></td>
-												<td><a href="mailto:<?php echo $staff['email']; ?>"><?php echo $staff['email']; ?></a></td>
+												<td><strong><?php echo $section['section_name']; ?></strong></td>
+												<td>Yogyakarta, Indonesia</td>												
 												<td>123</td>
 												<td><span class="label label-success">Active</span></td>
 												<td>

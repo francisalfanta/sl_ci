@@ -34,10 +34,6 @@ class Slcs_staff extends CI_Controller {
 
 		$data['title'] = $data['staff']['username'];
 
-		//$this->load->view('templates/header', $data);
-		//$this->load->view('news/view', $data);
-		//$this->load->view('templates/footer');
-
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/topbar');
@@ -51,7 +47,8 @@ class Slcs_staff extends CI_Controller {
 	{
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-
+		
+		$data['sections'] = $this->sections_model->get_sections();
 		$data['title'] = 'Add new staff';
 		$data['table_fields'] = array(
 			'fname' => array('fname', 'First Name'),

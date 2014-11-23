@@ -49,14 +49,14 @@
                         <li class='has_sub'>
                             <a href='javascript:void(0);'>
                                 <i class='icon-home-3'></i>
-                                <span>Add List</span> 
+                                <span>Customize List</span> 
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
                                 <li>
-                                    <a href='' class='active'><span>Add Sub-Section</span></a>
+                                    <a href='' class='active'><span>Department</span></a>
                                 </li>
-                                <li><a href='index2.html'><span>Add Table</span></a>
+                                <li><a href='index2.html'><span>Table</span></a>
                                 </li>
                             </ul>
                         </li>

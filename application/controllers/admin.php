@@ -12,7 +12,7 @@ class Admin extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu');
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('blank');
+		$this->load->view('layout/blank');
 		$this->load->view('layout/footer');		
 	}
 }

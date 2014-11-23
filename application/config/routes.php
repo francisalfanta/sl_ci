@@ -37,6 +37,9 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+// controller = url
+$route['departments/create_sec'] = 'departments/create_sec';
+$route['departments'] = 'departments';
 $route['login'] = 'login';
 $route['form'] = 'form';
 $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
