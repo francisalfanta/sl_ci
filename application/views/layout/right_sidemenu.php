@@ -1,3 +1,7 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
 <!-- Right Sidebar Start -->
     <div class="right side-menu">
     	<ul class="nav nav-tabs nav-justified" id="right-tabs">

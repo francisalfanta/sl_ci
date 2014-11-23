@@ -19,7 +19,7 @@
 					<div class="col-sm-6 portlets">
 						<div class="widget">
 							<div class="widget-header transparent">
-								<h2><strong>Add Staff</strong> Form</h2>
+								<h2><strong>Add Department Task</strong> Form</h2>
 								<div class="additional-btn">
 									<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
 									<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -31,21 +31,25 @@
 
 									<?php echo validation_errors(); ?>
 
-									<form class="form-horizontal" action="<?php echo base_url(); ?>slcs_staff/create_member" method="post" accept-charset="utf-8" role="form">
+									<form class="form-horizontal" action="<?php echo base_url(); ?>dept_tasks/create_dept_task" method="post" accept-charset="utf-8" role="form">
+									
 										<div class="form-group">
-											<label for="InputEmail" class="col-sm-2 control-label">Email</label>
+											<label class="col-sm-2 control-label">Department</label>
 											<div class="col-sm-10">
-												<input type="email" class="form-control" id="InputEmail" placeholder="Enter email">
-											</div><!-- col-sm-10 -->
-									  	</div><!-- form-group -->
-									<?php foreach($table_fields as $tb_fields) { ?>
-										<div class="form-group">
-											<label for="input<?php echo $tb_fields[0]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[1]; ?></label>
-											<div class="col-sm-10">
-											  <input type="text" name="<?php echo $tb_fields[0]; ?>" value="<?php echo set_value('<?php echo $tb_fields[0]; ?>'); ?>" class="form-control" id="input<?php echo $tb_fields[0]; ?>" placeholder="<?php echo $tb_fields[1]; ?>" >											
+												<select class="form-control" name="dept_id">
+												<?php foreach($sections as $section) { ?>
+												  <option value=<?php echo $section['id']; ?>><?php echo ucfirst($section['section_name']); ?></option>												
+												<?php } ?>
+												</select>
 											</div><!-- col-sm-10 --> 
-										</div><!-- form-group -->
-									<?php } ?>
+										</div><!-- form-group -->	
+
+										<div class="form-group">
+											<label for="input_table_name" class="col-sm-2 control-label">Table Name</label>
+											<div class="col-sm-10">
+											  <input type="text" name="table_name" value="<?php echo set_value('table_name'); ?>" class="form-control" id="input_table_name" placeholder="Table Name" >											
+											</div><!-- col-sm-10 --> 
+										</div><!-- form-group -->									
 									
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-10">

@@ -5,14 +5,14 @@
 */
 if (! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class Dept_tasks extends CI_Controller {
 
-	public function index()
+	public function index()		
 	{
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['sections'] = $this->sections_model->get_sections();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['title'] = 'Departments';
+		$data['sections']   = $this->sections_model->get_sections();		
+		$data['title'] = 'Department Records';
 
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
@@ -20,55 +20,51 @@ class Departments extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('sections/section_table', $data);
-		$this->load->view('layout/footer');		
-	}
-
-	public function view($id)
-	{
-		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['sections'] = $this->sections_model->get_sections($id);
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['title'] = 'Departments';
-
-		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);	
-
-
-		if (empty($data['section']))
-		{
-			show_404();			
-		}
-		
-		$this->load->helper('url');
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
-		$this->load->view('layout/right_sidemenu');
-		$this->load->view('sections/blank');
+		$this->load->view('dept_tasks/dept_tasks_table', $data);
 		$this->load->view('layout/footer');	
 	}
 
-	public function create_sec()
+	public function view($dept_id)
 	{
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');
-
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['sections'] = $this->sections_model->get_sections();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['title'] = 'Add new Department';
+		$data['depttask'] = $this->dept_tasks_model->get_dept_tasks($dept_id);
+		$data['sections']   = $this->sections_model->get_sections();
+		$data['title'] = 'Department Records';
 
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
 
-		$data['table_fields'] = array(
-			'section_name' => array('section_name', 'Department Name')
-			);
+		if (empty($data['depttask']))
+		{
+			show_404();			
+		}		
 
-		$this->form_validation->set_rules('section_name', 'Department Name', 'required');
+		$this->load->helper('url');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('dept_tasks/blank');
+		$this->load->view('layout/footer');	
+	}
+
+	public function create_dept_task()
+	{
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		
+		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections'] = $this->sections_model->get_sections();
+		$data['title'] = 'Add new Department Table';		
+
+		$username = $this->session->userdata('username'); 			
+		$data['username'] = ucfirst($username);	
+
+		$this->form_validation->set_rules('dept_id', 'Department Name', 'required');
+		$this->form_validation->set_rules('table_name', 'Table Name', 'required');	
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -77,16 +73,16 @@ class Departments extends CI_Controller {
 			$this->load->view('layout/topbar');
 			$this->load->view('layout/admin_left_sidemenu');
 			$this->load->view('layout/right_sidemenu');
-			$this->load->view('sections/create_section_form', $data);
+			$this->load->view('dept_tasks/create_depttasks_form', $data);
 			$this->load->view('layout/footer');				
 		}
 		else
 		{
-			if($query = $this->sections_model->create_section()){
-				$data['account_created'] = 'Your account has been created.<br>';
+			if($query = $this->dept_tasks_model->create_dept_tasks()){
+				$data['depttask_created'] = 'Department task has been created.<br>';
 
-				redirect('departments');
+				redirect('dept_tasks');
 			}
 		}		
-	}
+	}	
 }

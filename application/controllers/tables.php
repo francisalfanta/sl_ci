@@ -2,17 +2,17 @@
 /*   Created by  : Francis A.
      Date        : November 23, 2014
      Script Lines: All unless noted otherwise
-*/
+*/     
 if (! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Departments extends CI_Controller {
+class Tables extends CI_Controller {
 
 	public function index()
 	{
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['sections'] = $this->sections_model->get_sections();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['title'] = 'Departments';
+		$data['title'] = 'Table Lists';
 
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
@@ -22,11 +22,11 @@ class Departments extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu');
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('sections/section_table', $data);
+		$this->load->view('layout/form-wizard', $data);
 		$this->load->view('layout/footer');		
 	}
 
-	public function view($id)
+	public function view($id)	
 	{
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['sections'] = $this->sections_model->get_sections($id);
@@ -35,7 +35,6 @@ class Departments extends CI_Controller {
 
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
-
 
 		if (empty($data['section']))
 		{

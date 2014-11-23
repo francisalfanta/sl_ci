@@ -1,3 +1,7 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
 <!-- Left Sidebar Start -->
         <div class="left side-menu">
             <div class="sidebar-inner slimscrollleft">

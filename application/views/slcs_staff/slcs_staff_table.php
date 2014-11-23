@@ -1,3 +1,8 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
+
 <!-- Start right content -->
         <div class="content-page">
 			<!-- ============================================================== -->
@@ -18,9 +23,9 @@
 							<div class="widget-header transparent">
 								<h2><strong>Soft Line Staff</strong> Table</h2>
 
-								<div class="additional-btn">
-									<a href="slcs_staff/create_member" class="hidden"><i class="icon-user-add"></i></a>									
+								<div class="additional-btn">									
 									<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+									<a href="slcs_staff/create_member"><i class="icon-user-add"></i></a>									
 									<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
 									<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
 								</div>

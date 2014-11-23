@@ -1,4 +1,8 @@
-	<!-- the overlay modal element -->
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
+		<!-- the overlay modal element -->
 	<div class="md-overlay"></div>
 	<!-- End of eoverlay modal -->
 	<script>
@@ -32,5 +36,8 @@
 	<script src="<?php echo base_url(); ?>assets/libs/prettify/prettify.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/js/init.js"></script>
+	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
+	<script src="<?php echo base_url(); ?>assets/libs/jquery-wizard/jquery.easyWizard.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/pages/form-wizard.js"></script>
 	</body>
 </html>

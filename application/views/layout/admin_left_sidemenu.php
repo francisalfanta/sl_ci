@@ -1,3 +1,7 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
 <!-- Left Sidebar Start -->
         <div class="left side-menu">
             <div class="sidebar-inner slimscrollleft">
@@ -15,11 +19,11 @@
                       <a href="profile.html" class="rounded-image profile-image"><img src="<?php echo base_url(); ?>images/users/user-100.jpg"></a>
                     </div>
                     <div class="col-xs-8">
-                        <div class="profile-text">Welcome <b>Jane</b></div>
+                        <div class="profile-text">Welcome <b><?php echo $username; ?></b></div>
                         <div class="profile-buttons">
                           <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
                           <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
-                          <a href="javascript:;" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
+                          <a href="<?php base_url();?>logout" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -37,12 +41,9 @@
                                 <span><?php echo $section['section_name']; ?></span> 
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
-                            <ul>
-                                <li>
-                                    <a href='index.html' class='active'><span>Dashboard v1</span></a>
-                                </li>
-                                <li><a href='index2.html'><span>Dashboard v2</span></a>
-                                </li>
+                            <ul><?php foreach($depttasks as $depttask) { ?>
+                                <li><a href='<?php echo base_url().str_replace('tb_','',$depttask['table_name']); ?>' class='active'><span><?php if($section['id']==$depttask['dept_id']) { echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $depttask['table_name'])));} ?></span></a></li>
+                                <?php } ?>
                             </ul>
                         </li>
                         <?php } ?>
@@ -54,9 +55,9 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href='' class='active'><span>Department</span></a>
+                                    <a href='<?php echo base_url(); ?>departments' class='active'><span>Department</span></a>
                                 </li>
-                                <li><a href='index2.html'><span>Table</span></a>
+                                <li><a href='<?php echo base_url(); ?>tables'><span>Table</span></a>
                                 </li>
                             </ul>
                         </li>

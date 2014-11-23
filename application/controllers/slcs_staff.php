@@ -1,32 +1,41 @@
 <?php
+/*   Created by  : Francis A.
+     Date        : November 22, 2014
+     Script Lines: All unless noted otherwise
+*/
+if (! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Slcs_staff extends CI_Controller {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('slcs_staff_model');
-		$this->load->model('sections_model');
-	}
-
 	public function index()
-	{
+	{		
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections'] = $this->sections_model->get_sections();
-		$data['title'] = 'Soft Line Staff';		
+		$data['title'] = 'SoftLine | Staff';	
+		
+		$username = $this->session->userdata('username'); 			
+		$data['username'] = ucfirst($username);		
 
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/slcs_staff_table');
+		$this->load->view('slcs_staff/slcs_staff_table', $data);
 		$this->load->view('layout/footer');	
 	}
 
 	public function view($username)
 	{
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);
-		$data['title'] = 'Soft Line Staff';
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections'] = $this->sections_model->get_sections();
+
+		$username = $this->session->userdata('username'); 			
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Staff';
+
 		if (empty($data['staff']))
 		{
 			show_404();			
@@ -39,7 +48,7 @@ class Slcs_staff extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu');
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/index');
+		$this->load->view('slcs_staff/blank');
 		$this->load->view('layout/footer');	
 	}
 
@@ -48,8 +57,14 @@ class Slcs_staff extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		
+		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
 		$data['sections'] = $this->sections_model->get_sections();
-		$data['title'] = 'Add new staff';
+
+		$username = $this->session->userdata('username'); 					
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Add new staff';
+
 		$data['table_fields'] = array(
 			'fname' => array('fname', 'First Name'),
 			'lname' => array('lname', 'Last Name'),
@@ -98,23 +113,4 @@ class Slcs_staff extends CI_Controller {
 			}
 		}		
 	}
-
-	public function validate_credentials()
-	{
-		//$this->load->model('slcs_staff_model'); //already called in __construct()
-		$query = $this->slcs_staff_model->validate();
-
-
-		if ($query)  // if the user's credentials validated...
-		{
-			$data = array(
-				'username' => $this->input->post('username'),
-				'is_logged_in' => true
-			);
-
-			$this->session->set_userdata($data);
-			//redirect('site/member_area');
-			redirect('dashboard');
-		}
-	}	
 }

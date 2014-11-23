@@ -1,3 +1,59 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
+    <body class="fixed-left">
+        <!-- Modal Start -->
+            <!-- Modal Task Progress -->    
+    <div class="md-modal md-3d-flip-vertical" id="task-progress">
+        <div class="md-content">
+            <h3><strong>Task Progress</strong> Information</h3>
+            <div>
+                <p>CLEANING BUGS</p>
+                <div class="progress progress-xs for-modal">
+                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                    <span class="sr-only">80&#37; Complete</span>
+                  </div>
+                </div>
+                <p>POSTING SOME STUFF</p>
+                <div class="progress progress-xs for-modal">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                    <span class="sr-only">65&#37; Complete</span>
+                  </div>
+                </div>
+                <p>BACKUP DATA FROM SERVER</p>
+                <div class="progress progress-xs for-modal">
+                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 95%">
+                    <span class="sr-only">95&#37; Complete</span>
+                  </div>
+                </div>
+                <p>RE-DESIGNING WEB APPLICATION</p>
+                <div class="progress progress-xs for-modal">
+                  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">100&#37; Complete</span>
+                  </div>
+                </div>
+                <p class="text-center">
+                <button class="btn btn-danger btn-sm md-close">Close</button>
+                </p>
+            </div>
+        </div>
+    </div>
+        
+    <!-- Modal Logout -->
+    <div class="md-modal md-just-me" id="logout-modal">
+        <div class="md-content">
+            <h3><strong>Logout</strong> Confirmation</h3>
+            <div>
+                <p class="text-center">Are you sure want to logout from this awesome system?</p>
+                <p class="text-center">
+                <button class="btn btn-danger md-close">Nope!</button>
+                <a href="login.html" class="btn btn-success md-close">Yeah, I'm sure</a>
+                </p>
+            </div>
+        </div>
+    </div>        <!-- Modal End -->    
+    <!-- Begin page -->
 <!-- Begin page -->
     <div id="wrapper">
         
@@ -139,7 +195,7 @@
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="<?php echo site_url(); ?>images/users/user-35.jpg"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="<?php echo site_url(); ?>images/users/user-35.jpg"></span><?php foreach($staffs as $staff) { if(strtolower($username)==strtolower($staff['username'])) {echo $staff['fname']; }}?><strong> <?php foreach($staffs as $staff) { if(strtolower($username)==strtolower($staff['username'])) {echo $staff['lname']; }}?></strong> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">Change Password</a></li>

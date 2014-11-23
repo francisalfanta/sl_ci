@@ -1,4 +1,9 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+/*   Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+*/
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
     class Template 
     {

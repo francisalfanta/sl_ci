@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html>
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
     <head>
         <meta charset="UTF-8">
         <title><?php echo $title; ?> | Coco - Responsive Bootstrap Admin Template</title>   

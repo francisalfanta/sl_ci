@@ -1,3 +1,7 @@
+<!-- Created by  : Francis A.
+     Date        : November 23, 2014
+     Script Lines: All unless noted otherwise
+-->
 <!-- Modal Start -->
        	<!-- Modal Task Progress -->	
 	<div class="md-modal md-3d-flip-vertical" id="task-progress">

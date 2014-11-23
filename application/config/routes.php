@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  
+
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------------
 | URI ROUTING
@@ -37,19 +39,27 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+/*   Modified by    : Francis A.
+     Date           : November 23, 2014
+     Script Lines   : All unless noted otherwise
+*/
 // controller = url
+$route['tables'] = 'tables';
+$route['dept_tasks/create_dept_task'] = 'dept_tasks/create_dept_task';
+$route['dept_tasks'] = 'dept_tasks';
+$route['departments/view/(:any)'] = 'departments/view/$1';
 $route['departments/create_sec'] = 'departments/create_sec';
 $route['departments'] = 'departments';
+$route['logout'] = 'logout';
+$route['login/login_validation'] = 'login/login_validation';	// added this line : Lemuel
 $route['login'] = 'login';
+$route['login/sl_admin'] = 'login/sl_admin'; 					// added this line : Lemuel
+$route['login/logout_mod'] = 'login/logout_mod'; 				// added this line : Lemuel
+$route['login/logout_mod'] = 'login/logout'; 					// added this line : Lemuel
 $route['form'] = 'form';
 $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
 $route['slcs_staff'] = 'slcs_staff';
-$route['news/view/(:any)'] = 'news/view/$1';
-$route['news/create'] = 'news/create';
-//$route['news/view/(:any)'] = 'news/view/$1';
-$route['news'] = 'news';
-$route['default_controller'] = 'pages/view';
-$route['(:any)'] = 'pages/view/$1';
+$route['default_controller'] = 'login';
 //$route['404_override'] = 'errors/page_missing';
 
 
