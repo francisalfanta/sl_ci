@@ -40,4 +40,4 @@ class Dept_tasks_model extends CI_Model {
 		return $insert;
 	}
 }
-?> 
+?>

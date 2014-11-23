@@ -68,6 +68,7 @@ class Slcs_staff extends CI_Controller {
 		$data['table_fields'] = array(
 			'fname' => array('fname', 'First Name'),
 			'lname' => array('lname', 'Last Name'),
+			'mnumber' => array('mnumber', 'Mobile No'),
 			'username' => array('username', 'Username'),
 			'password' => array('password', 'Password'),
 			'passconf' => array('passconf', 'Password Confirm'),

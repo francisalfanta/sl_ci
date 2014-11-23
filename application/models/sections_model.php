@@ -39,4 +39,4 @@ class Sections_model extends CI_Model {
 		return $insert;
 	}
 }
-?> 
+?>

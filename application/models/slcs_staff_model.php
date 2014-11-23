@@ -70,8 +70,6 @@ class Slcs_staff_model extends CI_Model {
 			return TRUE;
 		}
 	}
-
 	//update
 	//delete
-}
-?> 
+}?>

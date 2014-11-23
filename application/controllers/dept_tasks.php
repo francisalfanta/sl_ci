@@ -52,7 +52,7 @@ class Dept_tasks extends CI_Controller {
 
 	public function create_dept_task()
 	{
-		$this->load->helper(array('form', 'url'));
+		//$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
@@ -86,3 +86,4 @@ class Dept_tasks extends CI_Controller {
 		}		
 	}	
 }
+?>
