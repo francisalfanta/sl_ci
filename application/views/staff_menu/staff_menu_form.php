@@ -29,9 +29,13 @@
 							<div class="widget-content padding">						
 								<div id="horizontal-form">									
 									<div id="level_list">
-										<p><button class="btn btn-primary" type="button">Default button</button></p>
-										<div id="sub_item" class="col-md-offset-2">
-											<p><button class="btn btn-primary" type="button">Default button</button></p>
+									<?php foreach($parents as $parent) { ?>
+										<p><button class="btn btn-primary" type="button"><?php echo $parent->menu; ?></button></p>
+										<div id="sub_item" class="col-md-offset-2">									
+										<?php foreach($children as $child) { 
+											//if($child->parent == $parent->menu) {?>
+											<p><button class="btn btn-primary" type="button"><?php echo $child->menu; ?></button></p>
+										<?php }}?>
 									 	</div><!-- sub_item -->
 									 </div><!-- level_list -->
 								</div> <!-- horizontal-form -->
@@ -56,21 +60,21 @@
 									<!-- Form Element generator -->										
 									<?php foreach($table_fields as $tb_fields) { 
 										// INPUT TAG
-										if($tb_fields[2] == 'input') { ?>
+										if($tb_fields[3] == 'input') { ?>
 											<div class="form-group">
-												<label for="input<?php echo $tb_fields[0]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[1]; ?></label>
+												<label for="input<?php echo $tb_fields[1]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[2]; ?></label>
 												<div class="col-sm-10">
-												  <input type="text" name="<?php echo $tb_fields[0]; ?>" value="<?php echo set_value('<?php echo $tb_fields[0]; ?>'); ?>" class="form-control" id="input<?php echo $tb_fields[0]; ?>" placeholder="<?php echo $tb_fields[1]; ?>" >											
+												  <input type="text" name="<?php echo $tb_fields[1]; ?>" value="<?php echo set_value('<?php echo $tb_fields[1]; ?>'); ?>" class="form-control" id="input<?php echo $tb_fields[1]; ?>" placeholder="<?php echo $tb_fields[2]; ?>" tabindex="<?php echo $tb_fields[0]; ?>" >											
 												</div><!-- col-sm-10 --> 
 											</div><!-- form-group -->
 										<?php 
 										// SELECT TAG
-										} elseif($tb_fields[2] == 'select') { ?>
+										} elseif($tb_fields[3] == 'select') { ?>
 											<div class="form-group">
-                                                <label for="input<?php echo $tb_fields[0]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[1]; ?></label>
+                                                <label for="input<?php echo $tb_fields[1]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[2]; ?></label>
                                                 <div class="col-sm-10">
-                                                    <select name="<?php echo $tb_fields[0]; ?>" class="form-control " id="input<?php echo $tb_fields[0]; ?>">
-                                                    	<?php foreach($tb_fields[3] as $select_values) { ?>
+                                                    <select name="<?php echo $tb_fields[1]; ?>" class="form-control " id="input<?php echo $tb_fields[1]; ?>" tabindex="<?php echo $tb_fields[0]; ?>">
+                                                    	<?php foreach($tb_fields[4] as $select_values) { ?>
                                                         <option value="<?php echo $select_values; ?>" <?php if($select_values===1) { echo 'selected';}?> ><?php if($select_values===0) { echo 'No'; } elseif($select_values===1) {echo 'Yes'; } else { echo $select_values; } ?></option>
                                                         <?php } ?>
                                                     </select>
@@ -78,14 +82,15 @@
                                             </div><!-- form-group -->
                                         <?php
                                         // CUSTOM TAG
-                                        } elseif($tb_fields[2] == 'custom') { ?>
+                                        } elseif($tb_fields[3] == 'custom') { ?>
                                         	<div class="form-group">
-                                        		<label for="input<?php echo $tb_fields[0]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[1]; ?></label>
+                                        		<label for="input<?php echo $tb_fields[1]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[2]; ?></label>
                                         		<div class="col-sm-10">                                        			
-                                        			 <select name="<?php echo $tb_fields[0]; ?>" class="form-control " id="input<?php echo $tb_fields[0]; ?>">
-                                                    	<?php foreach($tb_fields[3] as $select_values) { ?>
-                                                        <option value="<?php if(isset($select_values[1])){ echo $select_values[1]; }?>"><?php if(isset($select_values[1])){ echo $select_values[1]; }?></option>
-                                                        <?php } ?>
+                                        			 <select name="<?php echo $tb_fields[1]; ?>" class="form-control " id="input<?php echo $tb_fields[1]; ?>" tabindex="<?php echo $tb_fields[0]; ?>">
+                                        			 	<option value=""></option>
+                                                    	<?php foreach($tb_fields[4] as $select_values) { foreach($select_values as $parent) { ?> 
+                                                        <option value="<?php echo $parent; ?>"><?php echo $parent; ?></option>
+                                                        <?php }} ?>
                                                     </select>
                                         		</div><!-- col-sm-10 -->
                                         	</div><!-- form-group -->

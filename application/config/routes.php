@@ -68,6 +68,7 @@ $route['form'] = 'form';
 $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
 $route['slcs_staff'] = 'slcs_staff';
 $route['default_controller'] = 'login';
+$route['unit_test'] = 'unit_test';
 //$route['404_override'] = 'errors/page_missing';
 
 

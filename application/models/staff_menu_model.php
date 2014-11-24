@@ -25,6 +25,20 @@ class Staff_menu_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	public function get_parent_staff_menu()
+	{
+		$this->db->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_child_staff_menu()
+	{
+		$this->db->select('menu')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function create_staff_menu() {
 
 		$new_staff_menu_insert_data = array(

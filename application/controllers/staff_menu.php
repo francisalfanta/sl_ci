@@ -14,9 +14,12 @@ class Staff_menu extends CI_Controller {
 
 	public function index()
 	{		
+		// database query 
 		$data['staffs']    = $this->slcs_staff_model->get_staff();
 		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections']  = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		// custom data
 		$data['title']     = 'SoftLine | Menu Manager';	
 		
 		$username          = $this->session->userdata('username'); 			
@@ -25,17 +28,20 @@ class Staff_menu extends CI_Controller {
 		//select values
 		$method            = array('_parent','_self','_blank');
 		$active            = array(1,0);
-		$parent            = $this->staff_menu_model->get_staff_menu();
-		// Parameter : tag-attributes, label, tag-type, select-values		
+		$parents           = $this->staff_menu_model->get_parent_staff_menu();
+		$children          = $this->staff_menu_model->get_child_staff_menu();
+		$data['parents']   = $parents;
+		$data['children']  = $children;
+		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		
 		$data['table_fields'] = array(
-			'menu' 		 => array('menu', 'Menu', 'input'),
-			'url' 		 => array('url', 'URL', 'input'),
-			'send_value' => array('send_value', 'Send Value', 'input'),
-			'method'     => array('method', 'Method', 'select', $method),
-			'order'      => array('order', 'Order', 'input'),
-			'parent'     => array('parent', 'Parent', 'custom', $parent),
-			'include'    => array('include', 'Include', 'input'),
-			'active'     => array('active', 'Active', 'select', $active),
+			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
+			'url' 		 => array('2', 'url', 'URL', 'input'),
+			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
+			'method'     => array('4', 'method', 'Method', 'select', $method),
+			'order'      => array('5', 'order', 'Order', 'input'),
+			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
+			'include'    => array('7','include', 'Include', 'input'),
+			'active'     => array('8', 'active', 'Active', 'select', $active),
 			);	
 
 		$this->load->helper('url');
