@@ -1,12 +1,12 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
  
-    class Template 
+    class Sl_template 
     {
-        var $sl;
+        var $ci;
          
         function __construct() 
         {
-            $this->sl =& get_instance();
+            $this->ci =& get_instance();
         }
 
         function load($tpl_view, $body_view = null, $data = null) 
@@ -50,6 +50,6 @@
 		        }
 		    }
      
-    		$this->sl->load->view('templates/'.$tpl_view, $data);
+    		$this->ci->load->view('templates/'.$tpl_view, $data);
 		}
     }

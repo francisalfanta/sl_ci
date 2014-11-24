@@ -44,6 +44,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['test'] = 'test';
 $route['tables'] = 'tables';
 $route['dept_tasks/create_dept_task'] = 'dept_tasks/create_dept_task';
 $route['dept_tasks'] = 'dept_tasks';
