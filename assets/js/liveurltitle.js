@@ -1,53 +1,4 @@
-<!-- Created by  : Francis A.
-     Date        : November 23, 2014
-     Script Lines: All unless noted otherwise
--->
-		<!-- the overlay modal element -->
-	<div class="md-overlay"></div>
-	<!-- End of eoverlay modal -->
-	<script>
-		var resizefunc = [];
-	</script>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="<?php echo base_url(); ?>assets/libs/jquery/jquery-1.11.1.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-detectmobile/detect.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-animate-numbers/jquery.animateNumbers.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/ios7-switch/ios7.switch.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/fastclick/fastclick.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-blockui/jquery.blockUI.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap-bootbox/bootbox.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-slimscroll/jquery.slimscroll.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-sparkline/jquery-sparkline.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/nifty-modal/js/classie.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/nifty-modal/js/modalEffects.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/sortable/sortable.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap-select2/select2.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script> 
-	<script src="<?php echo base_url(); ?>assets/libs/pace/pace.min.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-icheck/icheck.min.js"></script>
-
-	<!-- Demo Specific JS Libraries -->
-	<script src="<?php echo base_url(); ?>assets/libs/prettify/prettify.js"></script>
-
-	<script src="<?php echo base_url(); ?>assets/js/init.js"></script>
-	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-wizard/jquery.easyWizard.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/pages/form-wizard.js"></script>
-	
-	<script type="text/javascript"> 
-           
-        /** ------------------------------------
-        /**  Live URL Title Function
-        /**     Code from ExpressionEngine v 1.6.3
-        /**     Slightly modified to accept the parameter fieldcount
-        /** -------------------------------------*/
-        
+$(function(){
         function liveUrlTitle(fieldcount)
         {
         	var defaultTitle = '';
@@ -162,7 +113,22 @@
 				document.getElementById("view_field_name" + fieldcount).value = "" + NewText;			
 				
 		}
-	</script>
 
-	</body>
-</html>
+
+<script src='http://getbarometer.s3.amazonaws.com/install/assets/javascripts/barometer.js' type='text/javascript'>
+</script>
+
+  BAROMETER.load('E9EtzLe8MQz7mdDxg2Gmc');
+
+
+
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+
+
+
+try {
+var pageTracker = _gat._getTracker("UA-7844413-3");
+pageTracker._trackPageview();
+} catch(err) {}
+});

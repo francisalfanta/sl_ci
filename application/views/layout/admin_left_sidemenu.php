@@ -50,10 +50,16 @@
                         <li class='has_sub'>
                             <a href='javascript:void(0);'>
                                 <i class='icon-home-3'></i>
-                                <span>Customize List</span> 
+                                <span>Administrator</span> 
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul>
+                                <li>
+                                    <a href='#' class='active'><span>Menu Manager</span></a>
+                                </li>
+                                <li>
+                                    <a href='#' class='active'><span>Access Level</span></a>
+                                </li>
                                 <li>
                                     <a href='<?php echo base_url(); ?>departments' class='active'><span>Department</span></a>
                                 </li>

@@ -22,7 +22,28 @@ class Tables extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu');
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('layout/form-wizard', $data);
+		//$this->load->view('layout/form-wizard', $data);
+		$this->load->view('dept_tasks/dept_tasks_table', $data);
+		//$this->load->view('form_gen', $data);
+		$this->load->view('layout/footer');		
+	}
+
+	public function sl_form_wizard()
+	{
+		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['sections'] = $this->sections_model->get_sections();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['title'] = 'Table Lists';
+
+		$username = $this->session->userdata('username'); 			
+		$data['username'] = ucfirst($username);	
+
+		$this->load->helper('url');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('layout/form-wizard', $data);		
 		$this->load->view('layout/footer');		
 	}
 

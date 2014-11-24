@@ -44,7 +44,14 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
-$route['test'] = 'test';
+$route['staff_menu/delete_staff_menu'] = 'staff_menu/delete_staff_menu';
+$route['staff_menu/update_staff_menu'] = 'staff_menu/update_staff_menu';
+$route['staff_menu/view_staff_menu'] = 'staff_menu/view_staff_menu';
+$route['staff_menu/create_staff_menu'] = 'staff_menu/create_staff_menu';
+$route['staff_menu'] = 'staff_menu';
+
+$route['formigniter'] = 'formigniter';                          // Form Generator
+$route['tables/sl_form_wizard'] = 'tables/sl_form_wizard';
 $route['tables'] = 'tables';
 $route['dept_tasks/create_dept_task'] = 'dept_tasks/create_dept_task';
 $route['dept_tasks'] = 'dept_tasks';
