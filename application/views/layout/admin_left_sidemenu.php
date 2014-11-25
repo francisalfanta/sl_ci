@@ -38,7 +38,7 @@
                         <li class='has_sub'>
                             <a href='javascript:void(0);'>
                                 <i class='icon-home-3'></i>
-                                <span><?php echo $section['section_name']; ?></span> 
+                                <span ><?php echo $section['section_name']; ?></span> 
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul><?php foreach($depttasks as $depttask) { ?>

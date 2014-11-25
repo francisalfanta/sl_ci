@@ -36,7 +36,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Department</label>
 											<div class="col-sm-10">
-												<select class="form-control" name="dept_id">
+												<select class="form-control" name="dept_id" autofocus">
 												<?php foreach($sections as $section) { ?>
 												  <option value=<?php echo $section['id']; ?>><?php echo ucfirst($section['section_name']); ?></option>												
 												<?php } ?>
