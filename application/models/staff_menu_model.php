@@ -13,28 +13,40 @@ class Staff_menu_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_staff_menu($menu = FALSE)
+	public function get_staff_menu($id = FALSE)
 	{
-		if ($menu === FALSE)
+		if ($id === FALSE)
 		{
 			$query = $this->db->get('staff_menu');
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('staff_menu', array('menu' => $menu));
+		$query = $this->db->get_where('staff_menu', array('id' => $id));
 		return $query->row_array();
+	}
+
+	public function get_field_name_staff_menu(){
+		
+		$fields =array();	
+		$i = 0;		
+		$query = $this->db->list_fields('staff_menu');
+		foreach ($query as $field_meta) {   		
+   			$fields[$i] = $field_meta;
+   			++$i;
+		}		
+		return $fields;
 	}
 
 	public function get_parent_staff_menu()
 	{
-		$this->db->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
+		$this->db->select('id')->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
 	public function get_child_staff_menu()
 	{
-		$this->db->select('menu')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc');
+		$this->db->select('id')->select('menu')->select('parent')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc'); 
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -57,13 +69,12 @@ class Staff_menu_model extends CI_Model {
 	}
 
 	public function delete_staff_menu($id) {
-
 		$this->db->where('id', $id);
 		$this->db->delete('staff_menu');
 	}
 
-	public function update_staff_menu($id, $data) {
+	public function update_staff_menu($id, $data) {		
 		$this->db->where('id', $id);
-		$this->db->update('staff_menu', $data); 
+		$this->db->update('staff_menu', $data); 		
 	}	
 }?>

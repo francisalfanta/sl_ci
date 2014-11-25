@@ -22,7 +22,7 @@ class Staff_menu extends CI_Controller {
 		// custom data
 		$data['title']     = 'SoftLine | Menu Manager';	
 		
-		$username          = $this->session->userdata('username'); 			
+		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
 		$data['username']  = ucfirst($username);	
 
 		//select values
@@ -32,7 +32,7 @@ class Staff_menu extends CI_Controller {
 		$children          = $this->staff_menu_model->get_child_staff_menu();
 		$data['parents']   = $parents;
 		$data['children']  = $children;
-		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		
+		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
 		$data['table_fields'] = array(
 			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
 			'url' 		 => array('2', 'url', 'URL', 'input'),
@@ -50,18 +50,40 @@ class Staff_menu extends CI_Controller {
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('staff_menu/staff_menu_form', $data);
+		$this->load->view('staff_menu/add', $data);
 		$this->load->view('layout/footer');	
 	}
 
 	public function view_staff_menu($id)
 	{
-		$data['staff_menu'] = $this->staff_menu_model->get_staff_menu($menu);
+		$data['staffs']     = $this->slcs_staff_model->get_staff();
+		$data['staff_menu'] = $this->staff_menu_model->get_staff_menu($id);
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections']   = $this->sections_model->get_sections();
 
-		$username           = $this->session->userdata('username'); 			
+		$username           = $this->session->userdata('username'); 					// TO DO: Refractor this
 		$data['username']   = ucfirst($username);	
 		$data['title']      = 'SoftLine | Menu Manager';
+		//select values
+		$method            = array('_parent','_self','_blank');
+		$active            = array(1,0);
+		$parents           = $this->staff_menu_model->get_parent_staff_menu();
+		$children          = $this->staff_menu_model->get_child_staff_menu();
+		$data['parents']   = $parents;
+		$data['children']  = $children;
+		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
+
+		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
+		$data['table_fields'] = array(
+			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
+			'url' 		 => array('2', 'url', 'URL', 'input'),
+			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
+			'method'     => array('4', 'method', 'Method', 'select', $method),
+			'order'      => array('5', 'order', 'Order', 'input'),
+			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
+			'include'    => array('7','include', 'Include', 'input'),
+			'active'     => array('8', 'active', 'Active', 'select', $active),
+			);	
 
 		if (empty($data['staff_menu']))
 		{
@@ -73,7 +95,8 @@ class Staff_menu extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu');
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/blank');
+		$this->load->view('staff_menu/staff_menu_form', $data);
+		$this->load->view('staff_menu/edit', $data);
 		$this->load->view('layout/footer');	
 	}
 
@@ -114,24 +137,34 @@ class Staff_menu extends CI_Controller {
 	}
 
 	public function update_staff_menu()
-	{
-		$id = $this->input->post('id');
-		$data = array(
-			'menu' 		 => $this->input->post('menu'),
-			'url' 		 => $this->input->post('url'),
-			'send_value' => $this->input->post('send_value'),
-			'method'     => $this->input->post('method'),
-			'order'      => $this->input->post('order'),
-			'parent'     => $this->input->post('parent'),
-			'include'    => $this->input->post('include'),
-			'active'     => $this->input->post('active')
-		);
-		$this->staff_menu_model->update_staff_menu($id, $data);
-		$this->index();
+	{		
+		$formSubmit = $this->input->post('submitForm');
+		if($formSubmit == 'formUpdate') { 
+			//redirect($this->config->item('backend_folder').'/categories/form');
+			$id = $this->input->post('id');		
+			$data = array(
+				'menu' 		 => ucfirst($this->input->post('menu')),
+				'url' 		 => $this->input->post('url'),
+				'send_value' => $this->input->post('send_value'),
+				'method'     => $this->input->post('method'),
+				'order'      => $this->input->post('order'),
+				'parent'     => $this->input->post('parent'),
+				'include'    => $this->input->post('include'),
+				'active'     => $this->input->post('active')
+			);
+			$this->staff_menu_model->update_staff_menu($id, $data);				
+			$this->view_staff_menu($id);
+
+		} else if ($formSubmit == 'formDelete'){
+			$id = $this->input->post('id');
+			$this->delete_staff_menu($id);	    			
+		} else {
+			$this->view_staff_menu($id);			
+		}
 	}
 
-	public function delete_staff_menu(){
-		$id = $this->uri->segment(3); // need to be checked.
+	public function delete_staff_menu(){		
+		$id = $this->input->post('id');
 		$this->staff_menu_model->delete_staff_menu($id);
 		$this->index();
 	}
