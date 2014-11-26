@@ -12,6 +12,7 @@ class Departments extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['sections'] = $this->sections_model->get_sections();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'Departments';
 
 		$username = $this->session->userdata('username'); 			
@@ -31,6 +32,7 @@ class Departments extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['sections'] = $this->sections_model->get_sections($id);
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'Departments';
 
 		$username = $this->session->userdata('username'); 			
@@ -59,6 +61,7 @@ class Departments extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['sections'] = $this->sections_model->get_sections();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'Add new Department';
 
 		$username = $this->session->userdata('username'); 			

@@ -11,7 +11,8 @@ class Dept_tasks extends CI_Controller {
 	{
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']   = $this->sections_model->get_sections();		
+		$data['sections']   = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();		
 		$data['title'] = 'Department Records';
 
 		$username = $this->session->userdata('username'); 			
@@ -31,6 +32,7 @@ class Dept_tasks extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttask'] = $this->dept_tasks_model->get_dept_tasks($dept_id);
 		$data['sections']   = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'Department Records';
 
 		$username = $this->session->userdata('username'); 			
@@ -58,6 +60,7 @@ class Dept_tasks extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'Add new Department Table';		
 
 		$username = $this->session->userdata('username'); 			

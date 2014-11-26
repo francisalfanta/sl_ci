@@ -112,7 +112,8 @@ $autoload['language'] = array();
 $autoload['model'] = array('slcs_staff_model', 
 						   'dept_tasks_model', 
 						   'sections_model',
-						   'staff_menu_model');
+						   'staff_menu_model',
+						   'staff_permissions_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

@@ -34,19 +34,19 @@
                 <!--- Divider -->
                 <div id="sidebar-menu">
                     <ul>
-                        <?php foreach($sections as $section) { ?>
+                        <?php foreach($staff_menus as $parent) { if($parent['parent']==null) {?>
                         <li class='has_sub'>
                             <a href='javascript:void(0);'>
                                 <i class='icon-home-3'></i>
-                                <span ><?php echo $section['section_name']; ?></span> 
+                                <span ><?php echo $parent['menu']; ?></span> 
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
-                            <ul><?php foreach($depttasks as $depttask) { ?>
-                                <li><a href='<?php echo base_url().str_replace('tb_','',$depttask['table_name']); ?>' class='active'><span><?php if($section['id']==$depttask['dept_id']) { echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $depttask['table_name'])));} ?></span></a></li>
-                                <?php } ?>
-                            </ul>
+                            <ul><?php foreach($staff_menus as $child) {  if($child['parent']!=null && $child['parent']==$parent['menu']) { ?>
+                                <li><a href='<?php echo base_url().$child['url'].'/'.$child['send_value']; ?>' target="<?php echo $child['method']; ?>" class='active'><span><?php echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $child['menu']))); ?></span></a></li>
+                                <?php }} ?>
+                            </ul>                     
                         </li>
-                        <?php } ?>
+                        <?php }} ?>
                         <li class='has_sub'>
                             <a href='javascript:void(0);'>
                                 <i class='icon-home-3'></i>
@@ -55,15 +55,15 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href='#' class='active'><span>Menu Manager</span></a>
+                                    <a href='<?php echo base_url('staff_menu'); ?>' class='active'><span>Menu Manager</span></a>
                                 </li>
                                 <li>
-                                    <a href='#' class='active'><span>Access Level</span></a>
+                                    <a href='<?php echo base_url('access_level'); ?>' class='active'><span>Access Level</span></a>
                                 </li>
                                 <li>
-                                    <a href='<?php echo base_url(); ?>departments' class='active'><span>Department</span></a>
+                                    <a href='<?php echo base_url('departments'); ?>' class='active'><span>Department</span></a>
                                 </li>
-                                <li><a href='<?php echo base_url(); ?>tables'><span>Table</span></a>
+                                <li><a href='<?php echo base_url('tables'); ?>' class='active'><span>Table</span></a>
                                 </li>
                             </ul>
                         </li>

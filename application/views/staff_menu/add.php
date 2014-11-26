@@ -21,7 +21,7 @@
 											<div class="form-group">
 												<label for="input<?php echo $tb_fields[1]; ?>" class="col-sm-2 control-label"><?php echo $tb_fields[2]; ?></label>
 												<div class="col-sm-10">
-												  <input type="text" name="<?php echo $tb_fields[1]; ?>" value="<?php echo set_value('<?php echo $tb_fields[1]; ?>'); ?>" class="form-control" id="input<?php echo $tb_fields[1]; ?>" placeholder="<?php echo $tb_fields[2]; ?>" tabindex="<?php echo $tb_fields[0]; ?>" >											
+												  <input type="text" name="<?php echo $tb_fields[1]; ?>" value="<?php echo set_value('<?php echo $tb_fields[1]; ?>'); ?>" class="form-control" id="input<?php echo $tb_fields[1]; ?>" placeholder="<?php echo $tb_fields[2]; ?>" tabindex="<?php echo $tb_fields[0]; ?>" <?php echo (strtoupper($tb_fields[1])==strtoupper('menu')?'autofocus':null); ?>>											
 												</div><!-- col-sm-10 --> 
 											</div><!-- form-group -->
 										<?php 
@@ -56,8 +56,8 @@
 									
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-10">
-										  		<button type="submit" name="update" class="btn btn-green-1">Save</button>										  		
-										  		<a href="<?php echo base_url(); ?>staff_menu"<button type="text" class="btn btn-default">Cancel</button></a>
+										  		<button type="submit" name="update" class="btn btn-green-1" tabindex="9">Save</button>										  		
+										  		<a href="<?php echo base_url(); ?>staff_menu"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
 											</div>
 									  	</div>						
 									</form>								

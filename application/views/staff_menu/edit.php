@@ -39,7 +39,7 @@
 
                                                 </select>
                                                 <?php } else { ?>
-                                                <input type="text" name="<?php echo $key;?>" value="<?php echo $value; ?>" class="form-control" id="input<?php echo $key; ?>" placeholder="<?php echo ucfirst($key); ?>" tabindex="<?php echo $i; ?>" >
+                                                <input type="text" name="<?php echo $key;?>" value="<?php echo $value; ?>" class="form-control" id="input<?php echo $key; ?>" placeholder="<?php echo ucfirst($key); ?>" tabindex="<?php echo $i; ?>" <?php echo (strtoupper($key)==strtoupper('menu') ?'autofocus' :null); ?> >
                                                 <?php } ?>	
 
 											</div><!-- col-sm-10 --> 
@@ -49,9 +49,9 @@
 									
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-10">
-										  		<button type="submit" name="submitForm" value="formUpdate" class="btn btn-green-1">Update</button>
-										  		<button type="submit" name="submitForm" value="formDelete" class="btn btn-red-1">Remove</button>
-										  		<a href="<?php echo base_url(); ?>staff_menu"<button type="text" class="btn btn-default">Cancel</button></a>
+										  		<button type="submit" name="submitForm" value="formUpdate" class="btn btn-green-1" tabindex="9">Update</button>
+										  		<button type="submit" name="submitForm" value="formDelete" class="btn btn-red-1" tabindex="10">Remove</button>
+										  		<a href="<?php echo base_url(); ?>staff_menu"<button type="text" class="btn btn-default" tabindex="11">Cancel</button></a>
 											</div>
 									  	</div>						
 									</form>								

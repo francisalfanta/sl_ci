@@ -9,6 +9,6 @@ CREATE TABLE `tb_dept_tasks` (
   FOREIGN KEY fk_dept(dept_id)
    REFERENCES tb_sections(id)
    ON UPDATE CASCADE
-   ON DELETE RESTRICT
+   ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;

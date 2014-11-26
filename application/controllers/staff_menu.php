@@ -58,6 +58,7 @@ class Staff_menu extends CI_Controller {
 	{
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['staff_menu'] = $this->staff_menu_model->get_staff_menu($id);
+		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections']   = $this->sections_model->get_sections();
 
