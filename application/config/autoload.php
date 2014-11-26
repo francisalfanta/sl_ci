@@ -113,7 +113,11 @@ $autoload['model'] = array('slcs_staff_model',
 						   'dept_tasks_model', 
 						   'sections_model',
 						   'staff_menu_model',
-						   'staff_permissions_model');
+						   'staff_permissions_model',
+						   'propertyfinder_model',
+						   'city_model',
+						   'community_model',
+						   'subcommunity_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

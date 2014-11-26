@@ -44,6 +44,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['propertyfinder'] = 'propertyfinder';     
 $route['access_level'] = 'access_level';
 
 $route['staff_menu/delete_staff_menu'] = 'staff_menu/delete_staff_menu';

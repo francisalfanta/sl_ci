@@ -39,7 +39,7 @@
 	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
 	<script src="<?php echo base_url(); ?>assets/libs/jquery-wizard/jquery.easyWizard.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/pages/form-wizard.js"></script>
-	
+
 	<script type="text/javascript"> 
            
         /** ------------------------------------
