@@ -20,51 +20,24 @@
                             </div>
                         </div>
                         <div class="widget-content padding">  
-                        <script type="text/javascript">
-                            $(document).ready(function(){
-                                $.ajax({url:"<?php echo base_url('propertyfinder/get_community'); ?>",success:function(result){
-                                        var data = new Array(result);                                                                            
-                                    }}).done(function() {
-                                        alert('data: '+data);
-                                    });
-                                //$('.combobox').combobox();
-                                $inputcity_name.change(function () {
-                                    var firstkey = $(this).val();
-                                    $inputcommunity_name.html(''); // Clear existing options in second dropdown
-                                    var data = new Array();                                    
-                                    
-                                    for (var prop in data[firstkey]) {
-                                        var second = prop;
-                                        $b.append($("<option>"). // Add options
-                                        attr("value", second).
-                                        text(second));
-                                    }
-                                $inputcommunity_name.change();
-                            }).change(); // Trigger once to add options at load of first choice
-                             
-                            });
-                        </script>                      
+                                            
                             <div id="horizontal-form">
                            
                                 <form class="form-horizontal" role="form">
                                     
                                     <div class="form-group">
-                                    
-                                        <label for="inputcity_name" class="col-sm-3 control-label">City</label>
-                                        <div class="col-sm-9">                               
-                                            <select name="city_name" class="form-control combobox" id="inputcity_name" tabindex="1">
-                                            <option></option>
-                                            <?php foreach($city as $arr){ ?>   
-                                                <option value="<?php echo $arr['id']; ?>" ><?php echo $arr['city_name']; ?></option>
-                                            <?php }?>   
-                                            </select>
-                                            <!-- <p class="help-block">Example block-level help text here.</p> -->
+                                        <label for="input_city" class="col-sm-3 control-label">City</label>
+                                        <div class="col-sm-8">                                            
+                                          <input type="text" name="city" class="form-control col-sm-4" id="input_city" placeholder="City" tabindex="1" autofocus>                                    
+                                        <!-- <p class="help-block">Example <block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
-                                    </div><!-- form-group -->                                    
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                                    </div><!-- form-group -->                                                                           
                                     
                                     <div class="form-group">
                                         <label for="inputcommunity_name" class="col-sm-3 control-label">Community</label>
-                                        <div class="col-sm-9">                               
+                                        <div class="col-sm-8">                               
                                             <select name="community_name" class="form-control combobox" id="inputcommunity_name" tabindex="1">
                                             <option></option>
                                             <?php foreach($community as $arr){?>   
@@ -73,11 +46,13 @@
                                             </select>
                                             <!-- <p class="help-block">Example block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                                     </div><!-- form-group -->
 
                                     <div class="form-group">
                                         <label for="inputcommunity_name" class="col-sm-3 control-label">Sub Community</label>
-                                        <div class="col-sm-9">                               
+                                        <div class="col-sm-8">                               
                                             <select name="community_name" class="form-control combobox" id="inputcommunity_name" tabindex="1">
                                             <?php foreach($subcommunity as $arr){ ?>   
                                                 <option value="<?php echo $arr['id']; ?>" ><?php echo $arr['subcommunity_name']; ?></option>
@@ -85,6 +60,8 @@
                                             </select>
                                             <!-- <p class="help-block">Example block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
+                                        <a href="#"><span class="glyphicon glyphicon-floppy-remove"></span></a>
                                     </div><!-- form-group -->
 
                                      <div class="form-group">

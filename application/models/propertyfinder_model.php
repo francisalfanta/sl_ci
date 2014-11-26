@@ -13,17 +13,45 @@ class Propertyfinder_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_propertyfinder($id = FALSE)
+	public function get_propertyfinder($q)
 	{
-		if ($id === FALSE)
-		{
-			$query = $this->db->get('propertyfinder');
-			return $query->result_array();
+		$this->db->select('*');
+		$this->db->like('re_property', $q);
+		$query = $this->db->get('propertyfinder');
+		if($query->num_rows > 0){
+			foreach($query->result_array() as $row){
+				$row_set[] = htmlentities(stripslashes($row['re_property']));
+			}
+			echo json_encode($row_set);
 		}
-
-		$query = $this->db->get_where('propertyfinder', array('id' => $id));
-		return $query->row_array();
 	}	
+
+	public function get_propertyfinder_array($q){
+		$this->db->select('*');
+		$this->db->like('re_property', $q);
+		$query = $this->db->get('propertyfinder');
+		if($query->num_rows> 0 ){
+			foreach($query->result_array() as $row){
+				$new_row['label'] = htmlentities(stripslashes($row['re_property']));
+				$new_row['value'] = htmlentities(stripslashes($row['id']));
+				$row_set[] = $new_row;
+			}
+			echo json_encode($row_set);
+		}
+	}	
+
+	public function get_community_arr($q)
+	{
+		$this->db->select('*');
+		$this->db->like('community_name', $q);
+		$query = $this->db->get('community');
+		if($query->num_rows > 0){
+			foreach($query->result_array() as $row){
+				$row_set[] = htmlentities(stripslashes($row['community']));
+			}
+			echo json_encode($row_set);
+		}
+	}			
 
 	public function create_propertyfinder() {
 

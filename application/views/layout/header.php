@@ -50,5 +50,20 @@
         <link rel="apple-touch-icon" sizes="120x120" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        <script type="text/javascript">
+            jquery(document).ready(function(){
+                $("#input_city").autocomplete({
+                    source : "propertyfinder/get_city"
+                });
+                $("#input_community").autocomplete({
+                    source : "propertyfinder/get_community"
+                });
+                $("#input_subcommunity").autocomplete({
+                    source : "propertyfinder/get_subcommunity"
+                });
+            });
+        </script>  
     </head>
     <body class="fixed-left login-page">

@@ -13,17 +13,19 @@ class community_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_community($city_id = FALSE)
-	{
-		if ($city_id === FALSE)
-		{
-			$query = $this->db->get('community');
-			return $query->result_array();
+	public function get_community($q){
+		$this->db->select('*');
+		$this->db->like('community_name', $q);
+		$query = $this->db->get('community');
+		if($query->num_rows> 0 ){
+			foreach($query->result_array() as $row){
+				$new_row['label'] = htmlentities(stripslashes($row['community_name']));
+				$new_row['value'] = htmlentities(stripslashes($row['id']));
+				$row_set[] = $new_row;
+			}
+			echo json_encode($row_set);
 		}
-
-		$query = $this->db->get_where('community', array('city_id' => $city_id));
-		return $query->row_array();
-	}	
+	}
 
 	public function create_community() {
 

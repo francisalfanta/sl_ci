@@ -13,17 +13,18 @@ class subcommunity_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_subcommunity($id = FALSE)
+	public function get_subcommunity($q)
 	{
-		if ($id === FALSE)
-		{
-			$query = $this->db->get('subcommunity');
-			return $query->result_array();
+		$this->db->select('*');
+		$this->db->like('subcommunity_name', $q);
+		$query = $this->db->get('subcommunity');
+		if($query->num_rows > 0){
+			foreach($query->result_array() as $row){
+				$row_set[] = htmlentities(stripslashes($row['subcommunity_name']));
+			}
+			echo json_encode($row_set);
 		}
-
-		$query = $this->db->get_where('subcommunity', array('id' => $id));
-		return $query->row_array();
-	}	
+	}
 
 	public function create_subcommunity() {
 

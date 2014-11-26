@@ -14,10 +14,7 @@ class propertyfinder extends CI_Controller {
 		$data['sections']    = $this->sections_model->get_sections();
 		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
 		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
-		$data['city']        = $this->city_model->get_city();
-		$data['community']   = $this->community_model->get_community();
-		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
-
+		
 		$data['title']       = 'SoftLine | Property Finder';	
 		
 		$username = $this->session->userdata('username'); 			
@@ -30,6 +27,27 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('propertyfinder/propertyfinder', $data);
 		$this->load->view('layout/footer');	
+	}
+
+	public function get_city(){
+		if(isset($_GET['term'])){
+			$q = strtolower($_GET['term']);
+			$this->city_model->get_city($q);
+		}		
+	}
+
+	public function get_community(){
+		if(isset($_GET['term'])){
+			$q = strtolower($_GET['term']);
+			$this->community_model->get_community($q);
+		}		
+	}
+
+	public function get_subcommunity(){
+		if(isset($_GET['term'])){
+			$q = strtolower($_GET['term']);
+			$this->subcommunity_model->get_subcommunity($q);
+		}		
 	}
 
 	public function create_property()
@@ -65,11 +83,6 @@ class propertyfinder extends CI_Controller {
 		}		
 	}
 
-
-	public function get_community() {
-		$community   = $this->community_model->get_community();
-		return $community;
-	}
 	public function view($username)
 	{
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);
