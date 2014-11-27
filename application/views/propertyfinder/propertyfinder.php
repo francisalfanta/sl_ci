@@ -6,7 +6,7 @@
             <div class="content">
             	<!-- Page Heading Start -->
                 <div class="page-heading"> 
-                <form class="form-horizontal" action="<?php base_url('propertyfinder/'); ?>" method="post" accept-charset="utf-8" role="form">
+                <form class="form-horizontal" action="<?php base_url('propertyfinder/create_property'); ?>" method="post" accept-charset="utf-8" role="form">
         
                 <div class="col-sm-6 portlets">
                     
@@ -37,13 +37,14 @@
                                     
                                     <div class="form-group">
                                         <label for="inputcommunity_name" class="col-sm-3 control-label">Community</label>
-                                        <div class="col-sm-8">                               
-                                            <select name="community_name" class="form-control combobox" id="inputcommunity_name" tabindex="1">
+                                        <div class="col-sm-8 select-editable">                               
+                                            <select onchange="this.nextElementSibling.value=this.value" name="community_name" class="form-control combobox" id="inputcommunity_name" tabindex="1">
                                             <option></option>
                                             <?php foreach($community as $arr){?>   
                                                 <option value="<?php echo $arr['id'] ?>" ><?php echo $arr['community_name']; ?></option>
                                             <?php }?>   
                                             </select>
+                                            <input type="text" name="community_name" value="" />
                                             <!-- <p class="help-block">Example block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
                                         <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
@@ -51,13 +52,14 @@
                                     </div><!-- form-group -->
 
                                     <div class="form-group">
-                                        <label for="inputcommunity_name" class="col-sm-3 control-label">Sub Community</label>
-                                        <div class="col-sm-8">                               
-                                            <select name="community_name" class="form-control combobox" id="inputcommunity_name" tabindex="1">
+                                        <label for="inputsubcommunity_name" class="col-sm-3 control-label">Sub Community</label>
+                                        <div class="col-sm-8 select-editable">                               
+                                            <select name="subcommunity_name" class="form-control combobox" id="inputsubcommunity_name" tabindex="1">
                                             <?php foreach($subcommunity as $arr){ ?>   
                                                 <option value="<?php echo $arr['id']; ?>" ><?php echo $arr['subcommunity_name']; ?></option>
                                             <?php }?>   
                                             </select>
+                                            <input type="text" name="subcommunity_name" value="" />
                                             <!-- <p class="help-block">Example block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
                                         <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
@@ -66,12 +68,13 @@
 
                                      <div class="form-group">
                                         <label for="inputre_property" class="col-sm-3 control-label">Property</label>
-                                        <div class="col-sm-9">                               
+                                        <div class="col-sm-9 select-editable">                               
                                             <select name="re_property" class="form-control combobox" id="inputre_property" tabindex="1">
                                             <?php foreach($subcommunity as $arr){ ?>   
                                                 <option value="<?php echo $arr['id']; ?>" ><?php echo $arr['subcommunity_name']; ?></option>
                                             <?php }?>   
                                             </select>
+                                            <input type="text" name="re_property" value="" />
                                             <!-- <p class="help-block">Example block-level help text here.</p> -->
                                         </div><!-- col-sm-10 -->
                                     </div><!-- form-group -->

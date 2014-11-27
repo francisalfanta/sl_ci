@@ -52,18 +52,12 @@
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
-        <script type="text/javascript">
-            jquery(document).ready(function(){
-                $("#input_city").autocomplete({
-                    source : "propertyfinder/get_city"
-                });
-                $("#input_community").autocomplete({
-                    source : "propertyfinder/get_community"
-                });
-                $("#input_subcommunity").autocomplete({
-                    source : "propertyfinder/get_subcommunity"
-                });
-            });
-        </script>  
+         
+        <style>
+          .select-editable { position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px; }
+          .select-editable select { position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0; }
+          .select-editable input { position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none; }
+          .select-editable select:focus, .select-editable input:focus { outline:none; }
+        </style>
     </head>
     <body class="fixed-left login-page">

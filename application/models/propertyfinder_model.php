@@ -59,10 +59,10 @@ class Propertyfinder_model extends CI_Model {
 			'city' 	       => $this->input->post('city'),
 			'community'    => $this->input->post('community'),
 			'subcommunity' => $this->input->post('subcommunity'),
-			'property'     => $this->input->post('property')
+			'property'     => $this->input->post('re_property')
 		);
 
-		$insert = $this->db->insert('staff_menu', $new_propertyfinder_insert_data);
+		$insert = $this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
 		return $insert;
 	}
 

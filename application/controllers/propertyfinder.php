@@ -58,17 +58,13 @@ class propertyfinder extends CI_Controller {
 
 		$username           = $this->session->userdata('username'); 					
 		$data['username']   = ucfirst($username);	
-		$data['title']      = 'SoftLine | Add new staff menu';
+		$data['title']      = 'SoftLine | Add Property';
 		
-		$this->form_validation->set_rules('menu', 'Menu', 'required');
-		$this->form_validation->set_rules('url', 'URL', 'required');
-		$this->form_validation->set_rules('send_value', 'Send Value', 'required');
-		$this->form_validation->set_rules('method', 'Method', 'required');
-		$this->form_validation->set_rules('order', 'Order', 'required');
-		//$this->form_validation->set_rules('parent', 'Parent', 'required');
-		//$this->form_validation->set_rules('include', 'Include', 'required');
-		$this->form_validation->set_rules('active', 'Active', 'required');		
-
+		$this->form_validation->set_rules('city', 'City', 'required');
+		$this->form_validation->set_rules('community_name', 'community', 'required');
+		$this->form_validation->set_rules('subcommunity_name', 'Sub-Community', 'required');
+		$this->form_validation->set_rules('re_property', 'Property');
+		
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->index();		

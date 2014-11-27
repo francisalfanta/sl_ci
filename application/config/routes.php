@@ -44,6 +44,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['propertyfinder/create_property'] = 'propertyfinder/create_property';
 $route['propertyfinder'] = 'propertyfinder';     
 $route['access_level'] = 'access_level';
 
