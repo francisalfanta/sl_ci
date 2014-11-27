@@ -13,14 +13,19 @@ class city_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_city($q)
+	public function get_city($q = FALSE)
 	{
+		if($q == FALSE) {
+			$query = $this->db->get('city');
+			return $query->result_array();
+		}
+
 		$this->db->select('*');
 		$this->db->like('city_name', $q);
 		$query = $this->db->get('city');
 		if($query->num_rows > 0){
 			foreach($query->result_array() as $row){
-				$row_set[] = htmlentities(stripslashes($row['city']));
+				$row_set[] = htmlentities(stripslashes($row['city_name']));
 			}
 			echo json_encode($row_set);
 		}

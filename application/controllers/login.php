@@ -4,7 +4,7 @@
      Script Lines: All unless noted otherwise
 
      Updated by  : Lemuel
-	 Date        : November 23, 2014
+	 Date        : November 28, 2014
 	 Script Lines: 26, 38-110, 
 */
 if (! defined('BASEPATH')) exit('No direct script access allowed');
@@ -36,6 +36,8 @@ class Login extends CI_Controller {
 			$data['staffs'] = $this->slcs_staff_model->get_staff();
 			$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 			$data['sections'] = $this->sections_model->get_sections();
+			$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+			
 			$data['title'] = "SoftLine | Admin Panel"; 
 			
 			$username = $this->session->userdata('username'); 	// get username from db
@@ -92,8 +94,9 @@ class Login extends CI_Controller {
 			
 		}	
 	}
-	// Created by: Lemuel
-	public function logout_mod(){
-		$this->load->view('layout/logout_modal');
-	}	
+
+	public function logout(){
+	    $this->session->sess_destroy();
+	    $this->index();
+	}
 }

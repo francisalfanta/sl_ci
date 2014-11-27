@@ -11,7 +11,7 @@ class Unit_test extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->model('staff_menu_model');
+		$this->load->model('propertyfinder_model');
 	}
 
 	public function index() {
@@ -71,6 +71,7 @@ class Unit_test extends CI_Controller {
 		var_dump($fields);
 		echo ($fields['id']);
 		*/
+		/*
 		$fields =array();			
 		$i = 0;
 		$query = $this->db->list_fields('staff_menu');		
@@ -78,10 +79,13 @@ class Unit_test extends CI_Controller {
 		foreach ($query as $field_meta) {   		
    			$fields[$i] = $field_meta;
    			++$i;
-		}			
+		}
+		*/			
 		//return $fields;
 		//$query = $this->staff_menu_model->get_field_name_staff_menu();
-		var_dump($parents);
+		$this->propertyfinder_model->get_city('a');
+		$query = $this->db->get();
+		var_dump($query->result_array());
 
 		echo 'done foreach<br>';
 

@@ -1,4 +1,4 @@
-create table `tb_properyfinder` (
+create table `tb_propertyfinder` (
     `id` bigint(20) not null auto_increment,
     `city` varchar(255) not null,
     `community` varchar(255) not null,

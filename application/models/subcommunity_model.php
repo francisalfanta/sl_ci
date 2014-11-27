@@ -13,8 +13,12 @@ class subcommunity_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_subcommunity($q)
+	public function get_subcommunity($q = FALSE)
 	{
+		if($q == FALSE) {
+			$query = $this->db->get('subcommunity');
+			return $query->result_array();
+		}
 		$this->db->select('*');
 		$this->db->like('subcommunity_name', $q);
 		$query = $this->db->get('subcommunity');

@@ -13,8 +13,14 @@ class Propertyfinder_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_propertyfinder($q)
+	public function get_propertyfinder($q = FALSE)
 	{
+		if ($q === FALSE)
+		{
+			$query = $this->db->get('propertyfinder');			
+			return $query->result_array();
+		}
+
 		$this->db->select('*');
 		$this->db->like('re_property', $q);
 		$query = $this->db->get('propertyfinder');
@@ -57,11 +63,10 @@ class Propertyfinder_model extends CI_Model {
 
 		$new_propertyfinder_insert_data = array(
 			'city' 	       => $this->input->post('city'),
-			'community'    => $this->input->post('community'),
-			'subcommunity' => $this->input->post('subcommunity'),
-			'property'     => $this->input->post('re_property')
-		);
-
+			'community'    => $this->input->post('community_name'),
+			'subcommunity' => $this->input->post('subcommunity_name'),
+			're_property'     => $this->input->post('re_property')
+		);		
 		$insert = $this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
 		return $insert;
 	}

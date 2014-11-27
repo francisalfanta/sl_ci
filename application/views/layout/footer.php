@@ -47,7 +47,35 @@
         /**     Code from ExpressionEngine v 1.6.3
         /**     Slightly modified to accept the parameter fieldcount
         /** -------------------------------------*/
-        
+        $(function(){        	
+        	$("#input_city").autocomplete({	        	
+	        	source: 'propertyfinder/get_city/'
+    		});
+
+    		$('#input_city').change( function()
+	        { 
+	            var q = $('#input_city').val();
+	                $.ajax(
+	                {
+	                    type: "POST",
+	                    url:"propertyfinder/get_city/"+q,
+	                    /*success: function(comuni)
+	                    {
+	                                             $('#comuni').empty();
+	                        $.each(comuni,function(id_comune, nome_comune)
+	                            {
+	                                var opt = $('<option />');
+	                                opt.val(id_comune);
+	                                opt.text(nome_comune);
+	                                $('#comuni').append(opt);
+	                            });
+
+	                                                        
+	                    }*/
+	                });
+	        });
+
+        });
         function liveUrlTitle(fieldcount)
         {
         	var defaultTitle = '';

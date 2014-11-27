@@ -12,6 +12,7 @@ class Slcs_staff extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] = 'SoftLine | Staff';	
 		
 		$username = $this->session->userdata('username'); 			
@@ -31,6 +32,7 @@ class Slcs_staff extends CI_Controller {
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
@@ -60,6 +62,7 @@ class Slcs_staff extends CI_Controller {
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
 		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 
 		$username = $this->session->userdata('username'); 					
 		$data['username'] = ucfirst($username);	

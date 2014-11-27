@@ -44,6 +44,9 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['city/del'] = 'city/del';
+$route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
+$route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';
 $route['propertyfinder'] = 'propertyfinder';     
 $route['access_level'] = 'access_level';
@@ -63,7 +66,7 @@ $route['departments/view/(:any)'] = 'departments/view/$1';
 $route['departments/create_sec'] = 'departments/create_sec';
 $route['departments'] = 'departments';
 
-$route['logout'] = 'logout';
+$route['login/logout'] = 'login/logout';
 $route['login/login_validation'] = 'login/login_validation';	// added this line : Lemuel
 $route['login'] = 'login';
 $route['login/sl_admin'] = 'login/sl_admin'; 					// added this line : Lemuel
@@ -74,7 +77,9 @@ $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
 $route['slcs_staff'] = 'slcs_staff';
 
 $route['default_controller'] = 'login';
+$route['propertyfinder/extract_data'] = 'propertyfinder/extract_data';
 $route['unit_test'] = 'unit_test';
+$route['test'] = 'test';
 $route['formigniter'] = 'formigniter';                          // Form Generator
 $route['form'] = 'form';
 //$route['404_override'] = 'errors/page_missing';

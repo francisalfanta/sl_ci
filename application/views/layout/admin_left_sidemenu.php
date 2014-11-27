@@ -23,7 +23,8 @@
                         <div class="profile-buttons">
                           <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
                           <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
-                          <a href="<?php base_url();?>logout" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
+                          <a href="<?php echo base_url('login/logout');?>" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
+                          <!--<a href="<?php base_url('login/logout');?>" class="md-trigger" data-modal="logout-modal" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a> <!-- Modified by: Lemuel 11/27/2014 -->
                         </div>
                     </div>
                 </div>
@@ -42,7 +43,7 @@
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul><?php foreach($staff_menus as $child) {  if($child['parent']!=null && $child['parent']==$parent['menu']) { ?>
-                                <li><a href='<?php echo base_url().$child['url'].'/'.$child['send_value']; ?>' target="<?php echo $child['method']; ?>" class='active'><span><?php echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $child['menu']))); ?></span></a></li>
+                                <li><a href='<?php echo base_url($child['url'].'/'.$child['send_value']); ?>' target="<?php echo $child['method']; ?>" class='active'><span><?php echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $child['menu']))); ?></span></a></li>
                                 <?php }} ?>
                             </ul>                     
                         </li>

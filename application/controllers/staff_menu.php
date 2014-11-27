@@ -116,7 +116,7 @@ class Staff_menu extends CI_Controller {
 		
 		$this->form_validation->set_rules('menu', 'Menu', 'required');
 		$this->form_validation->set_rules('url', 'URL', 'required');
-		$this->form_validation->set_rules('send_value', 'Send Value', 'required');
+		//$this->form_validation->set_rules('send_value', 'Send Value', 'required');
 		$this->form_validation->set_rules('method', 'Method', 'required');
 		$this->form_validation->set_rules('order', 'Order', 'required');
 		//$this->form_validation->set_rules('parent', 'Parent', 'required');

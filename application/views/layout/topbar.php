@@ -48,7 +48,7 @@
                 <p class="text-center">Are you sure want to logout from this awesome system?</p>
                 <p class="text-center">
                 <button class="btn btn-danger md-close">Nope!</button>
-                <a href="login.html" class="btn btn-success md-close">Yeah, I'm sure</a>
+                 <a href='#' class="btn btn-success md-close">Yes</a>  <!-- Modified by: Lemuel 11/27/2014 -->
                 </p>
             </div>
         </div>
@@ -203,7 +203,7 @@
                             <li class="divider"></li>
                             <li><a href="#"><i class="icon-help-2"></i> Help</a></li>
                             <li><a href="lockscreen.html"><i class="icon-lock-1"></i> Lock me</a></li>
-                            <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
+                            <li><a href="<?php echo base_url('login/logout');?>" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
                         </ul>
                     </li>
                     <li class="right-opener">

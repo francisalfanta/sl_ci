@@ -4,10 +4,6 @@ var graph2;
 
 $(document).ready(function(){
 
-    // added FMA nov 28, 2014
-    createEditableSelect(document.forms[0].myText);
-    // end add
-
     $(".dial").knob();
       var cityAreaData = [
         500.70,

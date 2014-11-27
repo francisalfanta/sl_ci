@@ -13,7 +13,13 @@ class community_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_community($q){
+	public function get_community($q = FALSE){
+
+		if($q == FALSE) {
+			$query = $this->db->get('community');
+			return $query->result_array();
+		}
+
 		$this->db->select('*');
 		$this->db->like('community_name', $q);
 		$query = $this->db->get('community');

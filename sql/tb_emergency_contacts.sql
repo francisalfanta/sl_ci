@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2014 at 09:50 PM
+-- Generation Time: Nov 27, 2014 at 07:51 PM
 -- Server version: 5.1.36
 -- PHP Version: 5.3.29
 
@@ -23,17 +23,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_properyfinder`
+-- Table structure for table `tb_emergency_contacts`
 --
 
-CREATE TABLE IF NOT EXISTS `tb_properyfinder` (
+CREATE TABLE IF NOT EXISTS `tb_emergency_contacts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `city` varchar(255) NOT NULL,
-  `community` varchar(255) NOT NULL,
-  `subcommunity` varchar(255) NOT NULL,
-  `re_property` varchar(255) DEFAULT NULL,
+  `staff_id` bigint(20) DEFAULT NULL,
+  `address_id` bigint(20) DEFAULT NULL,
+  `fname` varchar(100) DEFAULT NULL,
+  `mname` varchar(100) DEFAULT NULL,
+  `lname` varchar(100) DEFAULT NULL,
+  `mnumber` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=156 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
