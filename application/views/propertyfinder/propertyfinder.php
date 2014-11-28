@@ -28,17 +28,12 @@
                                         <div class="form-group">
                                             <label for="city" class="col-sm-3 control-label">City</label>
                                             <div class="col-sm-8">       
-                                                <select onchange="calljavascriptfunction();" name="city" class="form-control combobox" id="city" tabindex="1">
-                                                <option></option>
-                                                <?php foreach($city as $arr){ ?>   
-                                                    <option value="<?php echo $arr['city_name'] ?>"  <?php echo set_select('city', $arr['city_name']); ?> ><?php echo $arr['city_name']; ?></option>
-                                                <?php }?>   
-                                                </select>                                                                               
-                                                <!--<input type="text" name="city" class="form-control col-sm-4" id="input_city" placeholder="City" tabindex="1" autofocus> -->                                   
+                                                                                                                             
+                                                <input type="text" name="city" class="form-control col-sm-4" id="city" placeholder="City" tabindex="1" autofocus>
+                                                <div id="logcity"></div>
                                                 <!-- <p class="help-block">Example <block-level help text here.</p> -->
                                             </div><!-- col-sm-10 -->
-                                            <a href="#"><span class="glyphicon glyphicon-floppy-save"></span></a>
-                                            <a href="<?php echo base_url('city/del/'.$arr['id']); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                                            <a href="#"><span onclick="add_city()" class="glyphicon glyphicon-floppy-save"></span></a>                                           
                                         </div><!-- form-group -->                                                                           
                                         
                                         <div class="form-group">
@@ -175,17 +170,25 @@
                 </footer>
                 <!-- Footer End -->		
                 <script type="text/javascript">
-                    function calljavascriptfunction(){
+                    $(function(){
+                        $('select#community_name').attr('disabled', true);
+                    });
+                    function add_city(){
+                        var city_id = $('select#city').val();
+
                         alert('entered the function');
                         $.ajax({
                          type : 'POST',
-                         data : 'term='+ $('#city').val(),
-                         url : 'propertyfinder/get_community',
+                         data : 'city='+ $('#city').val(),
+                         url : "<?php echo base_url('city/create_city_name'); ?>",
                          success : function(data){
-                                     $('#community_name').val(data);
+                                $( "#logcity" ).text( "New City name created successfully." );
                          }
                      });
                     }
+                    $(document).ajaxSuccess(function() {
+                        $(".log").text("New City name created successfully.");
+                    });
 
                      $("#customerName").autocomplete(baseUrl+"/propertyfinder/ajax_customer_search", {  //we have set data with source here
                          formatItem: function(rowdata) { //This function is called right before the item is displayed on the dropdown, so we splitted and returned what we show in the selection box

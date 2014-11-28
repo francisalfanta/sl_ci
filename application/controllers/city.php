@@ -7,6 +7,10 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class city extends CI_Controller {	
 
+	public function create_city_name(){
+		$this->city_model->create_city();		
+	}
+
 	public function del($q){
 		$this->city_model->delete_city($q);
 		$this->propertyfinder->index();
