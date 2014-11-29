@@ -37,7 +37,7 @@ class propertyfinder extends CI_Controller {
 
 	public function extract_data($url = false){
 		// parse the html into a DOMDocument
-		$html=file_get_contents("https://www.propertyfinder.ae/en/search?c=1&l=1.1212&q=&t=&pf=&pt=&bf=&bt=&ft=" );
+		$html=file_get_contents("https://www.propertyfinder.ae/en/search?c=1&l=2.660&q=&t=&pf=&pt=&bf=&bt=&ft=" );
 		//$html=file_get_contents("$url");
 		$dom = new DOMDocument();
 		//$dom->strictErrorChecking = FALSE;
@@ -46,32 +46,109 @@ class propertyfinder extends CI_Controller {
 		$document = new DOMXPath($dom);
 		//$nodes = $xpath->query('//h5/a');
 		$options = $dom->documentElement->getElementsByTagName('option');
-
-		$optionTags = $dom->getElementsByTagName('option');
-		for ($i = 0; $i < $optionTags->length; $i++ ) {
-			if ($optionTags->item($i)->hasAttribute('selected') && $optionTags->item($i)->getAttribute('selected') === "selected") {
-			       $num = $optionTags->item($i)->nodeValue;
-
-			       $community   = $this->community_model->get_community();
-			       foreach($community as $com){
-			       		if($com['community_name']==$num) {
-			       			//echo '$num: '.$num.'<br>';
-			       			//echo '$com: '.$com['community_name'].'<br>';
-			       			//echo '$com: '.$com['id'].'<br>';
-			       			$community_id = $com['id'];
+		
+		// City
+		$location_level_id_0 = $dom->getElementById('location_level_id_0');		
+		foreach($location_level_id_0->childNodes as $item){
+			//echo $item->nodeValue.'<br>';
+			if ($item->hasAttribute('selected') && $item->getAttribute('selected') === "selected") {
+				 $city_selected_val = $item->nodeValue;
+				 //echo '$selected_val: '.$selected_val.'<br>';
+				 // find City ID from database
+				 $cities = $this->city_model->get_city();
+			        foreach($cities as $city){
+			       		if($city['city_name']==$city_selected_val) {
+			       			//echo '$selected_val: '.$selected_val.'<br>';
+			       			//echo '$city: '.$city['city_name'].'<br>';
+			       			//echo '$city: '.$city['id'].'<br>';
+			       			$city_id = $city['id'];
 			       		}
 			       }
 			}
 		}
-		//$option->getAttribute('value').
-		foreach ($options as $option) {
-			// if ($option->parentNode->tagName == 'a') {
-			//echo "Abu Dhabi,".", ". $option->nodeValue."<br>";
-			if($option->nodeValue =='Subcommunity' || $option->nodeValue =='Property') {
-			 	echo "<hr>";
-			}
-			echo "insert into tb_subcommunity (community_id, subcommunity_name) values('".$community_id."','".$option->nodeValue."');<br>";
+
+		// Community
+		$location_level_id_1 = $dom->getElementById('location_level_id_1');
+		echo '-- Community <hr>';
+		foreach($location_level_id_1->childNodes as $item){
+			//echo $item->nodeValue.'<br>';
+			if ($item->hasAttribute('selected') && $item->getAttribute('selected') === "selected") {
+				$comm_selected_val = $item->nodeValue;
+				//echo '$Community-selected_val: '.$comm_selected_val.'<br>';
+				// find Community ID from database
+				$community   = $this->community_model->get_community();
+				$checker = False;
+				$community_id = null;
+		        foreach($community as $com){
+		       		if($com['community_name']==$comm_selected_val) {
+		       			$checker = True;
+		       			//echo '$selected_val: '.$comm_selected_val.'<br>';
+		       			//echo '$com: '.$com['community_name'].'<br>';
+		       			//echo '$com: '.$com['id'].'<br>';
+		       			$community_id = $com['id'];
+		       		} 
+		        }
+		        // No Data found in DB
+		        if(!$checker){
+		        	//echo '$checker: True<br>';
+		        	// get next ID number
+		        	$current_id = $this->community_model->comm_id_max_val();
+		        	//var_dump(intval($current_id[0]->id));
+		        	$comm_next_id =intval($current_id[0]->id) +1;
+		        	echo "insert into tb_community (id,city_id, community_name) values('".$comm_next_id."','".$city_id."','".$comm_selected_val."');<br>";		        		      
+		        }
+		        
+		    }
 		}
+
+		// Sub-Community
+		$location_level_id_2 = $dom->getElementById('location_level_id_2');
+		echo '-- Sub Community<hr>';
+		foreach($location_level_id_2->childNodes as $item){
+			//echo $item->nodeValue.'<br>';
+			if ($item->hasAttribute('selected') && $item->getAttribute('selected') === "selected") {				
+				$subcomm_selected_val = $item->nodeValue;
+				//echo '$sub-community-selected_val: '.$subcomm_selected_val.'<br>';
+
+				$subcommunities = $this->subcommunity_model->get_subcommunity();
+				$subchecker = False;
+				foreach($subcommunities as $subcommunity){
+					if($subcommunity['subcommunity_name']==$subcomm_selected_val) {
+						$subchecker = True;
+		       			//echo '$subselected_val: '.$subcomm_selected_val.'<br>';
+		       			//echo '$subcom: '.$subcommunity['subcommunity_name'].'<br>';
+		       			//echo '$subcom: '.$subcommunity['id'].'<br>';
+		       			$subcommunity_id = $subcommunity['id'];
+					}
+				}
+				// No Data found in DB
+				if(!$checker){
+					//echo '$checker: True<br>';
+					$current_id = $this->subcommunity_model->subcomm_id_max_val();
+		        	//var_dump(intval($current_id[0]->id));
+		        	$subcomm_next_id =intval($current_id[0]->id) +1;	
+					if(is_null($community_id)){		        
+						//echo '$community_id is null<br>';
+		        		// used $comm_next_id as record community_id
+		        		echo "insert into tb_subcommunity (id, community_id, subcommunity_name) values('".$subcomm_next_id."','".$comm_next_id."','".$subcomm_selected_val."');<br>";		        		      
+		        	} else {
+		        		//echo '$community_id contain value<br>';
+		        		// used $community_id as record community_id
+		        		echo "insert into tb_subcommunity (id, community_id, subcommunity_name) values('".$subcomm_next_id."','".$community_id."','".$subcomm_selected_val."');<br>";		        		      	
+		        	}
+		        }
+			}
+		}
+
+		// Property
+		$location_level_id_3 = $dom->getElementById('location_level_id_3');
+		echo '-- Property <hr>';
+		foreach($location_level_id_2->childNodes as $item){
+			if($item->nodeValue!='Subcommunity'){
+				//echo 'Property: '. $item->nodeValue.'<br>';				
+				echo "insert into tb_propertyfinder (city, community, subcommunity, re_property) values('".$city_selected_val."','".$comm_selected_val."','".$subcomm_selected_val."','".$item->nodeValue."');<br>";		        		      	
+			}			
+		}			
 	}
 
 	public function ajax_customer_search() {

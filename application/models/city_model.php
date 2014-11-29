@@ -31,18 +31,18 @@ class city_model extends CI_Model {
 		}
 	}	
 
-	public function create_city() {
-
+	public function create_city() {		
 		$new_city_insert_data = array(
 			'city_name' 	       => $this->input->post('city')
 		);
-
 		$insert = $this->db->insert('city', $new_city_insert_data);
 		return $insert;
 	}
 
-	public function delete_city($id) {
-		$this->db->where('id', $id);
+	public function delete_city() {				
+		$city_name = $this->input->post('city');
+		
+		$this->db->where('city_name', $city_name);
 		$this->db->delete('city');
 	}
 

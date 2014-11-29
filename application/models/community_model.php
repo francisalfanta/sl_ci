@@ -51,5 +51,11 @@ class community_model extends CI_Model {
 	public function update_community($id, $data) {		
 		$this->db->where('id', $id);
 		$this->db->update('community', $data); 		
-	}	
+	}
+
+	public function comm_id_max_val(){
+		$this->db->select_max('id');
+		$query = $this->db->get('community');
+		return $query->result();
+	}
 }?>

@@ -9,7 +9,7 @@
 
                 <form class="form-horizontal" action="<?php echo base_url('propertyfinder/create_property'); ?>" method="post" accept-charset="utf-8" role="form">
                 <div class="row">
-                    <div class="col-sm-6 portlets">
+                    <div class="col-md-8 col-lg-6 portlets">
                         
                         <div class="widget">
                             <div class="widget-header transparent">
@@ -26,41 +26,44 @@
                                     <form class="form-horizontal" role="form">
                                         <?php echo validation_errors(); ?>                                        
                                         <div class="form-group">
-                                            <label for="city" class="col-sm-3 control-label">City</label>
-                                            <div class="col-sm-8">       
+                                            <label for="city" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">       
                                                                                                                              
-                                                <input type="text" name="city" class="form-control col-sm-4" id="city" placeholder="City" tabindex="1" autofocus>
+                                                <input type="text" name="city" class="form-control col-xs-9 col-sm-2 col-md-2 " id="city" placeholder="City" tabindex="1" autofocus value="<?php echo set_value('city'); ?>">
                                                 <div id="logcity"></div>
                                                 <!-- <p class="help-block">Example <block-level help text here.</p> -->
                                             </div><!-- col-sm-10 -->
-                                            <a href="#"><span onclick="add_city()" class="glyphicon glyphicon-floppy-save"></span></a>                                           
+                                            <a href="#"><span onclick="add_city()" class="glyphicon glyphicon-floppy-save"></span></a>
+                                            <a href="#"><span onclick="del_city()" class="glyphicon glyphicon-floppy-remove"></span></a>                                           
                                         </div><!-- form-group -->                                                                           
                                         
                                         <div class="form-group">
-                                            <label for="community_name" class="col-sm-3 control-label">Community</label>
-                                            <div class="col-sm-8"> <!--select-editable">-->
-                                                <select name="community_name" class="form-control combobox" id="community_name" tabindex="2">
+                                            <label for="community_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Community</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->
+                                                <select name="community_name" id="community_name" tabindex="2" class="col-sm-11 col-md-12">
                                                 <option value="">Please select first City</option>
                                                 <?php foreach($community as $arr){?>   
                                                     <option value="<?php echo $arr['community_name'] ?>" <?php echo set_select('community_name', $arr['community_name']); ?> ><?php echo $arr['community_name']; ?></option>
                                                 <?php }?>   
                                                 </select>
+                                                <div id="logcomm"></div>
                                                 <!--<input type="text" name="community_name" value="" />-->
                                                 <!-- <p class="help-block">Example block-level help text here.</p> -->
                                             </div><!-- col-sm-10 -->
-                                            <a href=""><span class="glyphicon glyphicon-floppy-save"></span></a>
-                                            <a href="<?php echo base_url('city/del'); ?>"><span class="glyphicon glyphicon-floppy-remove"></span></a>
+                                            <a href="#"><span onclick="add_community()" class="glyphicon glyphicon-floppy-save"></span></a>
+                                            <a href="#"><span onclick="del_community()" class="glyphicon glyphicon-floppy-remove"></span></a>   
                                         </div><!-- form-group -->
 
                                         <div class="form-group">
-                                            <label for="subcommunity_name" class="col-sm-3 control-label">Sub Community</label>
-                                            <div class="col-sm-8"> <!--select-editable">-->                              
-                                                <select name="subcommunity_name" class="form-control combobox" id="inputsubcommunity_name" tabindex="3">
-                                                <option value="">Please select first City</option>
+                                            <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Sub Community</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->                              
+                                                <select name="subcommunity_name" id="subcommunity_name" tabindex="3" class="col-sm-11 col-md-12">
+                                                <option value="">Please select first Community</option>
                                                 <?php foreach($subcommunity as $arr){ ?>   
                                                     <option value="<?php echo $arr['subcommunity_name']; ?>"  <?php echo set_select('subcommunity_name', $arr['subcommunity_name']); ?> ><?php echo $arr['subcommunity_name']; ?></option>
                                                 <?php }?>   
                                                 </select>
+                                                <div id="logsubcomm"></div>
                                                 <!--<input type="text" name="subcommunity_name" value="" />-->
                                                 <!-- <p class="help-block">Example block-level help text here.</p> -->
                                             </div><!-- col-sm-10 -->
@@ -69,22 +72,22 @@
                                         </div><!-- form-group -->
 
                                          <div class="form-group">
-                                            <label for="re_property" class="col-sm-3 control-label">Property</label>
-                                            <div class="col-sm-8"><!--select-editable">-->                             
+                                            <label for="re_property" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Property</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"><!--select-editable">-->                             
                                                 <!--<select name="re_property" class="form-control combobox" id="inputre_property" tabindex="4">
                                                 <?php foreach($subcommunity as $arr){ ?>   
                                                     <option value="<?php echo $arr['id']; ?>" ><?php echo $arr['subcommunity_name']; ?></option>
                                                 <?php }?>   
                                                 </select>-->
-                                                <input type="text" name="re_property"  class="form-control" value="" />
+                                                <input type="text" name="re_property"  class="form-control col-md-12" value="" tabindex="4" />
                                                 <!-- <p class="help-block">Example block-level help text here.</p> -->                                            
                                             </div><!-- col-sm-10 -->
                                         </div><!-- form-group -->
 
-                                      <div class="form-group">
+                                      <div class="form-group">                                      
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
                                           <button type="submit" class="btn btn-default" >Save</button>
-                                        </div><!-- col-sm-offset-2 col-sm-10 text-right -->
+                                        </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
                                       </div><!-- form-group -->
 
                                     </form>
@@ -168,45 +171,113 @@
                     	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
                     </div>
                 </footer>
-                <!-- Footer End -->		
-                <script type="text/javascript">
-                    $(function(){
-                        $('select#community_name').attr('disabled', true);
+                <!-- Footer End -->	
+                <script type="text/javascript">                    
+                    $(document).ready(function() {                      
+                        //$('#city').select2();                              // add on function for select box autocomplete
+                       // $("#city").autocomplete(){
+                       //     source: "<?php echo base_url('city/get_city'); ?>"
+                       // }
+                        $('#community_name').select2({                        // add on function for select box autocomplete
+                           placeholder: "Community Name",
+                           //data : [{id: 0, text: 'story'},{id: 1, text: 'bug'},{id: 2, text: 'task'}],
+                           allowClear: true,
+                           minimumInputLength: 2,
+                           /*
+                           createSearchChoice:function(term, data) { 
+                                                if ($(data).filter(function() { 
+                                                                        return this.text.localeCompare(term)===0; 
+                                                                    }).length===0) {
+                                                    return {id:term, text:term};
+                                                } }
+                           */
+                           //: {
+                           //     url:
+                           //     data:
+                           //     results:
+                           //     cache: true
+                           //
+                           //}
+                        });
+                         $('#subcommunity_name').select2({                        // add on function for select box autocomplete
+                           placeholder: "Sub-Community Name",
+                           allowClear: true,
+                           minimumInputLength: 2
+                           //: {
+                           //     url:
+                           //     data:
+                           //     results:
+                           //     cache: true
+                           //
+                           //}
+                        });
+                        //$('select#community_name').attr('disabled', true);
+                        $("#city").focus(function(){
+                            //alert( "Handler for .change() called." );
+                            $('#logcity').html('');    
+                        });
+                        //$( "#city" ).blur(function() {
+                        //    alert( "Handler for .change() called." );
+                        //});  
                     });
-                    function add_city(){
-                        var city_id = $('select#city').val();
+                    
+                    //function empty_content(id){
+                    //    document.getElementById(id).innerHTML = "";
+                    //}
 
-                        alert('entered the function');
+                    function del_city(){
+                        var city = $('#city').val();
+                        
                         $.ajax({
                          type : 'POST',
-                         data : 'city='+ $('#city').val(),
-                         url : "<?php echo base_url('city/create_city_name'); ?>",
+                         data : 'city='+city,
+                         url : "<?php echo base_url('city/del_city_name'); ?>",
                          success : function(data){
-                                $( "#logcity" ).text( "New City name created successfully." );
+                                $( "#logcity" ).text( "Delete successful." );
                          }
                      });
                     }
-                    $(document).ajaxSuccess(function() {
-                        $(".log").text("New City name created successfully.");
-                    });
+                    function del_community(){
+                        var comm_name = $("#community_name").select2("val"); //$('#community_name').val();
+                        alert('del-entered the function');
+                        $.ajax({
+                         type : 'POST',
+                         data : 'city='+comm_name,
+                         url : "<?php echo base_url('community/del_comm_name'); ?>",
+                         success : function(data){
+                                $( "#logcomm" ).text( "Delete successful." );
+                         }
+                     });
+                    }
+                    function add_city(){
+                        var city = $('#city').val();
+                        
+                        $.ajax({
+                         type : 'POST',
+                         data : 'city='+city,
+                         url : "<?php echo base_url('city/create_city_name'); ?>",
+                         success : function(data){
+                                $( "#logcity" ).text( "Created successfully." );
+                         }
+                     });
+                    }
+                    function add_community(){
+                        var comm_name = $('#community_name').val();
+                        alert('entered the function: '+comm_name);
+                        $.ajax({
+                         type : 'POST',
+                         data : 'city='+comm_name,
+                         url : "<?php echo base_url('community/create_comm_name'); ?>",
+                         success : function(data){
+                                $( "#logcomm" ).text( "Created successfully." );
+                         }
+                     });
+                    }
+                    //$(document).ajaxSuccess(function() {
+                    //    $(".log").text("New City name created successfully.");
+                    //});
 
-                     $("#customerName").autocomplete(baseUrl+"/propertyfinder/ajax_customer_search", {  //we have set data with source here
-                         formatItem: function(rowdata) { //This function is called right before the item is displayed on the dropdown, so we splitted and returned what we show in the selection box
-                            var info = rowdata[0].split(":");
-                            return info[1];
-                        },
-                        formatResult: function (rowdata) { // This function is called when any item selected, here also we returned that what we wanted to show our customerName field.
-                            var info = rowdata[0].split(":");
-                            return info[1];
-                        }
-                    }).result(function(event, data, formatted){ //Here we do our most important task <span class="wp-smiley wp-emoji wp-emoji-smile" title=":)">:)</span>
-                            if(!data) { //If no data selected set the customer_id field value as 0
-                                $("#customerId").val('0');
-                            } else { // Set the value for the customer id
-                                var info = formatted.split(":");
-                                $("#customerId").val(info[0]);
-                            }
-                    });
+                   
                 </script>	
             </div>
 			<!-- ============================================================== -->

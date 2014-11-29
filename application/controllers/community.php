@@ -1,28 +1,26 @@
 <?php
 /*   Created by  : Francis A.
-     Date        : November 26, 2014
+     Date        : November 29, 2014
      Script Lines: All unless noted otherwise
 */
 if (! defined('BASEPATH')) exit('No direct script access allowed');
 
-class city extends CI_Controller {	
+class community extends CI_Controller {	
 
-	public function create_city_name(){		
-		$this->city_model->create_city();		
+	public function create_comm_name(){		
+		var_dump('create_comm_name entered');
+		//$this->community_model->create_community();		
 	}
 
-	public function del_city_name(){				
-		$this->city_model->delete_city();		
+	public function del_comm_name(){				
+		$this->community_model->delete_city();		
 	}
 
-	public function get_city(){
-		if(issset($_GET['term'])){
-			$q = strtolower($_GET['term']);
-			$this->city_model->get_city($q);
-		}
+	public function get_comm(){
+		$comm = $this->input->post('community_name');
+
+
 	}
-
-
 	public function view($username)
 	{
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);

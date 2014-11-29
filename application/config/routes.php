@@ -44,7 +44,12 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
-$route['city/del'] = 'city/del';
+$route['community/del_comm_name'] = 'community/del_comm_name';
+$route['community/create_comm_name'] = 'community/create_comm_name'; 
+$route['city/get_city'] = 'city/get_city';
+$route['city/del_city_name'] = 'city/del_city_name';
+$route['city/create_city_name'] = 'city/create_city_name'; 
+
 $route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
 $route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';

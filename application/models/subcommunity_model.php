@@ -49,4 +49,10 @@ class subcommunity_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('subcommunity', $data); 		
 	}	
+
+	public function subcomm_id_max_val(){
+		$this->db->select_max('id');
+		$query = $this->db->get('subcommunity');
+		return $query->result();
+	}
 }?>
