@@ -117,7 +117,8 @@ $autoload['model'] = array('slcs_staff_model',
 						   'propertyfinder_model',
 						   'city_model',
 						   'community_model',
-						   'subcommunity_model');
+						   'subcommunity_model',
+						   'extradata_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
