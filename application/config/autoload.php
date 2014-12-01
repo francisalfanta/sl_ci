@@ -52,8 +52,11 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('database', 'session', 'sl_template', 'form_validation');
-
+$autoload['libraries'] = array('database', 
+							   'session', 
+							   'sl_template',
+							   'form_validation',
+							   'table');
 
 /*
 | -------------------------------------------------------------------
@@ -118,7 +121,10 @@ $autoload['model'] = array('slcs_staff_model',
 						   'city_model',
 						   'community_model',
 						   'subcommunity_model',
-						   'extradata_model');
+						   'extradata_model',
+						   'property_owner_model',
+						   'nationality_model',
+						   'owner_addr_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
