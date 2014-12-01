@@ -83,8 +83,14 @@ class Unit_test extends CI_Controller {
 		*/			
 		//return $fields;
 		//$query = $this->staff_menu_model->get_field_name_staff_menu();
-		$this->propertyfinder_model->get_city('a');
-		$query = $this->db->get();
+		$city_id = 2;
+		$this->db->where('city_id', $city_id);
+		$query = $this->db->get('community');
+		//$query = $this->db->get_where('community', array('city_id' => $city_id));
+		//$this->propertyfinder_model->get_city('a');
+		//$query = $this->db->get();
+		$this->propertyfinder->buildDropCities($id);
+		
 		var_dump($query->result_array());
 
 		echo 'done foreach<br>';

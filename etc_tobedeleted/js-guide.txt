@@ -1,0 +1,170 @@
+function del_city(){
+    var city = $('#city').val();
+    
+    $.ajax({
+     type : 'POST',
+     data : 'city='+city,
+     url : "<?php echo base_url('city/del_city_name'); ?>",
+     success : function(data){
+            $( "#logcity" ).text( "Delete successful." );
+     }
+ });
+}
+function del_community(){
+    var comm_name = $("#community_name").select2("val"); //$('#community_name').val();
+    alert('del-entered the function');
+    $.ajax({
+     type : 'POST',
+     data : 'city='+comm_name,
+     url : "<?php echo base_url('community/del_comm_name'); ?>",
+     success : function(data){
+            $( "#logcomm" ).text( "Delete successful." );
+     }
+ });
+}
+function add_city(){
+    var city = $('#city').val();
+    
+    $.ajax({
+     type : 'POST',
+     data : 'city='+city,
+     url : "<?php echo base_url('city/create_city_name'); ?>",
+     success : function(data){
+            $( "#logcity" ).text( "Created successfully." );
+     }
+ });
+}
+function add_community(){
+    var comm_name = $('#community_name').val();
+    alert('entered the function: '+comm_name);
+    $.ajax({
+     type : 'POST',
+     data : 'city='+comm_name,
+     url : "<?php echo base_url('community/create_comm_name'); ?>",
+     success : function(data){
+            $( "#logcomm" ).text( "Created successfully." );
+     }
+ });
+}
+//$(document).ajaxSuccess(function() {
+//    $(".log").text("New City name created successfully.");
+//});
+
+//function empty_content(id){
+//    document.getElementById(id).innerHTML = "";
+//}
+
+
+
+  /*
+                        $('#city_name').select2({                        // add on function for select box autocomplete
+                            placeholder: "City Name",
+                            //data : [{id: 0, text: 'story'},{id: 1, text: 'bug'},{id: 2, text: 'task'}],
+                            allowClear: true,
+                            minimumInputLength: 2,
+                            query: function (query) {
+                                var data = {results: []}, i, j, s;
+                                for (i = 1; i < 5; i++) {
+                                    s = "";
+                                    for (j = 0; j < i; j++) {s = s + query.term;}
+                                    data.results.push({id: query.term + i, text: s});
+                                }
+                                query.callback(data);
+                            }
+                          
+                           createSearchChoice:function(term, data) { 
+                                                if ($(data).filter(function() { 
+                                                                        return this.text.localeCompare(term)===0; 
+                                                                    }).length===0) {
+                                                    return {id:term, text:term};
+                                                } }
+                          
+                           //: {
+                           //     url:
+                           //     data:
+                           //     results:
+                           //     cache: true
+                           //
+                           //}
+                        });
+                        $('#community_name').select2({                        // add on function for select box autocomplete
+                           placeholder: "Community Name",
+                           //data : [{id: 0, text: 'story'},{id: 1, text: 'bug'},{id: 2, text: 'task'}],
+                           allowClear: true,
+                           minimumInputLength: 2,
+                           /*
+                           createSearchChoice:function(term, data) { 
+                                                if ($(data).filter(function() { 
+                                                                        return this.text.localeCompare(term)===0; 
+                                                                    }).length===0) {
+                                                    return {id:term, text:term};
+                                                } }
+                           
+                           //: {
+                           //     url:
+                           //     data:
+                           //     results:
+                           //     cache: true
+                           //
+                           //}
+                        });
+                         $('#subcommunity_name').select2({                        // add on function for select box autocomplete
+                           placeholder: "Sub-Community Name",
+                           allowClear: true,
+                           minimumInputLength: 2
+                           //: {
+                           //     url:
+                           //     data:
+                           //     results:
+                           //     cache: true
+                           //
+                           //}
+                        });
+                        //$('select#community_name').attr('disabled', true);
+                        $("#city").focus(function(){
+                            //alert( "Handler for .change() called." );
+                            $('#logcity').html('');    
+                        });
+                        //$( "#city" ).blur(function() {
+                        //    alert( "Handler for .change() called." );
+                        //});  
+                    });
+
+                          //$('#city').select2();                              // add on function for select box autocomplete
+                       // $("#city").autocomplete(){
+                       //     source: "<?php echo base_url('city/get_city'); ?>"
+                       // }
+
+
+                        <option value="">Please select first City</option>
+                                                <?php foreach($community as $arr){?>   
+                                                    <option value="<?php echo $arr['community_name'] ?>" <?php echo set_select('community_name', $arr['community_name']); ?> ><?php echo $arr['community_name']; ?></option>
+                                                <?php }?>  
+
+                          <select name="community_name" id="community_name" tabindex="2" class="form-control col-sm-11 col-md-12">                                                                                                 
+                                                    <option value="">Please select first City</option>
+                                                <?php foreach($community as $arr){?>   
+                                                    <option value="<?php echo $arr['community_name'] ?>" <?php echo set_select('community_name', $arr['community_name']); ?> ><?php echo $arr['community_name']; ?></option>
+                                                <?php }?>  
+                                                </select>  
+
+
+                    $('#city_name').change(function() {
+                        var city = $(this).val();
+                        
+                        $.ajax({
+                            url: "<?php echo base_url('propertyfinder/ajaxmethod'); ?>",
+                            data: 'city_id='+city,
+                            type: 'POST',
+                            success: function(returnData) {
+                                $('#com_id').html(returnData);                        
+                            }
+                        });
+                    });
+
+                    <select name="subcommunity_name" id="subcommunity_name" tabindex="3" class="form-control col-sm-11 col-md-12">
+                                                <option value="">Please select first Community</option>
+                                                <?php foreach($subcommunity as $arr){ ?>   
+                                                    <option value="<?php echo $arr['subcommunity_name']; ?>"  <?php echo set_select('subcommunity_name', $arr['subcommunity_name']); ?> ><?php echo $arr['subcommunity_name']; ?></option>
+                                                <?php }?>   
+                                                </select>

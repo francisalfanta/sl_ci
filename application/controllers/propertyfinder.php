@@ -41,10 +41,44 @@ class propertyfinder extends CI_Controller {
 	* @param array $options for cURL 
 	* @return string 
 	*/ 
+	//call to fill the second dropdown with the cities
+    public function buildDropCities() {
+        //set selected country id from POST
+        $id_country = $this->input->post('city_name',TRUE);
 
+        //run the query for the cities we specified earlier
+        $districtData['districtDrop']=$this->city_model->getCityByCountry($id_country);
+        
+       $output = null;
+
+        foreach ($districtData['districtDrop']->result() as $row)
+        {
+            //here we build a dropdown item line for each query result
+            $output .= "<option value='".$row->id."'>".$row->community_name."</option>";
+        }
+
+        echo  $output;
+    }
+    //call to fill the second dropdown with the cities
+    public function buildDropSubCom() {
+        //set selected country id from POST
+        $id_country = $this->input->post('community_name',TRUE);
+
+        //run the query for the cities we specified earlier
+        $districtData['districtDrop']=$this->city_model->getSubByComm($id_country);
+        
+       $output = null;
+
+        foreach ($districtData['districtDrop']->result() as $row)
+        {
+            //here we build a dropdown item line for each query result
+            $output .= "<option value='".$row->id."'>".$row->subcommunity_name."</option>";
+        }
+
+        echo  $output;
+    }	
 	// taken from http://php.net/manual/en/function.curl-exec.php
-	public function curl_post($url, array $post = NULL, array $options = array()) 
-	{ 
+	public function curl_post($url, array $post = NULL, array $options = array()) { 
 	    $defaults = array( 
 	        CURLOPT_POST => 1, 
 	        CURLOPT_HEADER => 0, 
@@ -67,6 +101,65 @@ class propertyfinder extends CI_Controller {
 	    return $result; 
 	} 
 	// end taken from
+	public function extract_option_value(){
+		
+		$data['sql'] = null;
+		$url ="https://www.propertyfinder.ae/en/search?c=1&l=0.6&q=&t=&pf=&pt=&bf=&bt=&ft=";
+		$html=file_get_contents($url);
+
+		$dom = new DOMDocument();
+		//$dom->strictErrorChecking = FALSE;
+		@$dom->loadHTML($html);
+		// grab all on the page
+		$document = new DOMXPath($dom);
+		//$nodes = $xpath->query('//h5/a');
+		$options = $dom->documentElement->getElementsByTagName('option');
+		
+		// City
+		$location_level_id_0 = $dom->getElementById('location_level_id_0');
+		foreach($location_level_id_0->childNodes as $item){
+			//echo $item->nodeValue.'<br>';
+			if ($item->hasAttribute('selected') && $item->getAttribute('selected') === "selected") {
+				 $city_selected_val = $item->nodeValue;
+
+				//$data['sql'] = 'City Option nodevalue: '.$item->nodeValue.'<br>';
+				///$data['sql'] .= 'City Option value: '.$item->getAttribute("value").'<br>';
+				$city_option_value = $item->getAttribute("value");
+			}
+		}
+
+		// Community
+		// Community
+		$location_level_id_1 = $dom->getElementById('location_level_id_1');
+		//echo '-- Community <hr>';
+		//$data['sql'] .= '<br>-- Community <hr>';
+		foreach($location_level_id_1->childNodes as $item){
+			//echo $item->nodeValue.'<br>';
+			//$data['sql'] .= 'Option nodevalue: '.$item->nodeValue.'<br>';
+			//$data['sql'] .= 'Option value: '.$item->getAttribute("value").'<br>';
+			$community_option_value = $item->getAttribute("value");
+			$data['sql'] .= "insert into tb_extradata_uae (city_option_value, community_option_value) values('".$city_option_value."','".$community_option_value."');<br>";		        		      
+		}
+		// View Data
+		$data['staffs']     = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections']   = $this->sections_model->get_sections();
+		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
+		$data['children']   = $this->staff_menu_model->get_child_staff_menu();
+
+		$data['title']      = 'SoftLine | Extract Data';	
+		
+		$username = $this->session->userdata('username'); 			
+		$data['username']   = ucfirst($username);		
+
+		$this->load->helper('url');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu', $data);
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('extract_data', $data);
+		$this->load->view('layout/footer');	
+	}
 
 	public function extract_data(){
 		// parse the html into a DOMDocument
@@ -257,19 +350,7 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/footer');		
 	}
 
-	public function ajax_customer_search() {
-		var_dump('entered ajax');
-	    $q = isset($_POST['q']) ? $_POST['q'] : "";
-	    $limit = isset($_POST['limit']) ? $_POST['limit'] : "";
-	    $result = $this->db->query("select * from tb_community where city_id = (SELECT id FROM tb_city WHERE city_name LIKE '%$q%') ORDER BY community_name ASC LIMIT 0,$limit")->result();
-	    $customers = array();
-	    foreach($result as $customer) {
-	    	var_dump('entered customer foreach');
-	        echo "{$customer->id}:$customer->name\n";
-	    }
-	}
-
-	public function get_city(){		
+	public function get_city(){	
 		if(isset($_GET['input_city'])){			
 			$q = strtolower($_GET['input_city']);
 			$query = $this->city_model->get_city($q);			
@@ -291,8 +372,7 @@ class propertyfinder extends CI_Controller {
 		}		
 	}
 
-	public function create_property()
-	{			
+	public function create_property(){
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
 		$data['sections']   = $this->sections_model->get_sections();
@@ -331,34 +411,36 @@ class propertyfinder extends CI_Controller {
 		$this->index();
 	}
 
-	public function view($username)
-	{
-		$data['staff'] = $this->slcs_staff_model->get_staff($username);
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections'] = $this->sections_model->get_sections();
+	public function view_propertyfinder($re_property_id) {		
 
-		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);	
-		$data['title'] = 'SoftLine | Staff';
+		$data['staffs']     = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections']   = $this->sections_model->get_sections();
 
-		if (empty($data['staff']))
-		{
-			show_404();			
-		}
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
 
-		$data['title'] = $data['staff']['username'];
+		$data['city']        = $this->city_model->get_city();
+		$data['community']   = $this->community_model->get_community();
+		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
+		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+		$data['edit_property']  = $this->propertyfinder_model->get_propertyfinder($re_property_id);
+
+		$username           = $this->session->userdata('username'); 					
+		$data['username']   = ucfirst($username);	
+		$data['title']      = 'SoftLine | Edit Property';	
 
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/blank');
-		$this->load->view('layout/footer');	
+		$this->load->view('propertyfinder/propertyfinder_edit', $data);
+		$this->load->view('layout/footer');		
+		
 	}
 
-	public function assign_permission()
-	{
+	public function assign_permission()	{
 		//$this->load->helper(array('form', 'url'));
 		//$this->load->library('form_validation');		
 		$data['staffs']     = $this->slcs_staff_model->get_staff();

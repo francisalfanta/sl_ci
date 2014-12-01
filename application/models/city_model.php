@@ -31,6 +31,41 @@ class city_model extends CI_Model {
 		}
 	}	
 
+	public function getCity()
+    {
+        $this->db->select('id,city_name');
+        $this->db->from('city'); 
+        $query = $this->db->get();
+         
+         foreach($query->result_array() as $row){
+            $data[$row['id']]=$row['city_name'];
+        }
+        return $data;
+    }
+
+    //fill your cities dropdown depending on the selected city
+    public function getCityByCountry($city_id=string)
+    {
+        $this->db->select('id,community_name');
+        $this->db->from('community');
+        $this->db->where('city_id',$city_id); 
+        $this->db->order_by("community_name", "asc"); 
+        $query = $this->db->get();
+         
+        return $query;
+    }
+
+    public function getSubByComm($community_id=string)
+    {
+        $this->db->select('id,subcommunity_name');
+        $this->db->from('subcommunity');
+        $this->db->where('community_id', $community_id); 
+        $this->db->order_by("subcommunity_name", "asc"); 
+        $query = $this->db->get();
+         
+        return $query;
+    }
+
 	public function create_city() {		
 		$new_city_insert_data = array(
 			'city_name' 	       => $this->input->post('city')

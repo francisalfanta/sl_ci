@@ -21,6 +21,19 @@ class community extends CI_Controller {
 
 
 	}
+
+	public function getCommunity()
+    {
+        $this->db->select('city_id,community_name');
+        $this->db->from('community'); 
+        $query = $this->db->get();
+         
+         foreach($query->result_array() as $row){
+            $data[$row['id']]=$row['community_name'];
+        }
+        return $data;
+    }
+
 	public function view($username)
 	{
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);

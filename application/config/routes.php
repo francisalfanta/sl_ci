@@ -50,10 +50,6 @@ $route['city/get_city'] = 'city/get_city';
 $route['city/del_city_name'] = 'city/del_city_name';
 $route['city/create_city_name'] = 'city/create_city_name'; 
 
-$route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
-$route['propertyfinder/get_city'] = 'propertyfinder/get_city';
-$route['propertyfinder/create_property'] = 'propertyfinder/create_property';
-$route['propertyfinder'] = 'propertyfinder';     
 $route['access_level'] = 'access_level';
 
 $route['staff_menu/delete_staff_menu'] = 'staff_menu/delete_staff_menu';
@@ -82,7 +78,17 @@ $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
 $route['slcs_staff'] = 'slcs_staff';
 
 $route['default_controller'] = 'login';
+
+$route['propertyfinder/buildDropSubCom'] = 'propertyfinder/buildDropSubCom';
+$route['propertyfinder/buildDropCities'] = 'propertyfinder/buildDropCities';
+$route['propertyfinder/extract_data_per_area'] = 'propertyfinder/extract_data_per_area';
+$route['propertyfinder/view_propertyfinder/(:any)'] = 'propertyfinder/view_propertyfinder/$1';
 $route['propertyfinder/extract_data'] = 'propertyfinder/extract_data';
+$route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
+$route['propertyfinder/get_city'] = 'propertyfinder/get_city';
+$route['propertyfinder/create_property'] = 'propertyfinder/create_property';
+$route['propertyfinder'] = 'propertyfinder';    
+
 $route['unit_test'] = 'unit_test';
 $route['test'] = 'test';
 $route['formigniter'] = 'formigniter';                          // Form Generator

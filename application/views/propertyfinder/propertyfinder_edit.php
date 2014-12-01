@@ -23,13 +23,15 @@
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
                             <div class="widget-content padding">  
-                                                
-                                <div id="horizontal-form">                               
+                                            
+                                <div id="horizontal-form">  
+                                    <?php foreach($edit_property as $row) {?>                             
                                     <form class="form-horizontal" role="form">
                                         <?php echo validation_errors(); ?>                                        
                                         <div class="form-group">
-                                            <label for="city" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">       
+                                            <label for="city_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> 
+                                                <input type="text" name="city_name" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12" value=<?php echo $row['city_name']; ?>>      
                                                 <select name="city_name" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
                                                     <option value="">Select City</option>                                                   
                                                     <option value="1">Abu Dhabi</option>
@@ -46,19 +48,14 @@
                                         
                                         <div class="form-group">
                                             <label for="community_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Community</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->
-                                                 <!--city dropdown-->
-                                                <select name="cityDrp" id="cityDrp" class="form-control col-sm-11 col-md-12">
-                                                    <option value="">Please select first City</option>
-                                                </select>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> 
+                                                <input type="text" name="community_name" id="community_name" tabindex="2" class="form-control col-sm-11 col-md-12">      
                                             </div><!-- col-sm-10 -->                                            
                                         </div><!-- form-group -->
                                         <div class="form-group">
                                             <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Sub Community</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->                              
-                                                <select name="cityDrp2" id="cityDrp2" class="form-control col-sm-11 col-md-12">
-                                                    <option value="">Please select first Community</option>
-                                                </select>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">
+                                                <input type="text" name="subcommunity_name" id="subcommunity_name" tabindex="3" class="form-control col-sm-11 col-md-12">      
                                             </div><!-- col-sm-10 -->                                           
                                         </div><!-- form-group -->
                                          <div class="form-group">
@@ -74,6 +71,7 @@
                                         </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
                                       </div><!-- form-group -->
                                     </form>
+                                    <?php } ?>
                                 </div><!-- horizontal-form -->
                             </div><!-- widget-content padding -->
                         </div><!-- widget -->
@@ -123,7 +121,7 @@
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
                                                         <a href="<?php echo base_url('propertyfinder/del/'.$property['id']); ?>" data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['id']); ?>"data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -142,7 +140,7 @@
                 <div class="row">
                 <div class="form-group">
                     <div class="col-sm-10 col-md-12 text-right">
-                        <button type="submit" name="submitForm" value="formUpdate" class="btn btn-default">Save</button>
+                        <button type="submit" name="submitForm" value="formUpdate" class="btn btn-default">Update</button>
                     </div><!-- col-sm-offset-2 col-sm-10 -->
                 </div><!-- form-group -->  
                 </div><!-- row -->
@@ -154,35 +152,7 @@
                     	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
                     </div>
                 </footer>
-                <!-- Footer End -->	
-                <script type="text/javascript">                    
-                $(document).ready(function() {  
-
-                    $("#city_name").change(function(){                      
-                            /*dropdown post */
-                            $.ajax({
-                            url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
-                            data: {city_name: $(this).val()},
-                            type: "POST",
-                            success: function(data){                            
-                                $("#cityDrp").html(data);
-                            }                    
-                        });
-                    });
-                    $("#cityDrp").change(function(){                      
-                            /*dropdown post */
-                            $.ajax({
-                            url:"<?php echo base_url(); ?>propertyfinder/buildDropSubCom",    
-                            data: {community_name: $(this).val()},
-                            type: "POST",
-                            success: function(data){                            
-                                $("#cityDrp2").html(data);
-                            }
-                        
-                        });
-                    });               
-                });                     
-                </script>	
+                <!-- Footer End -->	               
             </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->

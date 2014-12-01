@@ -21,8 +21,7 @@ class city extends CI_Controller {
 			$this->city_model->get_city($q);
 		}
 	}
-
-
+	    
 	public function view($username)
 	{
 		$data['staff'] = $this->slcs_staff_model->get_staff($username);

@@ -37,6 +37,8 @@ insert into tb_community (id,city_id, community_name) values('75','1','Umm Al Na
 insert into tb_community (id,city_id, community_name) values('76','1','Yas Island');
 insert into tb_community (id,city_id, community_name) values('77','1','Zayed Military City');
 insert into tb_community (id,city_id, community_name) values('78','1','Zayed Sports City');
+
+	
 insert into tb_community (id,city_id, community_name) values('79','2','Ain Ajman');
 insert into tb_community (id,city_id, community_name) values('80','2','Ajman Corniche Road');
 insert into tb_community (id,city_id, community_name) values('81','2','Ajman Downtown');
@@ -101,5 +103,125 @@ insert into tb_community (id,city_id, community_name) values('137','4','Al Nahda
 insert into tb_community (id,city_id, community_name) values('138','4','Al Qasba\'a');
 insert into tb_community (id,city_id, community_name) values('139','4','Al Qusais');
 insert into tb_community (id,city_id, community_name) values('140','4','Al Rashidiya');
-insert into tb_community (id,city_id, community_name) values('141','4','Al Qasba\a');
 
+
+------------------------------------------------------------------------------------
+insert into tb_community (id,city_id, community_name) values('141','4','Al Safa');
+insert into tb_community (id,city_id, community_name) values('142','4','Al Satwa');
+insert into tb_community (id,city_id, community_name) values('143','4','Al Shindagah');
+insert into tb_community (id,city_id, community_name) values('144','4','Al Sufouh');
+insert into tb_community (id,city_id, community_name) values('145','4','Al Twar');
+insert into tb_community (id,city_id, community_name) values('146','4','Al Warqa\'a');
+insert into tb_community (id,city_id, community_name) values('147','4','Al Wasl');
+insert into tb_community (id,city_id, community_name) values('148','4','Arabian Ranches');
+insert into tb_community (id,city_id, community_name) values('149','4','Bur Dubai');
+insert into tb_community (id,city_id, community_name) values('150','4','Business Bay');
+insert into tb_community (id,city_id, community_name) values('151','4','Culture Village');
+insert into tb_community (id,city_id, community_name) values('152','4','Deira');
+insert into tb_community (id,city_id, community_name) values('153','4','DIFC');
+insert into tb_community (id,city_id, community_name) values('154','4','Discovery Gardens');
+insert into tb_community (id,city_id, community_name) values('155','4','Downtown Dubai');
+insert into tb_community (id,city_id, community_name) values('156','4','Downtown Jebel Ali');
+insert into tb_community (id,city_id, community_name) values('157','4','Dubai Festival City');
+insert into tb_community (id,city_id, community_name) values('158','4','Dubai Healthcare City');
+
+-------------------------------------------------------------------------------------------------- uploaded up already
+
+insert into tb_community (id,city_id, community_name) values('159','4','Dubai Industrial City');
+insert into tb_community (id,city_id, community_name) values('160','4','Dubai Investment Park');
+insert into tb_community (id,city_id, community_name) values('161','4','Dubai Land');
+insert into tb_community (id,city_id, community_name) values('162','4','Dubai Marina');
+insert into tb_community (id,city_id, community_name) values('163','4','Dubai Pearl');
+insert into tb_community (id,city_id, community_name) values('164','4','Dubai Promenade');
+insert into tb_community (id,city_id, community_name) values('165','4','Dubai Silicon Oasis');
+insert into tb_community (id,city_id, community_name) values('166','4','Dubai Sports City');
+insert into tb_community (id,city_id, community_name) values('167','7','Al Naimiya Area');
+insert into tb_community (id,city_id, community_name) values('168','4','Dubai Waterfront');
+insert into tb_community (id,city_id, community_name) values('169','4','Dubai World Central');
+insert into tb_community (id,city_id, community_name) values('170','4','Emirates Hills');
+insert into tb_community (id,city_id, community_name) values('171','4','Forbidden City');
+insert into tb_community (id,city_id, community_name) values('172','4','Global Village');
+insert into tb_community (id,city_id, community_name) values('173','4','Greens');
+insert into tb_community (id,city_id, community_name) values('174','4','IMPZ');
+insert into tb_community (id,city_id, community_name) values('175','4','International City');
+insert into tb_community (id,city_id, community_name) values('176','4','Jebel Ali');
+insert into tb_community (id,city_id, community_name) values('177','4','Jumeirah');
+insert into tb_community (id,city_id, community_name) values('178','4','Jumeirah Beach Residence');
+insert into tb_community (id,city_id, community_name) values('179','4','Jumeirah Golf Estates');
+insert into tb_community (id,city_id, community_name) values('180','4','Jumeirah Heights');
+insert into tb_community (id,city_id, community_name) values('181','4','Jumeirah Islands');
+insert into tb_community (id,city_id, community_name) values('182','4','Jumeirah Park');
+insert into tb_community (id,city_id, community_name) values('183','4','Jumeirah Village Circle');
+insert into tb_community (id,city_id, community_name) values('184','4','Jumeirah Village Triangle');
+insert into tb_community (id,city_id, community_name) values('185','4','Maritime City');
+insert into tb_community (id,city_id, community_name) values('186','4','Meadows');
+insert into tb_community (id,city_id, community_name) values('187','4','Meydan City');
+insert into tb_community (id,city_id, community_name) values('188','4','Mina Al Arab');
+insert into tb_community (id,city_id, community_name) values('189','4','Mirdif');
+insert into tb_community (id,city_id, community_name) values('190','7','Al Ettihad Street');
+insert into tb_community (id,city_id, community_name) values('191','4','Mushrif Park');
+insert into tb_community (id,city_id, community_name) values('192','4','Nadd Al Hammar');
+insert into tb_community (id,city_id, community_name) values('193','4','Nadd Al Sheba');
+insert into tb_community (id,city_id, community_name) values('194','4','Old Town');
+insert into tb_community (id,city_id, community_name) values('195','4','Palm Jebel Ali');
+insert into tb_community (id,city_id, community_name) values('196','4','Palm Jumeirah');
+insert into tb_community (id,city_id, community_name) values('197','4','Ras Al Khor');
+insert into tb_community (id,city_id, community_name) values('198','7','Al Naimiya Area');
+insert into tb_community (id,city_id, community_name) values('199','4','Sheikh Zayed Road');
+insert into tb_community (id,city_id, community_name) values('200','4','Technology Park');
+insert into tb_community (id,city_id, community_name) values('201','4','Tecom');
+insert into tb_community (id,city_id, community_name) values('202','4','The Gardens');
+insert into tb_community (id,city_id, community_name) values('203','7','Al Nujoom Islands');
+insert into tb_community (id,city_id, community_name) values('204','4','The Lagoons');
+insert into tb_community (id,city_id, community_name) values('205','4','The Lakes');
+insert into tb_community (id,city_id, community_name) values('206','4','The Views');
+insert into tb_community (id,city_id, community_name) values('207','4','The World Islands');
+insert into tb_community (id,city_id, community_name) values('208','4','Umm Al Sheif');
+insert into tb_community (id,city_id, community_name) values('209','4','Umm Hurair');
+insert into tb_community (id,city_id, community_name) values('210','4','Umm Ramool');
+insert into tb_community (id,city_id, community_name) values('211','4','Umm Suqueim');
+insert into tb_community (id,city_id, community_name) values('212','4','World Trade Center');
+insert into tb_community (id,city_id, community_name) values('213','4','Zabeel');
+insert into tb_community (id,city_id, community_name) values('214','4','Motor City');
+insert into tb_community (id,city_id, community_name) values('215','4','Mohammad Bin Rashid City');
+insert into tb_community (id,city_id, community_name) values('216','4','Jumeirah Lake Towers');
+insert into tb_community (id,city_id, community_name) values('217','4','Green Community');
+insert into tb_community (id,city_id, community_name) values('218','4','DuBiotech');
+insert into tb_community (id,city_id, community_name) values('219','4','Dubai Studio City');
+insert into tb_community (id,city_id, community_name) values('220','4','Dubai Media City');
+insert into tb_community (id,city_id, community_name) values('221','4','Oud Al Muteena');
+insert into tb_community (id,city_id, community_name) values('222','4','Al Quoz');
+insert into tb_community (id,city_id, community_name) values('223','4','Reem Community');
+insert into tb_community (id,city_id, community_name) values('224','4','The Hills');
+insert into tb_community (id,city_id, community_name) values('225','4','The Springs');
+
+insert into tb_community (id,city_id, community_name) values('226','5','corniche Al Fujairah');
+insert into tb_community (id,city_id, community_name) values('227','5','Deba Al Fujairah');
+insert into tb_community (id,city_id, community_name) values('228','5','Downtown Fujairah');
+
+insert into tb_community (id,city_id, community_name) values('229','5','Sheikh Hamad Bin Abdullah St.');
+
+
+insert into tb_community (id,city_id, community_name) values('230','6','Al Hamra Village');
+insert into tb_community (id,city_id, community_name) values('231','6','Al Marjan Island');
+insert into tb_community (id,city_id, community_name) values('232','6','Al Nakheel');
+insert into tb_community (id,city_id, community_name) values('233','6','Al Qusaidat');
+insert into tb_community (id,city_id, community_name) values('234','6','Cornich Ras Al Khaima');
+insert into tb_community (id,city_id, community_name) values('235','6','Dana Island');
+insert into tb_community (id,city_id, community_name) values('236','6','Julfar');
+insert into tb_community (id,city_id, community_name) values('237','6','Mina Al Arab');
+insert into tb_community (id,city_id, community_name) values('238','6','City Downtown');
+insert into tb_community (id,city_id, community_name) values('239','6','RAK Industrial and Technology Park');
+insert into tb_community (id,city_id, community_name) values('240','6','Ras Al Khaimah Creek');
+insert into tb_community (id,city_id, community_name) values('241','6','Ras al Khaimah Gateway');
+insert into tb_community (id,city_id, community_name) values('242','6','Ras Al Khaimah Waterfront');
+insert into tb_community (id,city_id, community_name) values('243','6','Saraya Islands');
+insert into tb_community (id,city_id, community_name) values('244','6','Sheikh Mohammed Bin Zayed Road');
+insert into tb_community (id,city_id, community_name) values('245','6','Yasmin Village');
+
+--------------------------- Sharjah ----------------------------------------------------------
+insert into tb_community (id,city_id, community_name) values('246','7','Abu shagara');
+insert into tb_community (id,city_id, community_name) values('247','7','Al Azra');
+insert into tb_community (id,city_id, community_name) values('248','7','Al Brashi');
+
+-------------------------------------------------------------------------------------------------- uploaded up already
