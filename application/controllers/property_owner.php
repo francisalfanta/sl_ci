@@ -11,27 +11,17 @@ class Property_owner extends CI_Controller {
 		parent::__construct();
 		// all model were autoloaded
 	}
+
 	public function index()
 	{	
-		$this->db->select('propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
-						   address, addressLocality, addressRegion, addressCountry, property_owner_id');
-
-		// Pagination Setup
-		$data['base_url']    = '/sl_ci/property_owner/index/';
-		$data['total_rows']  = $this->owner_addr_model->view_owner_details(TRUE);
-		$data['per_page']    = 30;
-		$data['num_links']   = 10;
-		$data['records'] 	 = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
-
-		//$this->pagination->initialize($data);
-
 		// database query 
-		$data['staffs']    = $this->slcs_staff_model->get_staff();
-		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']  = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		$data['staffs']      = $this->slcs_staff_model->get_staff();
+		$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections']    = $this->sections_model->get_sections();
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		$data['records'] 	 = $this->owner_addr_model->view_owner_details();
 		// custom data
-		$data['title']     = 'SoftLine | Property Owner';	
+		$data['title']     = 'SoftLine | Property Owner Lists';	
 		
 		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
 		$data['username']  = ucfirst($username);	
@@ -50,21 +40,100 @@ class Property_owner extends CI_Controller {
 		$this->load->view('property_owner/property_owner_table', $data);		
 		$this->load->view('layout/footer');	
 	}
-	public function view_property_owner($id)
+
+	public function view_property_owner($id = false)
 	{	
-		// database query 
-		$data['staffs']    = $this->slcs_staff_model->get_staff();
-		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']  = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		// custom data
-		$data['title']     = 'SoftLine | Property Owner';	
-		
-		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
-		$data['username']  = ucfirst($username);	
-		//select values
-		//$gender_type       = array('Male','Female');
-		//$marital_type      = array('Single', 'Married');				
+		//if $id is null redirect to index
+		if($id){
+			// database query 
+			$data['staffs']    = $this->slcs_staff_model->get_staff();
+			$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
+			$data['sections']  = $this->sections_model->get_sections();
+			$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+			// custom data
+			$data['title']     = 'SoftLine | Property Owner';	
+			
+			$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
+			$data['username']  = ucfirst($username);
+			$data['hide_contact_details'] = false;	
+			
+			$passport_no = null;
+			$first_name  = null;
+			$middle_name = null;
+			$last_name   = null;
+
+			$parents       	   = $this->property_owner_model->get_prop_owner($id);
+			if(isset($parents['passport_no'])) {
+				$passport_no   = $parents['passport_no'];	
+			}
+			if(isset($parents['first_name'])) {
+				$first_name   = $parents['first_name'];	
+			}
+			if(isset($parents['middle_name'])) {
+				$middle_name   = $parents['middle_name'];	
+			}
+			if(isset($parents['last_name'])) {
+				$last_name   = $parents['last_name'];	
+			}
+			//$data['nationalities'] = $this->nationality_model->get_nationality();		
+			$data['nationalities'] = $this->owner_addr_model->get_owner_addr($id);
+			
+			$data['form_attributes'] = array('class' => 'form inline', 'role' => 'form');
+			$data['passport_no_attr']= array(
+							              'name'        => 'passport_no',
+							              'id'          => 'passport_no',
+							              'value'       => $passport_no,				              
+							              'style'       => 'width:50%;',//
+							              'class' 		=> 'form-control ',
+							              'placeholder' => 'Passport No'
+							           );
+			$data['fn_attributes']   = array(
+							              'name'        => 'first_name',
+							              'id'          => 'fn_name',
+							              'value'       => $first_name,						              
+							              'class' 		=> 'form-control',
+							              'style'       => 'width:100%;',
+							              'placeholder' => 'First Name'
+							           );
+			$data['mn_attributes']   = array(
+							              'name'        => 'middle_name',
+							              'id'          => 'fn_name',
+							              'value'       => $middle_name,
+							              'class' 		=> 'form-control',
+							              'style'       => 'width:100%;',
+							              'placeholder' => 'Middle Name'
+							           );
+			$data['ln_attributes']   = array(
+							              'name'        => 'last_name',
+							              'id'          => 'ln_name',
+							              'value'       => $last_name,
+							              'class' 		=> 'form-control',
+							              'style'       => 'width:100%;',
+							              'placeholder' => 'Last Name'
+							           );		
+
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/topbar');
+			$this->load->view('layout/admin_left_sidemenu', $data);
+			$this->load->view('layout/right_sidemenu');
+			$this->load->view('property_owner/property_owner_form', $data);		
+			$this->load->view('layout/footer');	
+		} else {
+			redirect('property_owner');
+		}
+	}
+
+	public function create_prop_owner()
+	{	
+		$data['staffs']     = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections']   = $this->sections_model->get_sections();
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+
+		$username           = $this->session->userdata('username'); 					
+		$data['username']   = ucfirst($username);	
+		$data['title']      = 'SoftLine | Add Property Owner';
+		$data['hide_contact_details'] = true;
 
 		$data['parents']       = $this->property_owner_model->get_prop_owner();	
 		//$data['nationalities'] = $this->nationality_model->get_nationality();		
@@ -102,24 +171,7 @@ class Property_owner extends CI_Controller {
 						              'class' 		=> 'form-control',
 						              'style'       => 'width:100%;',
 						              'placeholder' => 'Last Name'
-						           );		
-
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu', $data);
-		$this->load->view('layout/right_sidemenu');
-		$this->load->view('property_owner/property_owner', $data);		
-		$this->load->view('layout/footer');	
-	}
-	public function create_prop_owner()
-	{		
-		$data['staffs']     = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections']   = $this->sections_model->get_sections();
-
-		$username           = $this->session->userdata('username'); 					
-		$data['username']   = ucfirst($username);	
-		$data['title']      = 'SoftLine | Add Property Owner';
+						           );	
 		
 		$this->form_validation->set_rules('passport_no', 'Passport No', 'required');
 		$this->form_validation->set_rules('first_name', 'First Name', 'required');
@@ -127,44 +179,53 @@ class Property_owner extends CI_Controller {
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
 
 		if ($this->form_validation->run() == FALSE)
-		{
-			$this->index();		
+		{				
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/topbar');
+			$this->load->view('layout/admin_left_sidemenu', $data);
+			$this->load->view('layout/right_sidemenu');
+			$this->load->view('property_owner/property_owner_form', $data);		
+			$this->load->view('layout/footer');	
 		}
 		else
 		{
 			if($query = $this->property_owner_model->create_prop_owner()){
-				//$this->index();
-				redirect('property_owner');
+				// fetch new inserted property owner id and redirect to view
+				redirect('property_owner/view_property_owner/'.$query);
 			}
 		}		
 	}
-	public function del_nat($id){		
-		$this->nationality_model->delete_nationality($id);		
-		redirect('property_owner');
-	}
-	public function update_nat()
-	{		
-		$formSubmit = $this->input->post('submitForm');
-		if($formSubmit == 'formUpdate') { 
-			//redirect($this->config->item('backend_folder').'/categories/form');
-			$id = $this->input->post('id');		
-			$data = array(
-				'telephone_no' 		=> $this->input->post('tel_no'),
-				'mobile_no' 		=> $this->input->post('mobile_no'),
-				'fax_no' 			=> $this->input->post('fax_no'),
-				'email'    			=> $this->input->post('email'),
-				'property_owner_id' => $this->input->post('prop_owner_id')
-			);
-			$this->nationality_model->update_nationality($id, $data);				
-			$this->view_staff_menu($id);
 
-		} else if ($formSubmit == 'formDelete'){
-			$id = $this->input->post('id');
-			$this->del_nat($id);	    			
-		} else {
-			$this->view_staff_menu($id);			
-		}
+	public function del_nat($property_owner_id = null, $propertyfinder_id =null){	
+		if($property_owner_id && $propertyfinder_id){
+			$this->property_owner_has_tb_propertyfinder_model_model->del_record($property_owner_id,  $propertyfinder_id);						
+		}	
+		redirect('property_owner');		
 	}
+
+	public function update_owner_personal_details() //working 12/2/2014
+	{	
+		$this->form_validation->set_rules('passport_no', 'Passport No', 'required');
+		$this->form_validation->set_rules('first_name', 'First Name', 'required');
+		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
+		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+
+		if ($this->form_validation->run() == TRUE)
+		{
+			print_r('validation successful');
+			$property_owner_id = $this->input->post('property_owner_id');		
+			$data = array(
+				'passport_no' 	=> $this->input->post('passport_no'),
+				'first_name' 	=> $this->input->post('first_name'),
+				'middle_name' 	=> $this->input->post('middle_name'),
+				'last_name'    	=> $this->input->post('last_name')			
+			);
+			$this->property_owner_model-> update_owner_personal($property_owner_id, $data);
+		} 		
+		
+		redirect('property_owner/view_property_owner/'.$property_owner_id);			
+	}
+
 	public function view_staff_menu($id)
 	{
 		// database query 

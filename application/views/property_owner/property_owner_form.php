@@ -8,16 +8,24 @@
 				<div class="page-heading">
             		<h1>Property Owner</h1>            		
                 </div>
-            	<!-- Page Heading End-->               
-               
-                <?php echo form_open('property_owner/create_prop_owner', $form_attributes) ?>
+            	<!-- Page Heading End-->   
+                <?php if($this->uri->segment(3,0) > 0){
+                        // For edit or view
+                        $action = 'property_owner/update_owner_personal_details';
+                        echo form_open($action, $form_attributes);
+                        echo '<input type="hidden" name="property_owner_id" value="'.$this->uri->segment(3,0).'" id="input-'.$this->uri->segment(3,0).'" >';                       
+                      } else {
+                        // For new record
+                        echo form_open('property_owner/create_prop_owner/', $form_attributes);
+                      }
+                ?>
                 <div class="row">
 					<div class="portlets">
                         <div class="widget">
                             <div class="widget-header transparent">
                                 <h2>Personal Details</h2>
                                 <div class="additional-btn">
-                                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>                                 
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>                                
@@ -57,7 +65,11 @@
                               
                         <div class="widget">
                             <div class="widget-header transparent">                             
-                                <h2>Contact Details</h2>                                                           
+                                <h2>Contact Details</h2> 
+                                <div class="additional-btn">
+                                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="<?php echo base_url('nationality/create_owner_contact_details/'.$this->uri->segment(3,0)); ?>"><i class="icon-user-add"></i></a>
+                                </div>                                                              
                             </div>
                             <div class="widget-content padding">      
                                 <div class="table-responsive">
@@ -74,49 +86,35 @@
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </thead>                                        
-                                        <tbody>
-                                            <?php foreach($nationalities as $row) { 
+                                        <tbody>                                         
+                                            <?php 
+                                                if(!$hide_contact_details){
+                                                foreach($nationalities as $row) {                                            
+                                                //var_dump($row);
                                                 if($row->addressLocality){ $local = $row->addressLocality.', ';} else { $local = null;}
                                                 if($row->addressRegion){ $region = $row->addressRegion.', ';} else { $region = null;}
-                                                if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;}                                                
-                                                if( count($parents)==1 && $row->property_owner_id == $parents['id']) { 
-                                                // Display selected record?>
+                                                if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;} 
+                                                // View only property(s) of the owner                                               
+                                                if($row->property_owner_id == $this->uri->segment(3,0)){  ?>
                                             <tr>  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('nationality/update_owner_contact_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>                 
                                                 <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
-                                                <td><?php echo $row->email; ?></td>
+                                                <td><?php echo $row->tb_nationality_id; ?></td>
                                                 <td><?php echo $row->telephone_no; ?></td>
                                                 <td><?php echo $row->mobile_no; ?></td>
                                                 <td><?php echo $row->fax_no; ?></td>                                                  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
+                                                       <a href="<?php echo base_url('nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                     
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php } else { // Display all record ?> 
-                                            <tr>       
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                    
-                                                        <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                                                    </div>
-                                                </td>           
-                                                <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
-                                                <td><?php echo $row->email; ?></td>
-                                                <td><?php echo $row->telephone_no; ?></td>
-                                                <td><?php echo $row->mobile_no; ?></td>
-                                                <td><?php echo $row->fax_no; ?></td>                                                
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                  
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                    <div>
-                                                </td>
-                                            </tr>
-                                            <?php }} ?>                                            
+                                           
+                                            <?php }}} ?>                                            
                                         </tbody>
                                 </table>
                                 </div><!-- table-responsive -->
@@ -129,7 +127,7 @@
                             <div class="form-group">
                                 <div>
                                     <button type="submit" name="formsubmit" class="btn btn-green-1" tabindex="4">Save</button>                                              
-                                    <!--<a href="<?php echo base_url(); ?>staff_menu"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>-->
+                                    <a href="<?php echo base_url('property_owner'); ?>"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
                                 </div>
                             </div> <!-- form-group -->
                         </div><!-- widget-content padding -->

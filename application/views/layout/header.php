@@ -30,6 +30,10 @@
         <link href="<?php echo base_url(); ?>assets/libs/prettify/github.css" rel="stylesheet" />
         
                 <!-- Extra CSS Libraries Start -->
+                <?php if(strstr(strtolower($title), 'list')) { ?>
+                    <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+                    <link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
+                <?php } ?>
                 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
                 <!-- Extra CSS Libraries End -->
         <link href="<?php echo base_url(); ?>assets/css/style-responsive.css" rel="stylesheet" />
@@ -63,5 +67,9 @@
           .select-editable input { position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none; }
           .select-editable select:focus, .select-editable input:focus { outline:none; }
         </style>
+
+        <!-- FMA added 12/02/2014-->
+         <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" />
+        
     </head>
     <body class="fixed-left login-page">

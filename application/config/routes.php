@@ -44,7 +44,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
-$route['property_owner'] = 'property_owner';
+$route['nationality/view_details']  = 'nationality/view_details';
+$route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
+$route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';
+
+$route['property_owner/view_property_owner/(:any)'] = 'property_owner/view_property_owner/$1';
+$route['property_owner/update_owner_personal_details'] = 'property_owner/update_owner_personal_details';
+
 
 $route['community/del_comm_name'] = 'community/del_comm_name';
 $route['community/create_comm_name'] = 'community/create_comm_name'; 
@@ -61,7 +67,6 @@ $route['staff_menu/create_staff_menu'] = 'staff_menu/create_staff_menu';
 $route['staff_menu'] = 'staff_menu';
 
 $route['tables/sl_form_wizard'] = 'tables/sl_form_wizard';
-$route['tables'] = 'tables';
 
 $route['dept_tasks/create_dept_task'] = 'dept_tasks/create_dept_task';
 $route['dept_tasks'] = 'dept_tasks';
@@ -71,13 +76,18 @@ $route['departments'] = 'departments';
 
 $route['login/logout'] = 'login/logout';
 $route['login/login_validation'] = 'login/login_validation';	// added this line : Lemuel
-$route['login'] = 'login';
+
 $route['login/sl_admin'] = 'login/sl_admin'; 					// added this line : Lemuel
 $route['login/logout_mod'] = 'login/logout_mod'; 				// added this line : Lemuel
 $route['login/logout_mod'] = 'login/logout'; 					// added this line : Lemuel
 
 $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
+
 $route['slcs_staff'] = 'slcs_staff';
+$route['nationality']  = 'nationality';
+$route['property_owner'] = 'property_owner';
+$route['login'] = 'login';
+$route['tables'] = 'tables';
 
 $route['default_controller'] = 'login';
 

@@ -7,37 +7,50 @@
             	<!-- Page Heading Start -->
             	<!-- Page Heading End-->  
                 <div class="row">
-					<div class="portlets">
+					<div class="col-md-12">
                         <div class="widget">
-                            <div class="widget-header transparent">
-                                <h2>Property Owner Lists</h2>
+                            <div class="widget-header">
+                                <h2><strong>Property Owner</strong> Lists</h2>
                                 <div class="additional-btn">
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="<?php echo base_url('property_owner/create_prop_owner');?>"><i class="icon-user-add"></i></a>  
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>                                
-                            </div>
-
-                        <div class="widget">                           
-                            <div class="widget-content padding">      
+                            </div>                                                  
+                            <div class="widget-content">
+                            <br>
                                 <div class="table-responsive">
-                               
-                                <table data-sortable class="table table-striped">
-                                        <thead>
-                                            <tr>     
-                                                <th>Edit</th>   
-                                                <th>Full Name</th>                                                                                      
-                                                <th>Address</th> 
-                                                <th>Mobile no.</th> 
-                                                <th>Tel no.</th>
-                                                <th>Property</th>
-                                                <th>Property type</th>
-                                                <th>Bldg Name</th>                                                
-                                                <th data-sortable="false">Option</th>
+                                <form class='form-horizontal' role='form'>
+                                    <table id="datatables-1" data-sortable class="table table-striped">
+                                    <thead>
+                                        <tr>     
+                                            <th><small>Edit</small></th>   
+                                            <th><small>Full Name</small></th>                                                                                      
+                                            <th><small>Address</small></th> 
+                                            <th><small>Mobile no.</small></th> 
+                                            <th><small>Tel no.</small></th>
+                                            <th><small>Property</small></th>
+                                            <th><small>Property type</small></th>
+                                            <th><small>Bldg Name</small></th>                                                
+                                            <th data-sortable="false">Option</th>
+                                        </tr>
+                                    </thead> 
+                                    <tfoot>
+                                        <tr>
+                                            <th><small>Edit</small></th>   
+                                            <th><small>Full Name</small></th>                                                                                      
+                                            <th><small>Address</small></th> 
+                                            <th><small>Mobile no.</small></th> 
+                                            <th><small>Tel no.</small></th>
+                                            <th><small>Property</small></th>
+                                            <th><small>Property type</small></th>
+                                            <th><small>Bldg Name</small></th>                                                 
+                                            <th data-sortable="false">Option</th>
                                             </tr>
-                                        </thead>                                        
+                                    </tfoot>                                       
                                         <tbody>
-                                            <?php foreach($owner_details as $row) { 
+                                            <?php foreach($records as $row) { 
                                                 if($row->addressLocality){ $local = $row->addressLocality.', ';} else { $local = null;}
                                                 if($row->addressRegion){ $region = $row->addressRegion.', ';} else { $region = null;}
                                                 if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;}                                                
@@ -46,7 +59,7 @@
                                             <tr>  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>
                                                 <td><small><?php echo $row->full_name; ?></small></td>                 
@@ -58,7 +71,7 @@
                                                 <td><small><?php echo $row->building_name; ?></small></td>                                                  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
                                                     </div>
                                                 </td>
                                             </tr>
@@ -66,7 +79,7 @@
                                             <tr>       
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                    
-                                                        <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>   
                                                 <td><small><?php echo $row->full_name; ?></small></td>     
@@ -84,16 +97,11 @@
                                             </tr>
                                             <?php }} ?>                                            
                                         </tbody>
-                                </table>
-
+                                    </table>
+                                </form><!-- table-responsive -->
                                 </div><!-- table-responsive -->
                              </div><!-- widget-content padding -->                       
-                        </div><!-- widget -->
-                        <div class="center-block" style="float:none; margin: 0 auto; display: block; margin-left: auto; margin-right: auto;"><?php echo $pagination; ?></div>                        
-                        <div class="row">
-                            <div class="col-md-2 col-md-offset-5"><?php echo $pagination; ?></div>
-                        </div>
-					</div><!-- col-md-12 portlets -->
+                 	</div><!-- col-md-12 portlets -->
                     <div class="portlets">
                         <div class="widget">
                         <div class="widget-content padding">                                                              
@@ -122,6 +130,6 @@
 			<!-- ============================================================== -->
 			<!-- End content here -->
 			<!-- ============================================================== -->
-
+            
         </div>
 		<!-- End right content -->

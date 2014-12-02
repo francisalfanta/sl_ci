@@ -25,16 +25,41 @@ class nationality_model extends CI_Model {
 		return $query->row_array();
 	}
 
-	public function create_prop_owner() {
+	public function create_prop_owner($property_owner_id) {
 
-		$new_pro_owner_insert_data = array(
-			'first_name'  => $this->input->post('first_name'),
-			'middle_name' => $this->input->post('middle_name'),
-			'last_name'   => $this->input->post('last_name')
+		$new_address_insert_data = array(
+			'address'  				=> $this->input->post('address'),
+			'postalcode' 			=> $this->input->post('postalcode'),
+			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),
+			'addressRegion'			=> $this->input->post('addressregion'),
+			'addressLocality'   	=> $this->input->post('addresslocality'),
+			'addressCountry'		=> $this->input->post('addresscountry'),
 		);
+		$this->db->where('address', $new_address_insert_data['address']);
+		$this->db->where('postalcode', $new_address_insert_data['postalcode']);
+		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);
+		$this->db->where('addressRegion', $new_address_insert_data['addressRegion']);
+		$this->db->where('addressLocality', $new_address_insert_data['addressLocality']);
+		$this->db->where('addressCountry', $new_address_insert_data['addressCountry']);
+		$this->db->from('address');
+		$query = $this->db->count_all_results();
 
-		$insert = $this->db->insert('nationality', $new_pro_owner_insert_data);
-		return $insert;
+		$address_id = null;
+		if($query==0){
+			$this->db->insert('address', $new_address_insert_data);
+			$address_id = $this->db->insert_id();
+
+			$new_nationality_insert_data = array(
+			'telephone_no'  		=> $this->input->post('telephone_no'),
+			'mobile_no' 			=> $this->input->post('mobile_no'),
+			'fax_no'   				=> $this->input->post('fax_no'),
+			'email'					=> $this->input->post('email'),	
+			'address_id'		    => $address_id,
+			'property_owner_id'     => $property_owner_id
+			);	
+			$insert = $this->db->insert('nationality', $new_nationality_insert_data);
+			return $insert;
+		}				
 	}
 
 	public function delete_nationality($id) {
@@ -42,37 +67,46 @@ class nationality_model extends CI_Model {
 		$this->db->delete('nationality');
 	}
 
-	public function update_nationality($id, $data) {		
-		$this->db->where('id', $id);
-		$this->db->update('nationality', $data); 		
-	}	
-	// ------------------------------------------//
-	public function get_field_name_staff_menu(){
+	public function update_nationality($tb_nationality_id) {
+
+		$new_address_insert_data = array(
+			'address'  				=> $this->input->post('address'),
+			'postalcode' 			=> $this->input->post('postalcode'),
+			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),
+			'addressRegion'			=> $this->input->post('addressregion'),
+			'addressLocality'   	=> $this->input->post('addresslocality'),
+			'addressCountry'		=> $this->input->post('addresscountry'),
+		);
+		$this->db->where('address', $new_address_insert_data['address']);
+		$this->db->where('postalcode', $new_address_insert_data['postalcode']);
+		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);
+		$this->db->where('addressRegion', $new_address_insert_data['addressRegion']);
+		$this->db->where('addressLocality', $new_address_insert_data['addressLocality']);
+		$this->db->where('addressCountry', $new_address_insert_data['addressCountry']);
+		$query = $this->db->get('address');
 		
-		$fields =array();	
-		$i = 0;		
-		$query = $this->db->list_fields('staff_menu');
-		foreach ($query as $field_meta) {   		
-   			$fields[$i] = $field_meta;
-   			++$i;
+		if($query->num_rows() > 0) {
+			$row = $query->row();
+			$address_id = $row->address_id;
+		} else {
+			$this->db->insert('address', $new_address_insert_data);
+			$address_id = $this->db->insert_id();
 		}		
-		return $fields;
-	}
 
-	public function get_parent_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
-		$query = $this->db->get();
-		return $query->result();
-	}
+		$this->db->insert('address', $new_address_insert_data);
+		$address_id = $this->db->insert_id();
 
-	public function get_child_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->select('parent')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc'); 
-		$query = $this->db->get();
-		return $query->result();
+		$new_nationality_update_data = array(
+		'telephone_no'  		=> $this->input->post('telephone_no'),
+		'mobile_no' 			=> $this->input->post('mobile_no'),
+		'fax_no'   				=> $this->input->post('fax_no'),
+		'email'					=> $this->input->post('email'),	
+		'address_id'		    => $address_id,
+		'property_owner_id'     => $property_owner_id
+		);
+		$this->db->where('id', $tb_nationality_id);
+		$update = $this->db->update('nationality', $new_nationality_update_data);
+
+		return $update;	
 	}	
-
-	
-
 }?>

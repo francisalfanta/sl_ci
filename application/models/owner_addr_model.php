@@ -14,250 +14,34 @@ class owner_addr_model extends CI_Model {
 	}
 
 	public function get_owner_addr($id = FALSE)
-	{
+	{	
+		$this->load->helper('sl_sql_helper');		
+		$sql = sl_sql();
+
 		if ($id === FALSE)
 		{
-			$query = $this->db->query('select a.*, b.id as id_n, b.telephone_no, b.mobile_no, b.fax_no,
-											  b.email, b.property_owner_id 
-										from tb_address a, tb_nationality b
-										where a.id = b.tb_address_id');
+			$query = $this->db->query($sql);
 			return $query->result();
 		}
-
-		$query = $this->db->get_where('owner_addr', array('id' => $id));
-		return $query->row_array();
+		$sql = "select * from ( ".$sql. " ) as x  where property_owner_id = ?";
+		$query = $this->db->query($sql,array($id));
+		return $query->result();
 	}
 
-	public function view_owner_details($count_rows = FALSE)
+	public function view_owner_details($count_rows = null, $start = null, $offset = null)
 	{
-		$query = $this->db->query("select propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
-										  address, addressLocality, addressRegion, addressCountry, property_owner_id
-									FROM
-									(select *
-									from (select owned_property.*, 
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
+		$this->load->helper('sl_sql_helper');
+		$sql = sl_sql();
 
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									LEFT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id
-
-									UNION
-
-									select owned_property.*,
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									RIGHT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id) as owner_properties
-
-									LEFT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id
-
-									UNION
-
-									select *
-									from (select owned_property.*, 
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									LEFT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id
-
-									UNION
-
-									select owned_property.*,
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									RIGHT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id) as owner_properties
-
-									RIGHT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id) as owner_prop_addr
-
-
-									LEFT OUTER JOIN tb_address ON owner_prop_addr.address_id = tb_address.id
-
-									 -- ------------------
-									UNION 
-
-									select propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
-									  address, addressLocality, addressRegion, addressCountry, property_owner_id						
-									FROM
-									(select *
-									from (select owned_property.*, 
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									LEFT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id
-
-									UNION
-
-									select owned_property.*,
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									RIGHT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id) as owner_properties
-
-									LEFT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id
-
-									UNION
-
-									select *
-									from (select owned_property.*, 
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									LEFT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id
-
-									UNION
-
-									select owned_property.*,
-									tb_propertyfinder.id as propertyfinder_id, 
-									tb_propertyfinder.city,
-									tb_propertyfinder.community,
-									tb_propertyfinder.re_property,
-									tb_propertyfinder.property_type,
-									tb_propertyfinder.building_name,
-									tb_propertyfinder.unit_number,
-									tb_propertyfinder.developer_name
-									from (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id
-
-									UNION
-
-									SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
-									FROM tb_property_owner a
-									RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
-									ON a.id = b.tb_property_owner_id) as owned_property
-									RIGHT OUTER JOIN tb_propertyfinder
-									ON owned_property.tb_propertyfinder_id = tb_propertyfinder.id) as owner_properties
-
-									RIGHT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id) as owner_prop_addr
-
-
-									RIGHT OUTER JOIN tb_address ON owner_prop_addr.address_id = tb_address.id;
-
-									");
-		if($count_rows){
+		$query = $this->db->query($sql);
+		if($count_rows){			
 			$counting_rows = count($query->result());
 			return $counting_rows;
-		} else {
+		} elseif ($start && $offset) {			
+			$sql .= " limit ?, ?";
+			$query = $this->db->query($sql, array($start, $offset));
+			return $query->result();
+		} else {			
 			return $query->result();
 		}		
 	}

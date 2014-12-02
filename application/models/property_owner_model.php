@@ -29,7 +29,7 @@ class property_owner_model extends CI_Model {
 		$query = $this->db->query('select a.*, b.id as id_n, b.telephone_no, b.mobile_no, b.fax_no,
 										  b.email, b.property_owner_id 
 									from tb_address a, tb_nationality b
-									where a.id = b.tb_address_id');
+									where a.id = b.address_id');
 		return $query->result_array();
 	}
 	public function create_prop_owner() {
@@ -38,10 +38,12 @@ class property_owner_model extends CI_Model {
 			'first_name'  => $this->input->post('first_name'),
 			'middle_name' => $this->input->post('middle_name'),
 			'last_name'   => $this->input->post('last_name'),
-			'passport_no'   => $this->input->post('passport_no')
+			'passport_no' => $this->input->post('passport_no')
 		);
 
 		$insert = $this->db->insert('property_owner', $new_pro_owner_insert_data);
+		// get the latest id
+		$insert = $this->db->insert_id();
 		return $insert;
 	}
 
@@ -76,8 +78,8 @@ class property_owner_model extends CI_Model {
 		$this->db->delete('staff_menu');
 	}
 
-	public function update_staff_menu($id, $data) {		
+	public function update_owner_personal($id, $data) {		
 		$this->db->where('id', $id);
-		$this->db->update('staff_menu', $data); 		
+		$this->db->update('property_owner', $data); 		
 	}	
 }?>

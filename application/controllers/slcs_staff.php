@@ -11,11 +11,11 @@ class Slcs_staff extends CI_Controller {
 	{	
 		$this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username');
 
-		$data['base_url'] ="/sl_ci/slcs_staff/index/";
+		$data['base_url']   = "/sl_ci/slcs_staff/index/";
 		$data['total_rows'] = $this->db->get('slcs_staff')->num_rows();
-		$data['per_page'] = 10;
-		$data['num_links'] = 10;
-		$data['records'] = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
+		$data['per_page']   = 10;
+		$data['num_links']  = 10;
+		$data['records']    = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
 
 		$this->pagination->initialize($data);
 
