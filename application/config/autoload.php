@@ -56,7 +56,8 @@ $autoload['libraries'] = array('database',
 							   'session', 
 							   'sl_template',
 							   'form_validation',
-							   'table');
+							   'table',
+							   'pagination');
 
 /*
 | -------------------------------------------------------------------

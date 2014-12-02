@@ -28,9 +28,10 @@ class owner_addr_model extends CI_Model {
 		return $query->row_array();
 	}
 
-	public function view_owner_details()
+	public function view_owner_details($count_rows = FALSE)
 	{
-		$query = $this->db->query("select *
+		$query = $this->db->query("select propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
+										  address, addressLocality, addressRegion, addressCountry, property_owner_id
 									FROM
 									(select *
 									from (select owned_property.*, 
@@ -137,12 +138,13 @@ class owner_addr_model extends CI_Model {
 									RIGHT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id) as owner_prop_addr
 
 
-									LEFT OUTER JOIN tb_address ON owner_prop_addr.tb_address_id = tb_address.id
+									LEFT OUTER JOIN tb_address ON owner_prop_addr.address_id = tb_address.id
 
 									 -- ------------------
 									UNION 
 
-									select *
+									select propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
+									  address, addressLocality, addressRegion, addressCountry, property_owner_id						
 									FROM
 									(select *
 									from (select owned_property.*, 
@@ -249,12 +251,17 @@ class owner_addr_model extends CI_Model {
 									RIGHT OUTER JOIN tb_nationality ON owner_properties.tb_property_owner_id = tb_nationality.property_owner_id) as owner_prop_addr
 
 
-									RIGHT OUTER JOIN tb_address ON owner_prop_addr.tb_address_id = tb_address.id;
+									RIGHT OUTER JOIN tb_address ON owner_prop_addr.address_id = tb_address.id;
 
 									");
-		return $query->result();
+		if($count_rows){
+			$counting_rows = count($query->result());
+			return $counting_rows;
+		} else {
+			return $query->result();
+		}		
 	}
-		
+	
 	public function create_prop_owner() {
 
 		$new_pro_owner_insert_data = array(

@@ -22,15 +22,17 @@
                             <div class="widget-content padding">      
                                 <div class="table-responsive">
                                
-                                <table data-sortable class="table">
+                                <table data-sortable class="table table-striped">
                                         <thead>
                                             <tr>     
-                                                <th>Edit</th>                                                                                        
-                                                <th>Address</th>                                                                                        
-                                                <th>Email</th>
+                                                <th>Edit</th>   
+                                                <th>Full Name</th>                                                                                      
+                                                <th>Address</th> 
+                                                <th>Mobile no.</th> 
                                                 <th>Tel no.</th>
-                                                <th>Mobile no.</th>
-                                                <th>Fax no.</th>                                                
+                                                <th>Property</th>
+                                                <th>Property type</th>
+                                                <th>Bldg Name</th>                                                
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </thead>                                        
@@ -46,15 +48,17 @@
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
                                                         <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
-                                                </td>                 
-                                                <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
-                                                <td><?php echo $row->email; ?></td>
-                                                <td><?php echo $row->telephone_no; ?></td>
-                                                <td><?php echo $row->mobile_no; ?></td>
-                                                <td><?php echo $row->fax_no; ?></td>                                                  
+                                                </td>
+                                                <td><small><?php echo $row->full_name; ?></small></td>                 
+                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
+                                                <td><small><?php echo $row->mobile_no; ?></small></td>                                               
+                                                <td><small><?php echo $row->telephone_no; ?></small></td>
+                                                <td><small><?php echo $row->re_property; ?></small></td>
+                                                <td><small><?php echo $row->property_type; ?></small></td>
+                                                <td><small><?php echo $row->building_name; ?></small></td>                                                  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
                                                     </div>
                                                 </td>
                                             </tr>
@@ -64,24 +68,31 @@
                                                     <div class="btn-group btn-group-xs">                                                                    
                                                         <a data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
-                                                </td>           
-                                                <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
-                                                <td><?php echo $row->email; ?></td>
-                                                <td><?php echo $row->telephone_no; ?></td>
-                                                <td><?php echo $row->mobile_no; ?></td>
-                                                <td><?php echo $row->fax_no; ?></td>                                                
+                                                </td>   
+                                                <td><small><?php echo $row->full_name; ?></small></td>     
+                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
+                                                <td><small><?php echo $row->mobile_no; ?></small></td>
+                                                <td><small><?php echo $row->telephone_no; ?></small></td>
+                                                <td><small><?php echo $row->re_property; ?></small></td>
+                                                <td><small><?php echo $row->property_type; ?></small></td>
+                                                <td><small><?php echo $row->building_name; ?></small></td>                                               
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                  
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>
                                                     <div>
                                                 </td>
                                             </tr>
                                             <?php }} ?>                                            
                                         </tbody>
                                 </table>
+
                                 </div><!-- table-responsive -->
                              </div><!-- widget-content padding -->                       
-                        </div><!-- widget -->                        
+                        </div><!-- widget -->
+                        <div class="center-block" style="float:none; margin: 0 auto; display: block; margin-left: auto; margin-right: auto;"><?php echo $pagination; ?></div>                        
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-5"><?php echo $pagination; ?></div>
+                        </div>
 					</div><!-- col-md-12 portlets -->
                     <div class="portlets">
                         <div class="widget">

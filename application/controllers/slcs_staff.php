@@ -8,16 +8,28 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
 class Slcs_staff extends CI_Controller {
 
 	public function index()
-	{		
+	{	
+		$this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username');
+
+		$data['base_url'] ="/sl_ci/slcs_staff/index/";
+		$data['total_rows'] = $this->db->get('slcs_staff')->num_rows();
+		$data['per_page'] = 10;
+		$data['num_links'] = 10;
+		$data['records'] = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
+
+		$this->pagination->initialize($data);
+
+		
 		$data['staffs'] = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections'] = $this->sections_model->get_sections();
 		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		$data['title'] = 'SoftLine | Staff';	
+		$data['title'] = 'SoftLine | Staff';
+		$data['description'] = '';	
 		
 		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);		
-
+		$data['username'] = ucfirst($username);	
+		
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/topbar');

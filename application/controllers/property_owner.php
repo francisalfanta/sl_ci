@@ -13,6 +13,18 @@ class Property_owner extends CI_Controller {
 	}
 	public function index()
 	{	
+		$this->db->select('propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
+						   address, addressLocality, addressRegion, addressCountry, property_owner_id');
+
+		// Pagination Setup
+		$data['base_url']    = '/sl_ci/property_owner/index/';
+		$data['total_rows']  = $this->owner_addr_model->view_owner_details(TRUE);
+		$data['per_page']    = 30;
+		$data['num_links']   = 10;
+		$data['records'] 	 = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
+
+		//$this->pagination->initialize($data);
+
 		// database query 
 		$data['staffs']    = $this->slcs_staff_model->get_staff();
 		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
@@ -38,7 +50,7 @@ class Property_owner extends CI_Controller {
 		$this->load->view('property_owner/property_owner_table', $data);		
 		$this->load->view('layout/footer');	
 	}
-	public function view_property_owner()
+	public function view_property_owner($id)
 	{	
 		// database query 
 		$data['staffs']    = $this->slcs_staff_model->get_staff();

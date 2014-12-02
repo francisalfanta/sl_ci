@@ -360,3 +360,10 @@ $config['proxy_ips'] = '';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
+
+/* Custom added - FMA
+   Created: December 2, 2014
+*/
+$config['total_rows'] = 200;
+$config['per_page']   = 20; 
+

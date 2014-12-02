@@ -32,47 +32,10 @@
 							</div>
 							<div class="widget-content">					
 								<div class="table-responsive">
-									<table data-sortable class="table">
-										<thead>
-											<tr>
-												<th>No</th>
-												<th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
-												<th>Full Name</th>
-												<th>Location</th>
-												<th>Date of birth</th>
-												<th>Email</th>
-												<th data-sortable="false">Sort : Off</th>
-												<th>Status</th>
-												<th data-sortable="false">Option</th>
-											</tr>
-										</thead>
-										
-										<tbody>
-
-											<?php 
-												$i = 1; // counter
-												foreach($staffs as $staff) { ?>
-
-											<tr>
-												<td><?php echo $i; ?></td>
-												<td><input type="checkbox" class="rows-check"></td>
-												<td><strong><?php echo $staff['fullname']; ?></strong></td>
-												<td>Yogyakarta, Indonesia</td>
-												<td><?php echo $staff['dob']; ?></td>
-												<td><a href="mailto:<?php echo $staff['email']; ?>"><?php echo $staff['email']; ?></a></td>
-												<td>123</td>
-												<td><span class="label label-success">Active</span></td>
-												<td>
-													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-														<a data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
-													</div>
-												</td>
-											</tr>
-											<?php ++$i;} ?>
-											
-										</tbody>
-									</table>
+									<?php 	$this->table->set_heading('Full Name', 'Passport No', 'Nationality', 'Date Hired', 'Email', 'Mobile No.', 'Username');
+											echo $this->table->generate($records);										
+											echo '<div id="pagination">'.$this->pagination->create_links().'</div>'; 
+									?>
 								</div>
 							</div>
 						</div>
