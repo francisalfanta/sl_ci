@@ -145,7 +145,7 @@ class Nationality extends CI_Controller {
 
 			if(isset($nationality['address_id'])) {				
 				$this->load->database();
-				$this->db->where('id', $nationality['address_id']);
+				$this->db->where('tb_address_id', $nationality['address_id']);
 				$address_query = $this->db->get('address');	
 
 				if($address_query->num_rows > 0){
@@ -545,7 +545,7 @@ class Nationality extends CI_Controller {
 		$addresscountry = null;
 
 		$this->load->database();
-		$this->db->where('id', $nationalities['address_id']);
+		$this->db->where('tb_address_id', $nationalities['address_id']);
 		$address_query = $this->db->get('address');
 
 		if($address_query->num_rows > 0){
@@ -671,83 +671,4 @@ class Nationality extends CI_Controller {
 			$this->view_staff_menu($id);			
 		}
 	}
-	public function view_staff_menu($id)
-	{
-		// database query 
-		$data['staffs']    = $this->slcs_staff_model->get_staff();
-		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']  = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		// custom data
-		$data['title']     = 'SoftLine | Edit Nationality';	
-		
-		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
-		$data['username']  = ucfirst($username);	
-		//select values
-		$method            = array('_parent','_self','_blank');
-		$active            = array(1,0);
-		$parents           = $this->staff_menu_model->get_parent_staff_menu();
-		$children          = $this->staff_menu_model->get_child_staff_menu();
-		$data['parents']   = $parents;
-		$data['children']  = $children;
-		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
-
-		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
-		$data['table_fields'] = array(
-			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
-			'url' 		 => array('2', 'url', 'URL', 'input'),
-			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
-			'method'     => array('4', 'method', 'Method', 'select', $method),
-			'order'      => array('5', 'order', 'Order', 'input'),
-			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
-			'include'    => array('7','include', 'Include', 'input'),
-			'active'     => array('8', 'active', 'Active', 'select', $active),
-			);	
-
-		if (empty($data['staff_menu']))
-		{
-			show_404();			
-		}		
-		// specific menu
-		$this->load->helper('url');
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
-		$this->load->view('layout/right_sidemenu');
-		$this->load->view('staff_menu/staff_menu_form', $data);
-		$this->load->view('staff_menu/edit', $data);
-		$this->load->view('layout/footer');	
-	}
-
-	// ---------------------------------------- //
-	
-
-	public function update_staff_menu()
-	{		
-		$formSubmit = $this->input->post('submitForm');
-		if($formSubmit == 'formUpdate') { 
-			//redirect($this->config->item('backend_folder').'/categories/form');
-			$id = $this->input->post('id');		
-			$data = array(
-				'menu' 		 => ucfirst($this->input->post('menu')),
-				'url' 		 => $this->input->post('url'),
-				'send_value' => $this->input->post('send_value'),
-				'method'     => $this->input->post('method'),
-				'order'      => $this->input->post('order'),
-				'parent'     => $this->input->post('parent'),
-				'include'    => $this->input->post('include'),
-				'active'     => $this->input->post('active')
-			);
-			$this->staff_menu_model->update_staff_menu($id, $data);				
-			$this->view_staff_menu($id);
-
-		} else if ($formSubmit == 'formDelete'){
-			$id = $this->input->post('id');
-			$this->delete_staff_menu($id);	    			
-		} else {
-			$this->view_staff_menu($id);			
-		}
-	}
-
-
 }

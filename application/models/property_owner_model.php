@@ -5,7 +5,8 @@
 */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class property_owner_model extends CI_Model {
+class property_owner_model extends CI_Model 
+{
 
 	public function __construct()
 	{
@@ -21,12 +22,13 @@ class property_owner_model extends CI_Model {
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('property_owner', array('id' => $id));
+		$query = $this->db->get_where('property_owner', array('tb_property_owner_id' => $id));
 		return $query->row_array();
 	}
+
 	public function prop_owner_lists()
 	{		
-		$query = $this->db->query('select a.*, b.id as id_n, b.telephone_no, b.mobile_no, b.fax_no,
+		$query = $this->db->query('select a.*, b.tb_nationality_id as id_n, b.telephone_no, b.mobile_no, b.fax_no,
 										  b.email, b.property_owner_id 
 									from tb_address a, tb_nationality b
 									where a.id = b.address_id');
@@ -46,40 +48,10 @@ class property_owner_model extends CI_Model {
 		$insert = $this->db->insert_id();
 		return $insert;
 	}
-
-	public function get_field_name_staff_menu(){
-		
-		$fields =array();	
-		$i = 0;		
-		$query = $this->db->list_fields('staff_menu');
-		foreach ($query as $field_meta) {   		
-   			$fields[$i] = $field_meta;
-   			++$i;
-		}		
-		return $fields;
-	}
-
-	public function get_parent_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	public function get_child_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->select('parent')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc'); 
-		$query = $this->db->get();
-		return $query->result();
-	}	
-
-	public function delete_staff_menu($id) {
-		$this->db->where('id', $id);
-		$this->db->delete('staff_menu');
-	}
-
-	public function update_owner_personal($id, $data) {		
-		$this->db->where('id', $id);
+	
+	public function update_owner_personal($id, $data) 
+	{		
+		$this->db->where('tb_property_owner_id', $id);
 		$this->db->update('property_owner', $data); 		
 	}	
 }?>

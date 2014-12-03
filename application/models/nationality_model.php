@@ -21,7 +21,7 @@ class nationality_model extends CI_Model {
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('nationality', array('id' => $id));
+		$query = $this->db->get_where('nationality', array('tb_nationality_id' => $id));
 		return $query->row_array();
 	}
 
@@ -63,7 +63,7 @@ class nationality_model extends CI_Model {
 	}
 
 	public function delete_nationality($id) {
-		$this->db->where('id', $id);
+		$this->db->where('tb_nationality_id', $id);
 		$this->db->delete('nationality');
 	}
 
@@ -89,7 +89,7 @@ class nationality_model extends CI_Model {
 
 		if($query->num_rows() > 0) {
 			$row = $query->row();
-			$address_id = $row->id;
+			$address_id = $row->tb_address_id;
 		} else {
 			$this->db->insert('address', $new_address_insert_data);
 			$address_id = $this->db->insert_id();
@@ -106,7 +106,7 @@ class nationality_model extends CI_Model {
 		'address_id'		    => $address_id,
 		'property_owner_id'     => $this->input->post('property_owner_id')
 		);
-		$this->db->where('id', $tb_nationality_id);
+		$this->db->where('tb_nationality_id', $tb_nationality_id);
 		$update = $this->db->update('nationality', $new_nationality_update_data);
 
 		return $update;	

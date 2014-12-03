@@ -95,7 +95,7 @@
                                                 if($row->addressRegion){ $region = $row->addressRegion.', ';} else { $region = null;}
                                                 if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;} 
                                                 // View only property(s) of the owner                                               
-                                                if($row->property_owner_id == $this->uri->segment(3,0)){  ?>
+                                                if($row->tb_property_owner_id == $this->uri->segment(3,0)){  ?>
                                             <tr>  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
@@ -138,7 +138,18 @@
                                     <div class="form-group"> <!-- City -->
                                         <label for="city" class="col-sm-2 control-label">City</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($city_attributes); ?>
+                                        <select name="city" id="city" tabindex="1" class="form-control">
+                                                    <option value="">Select City</option>                                                   
+                                                    <option value="1">Abu Dhabi</option>
+                                                    <option value="2">Ajman</option>
+                                                    <option value="3">Al Ain</option>
+                                                    <option value="4">Dubai</option>
+                                                    <option value="5">Fujairah</option>
+                                                    <option value="6">Ras Al Khaimah</option>
+                                                    <option value="7">Sharjah</option>
+                                                    <option value="8">Umm Al Quwain</option>
+                                                </select>
+                                    
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
@@ -146,7 +157,9 @@
                                     <div class="form-group"> <!-- Community -->
                                         <label for="community" class="col-sm-2 control-label">Community</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($community_attributes); ?>
+                                        <select name="cityDrp" id="cityDrp" class="form-control">
+                                            <option value="">Please select first City</option>
+                                        </select>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
@@ -154,7 +167,9 @@
                                     <div class="form-group"> <!-- Sub-community -->
                                         <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($subcommunity_attributes); ?>
+                                        <select name="cityDrp2" id="cityDrp2" class="form-control">
+                                                <option value="">Please select first Community</option>
+                                        </select>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
@@ -227,7 +242,35 @@
                     	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
                     </div>
                 </footer>
-                <!-- Footer End -->			
+                <!-- Footer End -->
+                <script type="text/javascript">                    
+                $(document).ready(function() {  
+
+                    $("#city_name").change(function(){                      
+                            /*dropdown post */
+                            $.ajax({
+                            url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
+                            data: {city_name: $(this).val()},
+                            type: "POST",
+                            success: function(data){                            
+                                $("#cityDrp").html(data);
+                            }                    
+                        });
+                    });
+                    $("#cityDrp").change(function(){                      
+                            /*dropdown post */
+                            $.ajax({
+                            url:"<?php echo base_url(); ?>propertyfinder/buildDropSubCom",    
+                            data: {community_name: $(this).val()},
+                            type: "POST",
+                            success: function(data){                            
+                                $("#cityDrp2").html(data);
+                            }
+                        
+                        });
+                    });               
+                });                     
+                </script>			
             </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->

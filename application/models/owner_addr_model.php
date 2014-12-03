@@ -16,14 +16,15 @@ class owner_addr_model extends CI_Model {
 	public function get_owner_addr($property_owner_id = FALSE)
 	{	
 		$this->load->helper('sl_sql_helper');		
-		$sql = sl_sql();
+		//$sql = sl_sql();
+		$sql = sl_sql_left_join();
 
 		if ($property_owner_id === FALSE)
 		{
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
-		$sql = "select * from ( ".$sql. " ) as x  where property_owner_id = ?";
+		$sql = "select * from ( ".$sql. " ) as x  where tb_property_owner_id = ?";
 		$query = $this->db->query($sql,array($property_owner_id));
 		return $query->result();
 	}
@@ -31,8 +32,9 @@ class owner_addr_model extends CI_Model {
 	public function view_owner_details($count_rows = null, $start = null, $offset = null)
 	{
 		$this->load->helper('sl_sql_helper');
-		$sql = sl_sql();
-
+		//$sql = sl_sql();
+		$sql = sl_sql_left_join();
+		
 		$query = $this->db->query($sql);
 		if($count_rows){			
 			$counting_rows = count($query->result());
@@ -59,41 +61,12 @@ class owner_addr_model extends CI_Model {
 	}
 
 	public function delete_nationality($id) {
-		$this->db->where('id', $id);
+		$this->db->where('tb_nationality_id', $id);
 		$this->db->delete('nationality');
 	}
 
 	public function update_nationality($id, $data) {		
-		$this->db->where('id', $id);
+		$this->db->where('tb_nationality_id', $id);
 		$this->db->update('nationality', $data); 		
-	}	
-	// ------------------------------------------//
-	public function get_field_name_staff_menu(){
-		
-		$fields =array();	
-		$i = 0;		
-		$query = $this->db->list_fields('staff_menu');
-		foreach ($query as $field_meta) {   		
-   			$fields[$i] = $field_meta;
-   			++$i;
-		}		
-		return $fields;
-	}
-
-	public function get_parent_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->from('staff_menu')->where('length(parent) = 0')->order_by('order', 'asc');
-		$query = $this->db->get();
-		return $query->result();
-	}
-
-	public function get_child_staff_menu()
-	{
-		$this->db->select('id')->select('menu')->select('parent')->from('staff_menu')->where('length(parent) !=', 0)->order_by('order', 'asc'); 
-		$query = $this->db->get();
-		return $query->result();
-	}	
-
-	
-
+	}		
 }?>

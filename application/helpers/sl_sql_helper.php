@@ -252,5 +252,31 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
             RIGHT OUTER JOIN tb_address ON owner_prop_addr.address_id = tb_address.id"; 
     return $sql; 
   }
+
+  function sl_sql_left_join(){
+    $sql = "SELECT  owner_property.*,
+                    concat(owner_property.first_name,' ',owner_property.last_name) as full_name,
+                    n.tb_nationality_id,
+                    n.address_id,
+                    n.telephone_no,
+                    n.mobile_no,
+                    n.fax_no,
+                    n.email,
+                    n.nationality,
+                    addr.*
+            FROM (
+                    SELECT a.*,
+                          c.*
+                    FROM tb_property_owner a
+                    LEFT JOIN tb_property_owner_has_tb_propertyfinder m2m
+                    on a.tb_property_owner_id = m2m.tb_property_owner_id
+                    join tb_propertyfinder c
+                    on m2m.tb_propertyfinder_id = c.tb_propertyfinder_id) owner_property
+            LEFT JOIN tb_nationality n
+            on owner_property.tb_property_owner_id = n.property_owner_id
+            LEFT JOIN tb_address addr
+            on addr.tb_address_id = n.address_id";
+    return $sql;
+  }
 // See more at: http://arjunphp.com/codeigniter-helper-quick-dynamic-dropdown-SELECT-box/#sthash.T92Ddzfi.dpuf
 // http://arjunphp.com/codeigniter-helper-quick-dynamic-dropdown-SELECT-box/

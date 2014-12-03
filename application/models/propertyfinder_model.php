@@ -32,7 +32,7 @@ class Propertyfinder_model extends CI_Model {
 		}
 	}
 	public function get_propertyfinder_by_id($q){
-		$this->db->where('id', $q);
+		$this->db->where('tb_propertyfinder_id', $q);
 		$query = $this->db->get('propertyfinder');
 		if($query->num_rows > 0){			
 			return $query->result_array();
@@ -46,7 +46,7 @@ class Propertyfinder_model extends CI_Model {
 		if($query->num_rows> 0 ){
 			foreach($query->result_array() as $row){
 				$new_row['label'] = htmlentities(stripslashes($row['re_property']));
-				$new_row['value'] = htmlentities(stripslashes($row['id']));
+				$new_row['value'] = htmlentities(stripslashes($row['tb_propertyfinder_id']));
 				$row_set[] = $new_row;
 			}
 			echo json_encode($row_set);
@@ -85,12 +85,12 @@ class Propertyfinder_model extends CI_Model {
 	}
 
 	public function delete_propertyfinder($id) {
-		$this->db->where('id', $id);
+		$this->db->where('tb_propertyfinder_id', $id);
 		$this->db->delete('propertyfinder');
 	}
 
 	public function update_propertyfinder($id, $data) {		
-		$this->db->where('id', $id);
+		$this->db->where('tb_propertyfinder_id', $id);
 		$this->db->update('propertyfinder', $data); 		
 	}	
 }?>

@@ -111,7 +111,15 @@ class Property_owner extends CI_Controller {
 							              'style'       => 'width:100%;',
 							              'placeholder' => 'Last Name'
 							           );	
-			$query = $this->city_model->get_city();
+			$query = $this->city_model->get_city();       
+                
+        	$city_option = array();
+        	$new = array();
+        	foreach($query as $row){
+            	$new[$row['city_name']] = $row['city_name'];
+            	$city_option = array_merge($city_option, $new);
+        	}
+        	$data['city_option'] = $city_option;
 
 			$city = null;
 			$community = null;
@@ -163,6 +171,8 @@ class Property_owner extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'City'
 							           );
+			$data['city_select_attributes'] = 'name="city" id="city" value="'.$city.'class="form-control"';
+
 			$data['community_attributes'] = array(
 							              'name'        => 'community',
 							              'id'          => 'community',

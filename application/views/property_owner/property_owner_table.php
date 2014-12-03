@@ -65,8 +65,8 @@
                                                 <td><small><?php echo $row->building_name; ?></small></td> 
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
                                                     </div>
                                                 </td>
                                             </tr>
@@ -81,8 +81,8 @@
                                                 <td><small><?php echo $row->building_name; ?></small></td>                                                                                     
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                    
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                    
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete"  class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                    
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete"  class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
                                                     <div>
                                                 </td>
                                             </tr>
@@ -116,7 +116,23 @@
                     	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
                     </div>
                 </footer>
-                <!-- Footer End -->			
+                <!-- Footer End -->
+                <script type="text/javascript">
+                $(document).ready(function() { 
+                    $( "div" ).addClass(function( index, currentClass ) {
+                    var addedClass;
+                     
+                    if ( currentClass === "red" ) {
+                        addedClass = "green";
+                        $( "p" ).text( "There is one green div" );
+                    }
+                     
+                    return addedClass;
+                    $( "#datatables-1_paginate" ).addClass( "btn-blue-3" );
+
+                });
+                </script>
+
             </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->

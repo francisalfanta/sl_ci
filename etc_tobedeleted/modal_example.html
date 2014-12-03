@@ -1,0 +1,67 @@
+<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Cell</th>                                    
+                                <th>Appointment On</th>
+                                <th>Modify Status</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <?php while($row=mysql_fetch_array($getenqs)) 
+                          {
+                           echo '<tr>';
+                           echo '<td>'.$cnt.'</td>';
+                           echo '<td>'.$row['custname'].'</td>';
+                           echo '<td>'.$row['custemail'].'</td>';
+                           echo '<td>'.$row['custcell'].'</td>';
+                           echo '<td>'.datemaker($row['enq_date']).'</td>';
+                           echo '<td align="center">
+<a class="launchModal" data-enid="'.$row['id'].'" data-cn="'.$row['custname'].'" href="#addappModal" class="caddappModal"><i class="fa fa-calendar showgreen"></i></a></td>';
+                               echo '<td align="center"><a data-toggle="modal" href="#modstatModal"><i class="fa fa-pencil showgreen"></i></a></td>';
+                               echo'<td align="center"><a class="tooltips" data-toggle="tooltip" data-placement="left" title="Add as a Member" href="ajax/add-as-member?enqid='.$row['id'].'"><i class="fa fa-share showgreen"></i></a>';
+                               echo'<td align="center"><a class="tooltips" data-toggle="tooltip" data-placement="left" title="Hide this enquiry" href="ajax/hide-enquiry?enqid='.$row['id'].'"><i class="fa fa-minus-circle showgreen"></i></a>';
+                               echo '</tr>';
+
+                          <?php 
+                           } ?>
+                        </tbody>
+                    </table>
+
+<form action="addapp" class="form-horizontal row-border"  data-validate="parsley" id="validate-form">
+                        <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header panel-green">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Add an Appointment for <span id="cn"></span></h4>
+                                    </div>
+
+                                    <div class="modal-body" id="addapp" >
+
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Required Field</label>
+                                                <div class="col-sm-6" >
+                                                    <input type="text" required="required"  class="form-control" id="datepicker">
+                                                    <div id="FormCon"></div>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                        <div class="modal-footer">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-sm-offset-3">
+                                                        <div class="btn-toolbar">
+                                                    <button class="btn-green btn" id="demoskylo" onclick="javascript:$('#validate-form').parsley( 'validate' );">&nbsp;Add Appointment</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                        </form>

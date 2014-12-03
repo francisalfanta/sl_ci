@@ -1,0 +1,22 @@
+$(function() {        
+	$(".email_link").click(function(e) {
+		e.preventDefault();
+		var url = $(this).attr("href");
+               
+                var qryString = $(this).attr("id");
+                var fullUrl = url+'?id='+qryString
+                 
+		var mytitle = "Share this project via email";
+// change url to fullURL
+		$("#dialog").load(fullUrl,null,function() {
+			$("#dialog").dialog({
+				title: mytitle,
+				modal: true,
+				width: 450,
+				close: function(event, ui) {
+				$("#dialog").empty(); // remove the content
+				}//END CLOSE
+			});//END DIALOG
+		});//END DIALOG
+	});//END MODAL_LINK
+});//END FUNCTION

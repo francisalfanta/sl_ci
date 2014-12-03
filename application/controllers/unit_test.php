@@ -15,17 +15,16 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index() {
-        $email  = 'name@example.com';
-	    $user = strstr($email, '@'); // As of PHP 5.3.0
-        //echo $user; // prints name
-		//$test_unit = $this->owner_addr_model->view_owner_details(null, $data['per_page'], 5);
-		$query_propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id(100);
-            if($query_propertyfinder) {
-                echo 'has record';                
-            } else {
-                echo 'no record';
-            }
-
+        $query = $this->city_model->get_city();
+        
+        $test_unit = $query;
+        $option = array();
+        $new = array();
+        foreach($query as $row){
+            $new[$row['city_name']] = $row['city_name'];
+            $option = array_merge($option, $new);
+        }
+        $test_unit = $option;
 		foreach($test_unit as $row){
 			var_dump($row);
 		}
