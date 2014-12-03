@@ -85,16 +85,18 @@ class nationality_model extends CI_Model {
 		$this->db->where('addressCountry', $new_address_insert_data['addressCountry']);
 		$query = $this->db->get('address');
 		
+		$address_id = null;
+
 		if($query->num_rows() > 0) {
 			$row = $query->row();
-			$address_id = $row->address_id;
+			$address_id = $row->id;
 		} else {
 			$this->db->insert('address', $new_address_insert_data);
 			$address_id = $this->db->insert_id();
 		}		
 
-		$this->db->insert('address', $new_address_insert_data);
-		$address_id = $this->db->insert_id();
+		//$this->db->insert('address', $new_address_insert_data);
+		//$address_id = $this->db->insert_id();
 
 		$new_nationality_update_data = array(
 		'telephone_no'  		=> $this->input->post('telephone_no'),
@@ -102,7 +104,7 @@ class nationality_model extends CI_Model {
 		'fax_no'   				=> $this->input->post('fax_no'),
 		'email'					=> $this->input->post('email'),	
 		'address_id'		    => $address_id,
-		'property_owner_id'     => $property_owner_id
+		'property_owner_id'     => $this->input->post('property_owner_id')
 		);
 		$this->db->where('id', $tb_nationality_id);
 		$update = $this->db->update('nationality', $new_nationality_update_data);

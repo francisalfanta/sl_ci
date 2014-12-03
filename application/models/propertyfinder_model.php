@@ -13,9 +13,9 @@ class Propertyfinder_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_propertyfinder($q = FALSE)
-	{
-		if ($q === FALSE)
+	public function get_propertyfinder($q = null)
+	{		
+		if ($q == null) 
 		{
 			$query = $this->db->get('propertyfinder');			
 			return $query->result_array();
@@ -27,8 +27,15 @@ class Propertyfinder_model extends CI_Model {
 		if($query->num_rows > 0){
 			foreach($query->result_array() as $row){
 				$row_set[] = htmlentities(stripslashes($row['re_property']));
-			}
+			}		
 			echo json_encode($row_set);
+		}
+	}
+	public function get_propertyfinder_by_id($q){
+		$this->db->where('id', $q);
+		$query = $this->db->get('propertyfinder');
+		if($query->num_rows > 0){			
+			return $query->result_array();
 		}
 	}	
 
@@ -59,16 +66,22 @@ class Propertyfinder_model extends CI_Model {
 		}
 	}			
 
-	public function create_propertyfinder() {
+	public function create_propertyfinder() {	
 
 		$new_propertyfinder_insert_data = array(
 			'city' 	       => $this->input->post('city'),
 			'community'    => $this->input->post('community_name'),
 			'subcommunity' => $this->input->post('subcommunity_name'),
-			're_property'     => $this->input->post('re_property')
-		);		
-		$insert = $this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
-		return $insert;
+			're_property'  => $this->input->post('re_property'),
+			'property_type'=> $this->input->post('property_type'),
+			'building_name'=> $this->input->post('building_name'),
+			'unit_number'  => $this->input->post('unit_number'),
+			'developer_name'=> $this->input->post('developer_name')
+		);	
+		
+		$this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
+		$insert_id = $this->db->insert_id(); 
+		return $insert_id;
 	}
 
 	public function delete_propertyfinder($id) {

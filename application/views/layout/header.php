@@ -31,8 +31,11 @@
         
                 <!-- Extra CSS Libraries Start -->
                 <?php if(strstr(strtolower($title), 'list')) { ?>
-                    <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-                    <link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
+                    <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+                    <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
+                    
+                    <!--<link href="<?php echo base_url(); ?>assets/libs/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">                    
+                    <script src="<?php echo base_url(); ?>assets/libs/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>-->
                 <?php } ?>
                 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
                 <!-- Extra CSS Libraries End -->

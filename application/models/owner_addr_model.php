@@ -13,18 +13,18 @@ class owner_addr_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_owner_addr($id = FALSE)
+	public function get_owner_addr($property_owner_id = FALSE)
 	{	
 		$this->load->helper('sl_sql_helper');		
 		$sql = sl_sql();
 
-		if ($id === FALSE)
+		if ($property_owner_id === FALSE)
 		{
 			$query = $this->db->query($sql);
 			return $query->result();
 		}
 		$sql = "select * from ( ".$sql. " ) as x  where property_owner_id = ?";
-		$query = $this->db->query($sql,array($id));
+		$query = $this->db->query($sql,array($property_owner_id));
 		return $query->result();
 	}
 

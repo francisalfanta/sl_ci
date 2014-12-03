@@ -3,7 +3,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
  
   function sl_sql() {
     $sql ="SELECT tb_nationality_id, propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
-                  address, addressLocality, addressRegion, addressCountry, property_owner_id, email, fax_no
+                  address, addressLocality, addressRegion, addressCountry, property_owner_id, email, fax_no, status
             FROM
                 ( SELECT owner_properties.*,
                           tb_nationality.id as tb_nationality_id,
@@ -22,14 +22,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -47,14 +47,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -82,14 +82,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -107,14 +107,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -130,7 +130,7 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
             UNION 
 
             SELECT tb_nationality_id, propertyfinder_id, full_name, mobile_no, telephone_no, re_property, property_type, building_name,
-                   address, addressLocality, addressRegion, addressCountry, property_owner_id, email, fax_no           
+                   address, addressLocality, addressRegion, addressCountry, property_owner_id, email, fax_no, status           
             FROM
                   (SELECT owner_properties.*,
                           tb_nationality.id as tb_nationality_id,
@@ -149,14 +149,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -174,14 +174,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -209,14 +209,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property
@@ -234,14 +234,14 @@ if(!defined('BASEPATH')) exit('No direct script access allowed');
                                 tb_propertyfinder.building_name,
                                 tb_propertyfinder.unit_number,
                                 tb_propertyfinder.developer_name
-                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                        FROM (SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               LEFT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id
 
                               UNION
 
-                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, b.tb_propertyfinder_id, b.tb_property_owner_id
+                              SELECT concat(a.first_name,' ',a.last_name) as full_name, a.gender, a.passport_no, a.status, b.tb_propertyfinder_id, b.tb_property_owner_id
                               FROM tb_property_owner a
                               RIGHT OUTER JOIN tb_property_owner_has_tb_propertyfinder b
                               ON a.id = b.tb_property_owner_id) as owned_property

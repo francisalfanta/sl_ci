@@ -24,8 +24,7 @@
                                 <form class='form-horizontal' role='form'>
                                     <table id="datatables-1" data-sortable class="table table-striped">
                                     <thead>
-                                        <tr>     
-                                            <th><small>Edit</small></th>   
+                                        <tr>    
                                             <th><small>Full Name</small></th>                                                                                      
                                             <th><small>Address</small></th> 
                                             <th><small>Mobile no.</small></th> 
@@ -33,19 +32,19 @@
                                             <th><small>Property</small></th>
                                             <th><small>Property type</small></th>
                                             <th><small>Bldg Name</small></th>                                                
+                                           
                                             <th data-sortable="false">Option</th>
                                         </tr>
                                     </thead> 
                                     <tfoot>
-                                        <tr>
-                                            <th><small>Edit</small></th>   
+                                        <tr>                                            
                                             <th><small>Full Name</small></th>                                                                                      
                                             <th><small>Address</small></th> 
                                             <th><small>Mobile no.</small></th> 
                                             <th><small>Tel no.</small></th>
                                             <th><small>Property</small></th>
                                             <th><small>Property type</small></th>
-                                            <th><small>Bldg Name</small></th>                                                 
+                                                                                      
                                             <th data-sortable="false">Option</th>
                                             </tr>
                                     </tfoot>                                       
@@ -56,42 +55,34 @@
                                                 if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;}                                                
                                                 if( count($parents)==1 && $row->property_owner_id == $parents['id']) { 
                                                 // Display selected record?>
-                                            <tr>  
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                                                    </div>
-                                                </td>
+                                            <tr> 
                                                 <td><small><?php echo $row->full_name; ?></small></td>                 
                                                 <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
                                                 <td><small><?php echo $row->mobile_no; ?></small></td>                                               
                                                 <td><small><?php echo $row->telephone_no; ?></small></td>
                                                 <td><small><?php echo $row->re_property; ?></small></td>
                                                 <td><small><?php echo $row->property_type; ?></small></td>
-                                                <td><small><?php echo $row->building_name; ?></small></td>                                                  
+                                                <td><small><?php echo $row->building_name; ?></small></td> 
                                                 <td>
-                                                    <div class="btn-group btn-group-xs">
+                                                    <div class="btn-group btn-group-xs">                                                                                                                                                                
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
                                                         <a href="<?php echo base_url('property_owner/del_nat/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
                                                     </div>
                                                 </td>
                                             </tr>
                                             <?php } else { // Display all record ?> 
-                                            <tr>       
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                    
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                                                    </div>
-                                                </td>   
+                                            <tr> 
                                                 <td><small><?php echo $row->full_name; ?></small></td>     
                                                 <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
                                                 <td><small><?php echo $row->mobile_no; ?></small></td>
                                                 <td><small><?php echo $row->telephone_no; ?></small></td>
                                                 <td><small><?php echo $row->re_property; ?></small></td>
                                                 <td><small><?php echo $row->property_type; ?></small></td>
-                                                <td><small><?php echo $row->building_name; ?></small></td>                                               
+                                                <td><small><?php echo $row->building_name; ?></small></td>                                                                                     
                                                 <td>
-                                                    <div class="btn-group btn-group-xs">                                                  
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>
+                                                    <div class="btn-group btn-group-xs">                                                                    
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->property_owner_id.'/'.$row->propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                    
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete"  class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
                                                     <div>
                                                 </td>
                                             </tr>

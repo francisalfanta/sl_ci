@@ -68,7 +68,7 @@
                                 <h2>Contact Details</h2> 
                                 <div class="additional-btn">
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                    <a href="<?php echo base_url('nationality/create_owner_contact_details/'.$this->uri->segment(3,0)); ?>"><i class="icon-user-add"></i></a>
+                                    <a href="<?php echo base_url('nationality/create_page/'.$this->uri->segment(3,0)); ?>"><i class="icon-user-add"></i></a>
                                 </div>                                                              
                             </div>
                             <div class="widget-content padding">      
@@ -99,7 +99,7 @@
                                             <tr>  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a href="<?php echo base_url('nationality/update_owner_contact_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('nationality/view_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>                 
                                                 <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
@@ -109,7 +109,7 @@
                                                 <td><?php echo $row->fax_no; ?></td>                                                  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                       <a href="<?php echo base_url('nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                     
+                                                       <a href="<?php $url = 'nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id.'/'.$propertyfinder_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                     
                                                     </div>
                                                 </td>
                                             </tr>
@@ -121,6 +121,89 @@
                              </div><!-- widget-content padding -->                       
                         </div><!-- widget -->                        
 					</div><!-- col-md-12 portlets -->
+                     <!-- Horizontal Form Start here --> 
+                        <div class="portlets">                        
+                            <div class="widget">
+                                <div class="widget-header transparent">
+                                    <h2><strong>Property Details</strong> Form</h2>
+                                    <div class="additional-btn">
+                                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                    </div>
+                                </div>
+                                <div class="widget-content padding">                        
+                                <div id="horizontal-form">
+                                       
+                                    <div class="form-group"> <!-- City -->
+                                        <label for="city" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($city_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Community -->
+                                        <label for="community" class="col-sm-2 control-label">Community</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($community_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Sub-community -->
+                                        <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($subcommunity_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Property -->
+                                        <label for="reproperty" class="col-sm-2 control-label">Property</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($reproperty_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Property Type -->
+                                        <label for="property_type" class="col-sm-2 control-label">Property Type</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($property_type_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Building name -->
+                                        <label for="building_name" class="col-sm-2 control-label">Building name</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($building_name_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Unit no -->
+                                        <label for="unit_number" class="col-sm-2 control-label">Unit no</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($unit_number_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Developer name -->
+                                        <label for="developer_name" class="col-sm-2 control-label">Developer name</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($developer_name_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->                               
+
+                                </div>
+                                </div>
+                            </div>                        
+                        </div>
+                        <!-- Horizontal Form End here -->
                     <div class="portlets">
                         <div class="widget">
                         <div class="widget-content padding">                                                              

@@ -160,7 +160,7 @@
                             <div class="form-group">
                                 <div>
                                     <button type="submit" name="formsubmit" class="btn btn-green-1" tabindex="4">Save</button>                                              
-                                    <a href="<?php echo base_url('property_owner'); ?>"><button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
+                                    <!--<a href="<?php $url = "property_owner/view_property_owner/".$this->uri->segment(3,0); echo base_url($url); ?>"><button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>-->
                                 </div>
                             </div> <!-- form-group -->
                         </div><!-- widget-content padding -->

@@ -44,6 +44,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['pharaoh'] ='pharaoh';
 $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
 $route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';

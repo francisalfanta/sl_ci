@@ -6,16 +6,15 @@
 if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Nationality extends CI_Controller {
-
 	public function __construct(){
 		parent::__construct();
 		// all model were autoloaded
 	}
 	
-	public function view_details($property_owner_id =false, $nationality_id = false)
+	public function view_details($property_owner_id, $tb_nationality_id)
 	{	
 		//if $id is null redirect to index
-		if($nationality_id && $property_owner_id){
+		//if(is_numeric($nationality_id) && is_numeric($property_owner_id)){
 			// database query 
 			$data['staffs']    = $this->slcs_staff_model->get_staff();
 			$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
@@ -33,8 +32,9 @@ class Nationality extends CI_Controller {
 			$fax_no      = null;
 			$email       = null;
 			$address     = null;
+
 			
-			$nationality = $this->nationality_model->get_nationality($nationality_id);
+			$nationality = $this->nationality_model->get_nationality($tb_nationality_id);
 			if(isset($nationality['telephone_no'])) {
 				$telephone_no = $nationality['telephone_no'];	
 			}
@@ -56,7 +56,7 @@ class Nationality extends CI_Controller {
 			$middle_name = null;
 			$last_name   = null;
 			
-			$parents       	    = $this->property_owner_model->get_prop_owner($nationality_id);	
+			$parents       	    = $this->property_owner_model->get_prop_owner($property_owner_id);	
 			if(isset($parents['passport_no'])) {
 				$passport_no   = $parents['passport_no'];	
 			}
@@ -134,19 +134,92 @@ class Nationality extends CI_Controller {
 							              'class' 		=> 'form-control',
 							              'style'       => 'width:100%;',
 							              'placeholder' => 'Email'
-							           );		
+							           );	
+
+			$address = null;
+			$postalcode = null;
+			$postofficeboxnumber = null;
+			$addressregion = null;
+			$addresslocality = null;
+			$addresscountry = null;
+
+			if(isset($nationality['address_id'])) {				
+				$this->load->database();
+				$this->db->where('id', $nationality['address_id']);
+				$address_query = $this->db->get('address');	
+
+				if($address_query->num_rows > 0){
+					$row = $address_query->row();
+					$address = $row->address;
+					$postalcode = $row->postalcode;
+					$postofficeboxnumber = $row->postofficeboxnumber;
+					$addressregion = $row->addressRegion;
+					$addresslocality = $row->addressLocality;
+					$addresscountry = $row->addressCountry;
+				
+			}
+
+			
+			$data['addr_attributes'] = array(
+							              'name'        => 'address',
+							              'id'          => 'address',
+							              'value'       => $address,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Street Address'
+							           );	
+			$data['postalcode_attributes'] = array(
+							              'name'        => 'postalcode',
+							              'id'          => 'postalcode',
+							              'value'       => $postalcode,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Postal Code'
+							           );	
+			$data['postalboxno_attributes'] = array(
+							              'name'        => 'postofficeboxnumber',
+							              'id'          => 'postofficeboxnumber',
+							              'value'       => $postofficeboxnumber,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Postal Office Box Number'
+							           );
+			$data['addr_region_attributes'] = array(
+							              'name'        => 'addressregion',
+							              'id'          => 'addressregion',
+							              'value'       => $addressregion,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Address Region'
+							           );
+			$data['addr_locality_attributes'] = array(
+							              'name'        => 'addresslocality',
+							              'id'          => 'addresslocality',
+							              'value'       => $addresslocality,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Address Locality'
+							           );
+			$data['addr_country_attributes'] = array(
+							              'name'        => 'addresscountry',
+							              'id'          => 'addresscountry',
+							              'value'       => $addresscountry,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Address Country'
+							           );	
 
 			$this->load->view('layout/header', $data);
 			$this->load->view('layout/topbar');
 			$this->load->view('layout/admin_left_sidemenu', $data);
 			$this->load->view('layout/right_sidemenu');
-			$this->load->view('nationality/nationality_form', $data);		
+			$this->load->view('nationality/nationality_form_edit', $data);		
 			$this->load->view('layout/footer');	
-		} else {
-			redirect('property_owner');
+		//} else {
+		//	redirect('property_owner');
 		}
 	}
-	public function create_owner_contact_details($property_owner_id)
+	public function create_page($property_owner_id)
 	{		
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
@@ -305,6 +378,16 @@ class Nationality extends CI_Controller {
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 						              'placeholder' => 'Address Country'
 						           );
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu', $data);
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('nationality/nationality_form_add', $data);		
+		$this->load->view('layout/footer');	
+	}
+
+	public function create_owner_contact_details($property_owner_id) {
+
 
 		$this->form_validation->set_rules('passport_no', 'Passport No', 'required');
 		$this->form_validation->set_rules('first_name', 'First Name', 'required');
@@ -325,12 +408,8 @@ class Nationality extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{				
-			$this->load->view('layout/header', $data);
-			$this->load->view('layout/topbar');
-			$this->load->view('layout/admin_left_sidemenu', $data);
-			$this->load->view('layout/right_sidemenu');
-			$this->load->view('nationality/nationality_form_add', $data);		
-			$this->load->view('layout/footer');	
+			//$this->create_page();
+			redirect('property_owner/view_property_owner/'.$property_owner_id);
 		}
 		else
 		{
@@ -462,7 +541,7 @@ class Nationality extends CI_Controller {
 		$postalcode = null;
 		$postofficeboxnumber = null;
 		$addressregion = null;
-		$addesslocality = null;
+		$addresslocality = null;
 		$addresscountry = null;
 
 		$this->load->database();
@@ -512,9 +591,9 @@ class Nationality extends CI_Controller {
 						              'placeholder' => 'Address Region'
 						           );
 		$data['addr_locality_attributes'] = array(
-						              'name'        => 'addesslocality',
-						              'id'          => 'addesslocality',
-						              'value'       => $addesslocality,
+						              'name'        => 'addresslocality',
+						              'id'          => 'addresslocality',
+						              'value'       => $addresslocality,
 						              'class' 		=> 'form-control',
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 						              'placeholder' => 'Address Locality'
@@ -552,21 +631,21 @@ class Nationality extends CI_Controller {
 			$this->load->view('layout/admin_left_sidemenu', $data);
 			$this->load->view('layout/right_sidemenu');
 			$this->load->view('nationality/nationality_form_edit', $data);		
-			$this->load->view('layout/footer');	
+			$this->load->view('layout/footer');
 		}
 		else
 		{
 			if($query = $this->nationality_model->update_nationality($tb_nationality_id)){
-				// fetch new inserted property owner id and redirect to view
+				// fetch new inserted property owner id and redirect to view				
 				redirect('property_owner/view_property_owner/'.$property_owner_id);
 			}
 		}		
 	}
 
-	public function del_nat($property_owner_id, $nationality_id){		
+	public function del_nat($property_owner_id, $nationality_id, $propertyfinder_id){		
 		$this->nationality_model->delete_nationality($nationality_id);
 		
-		redirect('property_owner/view_property_owner/'.$property_owner_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);
 	}
 
 	public function update_nat()

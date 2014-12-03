@@ -13,9 +13,9 @@ class city_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_city($q = FALSE)
+	public function get_city($q = null)
 	{
-		if($q == FALSE) {
+		if($q == null) {
 			$query = $this->db->get('city');
 			return $query->result_array();
 		}

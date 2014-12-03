@@ -5,7 +5,7 @@
 */
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class property_owner_has_tb_propertyfinder_model extends CI_Model{
+class Property_owner_has_tb_propertyfinder_model extends CI_Model{
 
 	public function __construct()
 	{
@@ -25,8 +25,13 @@ class property_owner_has_tb_propertyfinder_model extends CI_Model{
 		var_dump('success delete');
 	}
 	
-	public function add_record(){
-		pass;
+	public function add_record($tb_property_owner_id, $tb_propertyfinder_id){
+		$data = array(
+				'tb_property_owner_id' 	=> $tb_property_owner_id,
+				'tb_propertyfinder_id' 	=> $tb_propertyfinder_id
+				);
+		$insert = $this->db->insert('property_owner_has_tb_propertyfinder', $data);
+		return $insert;
 	}
 
 	public function edit_record(){
