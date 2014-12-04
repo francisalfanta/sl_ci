@@ -57,7 +57,7 @@
         <link rel="apple-touch-icon" sizes="120x120" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
-        <?php if($title =='SoftLine | Property Finder'){
+        <?php if($title =='SoftLine | Property Finder' || $title == 'SoftLine | Property Owner'){
             echo '<link href="'.base_url('assets/libs/select2-3.5.2/select2.css').'" rel="stylesheet"/>';            
         }?>
 
@@ -76,3 +76,11 @@
         
     </head>
     <body class="fixed-left login-page">
+        <div id="indexLoader" style="width:100%;height:100%;position: absolute; background: white; opacity:0.8;">
+        <center>
+            <br /><br />
+            <img src="<?php base_url('assets/img/ajax-loader.gif'); ?>">
+            <br /><br />
+            Please wait the site is Loading ...
+        </center>
+        </div> 

@@ -15,16 +15,11 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index() {
-        $query = $this->city_model->get_city();
-        
-        $test_unit = $query;
-        $option = array();
-        $new = array();
-        foreach($query as $row){
-            $new[$row['city_name']] = $row['city_name'];
-            $option = array_merge($option, $new);
-        }
-        $test_unit = $option;
+        $query_propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id(4442);
+        if($query_propertyfinder) { echo 'yes'; }
+
+        $test_unit = $query_propertyfinder;
+
 		foreach($test_unit as $row){
 			var_dump($row);
 		}

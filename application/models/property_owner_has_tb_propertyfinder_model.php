@@ -21,7 +21,7 @@ class Property_owner_has_tb_propertyfinder_model extends CI_Model{
 	public function del_record($property_owner_id, $propertyfinder_id ){
 		$this->db->where('tb_propertyfinder_id', $propertyfinder_id);
 		$this->db->where('tb_property_owner_id', $property_owner_id);
-		$this->db->delete('property_owner_has_tb_propertyfinder_model');
+		$this->db->delete('property_owner_has_tb_propertyfinder');
 		var_dump('success delete');
 	}
 	

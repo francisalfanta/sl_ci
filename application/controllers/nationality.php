@@ -77,7 +77,8 @@ class Nationality extends CI_Controller {
 							              'value'       => $passport_no,				              
 							              'style'       => 'width:50%;',//
 							              'class' 		=> 'form-control ',
-							              'placeholder' => 'Passport No'
+							              'placeholder' => 'Passport No',
+							              'readOnly'    => 'readonly'
 							           );
 			$data['fn_attributes']    = array(
 							              'name'        => 'first_name',
@@ -85,7 +86,8 @@ class Nationality extends CI_Controller {
 							              'value'       => $first_name,						              
 							              'class' 		=> 'form-control',
 							              'style'       => 'width:100%;',
-							              'placeholder' => 'First Name'
+							              'placeholder' => 'First Name',
+							              'readOnly'    => 'readonly'
 							           );
 			$data['mn_attributes']    = array(
 							              'name'        => 'middle_name',
@@ -93,7 +95,9 @@ class Nationality extends CI_Controller {
 							              'value'       => $middle_name,
 							              'class' 		=> 'form-control',
 							              'style'       => 'width:100%;',
-							              'placeholder' => 'Middle Name'
+							              'placeholder' => 'Middle Name',
+							              'readOnly'    => 'readonly'
+
 							           );
 			$data['ln_attributes']    = array(
 							              'name'        => 'last_name',
@@ -101,7 +105,8 @@ class Nationality extends CI_Controller {
 							              'value'       => $last_name,
 							              'class' 		=> 'form-control',
 							              'style'       => 'width:100%;',
-							              'placeholder' => 'Last Name'
+							              'placeholder' => 'Last Name',
+							              'readOnly'    => 'readonly'
 							           );
 			$data['tel_attributes']   = array(
 							              'name'        => 'telephone_no',
@@ -200,6 +205,20 @@ class Nationality extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Address Locality'
 							           );
+			// form dropdown Country
+			$country_query = $this->country_model->get_country(); 
+            
+            $country_options = array();
+        	$new = array();
+            foreach($country_query as $row){
+            	$new[$row['country_name']] = $row['country_name'];
+            	$country_options = array_merge($country_options, $new);
+        	}
+        	$data['country_options'] = $country_options;
+        	$data['country_select_attributes'] = 'name="addresscountry" id="addresscountry" class="form-control"';
+        	$data['addresscountry'] = $addresscountry;
+        	// end form dropdown Country
+
 			$data['addr_country_attributes'] = array(
 							              'name'        => 'addresscountry',
 							              'id'          => 'addresscountry',
@@ -224,7 +243,7 @@ class Nationality extends CI_Controller {
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
 		$data['sections']   = $this->sections_model->get_sections();
-		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
 
 		$username           = $this->session->userdata('username'); 					
 		$data['username']   = ucfirst($username);	
@@ -243,7 +262,8 @@ class Nationality extends CI_Controller {
 		$first_name  = null;
 		$middle_name = null;
 		$last_name   = null;
-		
+
+
 		$parents       	   = $this->property_owner_model->get_prop_owner($property_owner_id);	
 		if(isset($parents['passport_no'])) {
 			$passport_no   = $parents['passport_no'];	
@@ -329,6 +349,20 @@ class Nationality extends CI_Controller {
 		$addressregion = null;
 		$addesslocality = null;
 		$addresscountry = null;
+
+		// form dropdown Country
+		$country_query = $this->country_model->get_country(); 
+        
+        $country_options = array();
+    	$new = array();
+        foreach($country_query as $row){
+        	$new[$row['country_name']] = $row['country_name'];
+        	$country_options = array_merge($country_options, $new);
+    	}
+    	$data['country_options'] = $country_options;
+    	$data['country_select_attributes'] = 'name="addresscountry" id="addresscountry" class="form-control"';
+    	$data['addresscountry'] = $addresscountry;
+    	// end form dropdown Country
 
 		$data['addr_attributes'] = array(
 						              'name'        => 'address',
@@ -607,10 +641,10 @@ class Nationality extends CI_Controller {
 						              'placeholder' => 'Address Country'
 						           );
 
-		$this->form_validation->set_rules('passport_no', 'Passport No', 'required');
-		$this->form_validation->set_rules('first_name', 'First Name', 'required');
-		$this->form_validation->set_rules('middle_name', 'Middle Name', 'required');
-		$this->form_validation->set_rules('last_name', 'Last Name', 'required');
+		$this->form_validation->set_rules('passport_no', 'Passport No');
+		$this->form_validation->set_rules('first_name', 'First Name');
+		$this->form_validation->set_rules('middle_name', 'Middle Name');
+		$this->form_validation->set_rules('last_name', 'Last Name');
 
 		$this->form_validation->set_rules('telephone_no', 'Telephone No');
 		$this->form_validation->set_rules('mobile_no', 'Mobile No');

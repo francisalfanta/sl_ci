@@ -79,54 +79,382 @@ class Slcs_staff extends CI_Controller {
 		$username = $this->session->userdata('username'); 					
 		$data['username'] = ucfirst($username);	
 		$data['title'] = 'SoftLine | Add new staff';
-
-		$data['table_fields'] = array(
-			'fname' => array('fname', 'First Name'),
-			'lname' => array('lname', 'Last Name'),
-			'mnumber' => array('mnumber', 'Mobile No'),
-			'username' => array('username', 'Username'),
-			'password' => array('password', 'Password'),
-			'passconf' => array('passconf', 'Password Confirm'),
-			'placeofbirth' => array('placeofbirth', 'Place of Birth'),
-			'passport_no' => array('passport_no', 'Passport No'),
-			'nationality' => array('nationality', 'Nationality'),
-			'marital_stat' => array('marital_stat', 'Marital Status'),
-			'date_hired' => array('date_hired', 'Date Hired'),
-			'date_started' => array('date_started', 'Date Started'),
-			'dob' => array('dob', 'Date of Birth')
-			);
-
-		$this->form_validation->set_rules('fname', 'First Name', 'required');
-		$this->form_validation->set_rules('lname', 'Last Name', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[slcs_staff.email]');
-		$this->form_validation->set_rules('username', 'Username', 'required|min_length[5]|max_length[12]|is_unique[slcs_staff.username]');
-		$this->form_validation->set_rules('password', 'Password', 'required|matches[passconf]');
-		$this->form_validation->set_rules('passconf', 'Password Confirmation', 'required');
-		$this->form_validation->set_rules('placeofbirth', 'Place of Birth', 'required');
-		$this->form_validation->set_rules('passport_no', 'Passport No', 'required');
+		//Biodata
+		$this->form_validation->set_rules('fname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
+		$this->form_validation->set_rules('mname', 'Middle name', 'trim|required|min_length[2]|alpha_space_hypen');
+		$this->form_validation->set_rules('lname', 'Last name', 'trim|required|min_length[2]|alpha_space_hypen');
+		$this->form_validation->set_rules('radio_gender', 'Gender', 'trim|required');
+		$this->form_validation->set_rules('dob', 'Date of birth', 'trim|required|valid_date');	
+		$this->form_validation->set_rules('age', 'Age', 'required|numeric|max_length[2]');
+		$this->form_validation->set_rules('pob', 'Place of birth', 'required|alpha_space_hypen');
 		$this->form_validation->set_rules('nationality', 'Nationality', 'required');
-		$this->form_validation->set_rules('marital_stat', 'Marital Status', 'required');
-		$this->form_validation->set_rules('date_hired', 'Date Hired', 'required');
-		$this->form_validation->set_rules('date_started', 'Date Started', 'required');
-		$this->form_validation->set_rules('dob', 'Date of Birth', 'required');		
-
-		if ($this->form_validation->run() == FALSE)
+		$this->form_validation->set_rules('radio_ms', 'Marital status', 'required');
+		$this->form_validation->set_rules('ms_stat','alpha_space_hypen');		
+		$this->form_validation->set_rules('language', 'Language', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('ppno', 'Passport no.', 'required|alpha_numeric');
+		$this->form_validation->set_rules('toc', 'Type of contract', 'trim|required|alpha_space_hypen');
+		$this->form_validation->set_rules('dh', 'Date hired', 'required||valid_date');
+		$this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
+		$this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
+		//Contact
+		$this->form_validation->set_rules('vno', 'Villa no.', 'required|numeric');
+		$this->form_validation->set_rules('st', 'Street', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('csp', 'City/State/Province', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('ca', 'Complete address', 'required');
+		$this->form_validation->set_rules('ea', 'Email address', 'required|valid_emails|is_unique[slcs_staff.email]');
+		$this->form_validation->set_rules('mn', 'Mobile no.', 'required|num_space_hypen');
+		$this->form_validation->set_rules('hn', 'Home Phone no.', 'required|num_space_hypen');
+		//Emergency
+		$this->form_validation->set_rules('n1', 'Name', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('r1', 'Relationship', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('mn1', 'Mobile no.', 'required|num_space_hypen');
+		$this->form_validation->set_rules('ca1', 'Complete Address', 'required');		
+		$this->form_validation->set_rules('n2', 'Name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('r2', 'Relationship', 'alpha_space_hypen');
+		$this->form_validation->set_rules('mn2', 'Mobile no.', 'num_space_hypen');
+		$this->form_validation->set_rules('ca2', 'Complete Address', '');		
+		$this->form_validation->set_rules('n3', 'Name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('r3', 'Relationship', 'alpha_space_hypen');
+		$this->form_validation->set_rules('mn3', 'Mobile no.', 'num_space_hypen');
+		$this->form_validation->set_rules('ca3', 'Complete Address', '');		
+		//Banking Details
+		$this->form_validation->set_rules('bnkn', 'Bank name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('bnkbn', 'Branch name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('bnkaname', 'Account name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('bnkanumber', 'Account number', 'numeric');
+		//Position Details
+		$this->form_validation->set_rules('pos_t', 'Position Title', 'required|alpha_space_hypen');
+		$this->form_validation->set_rules('estat', 'Employment status', 'required');
+		//Salary & Wages details
+		$this->form_validation->set_rules('basic_salary', 'Basic salary', 'required|numeric');
+		$this->form_validation->set_rules('accom', 'Amount', 'numeric');
+		$this->form_validation->set_rules('transpo', 'Amount', 'numeric');
+		$this->form_validation->set_rules('tamt', 'Amount', 'numeric');
+		$this->form_validation->set_rules('tamt_sal', 'Amount', 'numeric');
+		$this->form_validation->set_rules('yrs', 'Years', 'numeric');
+		$this->form_validation->set_rules('mnths', 'Months', 'numeric');
+		$this->form_validation->set_rules('radiogp', 'Graduity Pay');
+		$this->form_validation->set_rules('radiotoc', 'Type of contract');
+		//Benefits Details
+		$this->form_validation->set_rules('midcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('midate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('mexdate', 'Expiry Date', 'valid_date');
+		$this->form_validation->set_rules('bdbonus', 'Bonus', 'numeric');
+		//Licenses and IDS
+		$this->form_validation->set_rules('dlidcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('dlidate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('dlexdate', 'Expiry Date', 'valid_date');
+		
+		$this->form_validation->set_rules('lcidcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('lcidate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('lcexdate', 'Expiry Date', 'valid_date');		
+		
+		$this->form_validation->set_rules('ridcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('ridate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('rexdate', 'Expiry Date', 'valid_date');
+		
+		$this->form_validation->set_rules('vsidcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('vsidate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('vsexdate', 'Expiry Date', 'valid_date');
+		
+		$this->form_validation->set_rules('othersidcno', 'ID Number', 'numeric');
+		$this->form_validation->set_rules('othersidate', 'Issue Date', 'valid_date');
+		$this->form_validation->set_rules('othersexdate', 'Expiry Date', 'valid_date');
+				
+		$this->form_validation->set_message('is_unique', 'Email address already exists');
+		$this->form_validation->set_message('num_space_hypen', '%s should be number, spaces, & hypen only.');
+		$this->form_validation->set_message('alpha_space_hypen', '%s should be alpha, spaces, & hypen only.');
+		$this->form_validation->set_message('valid_date', '%s must be MM/DD/YYYY format.');
+		
+		$config['upload_path']          = './images/profile_pic/.';
+        $config['allowed_types']        = 'gif|jpg|jpeg|png';
+        $this->load->library('upload', $config);
+		//$image_data =  array(‘upload_data’ => $this->upload->data());
+		
+		if ($this->form_validation->run() == TRUE)
 		{
-			$this->load->helper('url');
+			if ($this->upload->do_upload('userfile') == TRUE)
+			{
+				
+				
+				$file_data = $this->upload->data();
+				$data_ary = array(
+					'title'     => $file_data['client_name'],
+					'file'      => $file_data['file_name'],
+					'width'     => $file_data['image_width'],
+					'height'    => $file_data['image_height'],
+					'type'      => $file_data['image_type'],
+					'size'      => $file_data['file_size'],
+					'date'      => time(),
+					'fullpath'      => $file_data['file_path']
+					);					
+					
+				$upload_data = $this->upload->data();
+				$filename = $upload_data['file_name'];
+										
+				$data = array('upload_data' => $file_data);
+				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
+				$this->load->view('slcs_staff/biodatapic_success', $data);
+					
+				$this->slcs_staff_model->create_staff($filename);
+				redirect('slcs_staff/slcs_staff', $data);
+			}
+			else{
+								
+				$this->load->helper('url','form');
+				$this->load->view('layout/header', $data);
+				$this->load->view('layout/topbar');
+				$this->load->view('layout/admin_left_sidemenu');
+				$this->load->view('layout/right_sidemenu');
+				$this->load->view('slcs_staff/biodata',$data);
+					$error = array('error' => $this->upload->display_errors());
+					$this->load->view('slcs_staff/biodatapic',$error);						
+				$this->load->view('slcs_staff/contact'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/emergency'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/banking'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/position'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/salary'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/benefits'); //added by prime 11/27/2014
+				$this->load->view('slcs_staff/license'); //added by prime 11/27/2014
+				$this->load->view('layout/footer');	
+			}
+		
+		}else{
+					
+			$this->load->helper('url','form');
 			$this->load->view('layout/header', $data);
 			$this->load->view('layout/topbar');
 			$this->load->view('layout/admin_left_sidemenu');
 			$this->load->view('layout/right_sidemenu');
-			$this->load->view('slcs_staff/create_slcs_staff_form', $data);
-			$this->load->view('layout/footer');				
+			$this->load->view('slcs_staff/biodata',$data);
+			$this->load->view('slcs_staff/biodatapic',array('error'=>''));						
+			$this->load->view('slcs_staff/contact'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/emergency'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/banking'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/position'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/salary'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/benefits'); //added by prime 11/27/2014
+			$this->load->view('slcs_staff/license'); //added by prime 11/27/2014
+			$this->load->view('layout/footer');	
+		
+			}
+		
+		
+	}
+	
+	public function del($q)
+	{
+		$this->slcs_staff_model->delete_staff($q);
+		$this->index();
+	}
+	
+	public function edit($id)
+	{
+		$row = $this->slcs_staff_model->get_slcs_staff($id);
+		$data['r'] = $row;
+		
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');
+		
+		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		
+		$username = $this->session->userdata('username'); 					
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Edit staff';
+		
+		
+		$this->load->helper('url','form');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/right_sidemenu');
+		
+		$this->load->view('slcs_staff/editbiodata',$data);
+		$this->load->view('slcs_staff/editbiodatapic', $data);
+		$this->load->view('slcs_staff/editcontact',$data);
+		$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
+		$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
+		$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
+		$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
+		$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
+		$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
+		$this->load->view('layout/footer');	
+	}
+	
+	public function update($id)	
+	{	
+		 $id = $this->input->post('id');
+		 $this->form_validation->set_rules('fname', 'First name', 'trim|required|min_length[2]');
+		 $this->form_validation->set_rules('mname', 'Middle name', 'trim|required|min_length[2]|alpha_space_hypen');
+		 $this->form_validation->set_rules('lname', 'Last name', 'trim|required|min_length[2]|alpha_space_hypen');
+		 $this->form_validation->set_rules('radio_gender', 'Gender', 'trim|required');
+		 $this->form_validation->set_rules('dob', 'Date of birth', 'trim|required|valid_date');	
+		 $this->form_validation->set_rules('age', 'Age', 'required|numeric|max_length[2]');
+		 $this->form_validation->set_rules('pob', 'Place of birth', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('nationality', 'Nationality', 'required');
+		 $this->form_validation->set_rules('radio_ms', 'Marital status', 'required');
+	     $this->form_validation->set_rules('ms_stat','alpha_space_hypen');		
+		 $this->form_validation->set_rules('language', 'Language', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('ppno', 'Passport no.', 'required|alpha_numeric');
+		 $this->form_validation->set_rules('toc', 'Type of contract', 'trim|required|alpha_space_hypen');
+		 $this->form_validation->set_rules('dh', 'Date hired', 'required||valid_date');
+		 $this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
+		 $this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
+		 //Contact
+		 $this->form_validation->set_rules('vno', 'Villa no.', 'required|numeric');
+		 $this->form_validation->set_rules('st', 'Street', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('csp', 'City/State/Province', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('ca', 'Complete address', 'required');
+		 $this->form_validation->set_rules('ea', 'Email address', 'required|valid_emails');
+		 $this->form_validation->set_rules('mn', 'Mobile no.', 'required|num_space_hypen');
+		 $this->form_validation->set_rules('hn', 'Home Phone no.', 'required|num_space_hypen');
+		 //Emergency
+		 $this->form_validation->set_rules('n1', 'Name', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('r1', 'Relationship', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('mn1', 'Mobile no.', 'required|num_space_hypen');
+		 $this->form_validation->set_rules('ca1', 'Complete Address', 'required');		
+		 $this->form_validation->set_rules('n2', 'Name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('r2', 'Relationship', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('mn2', 'Mobile no.', 'num_space_hypen');
+		 $this->form_validation->set_rules('ca2', 'Complete Address', '');		
+		 $this->form_validation->set_rules('n3', 'Name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('r3', 'Relationship', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('mn3', 'Mobile no.', 'num_space_hypen');
+		 $this->form_validation->set_rules('ca3', 'Complete Address', '');		
+		 //Banking Details
+		 $this->form_validation->set_rules('bnkn', 'Bank name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('bnkbn', 'Branch name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('bnkaname', 'Account name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('bnkanumber', 'Account number', 'numeric');
+		 //Position Details
+		 $this->form_validation->set_rules('pos_t', 'Position Title', 'required|alpha_space_hypen');
+		 $this->form_validation->set_rules('estat', 'Employment status', 'required');
+		 //Salary & Wages details
+		 $this->form_validation->set_rules('basic_salary', 'Basic salary', 'required|numeric');
+		 $this->form_validation->set_rules('accom', 'Amount', 'numeric');
+		 $this->form_validation->set_rules('transpo', 'Amount', 'numeric');
+		 $this->form_validation->set_rules('tamt', 'Amount', 'numeric');
+		 $this->form_validation->set_rules('tamt_sal', 'Amount', 'numeric');
+		 $this->form_validation->set_rules('yrs', 'Years', 'numeric');
+		 $this->form_validation->set_rules('mnths', 'Months', 'numeric');
+		 $this->form_validation->set_rules('radiogp', 'Graduity Pay');
+		 $this->form_validation->set_rules('radiotoc', 'Type of contract');
+		 //Benefits Details
+		 $this->form_validation->set_rules('midcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('midate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('mexdate', 'Expiry Date', 'valid_date');
+		 $this->form_validation->set_rules('bdbonus', 'Bonus', 'numeric');
+		 //Licenses and IDS
+		 $this->form_validation->set_rules('dlidcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('dlidate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('dlexdate', 'Expiry Date', 'valid_date');
+		 
+		 $this->form_validation->set_rules('lcidcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('lcidate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('lcexdate', 'Expiry Date', 'valid_date');		
+			
+		 $this->form_validation->set_rules('ridcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('ridate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('rexdate', 'Expiry Date', 'valid_date');
+		
+		 $this->form_validation->set_rules('vsidcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('vsidate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('vsexdate', 'Expiry Date', 'valid_date');
+			
+		 $this->form_validation->set_rules('othersidcno', 'ID Number', 'numeric');
+		 $this->form_validation->set_rules('othersidate', 'Issue Date', 'valid_date');
+		 $this->form_validation->set_rules('othersexdate', 'Expiry Date', 'valid_date');
+				
+		 $this->form_validation->set_message('is_unique', 'Email address already exists');
+		 $this->form_validation->set_message('num_space_hypen', '%s should be number, spaces, & hypen only.');
+		 $this->form_validation->set_message('alpha_space_hypen', '%s should be alpha, spaces, & hypen only.');
+		 $this->form_validation->set_message('valid_date', '%s must be MM/DD/YYYY format.');
+		 
+		 $config['upload_path']          = './images/profile_pic/.';
+         $config['allowed_types']        = 'gif|jpg|jpeg|png';
+         $this->load->library('upload', $config);
+		
+		if ($this->form_validation->run() == TRUE)
+		{
+			if ($this->upload->do_upload('userfile') == TRUE)
+			{
+				
+				$file_data = $this->upload->data();
+				$data_ary = array(
+					'title'     => $file_data['client_name'],
+					'file'      => $file_data['file_name'],
+					'width'     => $file_data['image_width'],
+					'height'    => $file_data['image_height'],
+					'type'      => $file_data['image_type'],
+					'size'      => $file_data['file_size'],
+					'date'      => time(),
+					'fullpath'      => $file_data['file_path']
+					);
+				//$this->load->database();
+				//$this->db->insert('upload', $data_ary);
+				$upload_data = $this->upload->data();
+				$filename = $upload_data['file_name'];
+				//$upload_id = $this->db->insert_id();
+					
+				//echo $upload_id;
+				//echo $file;
+				
+				$data = array('upload_data' => $file_data);
+				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
+				$this->load->view('slcs_staff/biodatapic_success', $data);
+				
+				//$this->slcs_staff_model->create_staff($filename);
+				$this->slcs_staff_model->update_staff($filename);
+				redirect('slcs_staff/slcs_staff', $data);
+			}
+			else{
+				$row = $this->slcs_staff_model->get_slcs_staff($id);
+				$data['r'] = $row;
+				$filename = $row->file_name;
+				///echo $filename;
+				//$error = array('error' => $this->upload->display_errors());
+				//$this->load->view('slcs_staff/biodatapic',$error);
+				$this->slcs_staff_model->update_staff($filename);
+				redirect('slcs_staff/slcs_staff', $data);
+			}
 		}
 		else
-		{
-			if($query = $this->slcs_staff_model->create_staff()){
-				$data['account_created'] = 'Your account has been created.<br>';
-
-				redirect('slcs_staff/create_member');
+			{
+				$row = $this->slcs_staff_model->get_slcs_staff($id);
+				$data['r'] = $row;
+				
+				$this->load->helper(array('form', 'url'));
+				$this->load->library('form_validation');
+				
+				$data['staffs'] = $this->slcs_staff_model->get_staff();
+				$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+				$data['sections'] = $this->sections_model->get_sections();
+				$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+				
+				$username = $this->session->userdata('username'); 					
+				$data['username'] = ucfirst($username);	
+				$data['title'] = 'SoftLine | Edit staff';
+				
+				$this->load->helper('url','form');
+				$this->load->view('layout/header', $data);
+				$this->load->view('layout/topbar');
+				$this->load->view('layout/admin_left_sidemenu');
+				$this->load->view('layout/right_sidemenu');
+				
+				$this->load->view('slcs_staff/editbiodata',$data);
+				$this->load->view('slcs_staff/editbiodatapic', $data);
+				$this->load->view('slcs_staff/editcontact',$data);
+				$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
+				$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
+				$this->load->view('layout/footer');
 			}
-		}		
 	}
+
 }

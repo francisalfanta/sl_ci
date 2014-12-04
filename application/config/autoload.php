@@ -126,7 +126,8 @@ $autoload['model'] = array('slcs_staff_model',
 						   'property_owner_model',
 						   'nationality_model',
 						   'owner_addr_model',
-						   'property_owner_has_tb_propertyfinder_model');
+						   'property_owner_has_tb_propertyfinder_model',
+						   'country_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

@@ -383,7 +383,7 @@ class propertyfinder extends CI_Controller {
 		$data['city']        = $this->city_model->get_city();
 		$data['community']   = $this->community_model->get_community();
 		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
-		$data['properties']    = $this->propertyfinder_model->get_propertyfinder();
+		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
 
 		$username           = $this->session->userdata('username'); 					
 		$data['username']   = ucfirst($username);	
@@ -393,14 +393,14 @@ class propertyfinder extends CI_Controller {
 		$this->form_validation->set_rules('community_name', 'Community', 'required');
 		$this->form_validation->set_rules('subcommunity_name', 'Sub-Community', 'required');
 		$this->form_validation->set_rules('re_property', 'Property');
-		
+
 		if ($this->form_validation->run() == FALSE)
 		{		
-			$this->index();					
+			$this->index();
 		}
 		else
 		{	
-			if($query = $this->propertyfinder_model->create_propertyfinder()){				
+			if($query = $this->propertyfinder_model->create_propertyfinder_by_id()){				
 				$this->index();
 			}
 		}		

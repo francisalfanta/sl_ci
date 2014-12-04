@@ -4,6 +4,8 @@
 			<!-- Start Content here -->
 			<!-- ============================================================== -->
             <div class="content">
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
             	<!-- Page Heading Start -->
 				<div class="page-heading">
             		<h1>Property Owner</h1>            		
@@ -76,8 +78,7 @@
                                
                                 <table data-sortable class="table">
                                         <thead>
-                                            <tr>     
-                                                <th>Edit</th>                                                                                        
+                                            <tr>                                                                                                                                         
                                                 <th>Address</th>                                                                                        
                                                 <th>Email</th>
                                                 <th>Tel no.</th>
@@ -96,12 +97,7 @@
                                                 if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;} 
                                                 // View only property(s) of the owner                                               
                                                 if($row->tb_property_owner_id == $this->uri->segment(3,0)){  ?>
-                                            <tr>  
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a href="<?php echo base_url('nationality/view_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>
-                                                    </div>
-                                                </td>                 
+                                            <tr>                                                  
                                                 <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
                                                 <td><?php echo $row->tb_nationality_id; ?></td>
                                                 <td><?php echo $row->telephone_no; ?></td>
@@ -109,7 +105,8 @@
                                                 <td><?php echo $row->fax_no; ?></td>                                                  
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                       <a href="<?php $url = 'nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id.'/'.$propertyfinder_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                     
+                                                        <a href="<?php echo base_url('nationality/view_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>
+                                                       <a href="<?php $url = 'nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id.'/'.$propertyfinder_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete" ><i class="glyphicon glyphicon-remove"></i></a>                                                     
                                                     </div>
                                                 </td>
                                             </tr>
@@ -137,19 +134,18 @@
                                        
                                     <div class="form-group"> <!-- City -->
                                         <label for="city" class="col-sm-2 control-label">City</label>
-                                        <div class="col-sm-10">
-                                        <select name="city" id="city" tabindex="1" class="form-control">
-                                                    <option value="">Select City</option>                                                   
-                                                    <option value="1">Abu Dhabi</option>
-                                                    <option value="2">Ajman</option>
-                                                    <option value="3">Al Ain</option>
-                                                    <option value="4">Dubai</option>
-                                                    <option value="5">Fujairah</option>
-                                                    <option value="6">Ras Al Khaimah</option>
-                                                    <option value="7">Sharjah</option>
-                                                    <option value="8">Umm Al Quwain</option>
-                                                </select>
-                                    
+                                        <div class="col-sm-10"><?php echo $city; ?>
+                                            <select name="city" id="city" tabindex="1" class="form-control">
+                                                <option value="" ><?php if($city){ echo $city; } else { echo 'Select City'; } ?></option>                                                   
+                                                <option value="Abu Dhabi" <?php echo set_select('city', 'Abu Dhabi'); ?>>Abu Dhabi</option>
+                                                <option value="Ajman" <?php echo set_select('city', 'Ajman'); ?>>Ajman</option>
+                                                <option value="Al Ain" <?php echo set_select('city', 'Al Ain'); ?>>Al Ain</option>
+                                                <option value="Dubai" <?php echo set_select('city', 'Dubai'); ?>>Dubai</option>
+                                                <option value="Fujairah" <?php echo set_select('city', 'Fujairah'); ?>>Fujairah</option>
+                                                <option value="Ras Al Khaimah" <?php echo set_select('city', 'Ras Al Khaimah'); ?>>Ras Al Khaimah</option>
+                                                <option value="Sharjah" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
+                                                <option value="Umm Al Quwain" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
+                                            </select>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
@@ -157,7 +153,7 @@
                                     <div class="form-group"> <!-- Community -->
                                         <label for="community" class="col-sm-2 control-label">Community</label>
                                         <div class="col-sm-10">
-                                        <select name="cityDrp" id="cityDrp" class="form-control">
+                                        <select name="community" id="community" class="form-control">
                                             <option value="">Please select first City</option>
                                         </select>
                                         <p class="help-block"> </p>
@@ -167,7 +163,7 @@
                                     <div class="form-group"> <!-- Sub-community -->
                                         <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
                                         <div class="col-sm-10">
-                                        <select name="cityDrp2" id="cityDrp2" class="form-control">
+                                        <select name="subcommunity" id="subcommunity" class="form-control">
                                                 <option value="">Please select first Community</option>
                                         </select>
                                         <p class="help-block"> </p>
@@ -246,25 +242,25 @@
                 <script type="text/javascript">                    
                 $(document).ready(function() {  
 
-                    $("#city_name").change(function(){                      
+                    $("#city").change(function(){                              
                             /*dropdown post */
                             $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
                             data: {city_name: $(this).val()},
                             type: "POST",
                             success: function(data){                            
-                                $("#cityDrp").html(data);
+                                $("#community").html(data);
                             }                    
                         });
                     });
-                    $("#cityDrp").change(function(){                      
+                    $("#community").change(function(){                      
                             /*dropdown post */
                             $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropSubCom",    
                             data: {community_name: $(this).val()},
                             type: "POST",
                             success: function(data){                            
-                                $("#cityDrp2").html(data);
+                                $("#subcommunity").html(data);
                             }
                         
                         });

@@ -33,6 +33,20 @@ class community_model extends CI_Model {
 		}
 	}
 
+	public function get_community_by_id($community_id = null)
+	{		
+		$this->db->where('id', $community_id);
+		$query = $this->db->get('community');		
+		$community_name = null;
+
+		if($query->num_rows()>0){
+			foreach($query->result_array() as $row){
+            	$community_name=$row['community_name'];
+        	}	
+		}
+		return $community_name;		
+	}	
+	
 	public function create_community() {
 
 		$new_comm_insert_data = array(

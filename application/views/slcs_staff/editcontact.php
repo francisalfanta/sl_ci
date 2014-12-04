@@ -17,16 +17,16 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-1"><h6><?php echo form_error('vno'); ?></h6>
-											<input type="text" name="vno" value="<?php echo set_value('vno'); ?>" class="form-control" placeholder="Villa No.">
+											<input type="text" name="vno" value="<?php echo $r->villa_no; ?>" class="form-control" placeholder="Villa No.">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('st'); ?></h6>
-											<input type="text" name="st" value="<?php echo set_value('st'); ?>" class="form-control" placeholder="Street">
+											<input type="text" name="st" value="<?php echo $r->street; ?>" class="form-control" placeholder="Street">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('csp'); ?></h6>
-											<input type="text" name="csp" value="<?php echo set_value('csp'); ?>" class="form-control" placeholder="City / Province / State">
+											<input type="text" name="csp" value="<?php echo $r->city_state_province; ?>" class="form-control" placeholder="City / Province / State">
 										</div>
 										<div class="col-md-5"><h6><?php echo form_error('ca'); ?></h6>
-											<input type="text" name="ca" value="<?php echo set_value('ca'); ?>" class="form-control" placeholder="Complete Address">
+											<input type="text" name="ca" value="<?php echo $r->complete_address; ?>" class="form-control" placeholder="Complete Address">
 										</div>
 									</div>
 								</div>
@@ -34,13 +34,13 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('ea'); ?></h6>
-											<input type="text" name="ea" value="<?php echo set_value('ea'); ?>" class="form-control" placeholder="Email Address">
+											<input type="text" name="ea" value="<?php echo $r->email; ?>" class="form-control" placeholder="Email Address">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mn'); ?></h6>
-											<input type="text" name="mn" value="<?php echo set_value('mn'); ?>" class="form-control" placeholder="Mobile Number">
+											<input type="text" name="mn" value="<?php echo $r->mnumber; ?>" class="form-control" placeholder="Mobile Number">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('hn'); ?></h6>
-											<input type="text" name="hn" value="<?php echo set_value('hn'); ?>" class="form-control" placeholder="Home Phone Number">
+											<input type="text" name="hn" value="<?php echo $r->home_number; ?>" class="form-control" placeholder="Home Phone Number">
 										</div>
 									</div>
 								</div>

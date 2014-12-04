@@ -64,7 +64,29 @@ class Propertyfinder_model extends CI_Model {
 			}
 			echo json_encode($row_set);
 		}
-	}			
+	}		
+	// tested
+	public function create_propertyfinder_by_id() {	
+		$city_id         = $this->input->post('city');
+		$community_id    = $this->input->post('community_name');
+		$subcommunity_id = $this->input->post('subcommunity_name');
+
+		$city_name         = $this->city_model->get_city_by_id($city_id);
+		$community_name    = $this->community_model->get_community_by_id($community_id);
+		$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity_id);
+
+		$new_propertyfinder_insert_data = array(
+			'city' 	       => $city_name,
+			'community'    => $community_name,
+			'subcommunity' => $subcommunity_name,
+			're_property'  => $this->input->post('re_property')
+		);	
+		
+		$this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
+		$insert_id = $this->db->insert_id(); 
+		
+		return $insert_id;
+	}	
 
 	public function create_propertyfinder() {	
 

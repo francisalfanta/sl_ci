@@ -30,6 +30,20 @@ class subcommunity_model extends CI_Model {
 		}
 	}
 
+	public function get_subcommunity_by_id($subcommunity_id = null)
+	{		
+		$this->db->where('id', $subcommunity_id);
+		$query = $this->db->get('subcommunity');		
+		$subcommunity_name = null;
+
+		if($query->num_rows()>0){
+			foreach($query->result_array() as $row){
+            	$subcommunity_name=$row['subcommunity_name'];
+        	}	
+		}
+		return $subcommunity_name;		
+	}		
+
 	public function create_subcommunity() {
 
 		$new_subc_insert_data = array(

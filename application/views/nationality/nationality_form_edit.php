@@ -145,7 +145,7 @@
                                     <div class="form-group"> <!-- Country -->
                                         <label for="addresscountry" class="col-sm-2 control-label">Country</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($addr_country_attributes); ?>
+                                        <?php echo form_dropdown('addresscountry', $country_options, $addresscountry, $country_select_attributes); ?>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->

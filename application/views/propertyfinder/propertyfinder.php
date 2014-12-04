@@ -30,7 +30,7 @@
                                         <div class="form-group">
                                             <label for="city" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">       
-                                                <select name="city_name" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
+                                                <select name="city" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
                                                     <option value="">Select City</option>                                                   
                                                     <option value="1">Abu Dhabi</option>
                                                     <option value="2">Ajman</option>
@@ -48,7 +48,7 @@
                                             <label for="community_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Community</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->
                                                  <!--city dropdown-->
-                                                <select name="cityDrp" id="cityDrp" class="form-control col-sm-11 col-md-12">
+                                                <select name="community_name" id="cityDrp" class="form-control col-sm-11 col-md-12">
                                                     <option value="">Please select first City</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                            
@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Sub Community</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->                              
-                                                <select name="cityDrp2" id="cityDrp2" class="form-control col-sm-11 col-md-12">
+                                                <select name="subcommunity_name" id="cityDrp2" class="form-control col-sm-11 col-md-12">
                                                     <option value="">Please select first Community</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                           
@@ -97,8 +97,7 @@
                                     <table data-sortable class="table">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
+                                                <th>No</th>                                               
                                                 <th>City</th>
                                                 <th>Community</th>
                                                 <th>Sub-Community</th>
@@ -114,16 +113,15 @@
                                                 foreach($properties as $property) { ?>
 
                                             <tr>
-                                                <td><?php echo $i; ?></td>
-                                                <td><input type="checkbox" class="rows-check"></td>
+                                                <td><?php echo $i; ?></td>                                                
                                                 <td><?php echo $property['city'];?></td>
                                                 <td><?php echo $property['community'];?></td>
                                                 <td><?php echo $property['subcommunity']; ?></td>
                                                 <td><?php echo $property['re_property']; ?></td>                                                
                                                 <td>
                                                     <div class="btn-group btn-group-xs">
-                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['id']); ?>" data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['id']); ?>"data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
+                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -158,7 +156,7 @@
                 <script type="text/javascript">                    
                 $(document).ready(function() {  
 
-                    $("#city_name").change(function(){                      
+                    $("#city_name").change(function(){                           
                             /*dropdown post */
                             $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    

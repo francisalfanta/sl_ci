@@ -168,3 +168,78 @@ function add_community(){
                                                     <option value="<?php echo $arr['subcommunity_name']; ?>"  <?php echo set_select('subcommunity_name', $arr['subcommunity_name']); ?> ><?php echo $arr['subcommunity_name']; ?></option>
                                                 <?php }?>   
                                                 </select>
+
+
+
+
+
+
+
+
+
+  <!--<a data-toggle="tooltip" title="Delete"  class="md-trigger" data-modal="delete-record-modal" >
+                                                         <input type="hidden" id="delelete-record" value="<?php echo $row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id; ?>">
+                                                            <i class="glyphicon glyphicon-remove"></i></a>-->
+ $(function(){
+
+                function status_toggle(){
+                   
+                    $.ajax({
+                        url:"<?php echo base_url(); ?>property_owner/del_nat/",    
+                        data: {tb_property_owner_id: $(this).val(),
+                               tb_propertyfinder_id: $(this).val(), 
+                              },
+                        type: "POST",
+                        success: function(data){                            
+                            alert('inside ajax toggle');
+                        }
+                    });
+                }
+
+                $(document).ready(function() { 
+                    $( "div" ).addClass(function( index, currentClass ) {
+                    var addedClass;
+                     
+                    if ( currentClass === "red" ) {
+                        addedClass = "green";
+                        $( "p" ).text( "There is one green div" );
+                    }
+                     
+                    return addedClass;
+                    $( "#datatables-1_paginate" ).addClass( "btn-blue-3" );
+
+                    });
+
+                    $("#delete-record").click(function(e) {                       
+                        //e.preventDefault();
+                        // the record id
+                        var record_id = $(this).attr("id");
+                        // set to delete-record-modal value
+                        $("#to-delete").val(record_id);
+                    });
+                    // set record per page
+                    //$("option[value='10']").prop('selected',true);
+
+                    $("#record-status").click(function(){ 
+                            /*dropdown post */
+                            alert('inside status');  
+                            $.ajax({
+                            url:"<?php echo base_url(); ?>property_owner/del_nat/",    
+                            data: {tb_property_owner_id: $(this).val(),
+                                   tb_propertyfinder_id: $(this).val(), 
+                                  },
+                            type: "POST",
+                            success: function(data){                            
+                                $("#cityDrp2").html(data);
+                            }
+                        });                         
+                    }); 
+
+                    $('.launchModal').click(function(e){
+                        e.preventDefault();
+                        var enid = $(this).data('enid');
+                        $('#FormCon').html('<input type="text" name="enid" value="'+enid+'" />');
+                        $('#cn').html($(this).data('cn'));
+                        $('.modal').modal();
+                    };   
+                });

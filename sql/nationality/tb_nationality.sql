@@ -1,27 +1,27 @@
 CREATE TABLE IF NOT EXISTS `softlinecsdb`.`tb_nationality` (
-  `id` BIGINT(20) NOT NULL,
+  `tb_nationality_id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `address_id` BIGINT(20) NULL,
-  `nationality` VARCHAR(100) NULL,
-  `telephone_no` VARCHAR(50) NULL,
-  `mobile_no` VARCHAR(50) NULL DEFAULT NULL,
-  `fax_no` VARCHAR(50) NULL DEFAULT NULL,
+  `telephone_no` VARCHAR(100) NULL,
+  `mobile_no` VARCHAR(100) NULL DEFAULT NULL,
+  `fax_no` VARCHAR(100) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
-  `property_owner_id` BIGINT(20) NULL DEFAULT NULL, 
-  PRIMARY KEY (`id`, `address_id`),
+  `property_owner_id` BIGINT(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`tb_nationality_id`, `address_id`),
   INDEX `national_prop_owner_fk_idx` (`property_owner_id` ASC),
   INDEX `fk_tb_nationality_tb_address2_idx` (`address_id` ASC),
   CONSTRAINT `national_prop_owner_fk`
     FOREIGN KEY (`property_owner_id`)
-    REFERENCES `softlinecsdb`.`tb_property_owner` (`id`)
+    REFERENCES `softlinecsdb`.`tb_property_owner` (`tb_property_owner_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_nationality_tb_address2`
     FOREIGN KEY (`address_id`)
-    REFERENCES `softlinecsdb`.`tb_address` (`id`)
+    REFERENCES `softlinecsdb`.`tb_address` (`tb_address_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
 
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('1','1','1','United Kingdom','david.orgill@alshayauae.ae','971-50-6402846','971-4-2620007');
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('2','2','2','','','','6665555');
@@ -56,7 +56,7 @@ insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, na
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('31','31','31','Malta','pazzo@mailme.ae','971-50-4560267','');
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('32','32','32','United Kingdom','DELCANCCLEM@AOL.COM','971-50-4697857','971-4-5083780');
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('33','33','33','Denmark','henrik.privat@hles.dk','971-50-2261139','45-28-195039');
-insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('34','34','34','Syrian Arab Republic','riad.farah@maunsell.com','971-50-4437977','971-4-3619118');
+-- insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('34','34','34','Syrian Arab Republic','riad.farah@maunsell.com','971-50-4437977','971-4-3619118');
 -- insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('35','35','35','United Arab Emirates','julian@emporiumtrading.co.uk','447-79-0325374','44-1704-550877');
 
 insert into tb_nationality (tb_nationality_id, address_id, property_owner_id, nationality, email, mobile_no, telephone_no) values ('36','36','36','Iran','mohammadkashani@gmail.com','971-50-4594152','971-4-3615907');

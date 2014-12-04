@@ -113,14 +113,14 @@ class Property_owner extends CI_Controller {
 							              'placeholder' => 'Last Name'
 							           );	
 			$query = $this->city_model->get_city();       
-                
-        	$city_option = array();
+			
+        	$city_options = array();
         	$new = array();
         	foreach($query as $row){
             	$new[$row['city_name']] = $row['city_name'];
-            	$city_option = array_merge($city_option, $new);
+            	$city_options = array_merge($city_options, $new);
         	}
-        	$data['city_option'] = $city_option;
+        	$data['city_options'] = $city_options;
 
 			$city = null;
 			$community = null;
@@ -137,8 +137,8 @@ class Property_owner extends CI_Controller {
 
 			if($query_propertyfinder) {
 				foreach($query_propertyfinder as $propertyfinder){
-					if(isset($propertyfinder['city'])) {
-						$city   = $propertyfinder['city'];	
+					if(isset($propertyfinder['city_name'])) {
+						$city   = $propertyfinder['city_name'];	
 					}
 					if(isset($propertyfinder['community'])) {
 						$community   = $propertyfinder['community'];	
@@ -172,7 +172,8 @@ class Property_owner extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'City'
 							           );
-			$data['city_select_attributes'] = 'name="city" id="city" value="'.$city.'class="form-control"';
+			$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
+			$data['city'] = $city;
 
 			$data['community_attributes'] = array(
 							              'name'        => 'community',
@@ -291,6 +292,14 @@ class Property_owner extends CI_Controller {
 						              'style'       => 'width:100%;',
 						              'placeholder' => 'Last Name'
 						           );	
+		$city = null;
+		$community = null;
+		$subcommunity = null;
+		$re_property = null;
+		$property_type = null;
+		$building_name = null;
+		$unit_number = null;
+		$developer_name = null;
 
 		$propertyfinder = $this->propertyfinder_model->get_propertyfinder();
 		if(isset($propertyfinder['city'])) {
@@ -318,8 +327,17 @@ class Property_owner extends CI_Controller {
 			$developer_name   = $propertyfinder['developer_name'];	
 		}
 
-		$query = $this->city_model->get_city();
-
+		$query = $this->city_model->get_city();       
+			
+    	$city_options = array();
+    	$new = array();
+    	foreach($query as $row){
+        	$new[$row['city_name']] = $row['city_name'];
+        	$city_options = array_merge($city_options, $new);
+    	}
+    	$data['city_options'] = $city_options;
+    	$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
+		$data['city'] = $city;
 
 		$city = null;
 		$community = null;
@@ -424,9 +442,11 @@ class Property_owner extends CI_Controller {
 		}
 		else
 		{
-			if($query = $this->property_owner_model->create_prop_owner()){
+			if($property_owner_id = $this->property_owner_model->create_prop_owner()){
 				// create new property
-				$this->propertyfinder_model->create_propertyfinder();
+				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
+				// create new m2m
+				$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);
 				// fetch new inserted property owner id and redirect to view				
 				redirect('property_owner/view_property_owner/'.$query);
 			}
@@ -435,7 +455,7 @@ class Property_owner extends CI_Controller {
 
 	public function del_nat($property_owner_id = null, $propertyfinder_id =null){	
 		if($property_owner_id && $propertyfinder_id){
-			$this->property_owner_has_tb_propertyfinder_model_model->del_record($property_owner_id,  $propertyfinder_id);						
+			$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
 		}	
 		redirect('property_owner');		
 	}

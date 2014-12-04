@@ -39,7 +39,7 @@
 	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
 	<script src="<?php echo base_url(); ?>assets/libs/jquery-wizard/jquery.easyWizard.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/pages/form-wizard.js"></script>
-    <?php if($title =='SoftLine | Property Finder'){
+    <?php if($title =='SoftLine | Property Finder' || $title == 'SoftLine | Property Owner'){
 		echo '<script src="'.base_url('assets/libs/select2-3.5.2/select2.js').'"></script>';
     	echo '<script src="'.base_url('assets/libs/select2-3.5.2/select2.min.js').'"></script>';
     }?>
@@ -56,7 +56,10 @@
         /**     Code from ExpressionEngine v 1.6.3
         /**     Slightly modified to accept the parameter fieldcount
         /** -------------------------------------*/
-        $(function(){        	
+        $(function(){  
+        	// loading features
+        	$('#indexLoader').fadeOut('fast');
+
         	$("#input_city").autocomplete({	        	
 	        	source: 'propertyfinder/get_city/'
     		});

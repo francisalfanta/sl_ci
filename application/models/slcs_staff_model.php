@@ -24,34 +24,110 @@ class Slcs_staff_model extends CI_Model {
 		$query = $this->db->get_where('slcs_staff', array('username' => $username));
 		return $query->row_array();
 	}
-
-	public function create_staff() {
+	
+	public function create_staff($filename) {
 
 		//$this->load->helper('url');
 		//$slug = url_title($this->input->post('title'), 'dash', TRUE);
-
+		
 		$username = $this->input->post('username');
 		$fname 	  =	$this->input->post('fname');
 		$lname    = $this->input->post('lname');
+		$email    = $this->input->post('ea');
+		
 		$fullname = $fname." ".$lname;
 
 		$new_staff_insert_data = array(
 			'fname' => $fname,
+			'mname' => $this->input->post('mname'),
 			'lname' => $lname,
 			'fullname' =>  $fullname,
-			'email' =>$this->input->post('email'),
-			'gender' => $this->input->post('gender'),
-			'placeofbirth' => $this->input->post('placeofbirth'),
-			'passport_no' => $this->input->post('passport_no'),
-			'nationality' => $this->input->post('nationality'),
-			'marital_stat' => $this->input->post('martial_stat'),
-			'date_hired' => $this->input->post('date_hired'),
-			'date_started' => $this->input->post('date_started'),
-			'username' => $this->input->post('username'),
-			'password' => md5($this->input->post('password')),
+			
+			'gender' => $this->input->post('radio_gender'),
 			'dob' => $this->input->post('dob'),
-			'active' => $this->input->post('active'),
-			'acctype' => $this->input->post('acctype')
+			'age' => $this->input->post('age'),
+			'birthplace' => $this->input->post('pob'),
+			'nationality' => $this->input->post('nationality'),
+			'marital_stat' => $this->input->post('radio_ms'),
+			'language' => $this->input->post('language'),			
+			'passport_no' => $this->input->post('ppno'),
+			'type_of_contract' => $this->input->post('toc'),
+			'date_hired' => $this->input->post('dh'),
+			'date_started' => $this->input->post('ds'),
+			'date_release' => $this->input->post('dr'),
+			
+			'villa_no' => $this->input->post('vno'),
+			'street' => $this->input->post('st'),
+			'city_state_province' => $this->input->post('csp'),
+			'complete_address' => $this->input->post('ca'),
+			'email' => $this->input->post('ea'),
+			'mnumber' => $this->input->post('mn'),
+			'home_number' => $this->input->post('hn'),
+			
+			'N1' => $this->input->post('n1'),
+			'R1' => $this->input->post('r1'),
+			'MN1' => $this->input->post('mn1'),
+			'CA1' => $this->input->post('ca1'),
+			'N2' => $this->input->post('n2'),
+			'R2' => $this->input->post('r2'),
+			'MN2' => $this->input->post('mn2'),
+			'CA2' => $this->input->post('ca2'),
+			'N3' => $this->input->post('n3'),
+			'R3' => $this->input->post('r3'),
+			'MN3' => $this->input->post('mn3'),
+			'CA3' => $this->input->post('ca3'),
+			
+			'bank_name' => $this->input->post('bnkn'),
+			'branch_name' => $this->input->post('bnkbn'),
+			'account_name' => $this->input->post('bnkaname'),
+			'account_number' => $this->input->post('bnkanumber'),
+			
+			'position' => $this->input->post('pos_t'),
+			'employment_status' => $this->input->post('estat'),
+			
+			'basicsalary' => $this->input->post('basic_salary'),
+			'gratuity_pay' => $this->input->post('radiogp'),
+			'tocontract' => $this->input->post('radiotoc'),
+			'accommodation' => $this->input->post('accom'),
+			'years_of_service' => $this->input->post('yrs'),
+			'months_of_service' => $this->input->post('mnths'),
+			'transpo_allowance' => $this->input->post('transpo'),
+			'total_amount' => $this->input->post('tamt'),
+			'total_salary' => $this->input->post('tamt_sal'),					
+			
+			'm_card_num' => $this->input->post('midcno'),
+			'm_issue_date' => $this->input->post('midate'),
+			'm_expiry_date' => $this->input->post('mexdate'),
+			'm_others' => $this->input->post('miothers'),
+			'bapl' => ($this->input->post('mycheck1') === FALSE) ? 0 : 1,
+			'byt' => ($this->input->post('mycheck2') === FALSE) ? 0 : 1,
+			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? 0 : 1,
+			'm_bonus' => $this->input->post(',mbonus'),
+			'bn_bonus' => $this->input->post(',bnbonus'),
+			
+			'dl_idcno' => $this->input->post('dlidcno'),
+			'dl_idate' => $this->input->post('dlidate'),
+			'dl_exdate' => $this->input->post('dlexdate'),
+			'dl_others' => $this->input->post('dlothers'),			
+			'lc_idcno' => $this->input->post('lcidcno'),
+			'lc_idate' => $this->input->post('lcidate'),
+			'lc_exdate' => $this->input->post('lcexdate'),
+			'lc_others' => $this->input->post('lcothers'),			
+			'r_idcno' => $this->input->post('ridcno'),
+			'r_idate' => $this->input->post('ridate'),
+			'r_exdate' => $this->input->post('rexdate'),
+			'r_others' => $this->input->post('rothers'),			
+			'vs_idcno' => $this->input->post('vsidcno'),
+			'vs_idate' => $this->input->post('vsidate'),
+			'vs_exdate' => $this->input->post('vsexdate'),
+			'vs_others' => $this->input->post('vsothers'),			
+			'others_idcno' => $this->input->post('othersidcno'),
+			'others_idate' => $this->input->post('othersidate'),
+			'others_exdate' => $this->input->post('othersexdate'),
+			'others_others' => $this->input->post('othersothers'),
+			
+			'acctype' => (1),
+			'file_name' => $filename
 		);
 
 		$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
@@ -69,6 +145,118 @@ class Slcs_staff_model extends CI_Model {
 		} else {
 			return TRUE;
 		}
+	}
+	
+	public function delete_staff($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('slcs_staff');
+	}
+	
+	public function get_slcs_staff($id)
+	{
+		$this->db->where('id',$id);
+		$query = $this->db->get('slcs_staff');
+		return $query->row();
+	}
+	
+	public function update_staff($filename)
+	{
+		
+		$id = $this->input->post('id');
+		$data = array(
+			'fname' => $this->input->post('fname'),
+			'mname' => $this->input->post('mname'),
+			'lname' => $this->input->post('lname'),
+			'gender' => $this->input->post('radio_gender'),
+			'dob' => $this->input->post('dob'),
+			'age' => $this->input->post('age'),
+			'birthplace' => $this->input->post('pob'),
+			'nationality' => $this->input->post('nationality'),
+			'marital_stat' => $this->input->post('radio_ms'),
+			'language' => $this->input->post('language'),			
+			'passport_no' => $this->input->post('ppno'),
+			'type_of_contract' => $this->input->post('toc'),
+			'date_hired' => $this->input->post('dh'),
+			'date_started' => $this->input->post('ds'),
+			'date_release' => $this->input->post('dr'),
+			
+			'villa_no' => $this->input->post('vno'),
+			'street' => $this->input->post('st'),
+			'city_state_province' => $this->input->post('csp'),
+			'complete_address' => $this->input->post('ca'),
+			'email' => $this->input->post('ea'),
+			'mnumber' => $this->input->post('mn'),
+			'home_number' => $this->input->post('hn'),
+			
+			'N1' => $this->input->post('n1'),
+			'R1' => $this->input->post('r1'),
+			'MN1' => $this->input->post('mn1'),
+			'CA1' => $this->input->post('ca1'),
+			'N2' => $this->input->post('n2'),
+			'R2' => $this->input->post('r2'),
+			'MN2' => $this->input->post('mn2'),
+			'CA2' => $this->input->post('ca2'),
+			'N3' => $this->input->post('n3'),
+			'R3' => $this->input->post('r3'),
+			'MN3' => $this->input->post('mn3'),
+			'CA3' => $this->input->post('ca3'),
+			
+			'bank_name' => $this->input->post('bnkn'),
+			'branch_name' => $this->input->post('bnkbn'),
+			'account_name' => $this->input->post('bnkaname'),
+			'account_number' => $this->input->post('bnkanumber'),
+			
+			'position' => $this->input->post('pos_t'),
+			'employment_status' => $this->input->post('estat'),
+			
+			'basicsalary' => $this->input->post('basic_salary'),
+			'gratuity_pay' => $this->input->post('radiogp'),
+			'tocontract' => $this->input->post('radiotoc'),
+			'accommodation' => $this->input->post('accom'),
+			'years_of_service' => $this->input->post('yrs'),
+			'months_of_service' => $this->input->post('mnths'),
+			'transpo_allowance' => $this->input->post('transpo'),
+			'total_amount' => $this->input->post('tamt'),
+			'total_salary' => $this->input->post('tamt_sal'),					
+			
+			'm_card_num' => $this->input->post('midcno'),
+			'm_issue_date' => $this->input->post('midate'),
+			'm_expiry_date' => $this->input->post('mexdate'),
+			'm_others' => $this->input->post('miothers'),
+			'bapl' => ($this->input->post('mycheck1') === FALSE) ? 0 : 1,
+			'byt' => ($this->input->post('mycheck2') === FALSE) ? 0 : 1,
+			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? 0 : 1,
+			'm_bonus' => $this->input->post(',mbonus'),
+			'bn_bonus' => $this->input->post(',bnbonus'),
+			
+			'dl_idcno' => $this->input->post('dlidcno'),
+			'dl_idate' => $this->input->post('dlidate'),
+			'dl_exdate' => $this->input->post('dlexdate'),
+			'dl_others' => $this->input->post('dlothers'),			
+			'lc_idcno' => $this->input->post('lcidcno'),
+			'lc_idate' => $this->input->post('lcidate'),
+			'lc_exdate' => $this->input->post('lcexdate'),
+			'lc_others' => $this->input->post('lcothers'),			
+			'r_idcno' => $this->input->post('ridcno'),
+			'r_idate' => $this->input->post('ridate'),
+			'r_exdate' => $this->input->post('rexdate'),
+			'r_others' => $this->input->post('rothers'),			
+			'vs_idcno' => $this->input->post('vsidcno'),
+			'vs_idate' => $this->input->post('vsidate'),
+			'vs_exdate' => $this->input->post('vsexdate'),
+			'vs_others' => $this->input->post('vsothers'),			
+			'others_idcno' => $this->input->post('othersidcno'),
+			'others_idate' => $this->input->post('othersidate'),
+			'others_exdate' => $this->input->post('othersexdate'),
+			'others_others' => $this->input->post('othersothers'),
+			'file_name' => $filename
+			
+		);
+		
+		$this->db->where('id',$id);
+		$this->db->update('slcs_staff',$data);
+		redirect("slcs_staff/index");
 	}
 	//update
 	//delete
