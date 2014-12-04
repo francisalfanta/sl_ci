@@ -66,7 +66,8 @@
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                                                                                                                
                                                         <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="btn btn-default"><i class="fa fa-power-off"></i></a>                                                       
+                                                        <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="fa fa-power-off"></i></a>                                                       
                                                     </div>
                                                 </td>
                                             </tr>
@@ -81,9 +82,11 @@
                                                 <td><small><?php echo $row->building_name; ?></small></td>                                                                                     
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                                                                    
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                    
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete"  class="btn btn-default"><i class="glyphicon glyphicon-remove"></i></a>
-                                                    <div>
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                    
+                                                        <a data-toggle="tooltip" title="Delete"  class="md-trigger" data-modal="delete-record-modal" >
+                                                            <input type="hidden" id="delelete-record" value="<?php echo $row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id; ?>">
+                                                            <i class="glyphicon glyphicon-remove"></i></a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                             <?php }} ?>                                            
@@ -130,6 +133,16 @@
                     return addedClass;
                     $( "#datatables-1_paginate" ).addClass( "btn-blue-3" );
 
+                    });
+
+                    $("#delete-record").click(function(e) {
+                        alert('popup');
+                        //e.preventDefault();
+                        // the record id
+                        var record_id = $(this).attr("id");
+                        // set to delete-record-modal value
+                        $("#to-delete").val(record_id);
+                    });
                 });
                 </script>
 

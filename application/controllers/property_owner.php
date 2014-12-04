@@ -34,6 +34,7 @@ class Property_owner extends CI_Controller {
 		$data['owner_details'] = $this->owner_addr_model->view_owner_details();
 
 		$this->load->view('layout/header', $data);
+		$this->load->view('layout/custom_modal', $data);
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
