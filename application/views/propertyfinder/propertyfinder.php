@@ -14,7 +14,7 @@
                     <div class="col-md-8 col-lg-6 portlets">
                         
                         <div class="widget">
-                            <div class="widget-header transparent">
+                            <div class="widget-header ">
                                 <h2><strong>Property</strong> Form</h2>
                                 <div class="additional-btn">
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
@@ -28,9 +28,9 @@
                                     <form class="form-horizontal" role="form">
                                         <?php echo validation_errors(); ?>                                        
                                         <div class="form-group">
-                                            <label for="city" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">       
-                                                <select name="city" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
+                                            <label for="city" class="col-xs-2 col-sm-2 col-md-2 col-lg-3 control-label">City</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-8">       
+                                                <select name="city" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-8 col-lg-8">
                                                     <option value="">Select City</option>                                                   
                                                     <option value="1">Abu Dhabi</option>
                                                     <option value="2">Ajman</option>
@@ -45,26 +45,26 @@
                                         </div><!-- form-group -->                                                                           
                                         
                                         <div class="form-group">
-                                            <label for="community_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Community</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->
+                                            <label for="community_name" class="col-xs-2 col-sm-2 col-md-2 col-lg-3 control-label">Community</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-8"> <!--select-editable">-->
                                                  <!--city dropdown-->
-                                                <select name="community_name" id="cityDrp" class="form-control col-sm-11 col-md-12">
+                                                <select name="community_name" id="cityDrp" class="form-control col-sm-11 col-md-8 col-lg-8">
                                                     <option value="">Please select first City</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                            
                                         </div><!-- form-group -->
                                         <div class="form-group">
-                                            <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Sub Community</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->                              
-                                                <select name="subcommunity_name" id="cityDrp2" class="form-control col-sm-11 col-md-12">
+                                            <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-2 col-lg-3 control-label">Sub Community</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-8"> <!--select-editable">-->                              
+                                                <select name="subcommunity_name" id="cityDrp2" class="form-control col-sm-11 col-md-8 col-lg-8">
                                                     <option value="">Please select first Community</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                           
                                         </div><!-- form-group -->
                                          <div class="form-group">
-                                            <label for="re_property" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Property</label>
-                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"><!--select-editable">-->     
-                                                <input type="text" name="re_property"  class="form-control col-md-12" value="" tabindex="4" />                                                
+                                            <label for="re_property" class="col-xs-2 col-sm-2 col-md-2 col-lg-3 control-label">Property</label>
+                                            <div class="col-xs-9 col-sm-4 col-md-6 col-lg-8"><!--select-editable">-->     
+                                                <input type="text" name="re_property"  class="form-control col-md-8 col-lg-8" value="" tabindex="4" />                                                
                                             </div><!-- col-sm-10 -->
                                         </div><!-- form-group -->
 
@@ -82,7 +82,7 @@
 
                     <div class="col-md-12">
                         <div class="widget">
-                            <div class="widget-header transparent">
+                            <div class="widget-header">
                                 <h2><strong>Property</strong> Table</h2>
 
                                 <div class="additional-btn">                                    
@@ -92,9 +92,11 @@
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
                             </div>
-                            <div class="widget-content">                    
+                            <div class="widget-content">
+                            <br>                    
                                 <div class="table-responsive">
-                                    <table data-sortable class="table">
+                                    <form class='form-horizontal' role='form'>
+                                    <table id="datatables-2" data-sortable class="table table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th>No</th>                                               
@@ -119,9 +121,9 @@
                                                 <td><?php echo $property['subcommunity']; ?></td>
                                                 <td><?php echo $property['re_property']; ?></td>                                                
                                                 <td>
-                                                    <div class="btn-group btn-group-xs">
-                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                    <div class="btn-group btn-group-xs">                        
+                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -129,21 +131,15 @@
                                             
                                         </tbody>
                                     </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div><!-- row -->
 
-                </jQuery(document).ready(function(){
-                
-                <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-10 col-md-12 text-right">
-                        <button type="submit" name="submitForm" value="formUpdate" class="btn btn-default">Save</button>
-                    </div><!-- col-sm-offset-2 col-sm-10 -->
-                </div><!-- form-group -->  
-                </div><!-- row -->
+                </jQuery(document).ready(function(){                
+              
                 </form>	
     			<!-- Footer Start -->
                 <footer>
@@ -157,8 +153,8 @@
                 $(document).ready(function() {  
 
                     $("#city_name").change(function(){                           
-                            /*dropdown post */
-                            $.ajax({
+                        /*dropdown post */
+                        $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
                             data: {city_name: $(this).val()},
                             type: "POST",
@@ -168,18 +164,46 @@
                         });
                     });
                     $("#cityDrp").change(function(){                      
-                            /*dropdown post */
-                            $.ajax({
+                        /*dropdown post */
+                        $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropSubCom",    
                             data: {community_name: $(this).val()},
                             type: "POST",
                             success: function(data){                            
                                 $("#cityDrp2").html(data);
-                            }
-                        
+                            }                        
                         });
-                    });               
-                });                     
+                        // inter-active table
+                        console.log('$(this).val(): '+$(this).val());
+                        console.log('$(#city_name).val(): '+ $('#city_name').val());
+                        $.ajax({
+                            url: "<?php echo base_url('propertyfinder/query_propertyfinder'); ?>",
+                            type: 'POST',
+                            dataType: 'json',
+                            data:{  //json: jsonData
+                                    city: $('#city_name').val(),
+                                    community_name: $(this).val()
+                                 },
+                            error:  function(xhr, status, error) {
+                                      var err = JSON.parse(xhr.responseText);
+                                      alert(err.Message);
+                                     
+                                    },
+                            success: function (response) {                               
+                                // remove table body
+
+                                var trHTML = '';
+                                $.each(response, function (i, item) {
+                                    trHTML += '<tr><td>' + item.city + '</td><td>' + item.community + '</td><td>' + item.subcommunity + '</td><td>' + item.re_property + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                });
+                                $('#datatables-2').append(trHTML);
+                                console.log('respose: '+response); 
+
+                            }
+                        });       
+                        // end inter-active table
+                    }); // end community change  
+                });  // end document.ready                   
                 </script>	
             </div>
 			<!-- ============================================================== -->

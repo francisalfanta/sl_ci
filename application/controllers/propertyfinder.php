@@ -19,9 +19,9 @@ class propertyfinder extends CI_Controller {
 		$data['city']        = $this->city_model->get_city();
 		$data['community']   = $this->community_model->get_community();
 		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
-		$data['properties']    = $this->propertyfinder_model->get_propertyfinder();
-		
-		$data['title']       = 'SoftLine | Property Finder';	
+		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+		// title with word LIST will add optional JS
+		$data['title']       = 'SoftLine | Property Finder List';	
 		
 		$username = $this->session->userdata('username'); 			
 		$data['username']    = ucfirst($username);	
@@ -33,6 +33,42 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('propertyfinder/propertyfinder', $data);
 		$this->load->view('layout/footer');	
+	}
+
+	public function query_propertyfinder(){
+
+		// to solve the problem when the page do not send information upon select box change.
+		// need to used ajax to send the data
+
+		$city_id = $this->input->post('city');
+		$community_id = $this->input->post('community_name');
+		$subcommunity_id = $this->input->post('subcommunity_name');
+		
+		
+		$city_name = null;
+		$community_name = null;
+		$subcommunity_name = null;
+
+		if($city_id){
+			// change to city name
+			$city_name = $this->city_model->get_city_by_id($city_id);			
+		}
+		if($community_id){
+			// change to community name
+			$community_name = $this->community_model->get_community_by_id($community_id);			
+		}
+		if($subcommunity_id){
+			// change to community name
+			$subcommunity_name = $this->community_model->get_subcommunity_by_id($subcommunity_id);			
+		}
+		$data['properties'] = null;	
+
+		// find city, community, subcommunity name within property finder
+		if($city_name){
+			$data['properties'] = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name, $community_name, $subcommunity_name);
+		} else {
+			echo 'no $data[properties]';
+		}
 	}
 	/** 
 	* Send a POST requst using cURL 
