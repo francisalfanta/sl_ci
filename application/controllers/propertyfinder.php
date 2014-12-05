@@ -36,14 +36,81 @@ class propertyfinder extends CI_Controller {
 	}
 
 	public function query_propertyfinder(){
-
 		// to solve the problem when the page do not send information upon select box change.
 		// need to used ajax to send the data
-
 		$city_id = $this->input->post('city');
 		$community_id = $this->input->post('community_name');
 		$subcommunity_id = $this->input->post('subcommunity_name');
 		
+		//echo '$city_id: '. $city_id;
+		$city_name = null;
+		$community_name = null;
+		$subcommunity_name = null;		
+
+		if($city_id){
+			// change to city name
+			$city_name = $this->city_model->get_city_by_id($city_id);
+		}
+		if($community_id){
+			// change to community name
+			$community_name = $this->community_model->get_community_by_id($community_id);
+
+		}
+		if($subcommunity_id){
+			// change to community name
+			$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity_id);
+		}
+		//$data['properties'] = null;	
+
+		// find city, community, subcommunity name within property finder
+		if($city_name){
+			$query = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name, $community_name, $subcommunity_name);					
+			echo json_encode($query->result());			
+		//} else {
+		//	echo 'no $data[properties]';				
+		}		
+	}
+	// tested
+	public function count_record_by_city(){
+		$city_id = $this->input->post('city');
+		$city_name = null;
+
+		if($city_id){
+			// change to city name
+			$city_name = $this->city_model->get_city_by_id($city_id);
+		}
+		$query = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name);
+		$count = $query->num_rows();
+        $city_count = array('city_count' => $count);
+
+        echo json_encode($city_count);
+	}
+
+	public function count_record_by_community(){
+		$city_id = $this->input->post('city');
+		$community_id = $this->input->post('community');
+		$city_name = null;
+		$community_name = null;
+
+		if($city_id){
+			// change to city name
+			$city_name = $this->city_model->get_city_by_id($city_id);
+		}
+		if($community_id){
+			// change to community name
+			$community_name = $this->community_model->get_community_by_id($community_id);
+		}
+		$query = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name, $community_name);
+		$count = $query->num_rows();
+        $community_count = array('community_count' => $count);
+
+        echo json_encode($community_count);
+	}
+
+	public function count_record_by_subcommunity(){
+		$city_id = $this->input->post('city');
+		$community_id = $this->input->post('community');
+		$subcommunity_id = $this->input->post('subcommunity');
 		
 		$city_name = null;
 		$community_name = null;
@@ -51,25 +118,24 @@ class propertyfinder extends CI_Controller {
 
 		if($city_id){
 			// change to city name
-			$city_name = $this->city_model->get_city_by_id($city_id);			
+			$city_name = $this->city_model->get_city_by_id($city_id);
 		}
 		if($community_id){
 			// change to community name
-			$community_name = $this->community_model->get_community_by_id($community_id);			
+			$community_name = $this->community_model->get_community_by_id($community_id);
 		}
 		if($subcommunity_id){
 			// change to community name
-			$subcommunity_name = $this->community_model->get_subcommunity_by_id($subcommunity_id);			
+			$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity_id);
 		}
-		$data['properties'] = null;	
 
-		// find city, community, subcommunity name within property finder
-		if($city_name){
-			$data['properties'] = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name, $community_name, $subcommunity_name);
-		} else {
-			echo 'no $data[properties]';
-		}
+		$query = $this->propertyfinder_model->get_propertyfinder_using_filter($city_name, $community_name, $subcommunity_name);
+		$count = $query->num_rows();
+        $subcommunity_count = array('subcommunity_count' => $count);
+
+        echo json_encode($subcommunity_count);
 	}
+
 	/** 
 	* Send a POST requst using cURL 
 	* @param string $url to request 
@@ -85,7 +151,7 @@ class propertyfinder extends CI_Controller {
         //run the query for the cities we specified earlier
         $districtData['districtDrop']=$this->city_model->getCityByCountry($id_country);
         
-       $output = null;
+       $output = "<option value='all'>Select All</option>";
 
         foreach ($districtData['districtDrop']->result() as $row)
         {
@@ -103,7 +169,7 @@ class propertyfinder extends CI_Controller {
         //run the query for the cities we specified earlier
         $districtData['districtDrop']=$this->city_model->getSubByComm($id_country);
         
-       $output = null;
+       $output = "<option value='all'>Select All</option>";
 
         foreach ($districtData['districtDrop']->result() as $row)
         {

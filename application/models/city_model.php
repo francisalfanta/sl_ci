@@ -23,7 +23,7 @@ class city_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->like('city_name', $q);
 		$query = $this->db->get('city');
-		if($query->num_rows > 0){
+		if($query->num_rows() > 0){
 			foreach($query->result_array() as $row){
 				$row_set[] = htmlentities(stripslashes($row['city_name']));
 			}
@@ -37,7 +37,7 @@ class city_model extends CI_Model {
 		$query = $this->db->get('city');		
 		$city_name = null;
 
-		if($query->num_rows()>0){
+		if($query->num_rows() > 0){
 			foreach($query->result_array() as $row){
             	$city_name=$row['city_name'];
         	}	

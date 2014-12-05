@@ -118,8 +118,9 @@ class Propertyfinder_model extends CI_Model {
 	}	
 
 	public function get_propertyfinder_using_filter($city_name = null, $community_name = null, $subcommunity_name = null){
-		if($city_name){
-		$this->db->where('city', $city_name);	
+		$this->db->select('*');
+		if($city_name){		
+			$this->db->where('city', $city_name);	
 		}	
 		if($community_name){
 			$this->db->where('community', $community_name);	
@@ -128,6 +129,7 @@ class Propertyfinder_model extends CI_Model {
 			$this->db->where('subcommunity', $subcommunity_name);
 		}
 		$query = $this->db->get('propertyfinder');
-		return $query->result_array();
+		//return $query->result();
+		return $query;
 	}
 }?>

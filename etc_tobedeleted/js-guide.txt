@@ -243,3 +243,77 @@ function add_community(){
                         $('.modal').modal();
                     };   
                 });
+----------------
+  // short hand for ajax with parameter: url, data, success, datatype
+                       $.post(
+                            "<?php echo base_url('propertyfinder/query_propertyfinder'); ?>",
+                            {  'city' :city_name,
+                               'community_name': community_name,
+                               'subcommunity_name': subcommunity_name
+                            },
+                            function(data){
+                                console.log('data: '+ data);
+                                console.log('success: '+ data);
+                                $.each(data, function(e){
+                                    console.log("e :" + e);
+                                    $.each(e, function(key, value){
+                                        console.log(key + ":" + value);
+                                    });
+                                });
+                            },
+                            'json'
+                        ).fail(function() {
+                                alert( "error" );
+                        });   
+------------------------
+
+
+                        // inter-active count response
+                        $.ajax({
+                            url: "<?php echo base_url('propertyfinder/count_record_by_city'); ?>",
+                            type: 'POST',
+                            dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                            data:{  
+                                    'city' :city_name                                   
+                                 },
+                            //context: $('#datatables-2'),                                
+                            error:  function(xhr, status, error) {
+                                        var err = JSON.parse(xhr.responseText);
+                                        alert(err.Message);
+                                    },
+                            statusCode: {
+                                     404: function() {
+                                            alert( "page not found" );
+                                        }
+                            },
+                            success: function (response) {                               
+                                // remove table body
+                                console.log('response :'+ response);
+                                var property_count = '';
+                                $.each(response, function (i, item) {
+                                    console.log('i :'+ i);
+                                    console.log('city count :'+ item);
+                                    property_count = item;
+                                });
+                                //$('#city_count').empty().append(trHTML);
+                            },
+                            complete: function(xhr, status){
+                                var xhr = JSON.parse(xhr.responseText);
+                                console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                            }
+                        });// end inter-active count response
+
+
+
+
+                         $("#city_name").change(function(){                     
+                        /*dropdown post */
+                        $.ajax({
+                            url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
+                            data: {city_name: $(this).val()},
+                            type: "POST",
+                            success: function(data){                            
+                                $("#cityDrp").html(data);
+                            }                    
+                        });                     
+                    });

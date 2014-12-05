@@ -2,6 +2,9 @@
 	float: right;
 }
 
+tbody.hide {
+    display: none;
+}
 // on-off button
 .onoffswitch {
     position: relative; width: 67px;

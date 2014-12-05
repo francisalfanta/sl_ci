@@ -15,14 +15,15 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index() {
-        $query_propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id(4442);
-        if($query_propertyfinder) { echo 'yes'; }
-
-        $test_unit = $query_propertyfinder;
-
-		foreach($test_unit as $row){
-			var_dump($row);
-		}
+        
+        $query = $this->propertyfinder_model->get_propertyfinder_using_filter('Abu Dhabi', 'Al Karama', 'Al Musalla Area');
+        //return $query->result();
+        $test_unit = $query->num_rows();
+        //var_dump($test_unit);
+        //foreach($test_unit as $row){
+		//	var_dump($row);
+		//}
+        var_dump($test_unit);
 		if (is_null($test_unit)) 
         {
            echo '$query is null';
