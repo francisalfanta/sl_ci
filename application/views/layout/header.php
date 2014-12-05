@@ -58,9 +58,11 @@
         <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
         <?php if($title =='SoftLine | Property Finder' || $title == 'SoftLine | Property Owner'){
-            echo '<link href="'.base_url('assets/libs/select2-3.5.2/select2.css').'" rel="stylesheet"/>';            
+            echo '<link href="'.base_url('assets/libs/select2-3.5.2/select2.css').'" type="text/css" rel="stylesheet"/>';
+                       
         }?>
-
+        <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
+        <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
          

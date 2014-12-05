@@ -1,6 +1,8 @@
 $(function(){
 	$("#datatables-1").dataTable();
 
+    $("#datatables-5").dataTable(); // custom added by FMA - 12/05/2014
+
 	var table = $('#datatables-2').DataTable();
  
     $("#datatables-2 tfoot th").each( function ( i ) {

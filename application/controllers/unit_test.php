@@ -16,14 +16,16 @@ class Unit_test extends CI_Controller {
 
 	public function index() {
         
-        $query = $this->propertyfinder_model->get_propertyfinder_using_filter('Abu Dhabi', 'Al Karama', 'Al Musalla Area');
-        //return $query->result();
-        $test_unit = $query->num_rows();
-        //var_dump($test_unit);
-        //foreach($test_unit as $row){
-		//	var_dump($row);
-		//}
-        var_dump($test_unit);
+        $fields =array();    
+            
+        $query = $this->db->list_fields('propertyfinder');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;
+           
+        }       
+        var_dump($fields);
+
+        $test_unit = $fields;
 		if (is_null($test_unit)) 
         {
            echo '$query is null';

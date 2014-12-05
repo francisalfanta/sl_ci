@@ -51,8 +51,10 @@
     <script src="<?php echo base_url('assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js'); ?>"></script>
     <script src="<?php echo base_url().'assets/js/pages/datatables.js'; ?>"></script>
 
+    <!-- custom added for datatable 12-05-2014 -->
+    <script src="<?php echo base_url().'assets/js/dataTables.jqueryui.js'; ?>"></script>
 
-
+  
 	<script type="text/javascript"> 
            
         /** ------------------------------------

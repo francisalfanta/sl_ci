@@ -22,7 +22,8 @@ class propertyfinder extends CI_Controller {
 		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
 		// title with word LIST will add optional JS
 		$data['title']       = 'SoftLine | Property Finder List';	
-		
+		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
+
 		$username = $this->session->userdata('username'); 			
 		$data['username']    = ucfirst($username);	
 		
@@ -35,6 +36,22 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/footer');	
 	}
 
+	public function toggle_fieldnames(){
+		
+	}
+	// tested 12/05/2014
+	public function get_field_name_propertyfinder(){
+		
+		$fields =array();    
+            
+        $query = $this->db->list_fields('propertyfinder');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;           
+        }    	
+		return $fields;
+	}
+
+	// tested 12-05-2014
 	public function query_propertyfinder(){
 		// to solve the problem when the page do not send information upon select box change.
 		// need to used ajax to send the data
@@ -70,7 +87,7 @@ class propertyfinder extends CI_Controller {
 		//	echo 'no $data[properties]';				
 		}		
 	}
-	// tested
+	// tested 12-05-2014
 	public function count_record_by_city(){
 		$city_id = $this->input->post('city');
 		$city_name = null;
@@ -85,7 +102,7 @@ class propertyfinder extends CI_Controller {
 
         echo json_encode($city_count);
 	}
-
+	// tested 12-05-2014
 	public function count_record_by_community(){
 		$city_id = $this->input->post('city');
 		$community_id = $this->input->post('community');
@@ -106,7 +123,7 @@ class propertyfinder extends CI_Controller {
 
         echo json_encode($community_count);
 	}
-
+	// tested 12-05-2014
 	public function count_record_by_subcommunity(){
 		$city_id = $this->input->post('city');
 		$community_id = $this->input->post('community');
@@ -135,14 +152,7 @@ class propertyfinder extends CI_Controller {
 
         echo json_encode($subcommunity_count);
 	}
-
-	/** 
-	* Send a POST requst using cURL 
-	* @param string $url to request 
-	* @param array $post values to send 
-	* @param array $options for cURL 
-	* @return string 
-	*/ 
+	// tested 12-05-2014
 	//call to fill the second dropdown with the cities
     public function buildDropCities() {
         //set selected country id from POST
@@ -161,6 +171,7 @@ class propertyfinder extends CI_Controller {
 
         echo  $output;
     }
+    // tested 12-05-2014
     //call to fill the second dropdown with the cities
     public function buildDropSubCom() {
         //set selected country id from POST

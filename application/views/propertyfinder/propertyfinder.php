@@ -70,7 +70,7 @@
                                                 <input type="text" name="re_property"  class="form-control col-md-7 col-lg-6" value="" tabindex="4" />                                                
                                             </div><!-- col-sm-10 -->
                                             <small><div class="col-sm-6 col-md-3 col-lg-3" id="re_property_count"></div></small>
-                                        </div><!-- form-group -->
+                                        </div><!-- form-group -->                                   
 
                                       <div class="form-group">                                      
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
@@ -83,6 +83,39 @@
                         </div><!-- widget -->
                         
                     </div><!-- col-sm-6 portlets -->
+
+                    <!-- Field name checkbox -->
+                    <div class="col-sm-6 portlets">
+                        <div class="widget">
+                            <div class="widget-header ">
+                                <h2><strong>Show / Hide</strong> Column Fields</h2>
+                                <div class="additional-btn">
+                                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                              <div class="row">
+                                <!-- foreach here -->
+                                <?php foreach($propertyfinder_tb_fieldnames as $label => $value){
+                                        if(strpos(strtolower($label), '_id') === false){                                     
+                                            $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
+                                ?>                               
+                                <div class="col-xs-8">
+                                    <?php echo $field_name; ?>
+                                </div>
+                                <div class="col-xs-4">
+                                    <span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="<?php echo $label; ?>" value="<?php echo $field_name; ?>" checked  /></span>
+                                </div>
+                                <?php  }} ?>
+                                <!-- end here -->                           
+                            </div><!-- row -->
+                            </div><!-- widget-content padding -->
+                        </div><!-- widget-header -->
+                    </div><!-- col-sm-6-portlets -->
+ 
+                    <!-- end Field name checkbox -->
 
                     <div class="col-md-12">
                         <div class="widget">
@@ -100,30 +133,44 @@
                             <br>                    
                                 <div class="table-responsive">
                                     <form class='form-horizontal' role='form'>
-                                    <table id="datatables-2" data-sortable class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <table id="datatables-5" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>No</th>                                               
-                                                <th>City</th>
-                                                <th>Community</th>
-                                                <th>Sub-Community</th>
-                                                <th>Property</th>                                               
+                                                <th class="city">City</th>
+                                                <th class="community">Community</th>
+                                                <th class="subcommunity">Sub-Community</th>
+                                                <th class="re_property">Property</th>   
+                                                <th class="building_name">Building name</th> 
+                                                <th class="unit_number">Unit number</th>   
+                                                <th class="developer_name">Developer name</th>                                                                                         
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </thead>
+                                        <tfoot>
+                                            <tr>                                                                                           
+                                                <th class="city">City</th>
+                                                <th class="community">Community</th>
+                                                <th class="subcommunity">Sub-Community</th>
+                                                <th class="re_property">Property</th>   
+                                                <th class="building_name">Building name</th>
+                                                <th class="unit_number">Unit number</th>
+                                                <th class="developer_name">Developer name</th>                                               
+                                                <th data-sortable="false">Option</th>
+                                            </tr>
+                                        </tfoot>
                                         
                                         <tbody class="hidden">
 
-                                            <?php 
-                                                $i = 1; // counter
-                                                foreach($properties as $property) { ?>
+                                            <?php  foreach($properties as $property) { ?>
 
-                                            <tr>
-                                                <td><?php echo $i; ?></td>                                                
-                                                <td><?php echo $property['city'];?></td>
-                                                <td><?php echo $property['community'];?></td>
-                                                <td><?php echo $property['subcommunity']; ?></td>
-                                                <td><?php echo $property['re_property']; ?></td>                                                
+                                            <tr>                                                                                         
+                                                <td class="city"><?php echo $property['city'];?></td>
+                                                <td class="community"><?php echo $property['community'];?></td>
+                                                <td class="subcommunity"><?php echo $property['subcommunity']; ?></td>
+                                                <td class="re_property"><?php echo $property['re_property']; ?></td>    
+                                                <td class="building_name"><?php echo $property['building_name']; ?></td>  
+                                                <td class="unit_number"><?php echo $property['unit_number']; ?></td>   
+                                                <td class="developer_name"><?php echo $property['developer_name']; ?></td>                                           
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                        
                                                         <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a>
@@ -131,7 +178,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php ++$i;} ?>
+                                            <?php } ?>
                                             
                                         </tbody>
                                     </table>
@@ -155,6 +202,32 @@
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
                 $(document).ready(function() {
+                    // changing table style
+                    // http://datatables.net/examples/index 
+
+                    $('.field_name').click(function(){
+                        // jquery flow guide on this action
+                        // parent node class field_name is looking for a class iswitch in children node
+                        //var child_switch = $(this).find('.iswitch');
+                        // if the children node contain a class name on
+                        //var iswitch = child_switch.hasClass('on');
+                        // find the input tag
+                        //var input_check = iswitch.siblings('input');
+                        // get the sibling attribute name
+                        //var input_attr = input_check.attr('name');
+                        var check_switch = $(this).find('.iswitch').hasClass('on');
+                        var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
+                        var column = "table ." + field_name_checkbox;
+                        
+                        if(check_switch){ 
+                            // to show the table column name mention 
+                            $(column).toggle();
+                        } else {   
+                            // to hide the table column name mention                       
+                            $(column).hide();  
+                        } 
+                    });
+                    $('table .id').hide();
                     function display_msg(property_count){
                         var msg = null;
                         if(property_count == 0 ) {
@@ -166,7 +239,17 @@
                         } 
                         return msg;
                     }
-                    
+                    // inter-active field name check boxes
+                    $("input[name='field_name[]']:checked").click(function(){
+                        var toggle_field = $(this).val();
+                        alert('toogle');
+                        // short hand for ajax with parameter: url, data, success, datatype
+                        
+                    });
+                    $(".on").toggle(function(){
+                        alert('toogle iswitch');    
+                    })
+
                     // inter-active count response
                     $("#city_name").change(function(){
                         var city_name         = $('#city_name').val();
@@ -237,7 +320,7 @@
                                 $.each(response, function (i, item) {
                                     //console.log('i :'+ i);
                                     //console.log('item :'+ item);
-                                    trHTML += '<tr><td>' + item.tb_propertyfinder_id + '</td><td>' + item.city + '</td><td>' + item.community + '</td><td>' + item.subcommunity + '</td><td>' + item.re_property + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
                                 });
 
                                 $('tbody').removeClass('hidden').show().empty().append(trHTML);
@@ -319,7 +402,7 @@
                                 $.each(response, function (i, item) {
                                     //console.log('i :'+ i);
                                     //console.log('item :'+ item);
-                                    trHTML += '<tr><td>' + item.tb_propertyfinder_id + '</td><td>' + item.city + '</td><td>' + item.community + '</td><td>' + item.subcommunity + '</td><td>' + item.re_property + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
                                 });
 
                                 $('tbody').removeClass('hidden').show().empty().append(trHTML);
@@ -402,7 +485,7 @@
                                 $.each(response, function (i, item) {
                                     //console.log('i :'+ i);
                                     //console.log('item :'+ item);
-                                    trHTML += '<tr><td>' + item.tb_propertyfinder_id + '</td><td>' + item.city + '</td><td>' + item.community + '</td><td>' + item.subcommunity + '</td><td>' + item.re_property + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
                                 });
 
                                 $('tbody').removeClass('hidden').show().empty().append(trHTML);
