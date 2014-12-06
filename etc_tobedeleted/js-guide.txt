@@ -1,3 +1,14 @@
+                    // inter-active field name check boxes
+                    $("input[name='field_name[]']:checked").click(function(){
+                        var toggle_field = $(this).val();
+                        alert('toogle');
+                        // short hand for ajax with parameter: url, data, success, datatype
+                        
+                    });
+                    $(".on").toggle(function(){
+                        alert('toogle iswitch');    
+                    })
+
 function del_city(){
     var city = $('#city').val();
     

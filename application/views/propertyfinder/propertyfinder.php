@@ -30,16 +30,16 @@
                                         <div class="form-group">
                                             <label for="city" class="col-xs-2 col-sm-3 col-md-3 col-lg-3 control-label">City</label>
                                             <div class="col-xs-9 col-sm-9 col-md-6 col-lg-6">       
-                                                <select name="city" id="city_name" tabindex="1" class="form-control">
+                                                <select name="city_name" id="city_name" tabindex="1" class="form-control">
                                                     <option value="">Select City</option>                                                   
-                                                    <option value="1">Abu Dhabi</option>
-                                                    <option value="2">Ajman</option>
-                                                    <option value="3">Al Ain</option>
-                                                    <option value="4">Dubai</option>
-                                                    <option value="5">Fujairah</option>
-                                                    <option value="6">Ras Al Khaimah</option>
-                                                    <option value="7">Sharjah</option>
-                                                    <option value="8">Umm Al Quwain</option>
+                                                    <option value="1" <?php set_select('city_name', 1); ?>>Abu Dhabi</option>
+                                                    <option value="2" <?php set_select('city_name', 2); ?>>Ajman</option>
+                                                    <option value="3" <?php set_select('city_name', 3); ?>>Al Ain</option>
+                                                    <option value="4" <?php set_select('city_name', 4); ?>>Dubai</option>
+                                                    <option value="5" <?php set_select('city_name', 5); ?>>Fujairah</option>
+                                                    <option value="6" <?php set_select('city_name', 6); ?>>Ras Al Khaimah</option>
+                                                    <option value="7" <?php set_select('city_name', 7); ?>>Sharjah</option>
+                                                    <option value="8" <?php set_select('city_name', 8); ?>>Umm Al Quwain</option>
                                                 </select>                                                                                                                                                                            
                                             </div><!-- col-sm-10 -->  
                                             <small><div class="col-sm-6 col-md-3 col-lg-3" id="city_count"></div></small>
@@ -67,7 +67,7 @@
                                          <div class="form-group">
                                             <label for="re_property" class="col-xs-2 col-sm-2 col-md-2 col-lg-3 control-label">Property</label>
                                             <div class="col-xs-9 col-sm-9 col-md-6 col-lg-6"><!--select-editable">-->     
-                                                <input type="text" name="re_property"  class="form-control col-md-7 col-lg-6" value="" tabindex="4" />                                                
+                                                <input type="text" name="re_property_name"  class="form-control col-md-7 col-lg-6" value="" tabindex="4" />                                                
                                             </div><!-- col-sm-10 -->
                                             <small><div class="col-sm-6 col-md-3 col-lg-3" id="re_property_count"></div></small>
                                         </div><!-- form-group -->                                   
@@ -106,7 +106,11 @@
                                     <?php echo $field_name; ?>
                                 </div>
                                 <div class="col-xs-4">
-                                    <span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="<?php echo $label; ?>" value="<?php echo $field_name; ?>" checked  /></span>
+                                    <?php if($label =='description' or $label =='developer_name' || $label =='unit_number' || $label =='building_name') { ?>
+                                    <span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="<?php echo $label; ?>" value="<?php echo $field_name; ?>"/></span>
+                                    <?php } else { ?>
+                                        <span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="<?php echo $label; ?>" value="<?php echo $field_name; ?>" checked  /></span>
+                                    <?php } ?>
                                 </div>
                                 <?php  }} ?>
                                 <!-- end here -->                           
@@ -140,9 +144,11 @@
                                                 <th class="community">Community</th>
                                                 <th class="subcommunity">Sub-Community</th>
                                                 <th class="re_property">Property</th>   
+                                                <th class="property_type">Property Type</th> 
+                                                <th class="description">Description</th>                                                                                         
                                                 <th class="building_name">Building name</th> 
                                                 <th class="unit_number">Unit number</th>   
-                                                <th class="developer_name">Developer name</th>                                                                                         
+                                                <th class="developer_name">Developer name</th>                                                
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </thead>
@@ -152,9 +158,11 @@
                                                 <th class="community">Community</th>
                                                 <th class="subcommunity">Sub-Community</th>
                                                 <th class="re_property">Property</th>   
-                                                <th class="building_name">Building name</th>
-                                                <th class="unit_number">Unit number</th>
-                                                <th class="developer_name">Developer name</th>                                               
+                                                <th class="property_type">Property Type</th> 
+                                                <th class="description">Description</th>                                                                                         
+                                                <th class="building_name">Building name</th> 
+                                                <th class="unit_number">Unit number</th>   
+                                                <th class="developer_name">Developer name</th>                                              
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </tfoot>
@@ -163,18 +171,20 @@
 
                                             <?php  foreach($properties as $property) { ?>
 
-                                            <tr>                                                                                         
+                                            <tr>   
                                                 <td class="city"><?php echo $property['city'];?></td>
                                                 <td class="community"><?php echo $property['community'];?></td>
                                                 <td class="subcommunity"><?php echo $property['subcommunity']; ?></td>
                                                 <td class="re_property"><?php echo $property['re_property']; ?></td>    
+                                                <td class="property_type"><?php echo $property['property_type']; ?></td>
+                                                <td class="description"><?php echo $property['description']; ?></td> 
                                                 <td class="building_name"><?php echo $property['building_name']; ?></td>  
                                                 <td class="unit_number"><?php echo $property['unit_number']; ?></td>   
-                                                <td class="developer_name"><?php echo $property['developer_name']; ?></td>                                           
+                                                <td class="developer_name"><?php echo $property['developer_name']; ?></td>                                                                                            
                                                 <td>
                                                     <div class="btn-group btn-group-xs">                        
                                                         <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a>
-                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a>
+                                                        <a href="" onClick="delete_record(<?php echo $property['tb_propertyfinder_id'];?>)" data-toggle="tooltip" title="Off" class="btn custom-del"><i class="glyphicon glyphicon-remove"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -182,6 +192,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    <input type="hidden" id="for_deletion" name="for_deletion" value="">
                                     </form>
                                 </div>
                             </div>
@@ -201,12 +212,99 @@
                 </footer>
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
-                $(document).ready(function() {
+                 $(document).ready(function() {                   
+                    // initial table set
+                    function row_check(city, community, subcommunity, re_property, property_type, description, building_name, unit_number, developer_name){
+                       
+                        var row_html = '<tr>';                        
+
+                        if($('table .city').is(':visible')){
+                            row_html += '<td class="city">' + city + '</td>';                        
+                        }
+                        if($('table .community').is(':visible')){
+                            row_html += '<td class="community">' + community + '</td>';                        
+                        }
+                        if($('table .subcommunity').is(':visible')){
+                            row_html += '<td class="subcommunity">' + subcommunity + '</td>';                        
+                        }
+                        if($('table .re_property').is(':visible')){
+                            row_html += '<td class="re_property">' + re_property + '</td>';                        
+                        } 
+                        if($('table .property_type').is(':visible')){
+                            row_html += '<td class="re_property">' + property_type + '</td>';                        
+                        }  
+                        if($('table .description').is(':visible')){
+                            row_html += '<td class="description">' + description + '</td>';                        
+                        }
+                        if($('table .building_name').is(':visible')){
+                            row_html += '<td class="building_name">' + building_name + '</td>';                        
+                        }  
+                        if($('table .unit_number').is(':visible')){
+                            row_html += '<td class="unit_number">' + unit_number + '</td>';                        
+                        }
+                        if($('table .developer_name').is(':visible')){
+                            row_html += '<td class="developer_name">' + developer_name + '</td>';                        
+                        }
+
+                        row_html  += '<td><div class="btn-group btn-group-xs"><a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" onClick="delete_record()" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                        
+                        return row_html;    
+                    }
+
+                    function render_filtered_table(city_name, community_name, subcommunity_name){
+                        city_name           = typeof city_name !== 'undefined' ? city_name : null;
+                        community_name      = typeof community_name !== 'undefined' ? community_name : null;
+                        subcommunity_name   = typeof subcommunity_name !== 'undefined' ? subcommunity_name : null;
+
+                        return $.ajax({
+                                    url: "<?php echo base_url('propertyfinder/query_propertyfinder'); ?>",
+                                    type: 'POST',
+                                    dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                                    data:{  
+                                            'city' :city_name,
+                                            'community_name': community_name,
+                                            'subcommunity_name': subcommunity_name
+                                         },
+                                    //context: $('#datatables-2'),
+                                        
+                                    error:  function(xhr, status, error) {
+                                              var err = JSON.parse(xhr.responseText);
+                                              alert(err.Message);
+                                             
+                                            },
+                                    statusCode: {
+                                             404: function() {
+                                                    alert( "page not found" );
+                                                }
+                                    },
+                                    success: function (response) {                               
+                                        // remove table body
+                                        //console.log('response :'+ response);
+                                        var trHTML = '';
+                                        $.each(response, function (i, item) {
+                                            //console.log('i :'+ i);
+                                            //console.log('item :'+ item);                                           
+                                            trHTML += row_check(item.city, item.community, item.subcommunity, item.re_property, item.description, item.property_type, item.building_name, item.unit_number, item.developer_name);
+                                        });
+
+                                        $('tbody').removeClass('hidden').show().empty().append(trHTML);
+                                        //console.log('respose: '+response); 
+                                        //console.log('trHTML: '+trHTML); 
+                                    },
+                                    complete: function(xhr, status){
+                                        var xhr = JSON.parse(xhr.responseText);
+                                        //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                                    }
+                                });// end inter-active table 
+                    };
                     // changing table style
                     // http://datatables.net/examples/index 
-
+                    // set default hide column fields
+                    $('table .id, table .building_name, table .unit_number, table .developer_name, table .description').hide();
+                    // toggle class off associated to default checkbox                                                  
                     $('.field_name').click(function(){
                         // jquery flow guide on this action
+                        // re-render filtered table then
                         // parent node class field_name is looking for a class iswitch in children node
                         //var child_switch = $(this).find('.iswitch');
                         // if the children node contain a class name on
@@ -215,19 +313,71 @@
                         //var input_check = iswitch.siblings('input');
                         // get the sibling attribute name
                         //var input_attr = input_check.attr('name');
+                        var city_name         = $('#city_name').val();
+                        var community_name    = $('#cityDrp').val();
+                        var subcommunity_name = $('#cityDrp2').val();
+
+                        // inter-active table    
+                        console.log('inside field_name click');
+                        render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
+                            console.log('ajax within a function successful');
+                        });
+                        console.log('after rendered inside field_name click');
+                        // end inter-active table
+                        
                         var check_switch = $(this).find('.iswitch').hasClass('on');
                         var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
                         var column = "table ." + field_name_checkbox;
                         
                         if(check_switch){ 
                             // to show the table column name mention 
-                            $(column).toggle();
+                            $(column).toggle();                            
                         } else {   
                             // to hide the table column name mention                       
                             $(column).hide();  
                         } 
+                         
                     });
-                    $('table .id').hide();
+                    
+                    function delete_record(tb_propertyfinder_id){                        
+                        return $.ajax({
+                                    url: "<?php echo base_url('propertyfinder/del'); ?>", //to be adjusted
+                                    type: 'POST',
+                                    dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                                    data:{  
+                                            'delete_record_id' : delete_record_id
+                                         },
+                                    //context: $('#datatables-2'),
+                                        
+                                    error:  function(xhr, status, error) {
+                                              var err = JSON.parse(xhr.responseText);
+                                              alert(err.Message);
+                                             
+                                            },
+                                    statusCode: {
+                                             404: function() {
+                                                    alert( "page not found" );
+                                                }
+                                    },
+                                    success: function (response) {                               
+                                        // remove table body
+                                        //console.log('response :'+ response);
+                                        var trHTML = '';
+                                        $.each(response, function (i, item) {
+                                            //console.log('i :'+ i);
+                                            console.log('item :'+ item);                                                                                     
+                                        });
+                                        
+                                        //console.log('respose: '+response); 
+                                        //console.log('trHTML: '+trHTML); 
+                                    },
+                                    complete: function(xhr, status){
+                                        var xhr = JSON.parse(xhr.responseText);
+                                        console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                                    }
+                                });// end inter-active table
+                    }
+
                     function display_msg(property_count){
                         var msg = null;
                         if(property_count == 0 ) {
@@ -239,22 +389,13 @@
                         } 
                         return msg;
                     }
-                    // inter-active field name check boxes
-                    $("input[name='field_name[]']:checked").click(function(){
-                        var toggle_field = $(this).val();
-                        alert('toogle');
-                        // short hand for ajax with parameter: url, data, success, datatype
-                        
-                    });
-                    $(".on").toggle(function(){
-                        alert('toogle iswitch');    
-                    })
 
                     // inter-active count response
                     $("#city_name").change(function(){
                         var city_name         = $('#city_name').val();
-                        var community_name = null;
+                        var community_name    = null;
                         var subcommunity_name = null;
+
                         $.ajax({
                             url: "<?php echo base_url('propertyfinder/count_record_by_city'); ?>",
                             type: 'POST',
@@ -319,8 +460,8 @@
                                 var trHTML = '';
                                 $.each(response, function (i, item) {
                                     //console.log('i :'+ i);
-                                    //console.log('item :'+ item);
-                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                    //console.log('item :'+ item);                                    
+                                    trHTML += row_check(item.city, item.community, item.subcommunity, item.re_property, item.property_type, item.building_name, item.unit_number, item.developer_name);
                                 });
 
                                 $('tbody').removeClass('hidden').show().empty().append(trHTML);
@@ -382,9 +523,7 @@
                             data:{  
                                     'city' :city_name,
                                     'community_name': community_name
-                                 },
-                            //context: $('#datatables-2'),
-                                
+                                 },                               
                             error:  function(xhr, status, error) {
                                       var err = JSON.parse(xhr.responseText);
                                       alert(err.Message);
@@ -401,8 +540,8 @@
                                 var trHTML = '';
                                 $.each(response, function (i, item) {
                                     //console.log('i :'+ i);
-                                    //console.log('item :'+ item);
-                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                                    //console.log('item :'+ item);                         
+                                    trHTML += row_check(item.city, item.community, item.subcommunity, item.re_property, item.property_type, item.description, item.building_name, item.unit_number, item.developer_name);
                                 });
 
                                 $('tbody').removeClass('hidden').show().empty().append(trHTML);
@@ -456,49 +595,14 @@
                                 //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
                             }
                         });// end inter-active count response
-                        // inter-active table
-                        $.ajax({
-                            url: "<?php echo base_url('propertyfinder/query_propertyfinder'); ?>",
-                            type: 'POST',
-                            dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
-                            data:{  
-                                    'city' :city_name,
-                                    'community_name': community_name,
-                                    'subcommunity_name': subcommunity_name
-                                 },
-                            //context: $('#datatables-2'),
-                                
-                            error:  function(xhr, status, error) {
-                                      var err = JSON.parse(xhr.responseText);
-                                      alert(err.Message);
-                                     
-                                    },
-                            statusCode: {
-                                     404: function() {
-                                            alert( "page not found" );
-                                        }
-                            },
-                            success: function (response) {                               
-                                // remove table body
-                                //console.log('response :'+ response);
-                                var trHTML = '';
-                                $.each(response, function (i, item) {
-                                    //console.log('i :'+ i);
-                                    //console.log('item :'+ item);
-                                    trHTML += '<tr><td class="city">' + item.city + '</td><td class="community">' + item.community + '</td><td class="subcommunity">' + item.subcommunity + '</td><td class="re_property">' + item.re_property + '</td><td class="building_name">' + item.building_name + '</td><td class="unit_number">' + item.unit_number + '</td><td class="developer_name">' + item.developer_name + '</td><td> <div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
-                                });
-
-                                $('tbody').removeClass('hidden').show().empty().append(trHTML);
-                                //console.log('respose: '+response); 
-                                //console.log('trHTML: '+trHTML); 
-                            },
-                            complete: function(xhr, status){
-                                var xhr = JSON.parse(xhr.responseText);
-                                //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
-                            }
-                        });// end inter-active table 
+                        // inter-active table    
+                        render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
+                            console.log('ajax within a function successful');
+                        });
+                        // end inter-active table 
                     });  
-                });  // end document.ready                   
+                });  // end document.ready 
+            
                 </script>	
             </div>
 			<!-- ============================================================== -->

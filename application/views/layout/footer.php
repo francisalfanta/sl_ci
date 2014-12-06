@@ -53,7 +53,6 @@
 
     <!-- custom added for datatable 12-05-2014 -->
     <script src="<?php echo base_url().'assets/js/dataTables.jqueryui.js'; ?>"></script>
-
   
 	<script type="text/javascript"> 
            

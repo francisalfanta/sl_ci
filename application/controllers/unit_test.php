@@ -16,14 +16,8 @@ class Unit_test extends CI_Controller {
 
 	public function index() {
         
-        $fields =array();    
-            
-        $query = $this->db->list_fields('propertyfinder');
-        foreach ($query as $field_meta) {           
-            $fields[$field_meta] = $field_meta;
-           
-        }       
-        var_dump($fields);
+        $city_name         = $this->city_model->get_city_by_id(1);   
+        var_dump($city_name);
 
         $test_unit = $fields;
 		if (is_null($test_unit)) 

@@ -156,17 +156,17 @@ class propertyfinder extends CI_Controller {
 	//call to fill the second dropdown with the cities
     public function buildDropCities() {
         //set selected country id from POST
-        $id_country = $this->input->post('city_name',TRUE);
+        $id_city = $this->input->post('city_name',TRUE);
 
         //run the query for the cities we specified earlier
-        $districtData['districtDrop']=$this->city_model->getCityByCountry($id_country);
+        $districtData['districtDrop']=$this->city_model->getCityByCountry($id_city);
         
-       $output = "<option value='all'>Select All</option>";
+        $output = "<option value='all'>Select All</option>";
 
         foreach ($districtData['districtDrop']->result() as $row)
         {
             //here we build a dropdown item line for each query result
-            $output .= "<option value='".$row->id."'>".$row->community_name."</option>";
+            $output .= "<option value='".$row->id."' ".set_select('community_name', $row->id).">".$row->community_name."</option>";
         }
 
         echo  $output;
@@ -175,17 +175,17 @@ class propertyfinder extends CI_Controller {
     //call to fill the second dropdown with the cities
     public function buildDropSubCom() {
         //set selected country id from POST
-        $id_country = $this->input->post('community_name',TRUE);
+        $id_community = $this->input->post('community_name',TRUE);
 
         //run the query for the cities we specified earlier
-        $districtData['districtDrop']=$this->city_model->getSubByComm($id_country);
+        $districtData['districtDrop']=$this->city_model->getSubByComm($id_community);
         
-       $output = "<option value='all'>Select All</option>";
+        $output = "<option value='all'>Select All</option>";
 
         foreach ($districtData['districtDrop']->result() as $row)
         {
             //here we build a dropdown item line for each query result
-            $output .= "<option value='".$row->id."'>".$row->subcommunity_name."</option>";
+            $output .= "<option value='".$row->id."' ".set_select('subcommunity_name', $row->id).">".$row->subcommunity_name."</option>";
         }
 
         echo  $output;
@@ -502,10 +502,10 @@ class propertyfinder extends CI_Controller {
 		$data['username']   = ucfirst($username);	
 		$data['title']      = 'SoftLine | Add Property';
 		
-		$this->form_validation->set_rules('city', 'City', 'required');
+		$this->form_validation->set_rules('city_name', 'City', 'required');
 		$this->form_validation->set_rules('community_name', 'Community', 'required');
 		$this->form_validation->set_rules('subcommunity_name', 'Sub-Community', 'required');
-		$this->form_validation->set_rules('re_property', 'Property');
+		$this->form_validation->set_rules('re_property_name', 'Property');
 
 		if ($this->form_validation->run() == FALSE)
 		{		

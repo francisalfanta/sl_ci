@@ -238,6 +238,8 @@ class Nationality extends CI_Controller {
 		//	redirect('property_owner');
 		}
 	}
+
+	
 	public function create_page($property_owner_id)
 	{		
 		$data['staffs']     = $this->slcs_staff_model->get_staff();

@@ -20,6 +20,7 @@ class Property_owner extends CI_Controller {
 		$data['sections']    = $this->sections_model->get_sections();
 		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
 		$data['records'] 	 = $this->owner_addr_model->view_owner_details();
+		$data['records'] = null;
 		// custom data
 		$data['title']     = 'SoftLine | Property Owner Lists';	
 		
@@ -32,6 +33,55 @@ class Property_owner extends CI_Controller {
 		$data['parents']       = $this->property_owner_model->get_prop_owner();	
 		//$data['nationalities'] = $this->nationality_model->get_nationality();		
 		$data['owner_details'] = $this->owner_addr_model->view_owner_details();
+		$data['nationality_tb_fieldnames'] = $this->get_field_name_nationality();
+		$data['address_tb_fieldnames'] = $this->get_field_name_address();
+		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
+
+		$data['country_list'] = $this->country_model->get_country();
+
+		$passport_no = null;
+		$first_name  = null;
+		$middle_name = null;
+		$last_name   = null;
+		$nationality = null;
+		
+		//$data['nationalities'] = $this->nationality_model->get_nationality();		
+		//$data['nationalities'] = $this->owner_addr_model->get_owner_addr($property_owner_id);
+		
+		$data['form_attributes'] = array('class' => 'form inline', 'role' => 'form');		
+						         
+		$data['fn_attributes']   = array(
+						              'name'        => 'first_name',
+						              'id'          => 'fn_name',
+						              'value'       => $first_name,						              
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'First Name'
+						           );
+		$data['mn_attributes']   = array(
+						              'name'        => 'middle_name',
+						              'id'          => 'fn_name',
+						              'value'       => $middle_name,
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'Middle Name'
+						           );
+		$data['ln_attributes']   = array(
+						              'name'        => 'last_name',
+						              'id'          => 'ln_name',
+						              'value'       => $last_name,
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'Last Name'
+						           );
+		$data['nat_attributes']   = array(
+						              'name'        => 'nationality',
+						              'id'          => 'nationality',
+						              'value'       => $nationality,
+						              'class' 		=> 'form-control input-sm',
+						              //'style'       => 'width:50%;',
+						              'placeholder' => 'Nationality'
+						           );	
 
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/custom_modal', $data);
@@ -40,6 +90,40 @@ class Property_owner extends CI_Controller {
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('property_owner/property_owner_table', $data);		
 		$this->load->view('layout/footer');	
+	}
+
+	// tested 12/05/2014
+	public function get_field_name_propertyfinder(){
+		
+		$fields =array();    
+            
+        $query = $this->db->list_fields('propertyfinder');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;           
+        }    	
+		return $fields;
+	}	
+	// tested 12/06/2014
+	public function get_field_name_nationality(){
+		
+		$fields =array();    
+            
+        $query = $this->db->list_fields('nationality');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;           
+        }    	
+		return $fields;
+	}
+	// tested 12/06/2014
+	public function get_field_name_address(){
+		
+		$fields =array();    
+            
+        $query = $this->db->list_fields('address');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;           
+        }    	
+		return $fields;
 	}
 
 	public function view_property_owner($property_owner_id = null, $propertyfinder_id = null)
