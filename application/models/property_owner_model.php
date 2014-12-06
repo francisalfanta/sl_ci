@@ -14,15 +14,15 @@ class property_owner_model extends CI_Model
 		$this->load->database();
 	}
 
-	public function get_prop_owner($id = FALSE)
+	public function get_prop_owner($tb_property_owner_id = null)
 	{
-		if ($id === FALSE)
+		if (is_null($tb_property_owner_id))
 		{
 			$query = $this->db->get('property_owner');
 			return $query->result_array();
 		}
 
-		$query = $this->db->get_where('property_owner', array('tb_property_owner_id' => $id));
+		$query = $this->db->get_where('property_owner', array('tb_property_owner_id' => $tb_property_owner_id));
 		return $query->row_array();
 	}
 

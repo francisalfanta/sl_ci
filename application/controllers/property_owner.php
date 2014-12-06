@@ -92,6 +92,7 @@ class Property_owner extends CI_Controller {
 		$this->load->view('layout/footer');	
 	}
 
+	
 	// tested 12/05/2014
 	public function get_field_name_propertyfinder(){
 		
