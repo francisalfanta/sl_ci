@@ -49,6 +49,8 @@ $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
 $route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';
 
+$route['property_owner/datatable'] = 'property_owner/datatable';
+$route['property_owner/q_prop_owner'] = 'property_owner/q_prop_owner';
 $route['property_owner/view_property_owner/(:any)'] = 'property_owner/view_property_owner/$1';
 $route['property_owner/update_owner_personal_details'] = 'property_owner/update_owner_personal_details';
 

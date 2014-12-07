@@ -394,78 +394,22 @@
                             <br>
                                 <div class="table-responsive">
                                 <form class='form-horizontal' role='form'>
-                                    <table id="datatables-5" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
+                                     <table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
                                     <thead>
                                         <tr>    
-                                            <th><small>Full Name</small></th>                                                                                      
-                                            <th><small>Address</small></th> 
-                                            <th><small>Mobile no.</small></th> 
-                                            <th><small>Tel no.</small></th>
-                                            <th><small>Property</small></th>
-                                            <th><small>Property type</small></th>
-                                            <th><small>Bldg Name</small></th>                                                
-                                            <th><small>Status</small></th>                                            
-                                            <th data-sortable="false">Option</th>
+                                            <th><small>First Name</small></th>                                                                                      
+                                            <th><small>Middle Name</small></th> 
+                                            <th><small>Last Name</small></th>                                            
                                         </tr>
                                     </thead> 
                                     <tfoot>
                                         <tr>                                            
-                                            <th><small>Full Name</small></th>                                                                                      
-                                            <th><small>Address</small></th> 
-                                            <th><small>Mobile no.</small></th> 
-                                            <th><small>Tel no.</small></th>
-                                            <th><small>Property</small></th>
-                                            <th><small>Property type</small></th>
-                                            <th><small>Status</small></th>                                          
-                                            <th data-sortable="false">Option</th>
-                                            </tr>
+                                            <th><small>First Name</small></th>                                                                                      
+                                            <th><small>Middle Name</small></th> 
+                                            <th><small>Last Name</small></th> 
+                                        </tr>
                                     </tfoot>                                       
-                                        <tbody>
-                                            <?php if(count($records)>1) {
-                                                foreach($records as $row) { 
-                                                if($row->addressLocality){ $local = $row->addressLocality.', ';} else { $local = null;}
-                                                if($row->addressRegion){ $region = $row->addressRegion.', ';} else { $region = null;}
-                                                if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;}                                                
-                                                if( count($parents)==1 && $row->property_owner_id == $parents['tb_property_owner_id']) { 
-                                                // Display selected record?>
-                                            <tr> 
-                                                <td><small><?php echo $row->full_name; ?></small></td>                 
-                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
-                                                <td><small><?php echo $row->mobile_no; ?></small></td>                                               
-                                                <td><small><?php echo $row->telephone_no; ?></small></td>
-                                                <td><small><?php echo $row->re_property; ?></small></td>
-                                                <td><small><?php echo $row->property_type; ?></small></td>
-                                                <td><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Danger</span>'; } ?></small></td>
-                                                <td><small><?php echo $row->building_name; ?></small></td> 
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
-                                                        <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php } else { // Display all record ?> 
-                                            <tr> 
-                                                <td><small><?php echo $row->full_name; ?></small></td>     
-                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
-                                                <td><small><?php echo $row->mobile_no; ?></small></td>
-                                                <td><small><?php echo $row->telephone_no; ?></small></td>
-                                                <td><small><?php echo $row->re_property; ?></small></td>
-                                                <td><small><?php echo $row->property_type; ?></small></td>
-                                                <td><small><?php echo $row->building_name; ?></small></td>
-                                                <td><small><?php if($row->status){ echo '<span class="label label-success btn" >Active</span>'; } else { echo '<span class="label label-danger btn" onClick="status_toggle()">Danger</span>'; } ?></small></td>                                                                                     
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">                                                                    
-                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                    
-                                                       
-                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
-                                                           
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php }}} ?>                                            
-                                        </tbody>
+                                      
                                     </table>
                                 </form><!-- table-responsive -->
                                 </div><!-- table-responsive -->
@@ -485,7 +429,34 @@
                 </footer>
                 <!-- Footer End -->
                 <script type="text/javascript">
-               
+                  var editor; // use a global for the submit and return data rendering in the examples
+ 
+                  $(document).ready(function() {
+                 var oTable = $('#owner_table').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": '<?php echo base_url("property_owner/datatable"); ?>',
+            "bJQueryUI": true,
+            "sPaginationType": "full_numbers",
+            "iDisplayStart ": 10,
+           // "oLanguage": {
+            //    "sProcessing": "<img src='<?php echo base_url(); ?>assets/images/ajax-loader_dark.gif'>"
+           // },
+            "fnInitComplete": function () {
+                oTable.fnAdjustColumnSizing();
+            },
+            'fnServerData': function (sSource, aoData, fnCallback) {
+                $.ajax
+                ({
+                    'dataType': 'json',
+                    'type': 'POST',
+                    'url': sSource,
+                    'data': aoData,
+                    'success': fnCallback
+                });
+            }
+        });
+                  } );
                 </script>
             </div>
 			<!-- ============================================================== -->

@@ -9,6 +9,9 @@ class Property_owner extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->library('Datatables');
+        $this->load->library('table');
+        $this->load->database();
 		// all model were autoloaded
 	}
 
@@ -38,6 +41,11 @@ class Property_owner extends CI_Controller {
 		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
 
 		$data['country_list'] = $this->country_model->get_country();
+
+		//set table id in table open tag
+        //$tmpl = array('table_open' => '<table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">');
+        //$this->table->set_template($tmpl);
+		//$this->table->set_heading('First Name', 'Middle Name', 'Last Name');
 
 		$passport_no = null;
 		$first_name  = null;
@@ -92,6 +100,20 @@ class Property_owner extends CI_Controller {
 		$this->load->view('layout/footer');	
 	}
 
+	 //function to handle callbacks
+    public function datatable()
+    {	
+        $this->datatables->select('tb_property_owner_id,first_name, middle_name, last_name')
+            ->unset_column('tb_property_owner_id')
+            ->from('property_owner');
+ 
+        echo $this->datatables->generate();
+    }
+
+	public function q_prop_owner(){
+		$query = $this->property_owner_model->get_prop_owner();
+		echo json_encode($query);
+	}
 	
 	// tested 12/05/2014
 	public function get_field_name_propertyfinder(){

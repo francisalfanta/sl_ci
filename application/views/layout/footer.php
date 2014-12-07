@@ -44,15 +44,16 @@
     	echo '<script src="'.base_url('assets/libs/select2-3.5.2/select2.min.js').'"></script>';
     }?>
 
-  
-    <!-- Page Specific JS Libraries Tables Pages-->
-    <script src="<?php echo base_url('assets/libs/jquery-datatables/js/jquery.dataTables.min.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/libs/jquery-datatables/js/dataTables.bootstrap.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js'); ?>"></script>
-    <script src="<?php echo base_url().'assets/js/pages/datatables.js'; ?>"></script>
+  <!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css">
+ 
+  <!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
 
+ <!-- Page Specific JS Libraries Tables Pages-->
+    
     <!-- custom added for datatable 12-05-2014 -->
-    <script src="<?php echo base_url().'assets/js/dataTables.jqueryui.js'; ?>"></script>
+   
   
 	<script type="text/javascript"> 
            
