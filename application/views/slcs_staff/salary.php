@@ -17,7 +17,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('basic_salary'); ?></h6>
-											<input type="text" name="basic_salary" value="<?php echo set_value('basic_salary'); ?>" class="form-control" placeholder="Basic Salary">
+											<input type="text" name="basic_salary" value="<?php echo set_value('basic_salary'); ?>" class="form-control input-sm" placeholder="Basic Salary">
 										</div>
 										<div class="col-md-4"><h6><?php echo form_error('radiogp'); ?></h6>
 											<label>Gratuity Pay:</label>
@@ -35,16 +35,16 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('accom'); ?></h6>
-											<input type="text" name="accom" value="<?php echo set_value('accom'); ?>" class="form-control" placeholder="Accomodations">
+											<input type="text" name="accom" value="<?php echo set_value('accom'); ?>" class="form-control input-sm" placeholder="Accomodations">
 										</div>
 										<div class="col-md-2">
 											<label>Total Number of:</label>
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('yrs'); ?></h6>
-											<input type="text" name="yrs" value="<?php echo set_value('yrs'); ?>" class="form-control" placeholder="Years">
+											<input type="text" name="yrs" value="<?php echo set_value('yrs'); ?>" class="form-control input-sm" placeholder="Years">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mnths'); ?></h6>
-											<input type="text" name="mnths" value="<?php echo set_value('mnths'); ?>" class="form-control" placeholder="Months">
+											<input type="text" name="mnths" value="<?php echo set_value('mnths'); ?>" class="form-control input-sm" placeholder="Months">
 										</div>
 									</div>
 								</div>
@@ -52,13 +52,13 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('transpo'); ?></h6>
-											<input type="text" name="transpo" value="<?php echo set_value('transpo'); ?>" class="form-control" placeholder="Transportation">
+											<input type="text" name="transpo" value="<?php echo set_value('transpo'); ?>" class="form-control input-sm" placeholder="Transportation">
 										</div>
 										<div class="col-md-2">
 											<label>Total Amt. (AED):</label>
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('tamt'); ?></h6>
-											<input type="text" name="tamt" value="<?php echo set_value('tamt'); ?>" class="form-control">
+											<input type="text" name="tamt" value="<?php echo set_value('tamt'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -66,7 +66,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('tamt_sal'); ?></h6>
-											<input type="text" name="tamt_sal" value="<?php echo set_value('tamt_sal'); ?>" class="form-control" placeholder="Total Amt. Salary (AED)">
+											<input type="text" name="tamt_sal" value="<?php echo set_value('tamt_sal'); ?>" class="form-control input-sm" placeholder="Total Amt. Salary (AED)">
 										</div>
 									</div>
 								</div>														

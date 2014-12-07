@@ -15,33 +15,31 @@ class owner_addr_model extends CI_Model {
 
 	public function get_owner_addr($property_owner_id = FALSE)
 	{	
-		$this->load->helper('sl_sql_helper');		
-		//$sql = sl_sql();
-		$sql = sl_sql_left_join();
-
 		if ($property_owner_id === FALSE)
 		{
-			$query = $this->db->query($sql);
+			$query = $this->db->get('property_owner_master_list');
 			return $query->result();
 		}
-		$sql = "select * from ( ".$sql. " ) as x  where tb_property_owner_id = ?";
-		$query = $this->db->query($sql,array($property_owner_id));
+		$this->db->where('property_owner_master_list_id', $property_owner_id );
+		$query = $this->db->get('property_owner_master_list');
 		return $query->result();
 	}
 
 	public function view_owner_details($count_rows = null, $start = null, $offset = null)
 	{
-		$this->load->helper('sl_sql_helper');
+		echo 'view_onwer';
+		//$this->load->helper('sl_sql_helper');
 		//$sql = sl_sql();
-		$sql = sl_sql_left_join();
+		//$sql = sl_sql_left_join();
 		
-		$query = $this->db->query($sql);
+		$query = $this->db->get('property_owner_master_list');
 		if($count_rows){			
 			$counting_rows = count($query->result());
 			return $counting_rows;
 		} elseif ($start && $offset) {			
-			$sql .= " limit ?, ?";
-			$query = $this->db->query($sql, array($start, $offset));
+			//$sql .= " limit ?, ?";
+			//$query = $this->db->query($sql, array($start, $offset));
+			$query = $this->db->get('property_owner_master_list', $start, $offset);
 			return $query->result();
 		} else {			
 			return $query->result();
@@ -68,5 +66,17 @@ class owner_addr_model extends CI_Model {
 	public function update_nationality($id, $data) {		
 		$this->db->where('tb_nationality_id', $id);
 		$this->db->update('nationality', $data); 		
-	}		
+	}	
+
+	public function get_addr_info($tb_property_owner_id = null){
+		if (is_null($tb_property_owner_id))
+		{
+			$query = $this->db->get('address');
+			return $query->result();
+		}
+		$this->db->where('tb_property_owner_id', $tb_property_owner_id );
+		$query = $this->db->get('address');
+		return $query;
+
+	}	
 }?>

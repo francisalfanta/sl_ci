@@ -45,7 +45,18 @@ class community_model extends CI_Model {
         	}	
 		}
 		return $community_name;		
-	}	
+	}
+
+	public function get_community_name_only($q)
+	{	
+		$this->db->select('id');
+		$this->db->where('community_name', $q);
+		$query = $this->db->get('community');
+		if($query->num_rows()){
+			$row = $query->row();	
+			return $row->id;
+		}	
+	}		
 	
 	public function create_community() {
 

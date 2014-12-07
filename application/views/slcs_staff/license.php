@@ -40,16 +40,16 @@
 											<center><label>Driver's License</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('dlidcno'); ?></h6>
-											<input type="text" name="dlidcno" value="<?php echo set_value('dlidcno'); ?>" class="form-control">
+											<input type="text" name="dlidcno" value="<?php echo set_value('dlidcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('dlidate'); ?></h6>
-											<input type="text" name="dlidate" value="<?php echo set_value('dlidate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="dlidate" value="<?php echo set_value('dlidate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('dlexdate'); ?></h6>
-											<input type="text" name="dlexdate" value="<?php echo set_value('dlexdate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="dlexdate" value="<?php echo set_value('dlexdate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('dlothers'); ?></h6>
-											<input type="text" name="dlothers" value="<?php echo set_value('dlothers'); ?>" class="form-control">
+											<input type="text" name="dlothers" value="<?php echo set_value('dlothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -60,16 +60,16 @@
 											<center><label>Labour Card (working permit)</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('lcidcno'); ?></h6>
-											<input type="text" name="lcidcno" value="<?php echo set_value('lcidcno'); ?>" class="form-control">
+											<input type="text" name="lcidcno" value="<?php echo set_value('lcidcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('lcidate'); ?></h6>
-											<input type="text" name="lcidate" value="<?php echo set_value('lcidate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="lcidate" value="<?php echo set_value('lcidate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('lcexdate'); ?></h6>
-											<input type="text" name="lcexdate" value="<?php echo set_value('lcexdate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="lcexdate" value="<?php echo set_value('lcexdate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('lcothers'); ?></h6>
-											<input type="text" name="lcothers" value="<?php echo set_value('lcothers'); ?>" class="form-control">
+											<input type="text" name="lcothers" value="<?php echo set_value('lcothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -80,16 +80,16 @@
 											<center><label>Resident Identity Card (Emirates ID)</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('ridcno'); ?></h6>
-											<input type="text" name="ridcno" value="<?php echo set_value('ridcno'); ?>" class="form-control">
+											<input type="text" name="ridcno" value="<?php echo set_value('ridcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('ridate'); ?></h6>
-											<input type="text" name="ridate" value="<?php echo set_value('ridate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="ridate" value="<?php echo set_value('ridate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('rexdate'); ?></h6>
-											<input type="text" name="rexdate" value="<?php echo set_value('rexdate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="rexdate" value="<?php echo set_value('rexdate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('rothers'); ?></h6>
-											<input type="text" name="rothers" value="<?php echo set_value('rothers'); ?>" class="form-control">
+											<input type="text" name="rothers" value="<?php echo set_value('rothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -99,16 +99,16 @@
 											<center><label>Visa Status</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('vsidcno'); ?></h6>
-											<input type="text" name="vsidcno" value="<?php echo set_value('vsidcno'); ?>" class="form-control">
+											<input type="text" name="vsidcno" value="<?php echo set_value('vsidcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('vsidate'); ?></h6>
-											<input type="text" name="vsidate" value="<?php echo set_value('vsidate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="vsidate" value="<?php echo set_value('vsidate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('vsexdate'); ?></h6>
-											<input type="text" name="vsexdate" value="<?php echo set_value('vsexdate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="vsexdate" value="<?php echo set_value('vsexdate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('vsothers'); ?></h6>
-											<input type="text" name="vsothers" value="<?php echo set_value('vsothers'); ?>" class="form-control">
+											<input type="text" name="vsothers" value="<?php echo set_value('vsothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -119,16 +119,16 @@
 											<center><label>Others, Pls. specify</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('othersidcno'); ?></h6>
-											<input type="text" name="othersidcno" value="<?php echo set_value('othersidcno'); ?>" class="form-control">
+											<input type="text" name="othersidcno" value="<?php echo set_value('othersidcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('othersidate'); ?></h6>
-											<input type="text" name="othersidate" value="<?php echo set_value('othersidate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="othersidate" value="<?php echo set_value('othersidate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('othersexdate'); ?></h6>
-											<input type="text" name="othersexdate" value="<?php echo set_value('othersexdate'); ?>" class="form-control datepicker-input">
+											<input type="text" name="othersexdate" value="<?php echo set_value('othersexdate'); ?>" class="form-control datepicker-input input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('othersothers'); ?></h6>
-											<input type="text" name="othersothers" value="<?php echo set_value('othersothers'); ?>" class="form-control">
+											<input type="text" name="othersothers" value="<?php echo set_value('othersothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>					

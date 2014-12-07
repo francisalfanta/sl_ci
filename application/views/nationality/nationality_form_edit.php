@@ -126,21 +126,29 @@
                                         </div>
                                     </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Region -->
-                                        <label for="addressregion" class="col-sm-2 control-label">Region</label>
+                                    <div class="form-group"> <!-- Locality to Subcommunity -->
+                                        <label for="addesssubcommunity" class="col-sm-2 control-label">Subcommunity</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($addr_region_attributes); ?>
+                                        <?php echo form_input($addr_subcommunity_attributes); ?>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Locality -->
-                                        <label for="addesslocality" class="col-sm-2 control-label">Locality</label>
+                                    <div class="form-group"> <!-- Community -->
+                                        <label for="addesscommunity" class="col-sm-2 control-label">Community</label>
                                         <div class="col-sm-10">
-                                        <?php echo form_input($addr_locality_attributes); ?>
+                                        <?php echo form_input($addr_community_attributes); ?>
                                         <p class="help-block"> </p>
                                         </div>
                                     </div><!-- form-group -->
+
+                                    <div class="form-group"> <!-- Region to City -->
+                                        <label for="addresscity" class="col-sm-2 control-label">City</label>
+                                        <div class="col-sm-10">
+                                        <?php echo form_input($addr_city_attributes); ?>
+                                        <p class="help-block"> </p>
+                                        </div>
+                                    </div><!-- form-group -->   
 
                                     <div class="form-group"> <!-- Country -->
                                         <label for="addresscountry" class="col-sm-2 control-label">Country</label>
@@ -162,7 +170,7 @@
                             <div class="form-group">
                                 <div>
                                     <button type="submit" name="formsubmit" class="btn btn-green-1" tabindex="4">Save</button>                                              
-                                    <a href="<?php $url = "property_owner/view_property_owner/".$this->uri->segment(3,0); echo base_url($url); ?>"><button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
+                                    <a href="<?php $url = "property_owner/view_property_owner/".$this->uri->segment(3,0).'/'.$this->uri->segment(4,0); echo base_url($url); ?>"><button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
                                  </div>
                             </div> <!-- form-group -->
                         </div><!-- widget-content padding -->

@@ -16,10 +16,10 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('pos_t'); ?></h6>
-											<input type="text" name="pos_t" value="<?php echo $r->position; ?>" class="form-control" placeholder="Position Title">
+											<input type="text" name="pos_t" value="<?php echo $r->position; ?>" class="form-control input-sm" placeholder="Position Title">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('estat'); ?></h6>
-											<input type="text" name="estat" value="<?php echo $r->employment_status; ?>" class="form-control" placeholder="Employment Status">											
+											<input type="text" name="estat" value="<?php echo $r->employment_status; ?>" class="form-control input-sm" placeholder="Employment Status">											
 										</div>
 										<!--
 										<div class="col-md-10"><h6><?php echo form_error('estat'); ?></h6>

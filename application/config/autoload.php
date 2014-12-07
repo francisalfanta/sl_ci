@@ -68,7 +68,7 @@ $autoload['libraries'] = array('database',
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('form', 'url');
+$autoload['helper'] = array('form', 'url', 'sl_sql_helper');
 
 
 /*
@@ -127,7 +127,8 @@ $autoload['model'] = array('slcs_staff_model',
 						   'nationality_model',
 						   'owner_addr_model',
 						   'property_owner_has_tb_propertyfinder_model',
-						   'country_model');
+						   'country_model',
+						   'property_owner_master_list_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

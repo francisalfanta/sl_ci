@@ -18,10 +18,11 @@
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
-                            <div class="widget-content padding">                                                  
+                            <div class="widget-content padding">   
+                             <?php echo form_open('', $form_attributes); ?>                                           
                                 <div id="horizontal-form">        
-                                    <div class="row" style="width:100%;">
-                                      
+                                <?php echo validation_errors(); ?>
+                                    <div class="row" style="width:100%;">                                      
                                         <div class="col-md-12 portlets container">
                                             <div class="form-group col-md-4 col-lg-4"> <!-- First Name -->
                                                 <label class="sr-only" for="fn_name">First Name</label>
@@ -287,8 +288,15 @@
                                                 <input type="text" id="email" class="form-control input-sm" name="email" value="<?php set_value('email'); ?>" placeholder="Email" tabindex="10"/>                                        
                                             </div><!-- form-group -->
                                         </div>
+                                    <div class="form-group">                                      
+                                        <div class="col-sm-offset-2 col-sm-10 text-right">
+                                          <button type="submit" class="btn btn-default" >Save</button>
+                                        </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
+                                    </div><!-- form-group -->
                                     </div>
+                                    
                                 </div><!-- horizontal-form -->
+                              </form>
                             </div><!-- widget-content padding -->
                         </div><!-- widget -->
                         
@@ -394,22 +402,77 @@
                             <br>
                                 <div class="table-responsive">
                                 <form class='form-horizontal' role='form'>
-                                     <table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
+                                     <table id="datatables-4" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
                                     <thead>
                                         <tr>    
-                                            <th><small>First Name</small></th>                                                                                      
-                                            <th><small>Middle Name</small></th> 
-                                            <th><small>Last Name</small></th>                                            
+                                          
+                                            <th><small>Full Name</small></th>                                                                                      
+                                            <th><small>Address</small></th> 
+                                            <th><small>Mobile no.</small></th> 
+                                            <th><small>Tel no.</small></th>
+                                            <th><small>Property</small></th>
+                                            <th><small>Property type</small></th>
+                                            <th><small>Bldg Name</small></th>                                                
+                                            <th><small>Status</small></th>                                            
+                                            <th data-sortable="false">Option</th>
                                         </tr>
                                     </thead> 
                                     <tfoot>
                                         <tr>                                            
-                                            <th><small>First Name</small></th>                                                                                      
-                                            <th><small>Middle Name</small></th> 
-                                            <th><small>Last Name</small></th> 
-                                        </tr>
+                                            <th><small>Full Name</small></th>                                                                                      
+                                            <th><small>Address</small></th> 
+                                            <th><small>Mobile no.</small></th> 
+                                            <th><small>Tel no.</small></th>
+                                            <th><small>Property</small></th>
+                                            <th><small>Property type</small></th>
+                                            <th><small>Bldg Name</small></th> 
+                                            <th><small>Status</small></th>                                          
+                                            <th data-sortable="false">Option</th>
+                                            </tr>
                                     </tfoot>                                       
-                                      
+                                       <?php if(count($records)>1) {
+                                                foreach($records as $row) { 
+                                                if($row->addressSubcommunity){ $local = $row->addressSubcommunity.', ';} else { $local = null;}
+                                                if($row->addressCommunity){ $region = $row->addressCommunity.', ';} else { $region = null;}
+                                                if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;}                                                
+                                                if( count($parents)==1 && $row->property_owner_id == $parents['tb_property_owner_id']) { 
+                                                // Display selected record?>
+                                            <tr> 
+                                                <td><small><?php echo $row->full_name; ?></small></td>                 
+                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
+                                                <td><small><?php echo $row->mobile_no; ?></small></td>                                               
+                                                <td><small><?php echo $row->telephone_no; ?></small></td>
+                                                <td><small><?php echo $row->re_property; ?></small></td>
+                                                <td><small><?php echo $row->property_type; ?></small></td>
+                                                <td><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Danger</span>'; } ?></small></td>
+                                                <td><small><?php echo $row->building_name; ?></small></td> 
+                                                <td>
+                                                    <div class="btn-group btn-group-xs">                                                                                                                                                                
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" class="btn btn-default"><i class="fa fa-edit"></i></a>                                                   
+                                                        <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php } else { // Display all record ?> 
+                                            <tr> 
+                                                <td><small><?php echo $row->full_name; ?></small></td>     
+                                                <td><small><?php echo $row->address.', '.$local.$region.$country; ?></small></td>
+                                                <td><small><?php echo $row->mobile_no; ?></small></td>
+                                                <td><small><?php echo $row->telephone_no; ?></small></td>
+                                                <td><small><?php echo $row->re_property; ?></small></td>
+                                                <td><small><?php echo $row->property_type; ?></small></td>
+                                                <td><small><?php echo $row->building_name; ?></small></td>
+                                                <td><small><?php if($row->status){ echo '<span class="label label-success btn" >Active</span>'; } else { echo '<span class="label label-danger btn" onClick="status_toggle()">Danger</span>'; } ?></small></td>                                                                                     
+                                                <td>
+                                                    <div class="btn-group btn-group-xs">                                                                    
+                                                        <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a> 
+                                                        <!--<a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>-->
+                                                        <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" ><i class="glyphicon glyphicon-remove"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php }}} ?>  
                                     </table>
                                 </form><!-- table-responsive -->
                                 </div><!-- table-responsive -->
@@ -432,32 +495,115 @@
                   var editor; // use a global for the submit and return data rendering in the examples
  
                   $(document).ready(function() {
-                 var oTable = $('#owner_table').dataTable({
-            "bProcessing": true,
-            "bServerSide": true,
-            "sAjaxSource": '<?php echo base_url("property_owner/datatable"); ?>',
-            "bJQueryUI": true,
-            "sPaginationType": "full_numbers",
-            "iDisplayStart ": 10,
-           // "oLanguage": {
-            //    "sProcessing": "<img src='<?php echo base_url(); ?>assets/images/ajax-loader_dark.gif'>"
-           // },
-            "fnInitComplete": function () {
-                oTable.fnAdjustColumnSizing();
-            },
-            'fnServerData': function (sSource, aoData, fnCallback) {
-                $.ajax
-                ({
-                    'dataType': 'json',
-                    'type': 'POST',
-                    'url': sSource,
-                    'data': aoData,
-                    'success': fnCallback
-                });
-            }
-        });
-                  } );
+                  var oTable = $('#owner_table').dataTable({         
+                      });
+
+                  function row_check_owner(tb_property_owner_id, fullname, address, mobile_no, telephone_no, re_property, property_type, building_name, status){
+                       
+                        var row_html = '<tr>';                        
+
+                        if($('table .city').is(':visible')){
+                            row_html += '<td class="fullname">' + fullname + '</td>';                        
+                        }
+                        if($('table .community').is(':visible')){
+                            row_html += '<td class="addresss">' + address + '</td>';                        
+                        }
+                        if($('table .subcommunity').is(':visible')){
+                            row_html += '<td class="mobile_no">' + mobile_no + '</td>';                        
+                        }
+                        if($('table .re_property').is(':visible')){
+                            row_html += '<td class="telephone_no">' + telephone_no + '</td>';                        
+                        } 
+                        if($('table .property_type').is(':visible')){
+                            row_html += '<td class="re_property">' + re_property + '</td>';                        
+                        }  
+                        if($('table .description').is(':visible')){
+                            row_html += '<td class="property_type">' + property_type + '</td>';                        
+                        }
+                        if($('table .building_name').is(':visible')){
+                            row_html += '<td class="building_name">' + building_name + '</td>';                        
+                        }  
+                        if($('table .unit_number').is(':visible')){
+                            row_html += '<td class="status">' + status + '</td>';                        
+                        }
+
+                        row_html  += '<td><div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" onClick="delete_record()" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
+                        
+                        return row_html;    
+                    };
+
+                  function render_filtered_owner_table(first_name, middle_name, last_name, nationality, country, telephone_no, mobile_no, fax_no, email){
+                        //city_name           = typeof city_name !== 'undefined' ? city_name : null;
+                        //community_name      = typeof community_name !== 'undefined' ? community_name : null;
+                        //subcommunity_name   = typeof subcommunity_name !== 'undefined' ? subcommunity_name : null;
+                        first_name   = typeof first_name !== 'undefined' ? first_name : null;
+                        middle_name  = typeof middle_name !== 'undefined' ? middle_name : null;
+                        last_name    = typeof last_name !== 'undefined' ? last_name : null;
+                        nationality  = typeof nationality !== 'undefined' ? nationality : null;
+                        country      = typeof country !== 'undefined' ? country : null;
+                        telephone_no = typeof telephone_no !== 'undefined' ? telephone_no : null;
+                        mobile_no    = typeof mobile_no !== 'undefined' ? mobile_no : null;
+                        fax_no       = typeof last_name !== 'undefined' ? fax_no : null;
+                        email        = typeof last_name !== 'undefined' ? email : null;
+
+                        return $.ajax({
+                                    url: "<?php echo base_url('property_owner/find_owner'); ?>",
+                                    type: 'POST',
+                                    dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                                    data:{  
+                                            //'city' :city_name,
+                                            //'community_name': community_name,
+                                            //'subcommunity_name': subcommunity_name
+                                            'first_name': first_name,
+                                            'middle_name': middle_name,
+                                            'last_name': last_name,
+                                            'nationality': nationality,
+                                            'country' : country,
+                                            'telephone_no' : telephone_no,
+                                            'mobile_no' : mobile_no,
+                                            'fax_no' : fax_no,
+                                            'email' : email
+                                         },
+                                    //context: $('#datatables-2'),
+                                        
+                                    error:  function(xhr, status, error) {
+                                              var err = JSON.parse(xhr.responseText);
+                                              alert(err.Message);
+                                             
+                                            },
+                                    statusCode: {
+                                             404: function() {
+                                                    alert( "page not found" );
+                                                }
+                                    },
+                                    success: function (response) {                               
+                                        // remove table body
+                                        //console.log('response :'+ response);
+                                        var trHTML = '';
+                                        $.each(response, function (i, item) {
+                                            //console.log('i :'+ i);
+                                            //console.log('item :'+ item);                                           
+                                            trHTML += row_check_owner(item.tb_property_owner_id, item.first_name+' '+item.last_name, item.address, item.mobile_no, item.telephone_no, item.re_property, item.property_type, item.building_name, item.status);
+                                        });
+
+                                        $('tbody').removeClass('hidden').show().empty().append(trHTML);
+                                        //console.log('respose: '+response); 
+                                        //console.log('trHTML: '+trHTML); 
+                                    },
+                                    complete: function(xhr, status){
+                                        var xhr = JSON.parse(xhr.responseText);
+                                        //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                                    }
+                                });// end inter-active table 
+                    };
+
+                  });
                 </script>
+                <!-- Page Specific JS Libraries Tables Pages-->
+    <script src="<?php echo base_url('assets/libs/jquery-datatables/js/jquery.dataTables.min.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/jquery-datatables/js/dataTables.bootstrap.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js'); ?>"></script>
+    <script src="<?php echo base_url().'assets/js/pages/datatables.js'; ?>"></script>
             </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->

@@ -1,5 +1,26 @@
 http://www.ahmed-samy.com/php-codeigniter-full-featrued-jquery-datatables-part-1/
 
+  
+and owner_property.last_name like ifnull(?, owner_property.last_name)
+            and n.nationality like ifnull(?, n.nationality)
+            and addr.addressCountry like ifnull(?, addr.addressCountry)
+            and n.telephone_no like ifnull(?, n.telephone_no)
+            and n.mobile_no like ifnull(?, n.mobile_no)
+            and n.fax_no like ifnull(?, n.fax_no)
+            and n.email like ifnull(?, n.email)
+
+            , $middle_name, $last_name, $nationality, $country_name, $telephone_no, $mobile_no, $fax_no, $email
+
+            echo 'f: '.$first_name.'<br>';
+        echo 'm: '.$middle_name.'<br>';
+        echo 'l: '.$last_name.'<br>';
+        echo 'nat: '.$nationality.'<br>';
+        echo 'c: '.$country_name.'<br>';
+        echo 'tel: '.$telephone_no.'<br>';
+        echo 'mob: '.$mobile_no.'<br>';
+        echo 'fax: '.$fax_no.'<br>';
+        echo 'email: '.$email.'<br>';
+
 <!-- Page Specific JS Libraries Tables Pages-->
     <script src="<?php echo base_url('assets/libs/jquery-datatables/js/jquery.dataTables.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/libs/jquery-datatables/js/dataTables.bootstrap.js'); ?>"></script>

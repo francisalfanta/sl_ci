@@ -26,6 +26,22 @@ class property_owner_model extends CI_Model
 		return $query->row_array();
 	}
 
+	public function get_owner_details($tb_property_owner_id = null)
+	{
+		if (is_null($tb_property_owner_id))
+        {
+            //$sql =  sl_sql_left_join();
+            $query = $this->db->get('property_owner_master_list');
+            $test_unit = $query->result_array();
+        }
+        //$sql =  sl_sql_left_join_where_id();      
+        $this->db->where('property_owner_master_list_id', $tb_property_owner_id);        
+        //$query = $this->db->query($sql, array($tb_property_owner_id));
+        $query = $this->db->get('property_owner_master_list');
+		
+		return $query->row_array();
+	}
+
 	public function prop_owner_lists()
 	{		
 		$query = $this->db->query('select a.*, b.tb_nationality_id as id_n, b.telephone_no, b.mobile_no, b.fax_no,

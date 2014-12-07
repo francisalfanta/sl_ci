@@ -32,9 +32,9 @@
 									<div class="col-md-10">
 										<div class="form-group">
 											<div class="row">
-												<div class="col-md-4"><h6><?php echo form_error('fname'); ?></h6><input type="text" name="fname" value="<?php echo set_value('fname'); ?>" class="form-control" placeholder="First Name"></div>
-												<div class="col-md-4"><h6><?php echo form_error('mname'); ?></h6><input type="text" name="mname" value="<?php echo set_value('mname'); ?>" class="form-control" placeholder="Middle Name"></div>
-												<div class="col-md-4"><h6><?php echo form_error('lname'); ?></h6><input type="text" name="lname" value="<?php echo set_value('lname'); ?>" class="form-control" placeholder="Last Name"></div>
+												<div class="col-md-4"><h6><?php echo form_error('fname'); ?></h6><input type="text" name="fname" value="<?php echo set_value('fname'); ?>" class="form-control input-sm" placeholder="First Name"></div>
+												<div class="col-md-4"><h6><?php echo form_error('mname'); ?></h6><input type="text" name="mname" value="<?php echo set_value('mname'); ?>" class="form-control input-sm" placeholder="Middle Name"></div>
+												<div class="col-md-4"><h6><?php echo form_error('lname'); ?></h6><input type="text" name="lname" value="<?php echo set_value('lname'); ?>" class="form-control input-sm" placeholder="Last Name"></div>
 											</div>
 										</div>
 										
@@ -45,12 +45,12 @@
 													<label class="radio-inline"><input type="radio" name="radio_gender" value="male" <?php echo set_radio('radio_gender', 'male'); ?> /> Male </label>
 													<label class="radio-inline"><input type="radio" name="radio_gender" value="female" <?php echo set_radio('radio_gender', 'female'); ?> /> Female </label>													
 												</div>
-												<div class="col-md-2"><h6><?php echo form_error('dob'); ?></h6><input type="text" name="dob" value="<?php echo set_value('dob'); ?>" class="form-control datepicker-input" placeholder="Date of Birth"></div>
-												<div class="col-md-2"><h6><?php echo form_error('age'); ?></h6><input type="text" name="age" value="<?php echo set_value('age'); ?>" class="form-control" placeholder="Age"></div>
-												<div class="col-md-2"><h6><?php echo form_error('pob'); ?></h6><input type="text" name="pob" value="<?php echo set_value('pob'); ?>" class="form-control" placeholder="Place of Birth"></div>
+												<div class="col-md-2"><h6><?php echo form_error('dob'); ?></h6><input type="text" name="dob" value="<?php echo set_value('dob'); ?>" class="form-control datepicker-input input-sm" placeholder="Date of Birth"></div>
+												<div class="col-md-2"><h6><?php echo form_error('age'); ?></h6><input type="text" name="age" value="<?php echo set_value('age'); ?>" class="form-control input-sm" placeholder="Age"></div>
+												<div class="col-md-2"><h6><?php echo form_error('pob'); ?></h6><input type="text" name="pob" value="<?php echo set_value('pob'); ?>" class="form-control input-sm" placeholder="Place of Birth"></div>
 												<div class="col-md-2"><h6><?php echo form_error('nationality'); ?></h6>												
 																			
-													<select class="form-control" name="nationality">
+													<select class="form-control input-sm" name="nationality">
 													  <option value="" <?php echo set_select('nationality', '', TRUE); ?> >Nationality</option>
 													  <option value="afghan" <?php echo set_select('nationality', 'afghan'); ?> >Afghan</option>
 													  <option value="albanian" <?php echo set_select('nationality', 'albanian'); ?> >Albanian</option>
@@ -255,17 +255,17 @@
 													<label class="radio-inline"><input type="radio" name="radio_ms" value="single" <?php echo set_radio('radio_ms', 'single'); ?> /> Single</label>
 													<label class="radio-inline"><input type="radio" name="radio_ms" value="married" <?php echo set_radio('radio_ms', 'married'); ?> /> Married</label>													
 												</div>
-												<div class="col-md-3"><?php echo form_error('ms_stat'); ?>	<input type="text" name="ms_stat" value="<?php echo set_value('ms_stat'); ?>" class="form-control" placeholder="Others, pls. specify"></div>
-												<div class="col-md-2"><h6><?php echo form_error('language'); ?></h6><input type="text" name="language" value="<?php echo set_value('language'); ?>" class="form-control" placeholder="Language"></div>
-												<div class="col-md-2"><h6><?php echo form_error('ppno'); ?></h6><input type="text" name="ppno" value="<?php echo set_value('ppno'); ?>" class="form-control" placeholder="Passport No."></div>
+												<div class="col-md-3"><?php echo form_error('ms_stat'); ?>	<input type="text" name="ms_stat" value="<?php echo set_value('ms_stat'); ?>" class="form-control input-sm" placeholder="Others, pls. specify"></div>
+												<div class="col-md-2"><h6><?php echo form_error('language'); ?></h6><input type="text" name="language" value="<?php echo set_value('language'); ?>" class="form-control input-sm" placeholder="Language"></div>
+												<div class="col-md-2"><h6><?php echo form_error('ppno'); ?></h6><input type="text" name="ppno" value="<?php echo set_value('ppno'); ?>" class="form-control input-sm" placeholder="Passport No."></div>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="row">
-												<div class="col-md-3"><h6><?php echo form_error('toc'); ?></h6><input type="text" name="toc" value="<?php echo set_value('toc'); ?>" class="form-control" placeholder="Type of Contract"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo set_value('dh'); ?>" class="form-control datepicker-input" placeholder="Date Hired"></div>
-												<div class="col-md-3"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo set_value('ds'); ?>" class="form-control datepicker-input" placeholder="Date Started"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo set_value('dr'); ?>" class="form-control datepicker-input" placeholder="Date Release"></div>
+												<div class="col-md-3"><h6><?php echo form_error('toc'); ?></h6><input type="text" name="toc" value="<?php echo set_value('toc'); ?>" class="form-control input-sm" placeholder="Type of Contract"></div>
+												<div class="col-md-3"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo set_value('dh'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Hired"></div>
+												<div class="col-md-3"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo set_value('ds'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Started"></div>
+												<div class="col-md-3"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo set_value('dr'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Release"></div>
 											</div>
 										</div>
 										

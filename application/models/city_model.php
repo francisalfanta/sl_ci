@@ -31,6 +31,17 @@ class city_model extends CI_Model {
 		}
 	}	
 
+	public function get_city_name_only($q)
+	{	
+		$this->db->select('id');
+		$this->db->where('city_name', $q);
+		$query = $this->db->get('city');
+		if($query->num_rows()){
+			$row = $query->row();	
+			return $row->id;
+		}	
+	}	
+
 	public function get_city_by_id($city_id = null)
 	{		
 		$this->db->where('id', $city_id);

@@ -13,7 +13,7 @@
             	<!-- Page Heading End-->   
                 <?php if($this->uri->segment(3,0) > 0){
                         // For edit or view
-                        $action = 'property_owner/update_owner_personal_details';
+                        $action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
                         echo form_open($action, $form_attributes);
                         echo '<input type="hidden" name="property_owner_id" value="'.$this->uri->segment(3,0).'" id="input-'.$this->uri->segment(3,0).'" >';                       
                       } else {
@@ -74,47 +74,155 @@
                                 </div>                                                              
                             </div>
                             <div class="widget-content padding">      
-                                <div class="table-responsive">
-                               
-                                <table data-sortable class="table">
-                                        <thead>
-                                            <tr>                                                                                                                                         
-                                                <th>Address</th>                                                                                        
-                                                <th>Email</th>
-                                                <th>Tel no.</th>
-                                                <th>Mobile no.</th>
-                                                <th>Fax no.</th>                                                
-                                                <th data-sortable="false">Option</th>
-                                            </tr>
-                                        </thead>                                        
-                                        <tbody>                                         
-                                            <?php 
-                                                if(!$hide_contact_details){
-                                                foreach($nationalities as $row) {                                            
-                                                //var_dump($row);
-                                                if($row->addressLocality){ $local = $row->addressLocality.', ';} else { $local = null;}
-                                                if($row->addressRegion){ $region = $row->addressRegion.', ';} else { $region = null;}
-                                                if($row->addressCountry){ $country = $row->addressCountry.', ';} else { $country = null;} 
-                                                // View only property(s) of the owner                                               
-                                                if($row->tb_property_owner_id == $this->uri->segment(3,0)){  ?>
-                                            <tr>                                                  
-                                                <td><?php echo $row->address.', '.$local.$region.$country; ?></td>
-                                                <td><?php echo $row->tb_nationality_id; ?></td>
-                                                <td><?php echo $row->telephone_no; ?></td>
-                                                <td><?php echo $row->mobile_no; ?></td>
-                                                <td><?php echo $row->fax_no; ?></td>                                                  
-                                                <td>
-                                                    <div class="btn-group btn-group-xs">
-                                                        <a href="<?php echo base_url('nationality/view_details/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>
-                                                       <a href="<?php $url = 'nationality/del_nat/'.$this->uri->segment(3,0).'/'.$row->tb_nationality_id.'/'.$propertyfinder_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete" ><i class="glyphicon glyphicon-remove"></i></a>                                                     
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                           
-                                            <?php }}} ?>                                            
-                                        </tbody>
-                                </table>
-                                </div><!-- table-responsive -->
+                                
+                                <div class="row">
+                                    <div class="col-md-12">   
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('na1'); ?></h6><input type="text" name="na1" value="<?php echo set_value('na1'); ?>" class="form-control input-sm" placeholder="Nationality (1)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('na2'); ?></h6><input type="text" name="na2" value="<?php echo set_value('na2'); ?>" class="form-control input-sm" placeholder="Nationality (2)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('na3'); ?></h6><input type="text" name="na3" value="<?php echo set_value('na3'); ?>" class="form-control input-sm" placeholder="Nationality (3)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('na4'); ?></h6><input type="text" name="na4" value="<?php echo set_value('na4'); ?>" class="form-control input-sm" placeholder="Nationality (4)"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php echo set_value('ppn1'); ?>" class="form-control input-sm" placeholder="Passport No.(1)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php echo set_value('ppn2'); ?>" class="form-control input-sm" placeholder="Passport No.(2)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php echo set_value('ppn3'); ?>" class="form-control input-sm" placeholder="Passport No.(3)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php echo set_value('ppn4'); ?>" class="form-control input-sm" placeholder="Passport No.(4)"></div>
+                                            </div>
+                                        </div>                                                                      
+                                    </div>                          
+                                </div>
+<!-- Address One --><?php $i=0; foreach(array_slice($address_list,0,1) as $address){ ?>
+
+                      <div class="widget">
+                            <div class="widget-header transparent">
+                                <h2><i class="fa fa-home"></i><strong> Owner</strong> Address <?php echo $i; ?></h2>
+                                <div class="additional-btn">                                
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist1'); ?></h6><input type="text" name="clist1" value="<?php echo set_value($address->addressCountry); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city1'); ?></h6><input type="text" name="city1" value="<?php echo set_value($address->addressCity); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add11'); ?></h6><input type="text" name="add11" value="<?php echo set_value($address->addressCommunity); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add12'); ?></h6><input type="text" name="add12" value="<?php echo set_value($address->addressSubcommunity); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add13'); ?></h6><input type="text" name="add13" value="<?php echo set_value($address->address); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+<!-- Address Two -->
+                        <div class="widget">
+                            <div class="widget-header transparent">
+                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 2</h2>
+                            <div class="additional-btn">                                
+                                <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                            </div>
+                            </div>
+                            <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist2'); ?></h6><input type="text" name="clist2" value="<?php echo set_value('clist2'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city2'); ?></h6><input type="text" name="city2" value="<?php echo set_value('city2'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add21'); ?></h6><input type="text" name="add21" value="<?php echo set_value('add21'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add22'); ?></h6><input type="text" name="add22" value="<?php echo set_value('add22'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add23'); ?></h6><input type="text" name="add23" value="<?php echo set_value('add23'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>
+                            </div>
+                        </div>
+<!-- Address Three -->
+                        <div class="widget">
+                            <div class="widget-header transparent">
+                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 3</h2>
+                            <div class="additional-btn">                                
+                                <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                            </div>
+                            </div>
+                            <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist3'); ?></h6><input type="text" name="clist3" value="<?php echo set_value('clist3'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city3'); ?></h6><input type="text" name="city3" value="<?php echo set_value('city3'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add31'); ?></h6><input type="text" name="add31" value="<?php echo set_value('add31'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add32'); ?></h6><input type="text" name="add32" value="<?php echo set_value('add32'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add33'); ?></h6><input type="text" name="add33" value="<?php echo set_value('add33'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>
+                            </div>
+                        </div>
+<!-- Address Four -->
+                        <div class="widget">
+                            <div class="widget-header transparent">
+                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 4</h2>
+                            <div class="additional-btn">                                
+                                <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                            </div>
+                            </div>
+                            <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist4'); ?></h6><input type="text" name="clist4" value="<?php echo set_value('clist4'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city4'); ?></h6><input type="text" name="city4" value="<?php echo set_value('city4'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add41'); ?></h6><input type="text" name="add41" value="<?php echo set_value('add41'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add42'); ?></h6><input type="text" name="add42" value="<?php echo set_value('add42'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add43'); ?></h6><input type="text" name="add43" value="<?php echo set_value('add43'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>
+                            </div>
+                        </div>
+
                              </div><!-- widget-content padding -->                       
                         </div><!-- widget -->                        
 					</div><!-- col-md-12 portlets -->
@@ -122,7 +230,7 @@
                         <div class="portlets">                        
                             <div class="widget">
                                 <div class="widget-header transparent">
-                                    <h2><strong>Property Details</strong> Form</h2>
+                                    <h2><strong>Property Details</strong> Form <?php echo $city; ?></h2>
                                     <div class="additional-btn">
                                         <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
                                         <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -131,20 +239,22 @@
                                 </div>
                                 <div class="widget-content padding">                        
                                 <div id="horizontal-form">
-                                       
+                                     
                                     <div class="form-group"> <!-- City -->
                                         <label for="city" class="col-sm-2 control-label">City</label>
-                                        <div class="col-sm-10"><?php echo $city; ?>
-                                            <select name="city" id="city" tabindex="1" class="form-control">
-                                                <option value="" ><?php if($city){ echo $city; } else { echo 'Select City'; } ?></option>                                                   
-                                                <option value="Abu Dhabi" <?php echo set_select('city', 'Abu Dhabi'); ?>>Abu Dhabi</option>
-                                                <option value="Ajman" <?php echo set_select('city', 'Ajman'); ?>>Ajman</option>
-                                                <option value="Al Ain" <?php echo set_select('city', 'Al Ain'); ?>>Al Ain</option>
-                                                <option value="Dubai" <?php echo set_select('city', 'Dubai'); ?>>Dubai</option>
-                                                <option value="Fujairah" <?php echo set_select('city', 'Fujairah'); ?>>Fujairah</option>
-                                                <option value="Ras Al Khaimah" <?php echo set_select('city', 'Ras Al Khaimah'); ?>>Ras Al Khaimah</option>
-                                                <option value="Sharjah" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
-                                                <option value="Umm Al Quwain" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
+                                        <div class="col-sm-10">
+                                            <select name="city_name" id="city" tabindex="1" class="form-control">
+                                                
+                                                <option value="<?php if($city){ echo $city_id; } ?>" > <?php if($city){ echo $city; }  else { echo 'Select City'; } ?></option>                                                   
+
+                                                <option value="1" <?php echo set_select('city', 'Abu Dhabi'); ?>>Abu Dhabi</option>
+                                                <option value="2" <?php echo set_select('city', 'Ajman'); ?>>Ajman</option>
+                                                <option value="3" <?php echo set_select('city', 'Al Ain'); ?>>Al Ain</option>
+                                                <option value="4" <?php echo set_select('city', 'Dubai'); ?>>Dubai</option>
+                                                <option value="5" <?php echo set_select('city', 'Fujairah'); ?>>Fujairah</option>
+                                                <option value="6" <?php echo set_select('city', 'Ras Al Khaimah'); ?>>Ras Al Khaimah</option>
+                                                <option value="7" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
+                                                <option value="8" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
                                             </select>
                                         <p class="help-block"> </p>
                                         </div>
@@ -153,8 +263,8 @@
                                     <div class="form-group"> <!-- Community -->
                                         <label for="community" class="col-sm-2 control-label">Community</label>
                                         <div class="col-sm-10">
-                                        <select name="community" id="community" class="form-control">
-                                            <option value="">Please select first City</option>
+                                        <select name="community" id="cityDrp" class="form-control">
+                                        <option value="<?php if($community){ echo $community_id; } ?>" > <?php if($community){ echo $community; }  else { echo 'Please select first City'; } ?></option> 
                                         </select>
                                         <p class="help-block"> </p>
                                         </div>
@@ -164,7 +274,7 @@
                                         <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
                                         <div class="col-sm-10">
                                         <select name="subcommunity" id="subcommunity" class="form-control">
-                                                <option value="">Please select first Community</option>
+                                        <option value="<?php if($subcommunity){ echo $subcommunity_id; } ?>" > <?php if($subcommunity){ echo $subcommunity; }  else { echo 'Please select first Community'; } ?></option> 
                                         </select>
                                         <p class="help-block"> </p>
                                         </div>
@@ -221,7 +331,7 @@
                             <div class="form-group">
                                 <div>
                                     <button type="submit" name="formsubmit" class="btn btn-green-1" tabindex="4">Save</button>                                              
-                                    <a href="<?php echo base_url('property_owner'); ?>"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
+                                    <a href="<?php $url = "property_owner/view_property_owner/".$this->uri->segment(3,0).'/'.$this->uri->segment(4,0); echo base_url($url); ?>"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
                                 </div>
                             </div> <!-- form-group -->
                         </div><!-- widget-content padding -->
@@ -242,18 +352,18 @@
                 <script type="text/javascript">                    
                 $(document).ready(function() {  
 
-                    $("#city").change(function(){                              
+                    $("#city").change(function(){                                                   
                             /*dropdown post */
                             $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropCities",    
                             data: {city_name: $(this).val()},
                             type: "POST",
                             success: function(data){                            
-                                $("#community").html(data);
+                                $("#cityDrp").html(data);
                             }                    
                         });
                     });
-                    $("#community").change(function(){                      
+                    $("#cityDrp").change(function(){                      
                             /*dropdown post */
                             $.ajax({
                             url:"<?php echo base_url(); ?>propertyfinder/buildDropSubCom",    

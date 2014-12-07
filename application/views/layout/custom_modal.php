@@ -11,7 +11,7 @@
                 <p class="text-center">
                     <button class="btn btn-danger md-close">Cancel</button>
                     <input type="hidden" id="to-delete" value="">
-                    <a href='<?php echo base_url('property_owner/del_nat/'.$row->tb_propertyfinder_id); ?>' class="btn btn-success md-close">Delete</a>  <!-- Modified by: Lemuel 11/27/2014 -->
+                    <a href='<?php echo base_url(); ?>property_owner/del_nat/' class="btn btn-success md-close">Delete</a>  <!-- Modified by: Lemuel 11/27/2014 -->
                 </p>
             </div>
         </div>

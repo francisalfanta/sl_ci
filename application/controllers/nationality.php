@@ -11,7 +11,7 @@ class Nationality extends CI_Controller {
 		// all model were autoloaded
 	}
 	
-	public function view_details($property_owner_id, $tb_nationality_id)
+	public function view_details($property_owner_id, $tb_property_id, $tb_nationality_id)
 	{	
 		//if $id is null redirect to index
 		//if(is_numeric($nationality_id) && is_numeric($property_owner_id)){
@@ -143,9 +143,10 @@ class Nationality extends CI_Controller {
 
 			$address = null;
 			$postalcode = null;
-			$postofficeboxnumber = null;
-			$addressregion = null;
-			$addresslocality = null;
+			$postofficeboxnumber = null;			
+			$addresssubcommunity = null;
+			$addresscommunity = null;
+			$addresscity = null;
 			$addresscountry = null;
 
 			if(isset($nationality['address_id'])) {				
@@ -157,9 +158,10 @@ class Nationality extends CI_Controller {
 					$row = $address_query->row();
 					$address = $row->address;
 					$postalcode = $row->postalcode;
-					$postofficeboxnumber = $row->postofficeboxnumber;
-					$addressregion = $row->addressRegion;
-					$addresslocality = $row->addressLocality;
+					$postofficeboxnumber = $row->postofficeboxnumber;					
+					$addresssubcommunity = $row->addressSubcommunity;
+					$addresscommunity = $row->addressCommunity;
+					$addresscity = $row->addressCity;
 					$addresscountry = $row->addressCountry;
 				
 			}
@@ -189,22 +191,32 @@ class Nationality extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Postal Office Box Number'
 							           );
-			$data['addr_region_attributes'] = array(
-							              'name'        => 'addressregion',
-							              'id'          => 'addressregion',
-							              'value'       => $addressregion,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Address Region'
-							           );
-			$data['addr_locality_attributes'] = array(
-							              'name'        => 'addresslocality',
-							              'id'          => 'addresslocality',
-							              'value'       => $addresslocality,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Address Locality'
-							           );
+			$data['addr_subcommunity_attributes'] = array(
+						              'name'        => 'addresssubcommunity',
+						              'id'          => 'addresssubcommunity',
+						              'value'       => $addresssubcommunity,
+						              'class' 		=> 'form-control',
+						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+						              'placeholder' => 'Address Subcommunity'
+						           );
+
+			$data['addr_community_attributes'] = array(
+						              'name'        => 'addresscommunity',
+						              'id'          => 'addresscommunity',
+						              'value'       => $addresscommunity,
+						              'class' 		=> 'form-control',
+						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+						              'placeholder' => 'Address Community'
+						           );
+
+			$data['addr_city_attributes'] = array(
+						              'name'        => 'addresscity',
+						              'id'          => 'addresscity',
+						              'value'       => $addresscity,
+						              'class' 		=> 'form-control',
+						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+						              'placeholder' => 'Address City'
+						           );
 			// form dropdown Country
 			$country_query = $this->country_model->get_country(); 
             
@@ -348,8 +360,9 @@ class Nationality extends CI_Controller {
 		$address = null;
 		$postalcode = null;
 		$postofficeboxnumber = null;
-		$addressregion = null;
-		$addesslocality = null;
+		$addresscity = null;
+		$addresscommunity = null;
+		$addresssubcommunity = null;
 		$addresscountry = null;
 
 		// form dropdown Country
@@ -390,22 +403,34 @@ class Nationality extends CI_Controller {
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 						              'placeholder' => 'Postal Office Box Number'
 						           );
-		$data['addr_region_attributes'] = array(
-						              'name'        => 'addressregion',
-						              'id'          => 'addressregion',
-						              'value'       => $addressregion,
+	
+		$data['addr_subcommunity_attributes'] = array(
+						              'name'        => 'addresssubcommunity',
+						              'id'          => 'addresssubcommunity',
+						              'value'       => $addresssubcommunity,
 						              'class' 		=> 'form-control',
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-						              'placeholder' => 'Address Region'
+						              'placeholder' => 'Address Subcommunity'
 						           );
-		$data['addr_locality_attributes'] = array(
-						              'name'        => 'addesslocality',
-						              'id'          => 'addesslocality',
-						              'value'       => $addesslocality,
+
+		$data['addr_community_attributes'] = array(
+						              'name'        => 'addresscommunity',
+						              'id'          => 'addresscommunity',
+						              'value'       => $addresscommunity,
 						              'class' 		=> 'form-control',
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-						              'placeholder' => 'Address Locality'
+						              'placeholder' => 'Address Community'
 						           );
+
+		$data['addr_city_attributes'] = array(
+						              'name'        => 'addresscity',
+						              'id'          => 'addresscity',
+						              'value'       => $addresscity,
+						              'class' 		=> 'form-control',
+						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+						              'placeholder' => 'Address City'
+						           );
+
 		$data['addr_country_attributes'] = array(
 						              'name'        => 'addresscountry',
 						              'id'          => 'addresscountry',
@@ -456,7 +481,7 @@ class Nationality extends CI_Controller {
 		}		
 	}
 
-	public function update_owner_contact_details($property_owner_id, $tb_nationality_id)
+	public function update_owner_contact_details($property_owner_id, $propertyfinder_id, $tb_nationality_id = null)
 	{		
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
@@ -576,8 +601,9 @@ class Nationality extends CI_Controller {
 		$address = null;
 		$postalcode = null;
 		$postofficeboxnumber = null;
-		$addressregion = null;
-		$addresslocality = null;
+		$addresscity = null;
+		$addresscommunity = null;
+		$addresssubcommunity = null;
 		$addresscountry = null;
 
 		$this->load->database();
@@ -588,9 +614,10 @@ class Nationality extends CI_Controller {
 			$row = $address_query->row();
 			$address = $row->address;
 			$postalcode = $row->postalcode;
-			$postofficeboxnumber = $row->postofficeboxnumber;
-			$addressregion = $row->addressRegion;
-			$addresslocality = $row->addressLocality;
+			$postofficeboxnumber = $row->postofficeboxnumber;			
+			$addresssubcommunity = $row->addressSubcommunity;
+			$addresscommunity = $row->addressCommunity;
+			$addresscity = $row->addressCity;
 			$addresscountry = $row->addressCountry;
 		}
 
@@ -618,22 +645,33 @@ class Nationality extends CI_Controller {
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 						              'placeholder' => 'Postal Office Box Number'
 						           );
-		$data['addr_region_attributes'] = array(
-						              'name'        => 'addressregion',
-						              'id'          => 'addressregion',
-						              'value'       => $addressregion,
+		$data['addr_subcommunity_attributes'] = array(
+						              'name'        => 'addresssubcommunity',
+						              'id'          => 'addresssubcommunity',
+						              'value'       => $addresssubcommunity,
 						              'class' 		=> 'form-control',
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-						              'placeholder' => 'Address Region'
+						              'placeholder' => 'Address Subcommunity'
 						           );
-		$data['addr_locality_attributes'] = array(
-						              'name'        => 'addresslocality',
-						              'id'          => 'addresslocality',
-						              'value'       => $addresslocality,
+
+		$data['addr_community_attributes'] = array(
+						              'name'        => 'addresscommunity',
+						              'id'          => 'addresscommunity',
+						              'value'       => $addresscommunity,
 						              'class' 		=> 'form-control',
 						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-						              'placeholder' => 'Address Locality'
+						              'placeholder' => 'Address Community'
 						           );
+
+		$data['addr_city_attributes'] = array(
+						              'name'        => 'addresscity',
+						              'id'          => 'addresscity',
+						              'value'       => $addresscity,
+						              'class' 		=> 'form-control',
+						              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+						              'placeholder' => 'Address City'
+						           );
+
 		$data['addr_country_attributes'] = array(
 						              'name'        => 'addresscountry',
 						              'id'          => 'addresscountry',
@@ -656,24 +694,26 @@ class Nationality extends CI_Controller {
 		$this->form_validation->set_rules('address', 'Street Address');
 		$this->form_validation->set_rules('postalcode', 'postalcode');
 		$this->form_validation->set_rules('postofficeboxnumber', 'Post Office Box No');
-		$this->form_validation->set_rules('addressregion', 'Region');
-		$this->form_validation->set_rules('addresslocality', 'Locality');
+		$this->form_validation->set_rules('addresscity', 'City');
+		$this->form_validation->set_rules('addresscommunity', 'Community');
+		$this->form_validation->set_rules('addresssubcommunity', 'Subcommunity');
 		$this->form_validation->set_rules('addresscountry', 'Country');
 
 		if ($this->form_validation->run() == FALSE)
 		{				
-			$this->load->view('layout/header', $data);
-			$this->load->view('layout/topbar');
-			$this->load->view('layout/admin_left_sidemenu', $data);
-			$this->load->view('layout/right_sidemenu');
-			$this->load->view('nationality/nationality_form_edit', $data);		
-			$this->load->view('layout/footer');
+			//$this->load->view('layout/header', $data);
+			//$this->load->view('layout/topbar');
+			//$this->load->view('layout/admin_left_sidemenu', $data);
+			//$this->load->view('layout/right_sidemenu');
+			//$this->load->view('nationality/nationality_form_edit', $data);		
+			//$this->load->view('layout/footer');
+			redirect('nationality/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/'.$tb_nationality_id );
 		}
 		else
 		{
 			if($query = $this->nationality_model->update_nationality($tb_nationality_id)){
 				// fetch new inserted property owner id and redirect to view				
-				redirect('property_owner/view_property_owner/'.$property_owner_id);
+				redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);
 			}
 		}		
 	}

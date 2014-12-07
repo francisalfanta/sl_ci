@@ -18,16 +18,16 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-2"><h6><?php echo form_error('bnkn'); ?></h6>
-											<input type="text" name="bnkn" value="<?php echo set_value('bnkn'); ?>" class="form-control" placeholder="Bank Name">
+											<input type="text" name="bnkn" value="<?php echo set_value('bnkn'); ?>" class="form-control input-sm" placeholder="Bank Name">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('bnkbn'); ?></h6>
-											<input type="text" name="bnkbn" value="<?php echo set_value('bnkbn'); ?>" class="form-control" placeholder="Branch Name">
+											<input type="text" name="bnkbn" value="<?php echo set_value('bnkbn'); ?>" class="form-control input-sm" placeholder="Branch Name">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('bnkaname'); ?></h6>
-											<input type="text" name="bnkaname" value="<?php echo set_value('bnkaname'); ?>" class="form-control" placeholder="Account Name">
+											<input type="text" name="bnkaname" value="<?php echo set_value('bnkaname'); ?>" class="form-control input-sm" placeholder="Account Name">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('bnkanumber'); ?></h6>
-											<input type="text" name="bnkanumber" value="<?php echo set_value('bnkanumber'); ?>" class="form-control" placeholder="Account Number">
+											<input type="text" name="bnkanumber" value="<?php echo set_value('bnkanumber'); ?>" class="form-control input-sm" placeholder="Account Number">
 										</div>
 									</div>
 								</div>								

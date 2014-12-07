@@ -2,10 +2,10 @@
      Date        : November 27, 2014
      Script Lines: All unless noted otherwise
 -->
-				<div class="col-md-12 portlets"><!-- License and Ids-->
+				<div class="col-sm-6 portlets"><!-- License and Ids-->
 					<div class="widget">
 						<div class="widget-header transparent">
-							<h2><i class="icon-book-2"></i><strong> Licenses </strong>& IDs</h2>
+							<h2><i class=" icon-clipboard"></i><strong> Property</strong> Details</h2>
 							<div class="additional-btn">
 								<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
 								<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -16,141 +16,136 @@
 															
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2">
-											<center><label>License & ID's</label></center>
-										</div>
 										<div class="col-md-3">
-											<center><label>ID/Card Number</label></center>
+											<label>Property Emirate :</label>
 										</div>
-										<div class="col-md-2">
-											<center><label>Issue Date</label></center>
-										</div>
-										<div class="col-md-2">
-											<center><label>Expiry Date</label></center>
-										</div>
+										<div class="col-md-6"><h6><?php echo form_error('pemi'); ?></h6>
+											<input type="text" name="pemi" value="<?php echo set_value('pemi'); ?>" class="form-control input-sm">
+										</div>										
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
 										<div class="col-md-3">
-											<center><label>Others, Pls. specify</label></center>
+											<label>Property Community :</label>
+										</div>
+										<div class="col-md-6"><h6><?php echo form_error('pcomm'); ?></h6>
+											<input type="text" name="pcomm" value="<?php echo set_value('pcomm'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2">
-											<center><label>Driver's License</label></center>
+										<div class="col-md-3">
+											<label>Property Sub Community :</label>
 										</div>
-										<div class="col-md-3"><h6><?php echo form_error('dlidcno'); ?></h6>
-											<input type="text" name="dlidcno" value="<?php echo $r->dl_idcno; ?>" class="form-control input-sm">
+										<div class="col-md-6"><h6><?php echo form_error('psubcomm'); ?></h6>
+											<input type="text" name="psubcomm" value="<?php echo set_value('psubcomm'); ?>" class="form-control input-sm">
 										</div>
-										<div class="col-md-2"><h6><?php echo form_error('dlidate'); ?></h6>
-											<input type="text" name="dlidate" value="<?php echo $r->dl_idate; ?>" class="form-control datepicker-input input-sm">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-3">
+											<label>Property Name :</label>
 										</div>
-										<div class="col-md-2"><h6><?php echo form_error('dlexdate'); ?></h6>
-											<input type="text" name="dlexdate" value="<?php echo $r->dl_exdate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('dlothers'); ?></h6>
-											<input type="text" name="dlothers" value="<?php echo $r->dl_others; ?>" class="form-control input-sm">
+										<div class="col-md-6"><h6><?php echo form_error('pname'); ?></h6>
+											<input type="text" name="pname" value="<?php echo set_value('pname'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2">
-											<center><label>Labour Card (working permit)</label></center>
+										<div class="col-md-3">
+											<label>Property Type :</label>
 										</div>
-										<div class="col-md-3"><h6><?php echo form_error('lcidcno'); ?></h6>
-											<input type="text" name="lcidcno" value="<?php echo $r->lc_idcno; ?>" class="form-control input-sm">
+										<div class="col-md-3"><h6><?php echo form_error('ptype1'); ?></h6>
+											<input type="text" name="ptype1" value="<?php echo set_value('ptype1'); ?>" class="form-control input-sm">
 										</div>
-										<div class="col-md-2"><h6><?php echo form_error('lcidate'); ?></h6>
-											<input type="text" name="lcidate" value="<?php echo $r->lc_idate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('lcexdate'); ?></h6>
-											<input type="text" name="lcexdate" value="<?php echo $r->lc_exdate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('lcothers'); ?></h6>
-											<input type="text" name="lcothers" value="<?php echo $r->lc_others; ?>" class="form-control input-sm">
+										<div class="col-md-3"><h6><?php echo form_error('ptype2'); ?></h6>
+											<input type="text" name="ptype2" value="<?php echo set_value('ptype2'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2">
-											<center><label>Resident Identity Card (Emirates ID)</label></center>
+										<div class="col-md-3">
+											<label>Street :</label>
 										</div>
-										<div class="col-md-3"><h6><?php echo form_error('ridcno'); ?></h6>
-											<input type="text" name="ridcno" value="<?php echo $r->r_idcno; ?>" class="form-control input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('ridate'); ?></h6>
-											<input type="text" name="ridate" value="<?php echo $r->r_idate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('rexdate'); ?></h6>
-											<input type="text" name="rexdate" value="<?php echo $r->r_exdate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('rothers'); ?></h6>
-											<input type="text" name="rothers" value="<?php echo $r->r_others; ?>" class="form-control input-sm">
-										</div>
-									</div>
-								</div>
-								<div class="form-group">
-									<div class="row">
-										<div class="col-md-2">
-											<center><label>Visa Status</label></center>
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('vsidcno'); ?></h6>
-											<input type="text" name="vsidcno" value="<?php echo $r->vs_idcno; ?>" class="form-control input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('vsidate'); ?></h6>
-											<input type="text" name="vsidate" value="<?php echo $r->vs_idate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('vsexdate'); ?></h6>
-											<input type="text" name="vsexdate" value="<?php echo $r->vs_exdate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('vsothers'); ?></h6>
-											<input type="text" name="vsothers" value="<?php echo $r->vs_others; ?>" class="form-control input-sm">
+										<div class="col-md-6"><h6><?php echo form_error('strt'); ?></h6>
+											<input type="text" name="strt" value="<?php echo set_value('strt'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2">
-											<center><label>Others, Pls. specify</label></center>
+										<div class="col-md-3">
+											<label>Building Name :</label>
 										</div>
-										<div class="col-md-3"><h6><?php echo form_error('othersidcno'); ?></h6>
-											<input type="text" name="othersidcno" value="<?php echo $r->others_idcno; ?>" class="form-control input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('othersidate'); ?></h6>
-											<input type="text" name="othersidate" value="<?php echo $r->others_idate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-2"><h6><?php echo form_error('othersexdate'); ?></h6>
-											<input type="text" name="othersexdate" value="<?php echo $r->others_exdate; ?>" class="form-control datepicker-input input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('othersothers'); ?></h6>
-											<input type="text" name="othersothers" value="<?php echo $r->others_others; ?>" class="form-control input-sm">
+										<div class="col-md-6"><h6><?php echo form_error('bldg'); ?></h6>
+											<input type="text" name="bldg" value="<?php echo set_value('bldg'); ?>" class="form-control input-sm">
 										</div>
 									</div>
-								</div>					
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-3">
+											<label>Unit No. :</label>
+										</div>
+										<div class="col-md-6"><h6><?php echo form_error('unitno'); ?></h6>
+											<input type="text" name="unitno" value="<?php echo set_value('unitno'); ?>" class="form-control input-sm">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-3">
+											<label>Developer :</label>
+										</div>
+										<div class="col-md-6"><h6><?php echo form_error('dev'); ?></h6>
+											<input type="text" name="dev" value="<?php echo set_value('dev'); ?>" class="form-control input-sm">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-3">
+											<label>Note :</label>
+										</div>
+										<div class="col-md-6">
+										  <textarea style="resize:none; height:200px; width:330px"></textarea>
+										</div>
+									</div>
+								</div>
+
+								
 						</div>
 						
 					</div>
 					<div class="form-group">
 								<div class="row">
-									<div class="col-md-3">
-										<button type="submit" class="btn btn-green-3" value="Submit">Save</button>
-										<a href="<?php echo base_url(); ?>slcs_staff/slcs_staff"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
+									<div class="col-md-9">
+										<button type="submit" class="btn btn-green-3" value="Submit">Submit</button>
+										<a href="<?php echo base_url(); ?>propertyfinder/propertyfinder"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
 									</div>
 									
-									<?php echo form_close(); ?>
+									
 									
 								</div>
-							</div>
+					</div>
 					</div>
 				</div>
 				</jQuery(document).ready(function(){
                 
-				<?php echo form_close(); ?>
+                <?php echo form_close(); ?>
     			<!-- Footer Start -->
                 <footer>
                     Soft Line Cleaning Services &copy; 2014

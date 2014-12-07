@@ -41,16 +41,16 @@
 											<center><label>Medical Insurance</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('midcno'); ?></h6>
-											<input type="text" name="midcno" value="<?php echo set_value('midcno'); ?>" class="form-control">
+											<input type="text" name="midcno" value="<?php echo set_value('midcno'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('midate'); ?></h6>
-											<input type="text" name="midate" value="<?php echo set_value('midate'); ?>" class="datepicker-input form-control">
+											<input type="text" name="midate" value="<?php echo set_value('midate'); ?>" class="datepicker-input form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mexdate'); ?></h6>
-											<input type="text" name="mexdate" value="<?php echo set_value('mexdate'); ?>" class="datepicker-input form-control">
+											<input type="text" name="mexdate" value="<?php echo set_value('mexdate'); ?>" class="datepicker-input form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('miothers'); ?></h6>
-											<input type="text" name="miothers" value="<?php echo set_value('miothers'); ?>" class="form-control">
+											<input type="text" name="miothers" value="<?php echo set_value('miothers'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -63,10 +63,10 @@
 											<label><input type="checkbox" name="mycheck3" value="1" <?php echo set_checkbox('mycheck3', '1', FALSE); ?>/>30 Day Annual Leave</label>&nbsp;&nbsp;
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mbonus'); ?></h6>
-											<input type="text" name="mbonus" value="<?php echo set_value('mbonus'); ?>" class="form-control" placeholder="Bonus"> 
+											<input type="text" name="mbonus" value="<?php echo set_value('mbonus'); ?>" class="form-control input-sm" placeholder="Bonus"> 
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('bnbonus'); ?></h6>
-											<input type="text" name="bnbonus" value="<?php echo set_value('bnbonus'); ?>" class="form-control" placeholder="Others"> 
+											<input type="text" name="bnbonus" value="<?php echo set_value('bnbonus'); ?>" class="form-control input-sm" placeholder="Others"> 
 										</div>
 									</div>
 								</div>								

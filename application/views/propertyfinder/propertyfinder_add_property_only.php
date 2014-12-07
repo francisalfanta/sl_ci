@@ -30,7 +30,7 @@
                                         <div class="form-group">
                                             <label for="city" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">City</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5">       
-                                                <select name="city" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
+                                                <select name="city_name" id="city_name" tabindex="1" class="form-control col-sm-11 col-md-12">
                                                     <option value="">Select City</option>                                                   
                                                     <option value="1">Abu Dhabi</option>
                                                     <option value="2">Ajman</option>
@@ -64,7 +64,7 @@
                                          <div class="form-group">
                                             <label for="re_property" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Property</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"><!--select-editable">-->     
-                                                <input type="text" name="re_property"  class="form-control col-md-12" value="" tabindex="4" />                                                
+                                                <input type="text" name="re_property_name"  class="form-control col-md-12" value="" tabindex="4" />                                                
                                             </div><!-- col-sm-10 -->
                                         </div><!-- form-group -->
 
@@ -94,7 +94,7 @@
                             </div>
                             <div class="widget-content">                    
                                 <div class="table-responsive">
-                                    <table data-sortable class="table">
+                                    <table id="datatables-5" data-sortable class="table table-striped table-bordered display compact" data-sortable>
                                         <thead>
                                             <tr>
                                                 <th>No</th>                                               
@@ -166,6 +166,7 @@
                                 $("#cityDrp").html(data);
                             }                    
                         });
+
                     });
                     $("#cityDrp").change(function(){                      
                             /*dropdown post */
@@ -180,7 +181,12 @@
                         });
                     });               
                 });                     
-                </script>	
+                </script>
+                <!-- Page Specific JS Libraries Tables Pages-->
+                <script src="<?php echo base_url('assets/libs/jquery-datatables/js/jquery.dataTables.min.js'); ?>"></script>
+                <script src="<?php echo base_url('assets/libs/jquery-datatables/js/dataTables.bootstrap.js'); ?>"></script>
+                <script src="<?php echo base_url('assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js'); ?>"></script>
+                <script src="<?php echo base_url().'assets/js/pages/datatables.js'; ?>"></script>	
             </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->

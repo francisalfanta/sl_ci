@@ -97,18 +97,18 @@ class Slcs_staff extends CI_Controller {
 		$this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
 		$this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
 		//Contact
-		$this->form_validation->set_rules('vno', 'Villa no.', 'required|numeric');
-		$this->form_validation->set_rules('st', 'Street', 'required|alpha_space_hypen');
-		$this->form_validation->set_rules('csp', 'City/State/Province', 'required|alpha_space_hypen');
-		$this->form_validation->set_rules('ca', 'Complete address', 'required');
-		$this->form_validation->set_rules('ea', 'Email address', 'required|valid_emails|is_unique[slcs_staff.email]');
-		$this->form_validation->set_rules('mn', 'Mobile no.', 'required|num_space_hypen');
-		$this->form_validation->set_rules('hn', 'Home Phone no.', 'required|num_space_hypen');
+		$this->form_validation->set_rules('vno', 'Villa no.', 'numeric');
+		$this->form_validation->set_rules('st', 'Street', 'alpha_space_hypen');
+		$this->form_validation->set_rules('csp', 'City/State/Province', 'alpha_space_hypen');
+		$this->form_validation->set_rules('ca', 'Complete address');
+		$this->form_validation->set_rules('ea', 'Email address', 'valid_emails|is_unique[slcs_staff.email]');
+		$this->form_validation->set_rules('mn', 'Mobile no.', 'num_space_hypen');
+		$this->form_validation->set_rules('hn', 'Home Phone no.', 'num_space_hypen');
 		//Emergency
-		$this->form_validation->set_rules('n1', 'Name', 'required|alpha_space_hypen');
-		$this->form_validation->set_rules('r1', 'Relationship', 'required|alpha_space_hypen');
-		$this->form_validation->set_rules('mn1', 'Mobile no.', 'required|num_space_hypen');
-		$this->form_validation->set_rules('ca1', 'Complete Address', 'required');		
+		$this->form_validation->set_rules('n1', 'Name', 'alpha_space_hypen');
+		$this->form_validation->set_rules('r1', 'Relationship', 'alpha_space_hypen');
+		$this->form_validation->set_rules('mn1', 'Mobile no.', 'num_space_hypen');
+		$this->form_validation->set_rules('ca1', 'Complete Address');		
 		$this->form_validation->set_rules('n2', 'Name', 'alpha_space_hypen');
 		$this->form_validation->set_rules('r2', 'Relationship', 'alpha_space_hypen');
 		$this->form_validation->set_rules('mn2', 'Mobile no.', 'num_space_hypen');
@@ -116,17 +116,17 @@ class Slcs_staff extends CI_Controller {
 		$this->form_validation->set_rules('n3', 'Name', 'alpha_space_hypen');
 		$this->form_validation->set_rules('r3', 'Relationship', 'alpha_space_hypen');
 		$this->form_validation->set_rules('mn3', 'Mobile no.', 'num_space_hypen');
-		$this->form_validation->set_rules('ca3', 'Complete Address', '');		
+		$this->form_validation->set_rules('ca3', 'Complete Address');		
 		//Banking Details
 		$this->form_validation->set_rules('bnkn', 'Bank name', 'alpha_space_hypen');
 		$this->form_validation->set_rules('bnkbn', 'Branch name', 'alpha_space_hypen');
 		$this->form_validation->set_rules('bnkaname', 'Account name', 'alpha_space_hypen');
 		$this->form_validation->set_rules('bnkanumber', 'Account number', 'numeric');
 		//Position Details
-		$this->form_validation->set_rules('pos_t', 'Position Title', 'required|alpha_space_hypen');
-		$this->form_validation->set_rules('estat', 'Employment status', 'required');
+		$this->form_validation->set_rules('pos_t', 'Position Title', 'alpha_space_hypen');
+		$this->form_validation->set_rules('estat', 'Employment status');
 		//Salary & Wages details
-		$this->form_validation->set_rules('basic_salary', 'Basic salary', 'required|numeric');
+		$this->form_validation->set_rules('basic_salary', 'Basic salary', 'numeric');
 		$this->form_validation->set_rules('accom', 'Amount', 'numeric');
 		$this->form_validation->set_rules('transpo', 'Amount', 'numeric');
 		$this->form_validation->set_rules('tamt', 'Amount', 'numeric');
@@ -169,24 +169,22 @@ class Slcs_staff extends CI_Controller {
 		$config['upload_path']          = './images/profile_pic/.';
         $config['allowed_types']        = 'gif|jpg|jpeg|png';
         $this->load->library('upload', $config);
-		//$image_data =  array(‘upload_data’ => $this->upload->data());
 		
 		if ($this->form_validation->run() == TRUE)
 		{
-			if ($this->upload->do_upload('userfile') == TRUE)
-			{
+			 if ($_FILES && $_FILES['userfile']['name'] == "")
+			 {
 				
-				
+				$filename = 'default.jpg';
+				$this->slcs_staff_model->create_staff($filename);
+				redirect('slcs_staff/slcs_staff', $data);
+			 }
+			 else{
+					if ($this->upload->do_upload('userfile') == TRUE)
+			 {				
 				$file_data = $this->upload->data();
 				$data_ary = array(
-					'title'     => $file_data['client_name'],
-					'file'      => $file_data['file_name'],
-					'width'     => $file_data['image_width'],
-					'height'    => $file_data['image_height'],
-					'type'      => $file_data['image_type'],
-					'size'      => $file_data['file_size'],
-					'date'      => time(),
-					'fullpath'      => $file_data['file_path']
+					'file'      => $file_data['file_name']
 					);					
 					
 				$upload_data = $this->upload->data();
@@ -194,12 +192,11 @@ class Slcs_staff extends CI_Controller {
 										
 				$data = array('upload_data' => $file_data);
 				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
-				$this->load->view('slcs_staff/biodatapic_success', $data);
-					
+									
 				$this->slcs_staff_model->create_staff($filename);
 				redirect('slcs_staff/slcs_staff', $data);
-			}
-			else{
+			 }
+			 else{
 								
 				$this->load->helper('url','form');
 				$this->load->view('layout/header', $data);
@@ -217,8 +214,9 @@ class Slcs_staff extends CI_Controller {
 				$this->load->view('slcs_staff/benefits'); //added by prime 11/27/2014
 				$this->load->view('slcs_staff/license'); //added by prime 11/27/2014
 				$this->load->view('layout/footer');	
-			}
-		
+			      }
+				  
+				 }		
 		}else{
 					
 			$this->load->helper('url','form');
@@ -304,36 +302,36 @@ class Slcs_staff extends CI_Controller {
 		 $this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
 		 $this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
 		 //Contact
-		 $this->form_validation->set_rules('vno', 'Villa no.', 'required|numeric');
-		 $this->form_validation->set_rules('st', 'Street', 'required|alpha_space_hypen');
-		 $this->form_validation->set_rules('csp', 'City/State/Province', 'required|alpha_space_hypen');
-		 $this->form_validation->set_rules('ca', 'Complete address', 'required');
-		 $this->form_validation->set_rules('ea', 'Email address', 'required|valid_emails');
-		 $this->form_validation->set_rules('mn', 'Mobile no.', 'required|num_space_hypen');
-		 $this->form_validation->set_rules('hn', 'Home Phone no.', 'required|num_space_hypen');
+		 $this->form_validation->set_rules('vno', 'Villa no.', 'numeric');
+		 $this->form_validation->set_rules('st', 'Street', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('csp', 'City/State/Province', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('ca', 'Complete address');
+		 $this->form_validation->set_rules('ea', 'Email address', 'valid_emails');
+		 $this->form_validation->set_rules('mn', 'Mobile no.', 'num_space_hypen');
+		 $this->form_validation->set_rules('hn', 'Home Phone no.', 'num_space_hypen');
 		 //Emergency
-		 $this->form_validation->set_rules('n1', 'Name', 'required|alpha_space_hypen');
-		 $this->form_validation->set_rules('r1', 'Relationship', 'required|alpha_space_hypen');
-		 $this->form_validation->set_rules('mn1', 'Mobile no.', 'required|num_space_hypen');
-		 $this->form_validation->set_rules('ca1', 'Complete Address', 'required');		
+		 $this->form_validation->set_rules('n1', 'Name', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('r1', 'Relationship', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('mn1', 'Mobile no.', 'num_space_hypen');
+		 $this->form_validation->set_rules('ca1', 'Complete Address');		
 		 $this->form_validation->set_rules('n2', 'Name', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('r2', 'Relationship', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('mn2', 'Mobile no.', 'num_space_hypen');
-		 $this->form_validation->set_rules('ca2', 'Complete Address', '');		
+		 $this->form_validation->set_rules('ca2', 'Complete Address');		
 		 $this->form_validation->set_rules('n3', 'Name', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('r3', 'Relationship', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('mn3', 'Mobile no.', 'num_space_hypen');
-		 $this->form_validation->set_rules('ca3', 'Complete Address', '');		
+		 $this->form_validation->set_rules('ca3', 'Complete Address');		
 		 //Banking Details
 		 $this->form_validation->set_rules('bnkn', 'Bank name', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('bnkbn', 'Branch name', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('bnkaname', 'Account name', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('bnkanumber', 'Account number', 'numeric');
 		 //Position Details
-		 $this->form_validation->set_rules('pos_t', 'Position Title', 'required|alpha_space_hypen');
-		 $this->form_validation->set_rules('estat', 'Employment status', 'required');
+		 $this->form_validation->set_rules('pos_t', 'Position Title', 'alpha_space_hypen');
+		 $this->form_validation->set_rules('estat', 'Employment status');
 		 //Salary & Wages details
-		 $this->form_validation->set_rules('basic_salary', 'Basic salary', 'required|numeric');
+		 $this->form_validation->set_rules('basic_salary', 'Basic salary','numeric');
 		 $this->form_validation->set_rules('accom', 'Amount', 'numeric');
 		 $this->form_validation->set_rules('transpo', 'Amount', 'numeric');
 		 $this->form_validation->set_rules('tamt', 'Amount', 'numeric');
@@ -376,53 +374,36 @@ class Slcs_staff extends CI_Controller {
 		 $config['upload_path']          = './images/profile_pic/.';
          $config['allowed_types']        = 'gif|jpg|jpeg|png';
          $this->load->library('upload', $config);
-		
-		if ($this->form_validation->run() == TRUE)
+		 
+		 if ($this->form_validation->run() == TRUE)
 		{
-			if ($this->upload->do_upload('userfile') == TRUE)
-			{
-				
-				$file_data = $this->upload->data();
-				$data_ary = array(
-					'title'     => $file_data['client_name'],
-					'file'      => $file_data['file_name'],
-					'width'     => $file_data['image_width'],
-					'height'    => $file_data['image_height'],
-					'type'      => $file_data['image_type'],
-					'size'      => $file_data['file_size'],
-					'date'      => time(),
-					'fullpath'      => $file_data['file_path']
-					);
-				//$this->load->database();
-				//$this->db->insert('upload', $data_ary);
-				$upload_data = $this->upload->data();
-				$filename = $upload_data['file_name'];
-				//$upload_id = $this->db->insert_id();
-					
-				//echo $upload_id;
-				//echo $file;
-				
-				$data = array('upload_data' => $file_data);
-				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
-				$this->load->view('slcs_staff/biodatapic_success', $data);
-				
-				//$this->slcs_staff_model->create_staff($filename);
-				$this->slcs_staff_model->update_staff($filename);
-				redirect('slcs_staff/slcs_staff', $data);
-			}
-			else{
+			 if ($_FILES && $_FILES['userfile']['name'] == "")
+			 {
 				$row = $this->slcs_staff_model->get_slcs_staff($id);
 				$data['r'] = $row;
-				$filename = $row->file_name;
-				///echo $filename;
-				//$error = array('error' => $this->upload->display_errors());
-				//$this->load->view('slcs_staff/biodatapic',$error);
+				$profpic = $row->file_name;
+				$filename = $profpic;
 				$this->slcs_staff_model->update_staff($filename);
 				redirect('slcs_staff/slcs_staff', $data);
-			}
-		}
-		else
-			{
+			 }
+			 else{
+					if ($this->upload->do_upload('userfile') == TRUE)
+			 {				
+				$file_data = $this->upload->data();
+				$data_ary = array(
+					'file'      => $file_data['file_name']
+					);					
+					
+				$upload_data = $this->upload->data();
+				$filename = $upload_data['file_name'];
+										
+				$data = array('upload_data' => $file_data);
+				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
+									
+				$this->slcs_staff_model->update_staff($filename);
+				redirect('slcs_staff/slcs_staff', $data);
+			 }
+			 else{
 				$row = $this->slcs_staff_model->get_slcs_staff($id);
 				$data['r'] = $row;
 				
@@ -442,8 +423,43 @@ class Slcs_staff extends CI_Controller {
 				$this->load->view('layout/header', $data);
 				$this->load->view('layout/topbar');
 				$this->load->view('layout/admin_left_sidemenu');
-				$this->load->view('layout/right_sidemenu');
+				$this->load->view('layout/right_sidemenu');				
+				$this->load->view('slcs_staff/editbiodata',$data);
+					$error = array('error' => $this->upload->display_errors());
+					$this->load->view('slcs_staff/editbiodatapic',$error);						
+				$this->load->view('slcs_staff/editcontact',$data);
+				$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
+				$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
+				$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
+				$this->load->view('layout/footer');
+			      }
+				  
+				 }		
+		}else{
+					
+				$row = $this->slcs_staff_model->get_slcs_staff($id);
+				$data['r'] = $row;
 				
+				$this->load->helper(array('form', 'url'));
+				$this->load->library('form_validation');
+				
+				$data['staffs'] = $this->slcs_staff_model->get_staff();
+				$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+				$data['sections'] = $this->sections_model->get_sections();
+				$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+				
+				$username = $this->session->userdata('username'); 					
+				$data['username'] = ucfirst($username);	
+				$data['title'] = 'SoftLine | Edit staff';
+				
+				$this->load->helper('url','form');
+				$this->load->view('layout/header', $data);
+				$this->load->view('layout/topbar');
+				$this->load->view('layout/admin_left_sidemenu');
+				$this->load->view('layout/right_sidemenu');				
 				$this->load->view('slcs_staff/editbiodata',$data);
 				$this->load->view('slcs_staff/editbiodatapic', $data);
 				$this->load->view('slcs_staff/editcontact',$data);
@@ -454,6 +470,7 @@ class Slcs_staff extends CI_Controller {
 				$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
 				$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
 				$this->load->view('layout/footer');
+		
 			}
 	}
 

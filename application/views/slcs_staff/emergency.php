@@ -41,16 +41,16 @@
 											<center><label>001</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('n1'); ?></h6>
-											<input type="text" name="n1" value="<?php echo set_value('n1'); ?>" class="form-control">
+											<input type="text" name="n1" value="<?php echo set_value('n1'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('r1'); ?></h6>
-											<input type="text" name="r1" value="<?php echo set_value('r1'); ?>" class="form-control">
+											<input type="text" name="r1" value="<?php echo set_value('r1'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mn1'); ?></h6>
-											<input type="text" name="mn1" value="<?php echo set_value('mn1'); ?>" class="form-control">
+											<input type="text" name="mn1" value="<?php echo set_value('mn1'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('ca1'); ?></h6>
-											<input type="text" name="ca1" value="<?php echo set_value('ca1'); ?>" class="form-control">
+											<input type="text" name="ca1" value="<?php echo set_value('ca1'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -61,16 +61,16 @@
 											<center><label>002</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('n2'); ?></h6>
-											<input type="text" name="n2" value="<?php echo set_value('n2'); ?>" class="form-control">
+											<input type="text" name="n2" value="<?php echo set_value('n2'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('r2'); ?></h6>
-											<input type="text" name="r2" value="<?php echo set_value('r2'); ?>" class="form-control">
+											<input type="text" name="r2" value="<?php echo set_value('r2'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mn2'); ?></h6>
-											<input type="text" name="mn2" value="<?php echo set_value('mn2'); ?>" class="form-control">
+											<input type="text" name="mn2" value="<?php echo set_value('mn2'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('ca2'); ?></h6>
-											<input type="text" name="ca2" value="<?php echo set_value('ca2'); ?>" class="form-control">
+											<input type="text" name="ca2" value="<?php echo set_value('ca2'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>
@@ -81,16 +81,16 @@
 											<center><label>003</label></center>
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('n3'); ?></h6>
-											<input type="text" name="n3" value="<?php echo set_value('n3'); ?>" class="form-control">
+											<input type="text" name="n3" value="<?php echo set_value('n3'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('r3'); ?></h6>
-											<input type="text" name="r3" value="<?php echo set_value('r3'); ?>" class="form-control">
+											<input type="text" name="r3" value="<?php echo set_value('r3'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mn3'); ?></h6>
-											<input type="text" name="mn3" value="<?php echo set_value('mn3'); ?>" class="form-control">
+											<input type="text" name="mn3" value="<?php echo set_value('mn3'); ?>" class="form-control input-sm">
 										</div>
 										<div class="col-md-3"><h6><?php echo form_error('ca3'); ?></h6>
-											<input type="text" name="ca3" value="<?php echo set_value('ca3'); ?>" class="form-control">
+											<input type="text" name="ca3" value="<?php echo set_value('ca3'); ?>" class="form-control input-sm">
 										</div>
 									</div>
 								</div>

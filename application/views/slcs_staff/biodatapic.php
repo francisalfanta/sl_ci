@@ -1,5 +1,5 @@
 
-									<div class="col-md-2"><?php echo $error; ?>
+									<div class="col-md-2"><h6><?php echo $error; ?></h6>
 										<div class="text-center">										
 											
 											<?php

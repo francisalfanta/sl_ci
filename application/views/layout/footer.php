@@ -49,6 +49,8 @@
  
   <!-- DataTables -->
 	<script type="text/javascript" charset="utf8" src="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
+	
+	
 
  <!-- Page Specific JS Libraries Tables Pages-->
     

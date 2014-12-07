@@ -30,16 +30,18 @@ class nationality_model extends CI_Model {
 		$new_address_insert_data = array(
 			'address'  				=> $this->input->post('address'),
 			'postalcode' 			=> $this->input->post('postalcode'),
-			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),
-			'addressRegion'			=> $this->input->post('addressregion'),
-			'addressLocality'   	=> $this->input->post('addresslocality'),
+			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),			
+			'addressSubcommunity'   => $this->input->post('addresssubcommunity'),
+			'addressCommunity'		=> $this->input->post('addresscommunity'),
+			'addressCity'			=> $this->input->post('addresscity'),
 			'addressCountry'		=> $this->input->post('addresscountry'),
 		);
 		$this->db->where('address', $new_address_insert_data['address']);
 		$this->db->where('postalcode', $new_address_insert_data['postalcode']);
-		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);
-		$this->db->where('addressRegion', $new_address_insert_data['addressRegion']);
-		$this->db->where('addressLocality', $new_address_insert_data['addressLocality']);
+		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);		
+		$this->db->where('addressSubcommunity', $new_address_insert_data['addressSubcommunity']);
+		$this->db->where('addressCommunity', $new_address_insert_data['addressCommunity']);
+		$this->db->where('addressCity', $new_address_insert_data['addressCity']);
 		$this->db->where('addressCountry', $new_address_insert_data['addressCountry']);
 		$this->db->from('address');
 		$query = $this->db->count_all_results();
@@ -72,16 +74,18 @@ class nationality_model extends CI_Model {
 		$new_address_insert_data = array(
 			'address'  				=> $this->input->post('address'),
 			'postalcode' 			=> $this->input->post('postalcode'),
-			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),
-			'addressRegion'			=> $this->input->post('addressregion'),
-			'addressLocality'   	=> $this->input->post('addresslocality'),
+			'postofficeboxnumber'   => $this->input->post('postofficeboxnumber'),			
+			'addressSubcommunity' 	=> $this->input->post('addresssubcommunity'),
+			'addressCommunity'  	=> $this->input->post('addresscommunity'),
+			'addressCity'			=> $this->input->post('addresscity'),
 			'addressCountry'		=> $this->input->post('addresscountry'),
 		);
 		$this->db->where('address', $new_address_insert_data['address']);
 		$this->db->where('postalcode', $new_address_insert_data['postalcode']);
-		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);
-		$this->db->where('addressRegion', $new_address_insert_data['addressRegion']);
-		$this->db->where('addressLocality', $new_address_insert_data['addressLocality']);
+		$this->db->where('postofficeboxnumber', $new_address_insert_data['postofficeboxnumber']);		
+		$this->db->where('addressSubcommunity', $new_address_insert_data['addressSubcommunity']);
+		$this->db->where('addressCommunity', $new_address_insert_data['addressCommunity']);
+		$this->db->where('addressCity', $new_address_insert_data['addressCity']);
 		$this->db->where('addressCountry', $new_address_insert_data['addressCountry']);
 		$query = $this->db->get('address');
 		

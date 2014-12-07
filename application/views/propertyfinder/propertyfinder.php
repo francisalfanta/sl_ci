@@ -18,6 +18,7 @@
                                 <h2><strong>Property</strong> Form</h2>
                                 <div class="additional-btn">
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="<?php echo base_url('propertyfinder/add_propertyfinder');?>"><i class="icon-user-add"></i></a>          
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div><!-- additional-btn -->

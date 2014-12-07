@@ -64,8 +64,8 @@
 												<td><?php echo $staff['mnumber']; ?></td>
 												<td>
 													<div class="btn-group btn-group-xs">
-														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" class="btn btn-default"><i class="fa fa-times"></i></a>
+														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-pencil"></i></a>
 													</div>
 												</td>
 											</tr>

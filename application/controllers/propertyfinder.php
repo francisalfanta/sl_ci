@@ -36,6 +36,34 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/footer');	
 	}
 
+	public function add_propertyfinder()
+	{		
+		$data['staffs']      = $this->slcs_staff_model->get_staff();
+		$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections']    = $this->sections_model->get_sections();
+
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
+
+		$data['city']        = $this->city_model->get_city();
+		$data['community']   = $this->community_model->get_community();
+		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
+		$data['properties']    = $this->propertyfinder_model->get_propertyfinder();
+		
+		$data['title']       = 'SoftLine | Property Finder';	
+		
+		$username = $this->session->userdata('username'); 			
+		$data['username']    = ucfirst($username);	
+		
+		$this->load->helper('url');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu', $data);
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('propertyfinder/propertyfinder_add_property_only', $data);
+		$this->load->view('layout/footer');	
+	}
+
 	public function toggle_fieldnames(){
 		
 	}
@@ -509,12 +537,12 @@ class propertyfinder extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE)
 		{		
-			$this->index();
+			$this->add_propertyfinder();
 		}
 		else
 		{	
 			if($query = $this->propertyfinder_model->create_propertyfinder_by_id()){				
-				$this->index();
+				$this->add_propertyfinder();
 			}
 		}		
 	}

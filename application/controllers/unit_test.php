@@ -12,14 +12,27 @@ class Unit_test extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('propertyfinder_model');
+        //$this->load->helpers('sql_sql_helper');
 	}
 
 	public function index() {
-        
-        $city_name         = $this->city_model->get_city_by_id(1);   
-        var_dump($city_name);
+        $address_list = $this->owner_addr_model->get_addr_info('1');
+        $addr = $address_list->result_array();
 
-        $test_unit = $fields;
+        $data = array();
+        $length = count($address_list->result_array());
+        for ($i = 1; $i < $length; $i++) {
+            foreach(array_slice($addr->,$i-1, $i) as $key => $value) {
+                $addressname = $key.$i;
+                $data[$addressname] = $value; 
+                echo $value;
+                echo '$data[$addressname] '. $data[$addressname];
+            }
+        }       
+
+        var_dump($data);
+
+        $test_unit = $query;
 		if (is_null($test_unit)) 
         {
            echo '$query is null';

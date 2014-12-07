@@ -94,6 +94,7 @@ $route['tables'] = 'tables';
 
 $route['default_controller'] = 'login';
 
+$route['propertyfinder/add_propertyfinder'] = 'propertyfinder/add_propertyfinder';
 $route['propertyfinder/count_record_by_subcommunity'] = 'propertyfinder/count_record_by_subcommunity';
 $route['propertyfinder/count_record_by_community'] = 'propertyfinder/count_record_by_community';
 $route['propertyfinder/count_record_by_city'] = 'propertyfinder/count_record_by_city';
