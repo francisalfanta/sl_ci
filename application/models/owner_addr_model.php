@@ -13,9 +13,9 @@ class owner_addr_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function get_owner_addr($property_owner_id = FALSE)
+	public function get_owner_addr($property_owner_id = null)
 	{	
-		if ($property_owner_id === FALSE)
+		if (is_null($property_owner_id))
 		{
 			$query = $this->db->get('property_owner_master_list');
 			return $query->result();
@@ -27,18 +27,11 @@ class owner_addr_model extends CI_Model {
 
 	public function view_owner_details($count_rows = null, $start = null, $offset = null)
 	{
-		echo 'view_onwer';
-		//$this->load->helper('sl_sql_helper');
-		//$sql = sl_sql();
-		//$sql = sl_sql_left_join();
-		
 		$query = $this->db->get('property_owner_master_list');
 		if($count_rows){			
 			$counting_rows = count($query->result());
 			return $counting_rows;
-		} elseif ($start && $offset) {			
-			//$sql .= " limit ?, ?";
-			//$query = $this->db->query($sql, array($start, $offset));
+		} elseif ($start && $offset) {					
 			$query = $this->db->get('property_owner_master_list', $start, $offset);
 			return $query->result();
 		} else {			

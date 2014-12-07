@@ -65,6 +65,7 @@
         <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
          
         <style>
           .select-editable { position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px; }

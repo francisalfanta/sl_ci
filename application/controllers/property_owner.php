@@ -22,24 +22,19 @@ class Property_owner extends CI_Controller {
 		$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
 		$data['sections']    = $this->sections_model->get_sections();
 		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
-		$data['records'] 	 = $this->owner_addr_model->view_owner_details();
-		//$data['records'] = null;
+		$data['records'] 	 = $this->owner_addr_model->view_owner_details(null,0, 25); 
+		//$query = $this->db->get('property_owner_master_list');
+		//view_owner_details($count_rows = null, $start = null, $offset = null)	
+
 		// custom data
 		$data['title']     = 'SoftLine | Property Owner Lists';	
 		
 		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
 		$data['username']  = ucfirst($username);	
-		//select values
-		//$gender_type       = array('Male','Female');
-		//$marital_type      = array('Single', 'Married');				
 
-		$data['parents']       = $this->property_owner_model->get_owner_details();	
-		//$data['nationalities'] = $this->nationality_model->get_nationality();		
-		$data['owner_details'] = $this->owner_addr_model->view_owner_details();
-		$data['nationality_tb_fieldnames'] = $this->get_field_name_nationality();
-		$data['address_tb_fieldnames'] = $this->get_field_name_address();
-		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
-
+		$data['parents']       = $this->property_owner_model->get_owner_details();	//$query = $this->db->get('property_owner');
+	
+		$data['table_fieldname'] = $this->get_field_name_property_owner_master_list();
 		$data['country_list'] = $this->country_model->get_country();
 
 		//set table id in table open tag
@@ -52,6 +47,94 @@ class Property_owner extends CI_Controller {
 		$middle_name = null;
 		$last_name   = null;
 		$nationality = null;
+		
+		//$data['nationalities'] = $this->nationality_model->get_nationality();		
+		//$data['nationalities'] = $this->owner_addr_model->get_owner_addr($property_owner_id);
+		
+		$data['form_attributes'] = array('class' => 'form inline', 'role' => 'form');		
+						         
+		$data['fn_attributes']   = array(
+						              'name'        => 'first_name',
+						              'id'          => 'fn_name',
+						              'value'       => $first_name,						              
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'First Name'
+						           );
+		$data['mn_attributes']   = array(
+						              'name'        => 'middle_name',
+						              'id'          => 'fn_name',
+						              'value'       => $middle_name,
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'Middle Name'
+						           );
+		$data['ln_attributes']   = array(
+						              'name'        => 'last_name',
+						              'id'          => 'ln_name',
+						              'value'       => $last_name,
+						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
+						              //'style'       => 'width:100%;',
+						              'placeholder' => 'Last Name'
+						           );
+		$data['nat_attributes']   = array(
+						              'name'        => 'nationality',
+						              'id'          => 'nationality',
+						              'value'       => $nationality,
+						              'class' 		=> 'form-control input-sm',
+						              //'style'       => 'width:50%;',
+						              'placeholder' => 'Nationality'
+						           );	
+
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/custom_modal', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu', $data);
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('property_owner/property_owner_table', $data);		
+		$this->load->view('layout/footer');	
+	}
+
+	public function submit_filter_table()
+	{	
+		// database query 
+		$data['staffs']      = $this->slcs_staff_model->get_staff();
+		$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections']    = $this->sections_model->get_sections();
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		 
+		//$query = $this->db->get('property_owner_master_list');
+		//view_owner_details($count_rows = null, $start = null, $offset = null)	
+
+		// custom data
+		$data['title']     = 'SoftLine | Property Owner Lists';	
+		
+		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
+		$data['username']  = ucfirst($username);	
+
+		$data['parents']       = $this->property_owner_model->get_owner_details();	//$query = $this->db->get('property_owner');
+	
+		$data['table_fieldname'] = $this->get_field_name_property_owner_master_list();
+		$data['country_list'] = $this->country_model->get_country();
+
+		//set table id in table open tag
+        //$tmpl = array('table_open' => '<table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">');
+        //$this->table->set_template($tmpl);
+		//$this->table->set_heading('First Name', 'Middle Name', 'Last Name');
+
+		$passport_no = null;
+		$first_name  = $this->input->post('first_name');
+		$middle_name = $this->input->post('middle_name');
+		$last_name   = $this->input->post('last_name');
+		$nationality = $this->input->post('nationality');
+		$country     = $this->input->post('country_name');
+		$telephone_no= $this->input->post('telephone_no');
+		$mobile_no   = $this->input->post('mobile_no');
+		$fax_no      = $this->input->post('fax_no');
+		$email       = $this->input->post('email');
+		//$data['records'] 	 = $this->owner_addr_model->view_owner_details(null,0, 25);
+		$data['records'] = $this->property_owner_master_list_model->filter_table();
+
 		
 		//$data['nationalities'] = $this->nationality_model->get_nationality();		
 		//$data['nationalities'] = $this->owner_addr_model->get_owner_addr($property_owner_id);
@@ -739,6 +822,18 @@ class Property_owner extends CI_Controller {
 
 	}
 
+
+	// tested 12/07/2014
+	public function get_field_name_property_owner_master_list(){
+		
+		$fields =array();    
+            
+        $query = $this->db->list_fields('property_owner_master_list');
+        foreach ($query as $field_meta) {           
+            $fields[$field_meta] = $field_meta;           
+        }    	
+		return $fields;
+	}
 	// ---------------------------------------- //
 	
 
