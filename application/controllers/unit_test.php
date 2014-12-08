@@ -16,13 +16,42 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $query = $this->input->post('property_owner_id');
-          
-            
-     
-        //var_dump($query->result());
+        $query_addr = $this->owner_addr_model->get_addr_info(1);
+        $addr_id = $this->input->post('address_id');
+        $max = count($addr_id);
+        for ($i = 0; $i < $max; $i++) {
+            if($x = $i-1;
+            echo 'addr_id: '.$addr_id[$x].'<br>';
+            $clist_name = 'clist'.$x;
+            $clist = $this->input->post($clist_name);
+            echo '$clist '.$clist.'<br>';
+            $city_name = 'city'.$x;
+            $city = $this->input->post($city_name);
+            echo '$city: '.$city.'<br>';
+            $comm_name = 'add'.$x.'1';
+            echo 'comm_name: '. $comm_name.'<br>';
+            $community = $this->input->post($comm_name);
+            echo '$comm: '. $community.'<br>';
+            $subcom_name = 'add'.$x.'2';
+            echo 'subcomm_name: '.$subcom_name.'<br>';
+            $subcommunity = $this->input->post($subcom_name);
+            echo '$subcom: '.$subcommunity.'<br>';
+            $addr_name = 'add'.$x.'3';
+            echo 'addr_name: '. $addr_name.'<br>';
+            $address = $this->input->post($addr_name);
+            echo '$addr: '. $address.'<br>';
+        }
 
-        $test_unit = $query;
+       
+
+
+
+
+        var_dump($addr_id);   
+     
+        var_dump($query_addr->result());
+
+        $test_unit = $addr_id;
 		if (is_null($test_unit)) 
         {
            echo '$query is null';

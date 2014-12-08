@@ -13,8 +13,8 @@
             	<!-- Page Heading End-->   
                 <?php if($this->uri->segment(3,0) > 0){
                         // For edit or view
-                        $action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
-                        //$action = 'unit_test';
+                        //$action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
+                        $action = 'unit_test';
                         echo form_open($action, $form_attributes);
                         echo '<input type="hidden" name="property_owner_id" value="'.$this->uri->segment(3,0).'" id="input-'.$this->uri->segment(3,0).'" >';                       
                       } else {
@@ -88,12 +88,64 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality->nationality; } echo set_value('ppn1'); ?>" class="form-control input-sm" placeholder="Passport No.(1)"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php echo set_value('ppn2'); ?>" class="form-control input-sm" placeholder="Passport No.(2)"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php echo set_value('ppn3'); ?>" class="form-control input-sm" placeholder="Passport No.(3)"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php echo set_value('ppn4'); ?>" class="form-control input-sm" placeholder="Passport No.(4)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php if(count($passport_lists)>0) {foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn1'); ?>" class="form-control input-sm" placeholder="Passport No.(1)"></div>
+                                                <input type="hidden" name="ppn1_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->tb_passport_id; }}?>"/>                                           
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn2'); ?>" class="form-control input-sm" placeholder="Passport No.(2)"></div>
+                                                <input type="hidden" name="ppn2_id" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn3'); ?>" class="form-control input-sm" placeholder="Passport No.(3)"></div>
+                                                <input type="hidden" name="ppn3_id" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn4'); ?>" class="form-control input-sm" placeholder="Passport No.(4)"></div>
+                                                <input type="hidden" name="ppn4_id" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
                                             </div>
-                                        </div>                                                                      
+                                        </div>
+
+                    <div id="addrDiv" class="widget">
+<!-- Address One -->    <?php $i=1; foreach($address_lists as $address){ ?> 
+                        <span> <input type="hidden" name="address_id[]" value="<?php echo $address->tb_address_id; ?>"/> 
+                                                              
+                        <div class="widget-header transparent">
+                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address <?php echo $i;?></h2>
+                            <div class="additional-btn">                                
+                               <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist1'); ?></h6><input type="text" name="clist1" value="<?php echo $address->addressCountry; echo set_value($address->addressCountry); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city1'); ?></h6><input type="text" name="city1" value="<?php echo $address->addressCity; echo set_value($address->addressCity); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>                                       
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add11'); ?></h6><input type="text" name="add11" value="<?php echo $address->addressCommunity; echo set_value($address->addressCommunity); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add12'); ?></h6><input type="text" name="add12" value="<?php echo $address->addressSubcommunity; echo set_value($address->addressSubcommunity); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add13'); ?></h6><input type="text" name="add13" value="<?php echo $address->address; echo set_value($address->address); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>                               
+                        </div>
+                        </span>
+                        <?php ++$i;} ?>                             
+                    </div> 
+
+
+                    <div class="widget-content padding" style="margin-left: 12px;">
+                        <div class="form-group">
+                            <div class="row">
+                                <div id="addaddrbtn">
+                                    <button class="btn btn-green-1">Add Another Address</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                                     </div>                          
                                 </div>
                      

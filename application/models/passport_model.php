@@ -13,52 +13,45 @@ class passport_model extends CI_Model {
 		$this->load->database();
 	}
 
-	public function create_prop_owner($property_owner_id, $nationality) {
-	
-		if(isset($nationality) && $nationality){
-			$new_nationality_insert_data = array(
-			'nationality'   		=> $nationality,			
-			'tb_property_owner_id'  => $property_owner_id
-			);	
-			$insert = $this->db->insert('nationality', $new_nationality_insert_data);
-		}
-		return true;						
-	}
-
-	public function delete_nationality($id) {
-		$this->db->where('tb_nationality_id', $id);
-		$this->db->delete('nationality');
-	}
-
-	public function update_nationality($tb_nationality_id, $nationality) {	
-		$new_nationality_update_data = array(		
-		'nationality'			=> $nationality,			
-		'tb_property_owner_id'  => $this->input->post('property_owner_id')
-		);
-
-		$this->db->where('tb_nationality_id', $tb_nationality_id);
-		$update = $this->db->update('nationality', $new_nationality_update_data);
-
-		return $update;	
-	}	
-
-	public function get_nationality_info($tb_property_owner_id = null){
+	public function get_passport_info($tb_property_owner_id = null){
 		if (is_null($tb_property_owner_id))
 		{
-			$query = $this->db->get('nationality');
+			$query = $this->db->get('passport');
 			return $query->result();
 		}
 		$this->db->where('tb_property_owner_id', $tb_property_owner_id );
-		$query = $this->db->get('nationality');
+		$query = $this->db->get('passport');
 		return $query;
 
 	} 
 
-	public function count_rows($tb_property_owner_id, $nationality){
-		$this->db->where('tb_property_owner_id', $tb_property_owner_id);
-		$this->db->where('nationality', $nationality);
-		$query = $this->db->get('nationality');
-
-		return $query->num_rows();
+	public function create_passport($property_owner_id, $passport) {
+	
+		if(isset($passport) && $passport){
+			$new_passport_insert_data = array(
+			'passport_no'   		=> $passport,			
+			'tb_property_owner_id'  => $property_owner_id
+			);	
+			$insert = $this->db->insert('passport', $new_passport_insert_data);
+		}
+		return true;						
 	}
-}?>
+
+	public function delete_passport($id) {
+		$this->db->where('tb_passport_id', $id);
+		$this->db->delete('passport');
+	}
+
+	public function update_passport($tb_passport_id, $passport) {	
+		$new_passport_update_data = array(		
+		'passport_no'			=> $passport,			
+		'tb_property_owner_id'  => $this->input->post('property_owner_id')
+		);
+
+		$this->db->where('tb_passport_id', $tb_passport_id);
+		$update = $this->db->update('passport', $new_passport_update_data);
+
+		return $update;	
+	}	
+
+}

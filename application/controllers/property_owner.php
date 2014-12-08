@@ -252,7 +252,7 @@ class Property_owner extends CI_Controller {
 			$query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
 			$data['nationality_lists'] = $query_nationality->result();
 			// table passport
-			$query_passport = $this->nationality_model->get_nationality_info($property_owner_id);
+			$query_passport = $this->passport_model->get_passport_info($property_owner_id);
 			$data['passport_lists'] = $query_passport->result();
 			// table address
 			$query_addr = $this->owner_addr_model->get_addr_info($property_owner_id);
@@ -727,7 +727,12 @@ class Property_owner extends CI_Controller {
 		$this->form_validation->set_rules('street', 'Street');
 		$this->form_validation->set_rules('re_property', 'Property Name');
 		$this->form_validation->set_rules('building_name', 'Building Name');
-		
+
+		//$this->form_validation->set_rules('na1', 'Nationality 1');
+		//$this->form_validation->set_rules('na2', 'Nationality 2');
+		//$this->form_validation->set_rules('na3', 'Nationality 3');
+		//$this->form_validation->set_rules('na4', 'Nationality 4');
+		// Nationality
 		$na1 = $this->input->post('na1');
 		$na1_id = $this->input->post('na1_id');
 		$na2 = $this->input->post('na2');
@@ -736,6 +741,16 @@ class Property_owner extends CI_Controller {
 		$na3_id = $this->input->post('na3_id');
 		$na4 = $this->input->post('na4');
 		$na4_id = $this->input->post('na4_id');
+
+		// Passport
+		$ppn1 = $this->input->post('ppn1');
+		$ppn1_id = $this->input->post('ppn1_id');
+		$ppn2 = $this->input->post('ppn2');
+		$ppn2_id = $this->input->post('ppn2_id');
+		$ppn3 = $this->input->post('ppn3');
+		$ppn3_id = $this->input->post('ppn3_id');
+		$ppn4 = $this->input->post('ppn4');
+		$ppn4_id = $this->input->post('ppn4_id');
 
 		/* No validation needed if Nationality can be null
 		if(isset($na1) and $na1) {			
@@ -759,8 +774,11 @@ class Property_owner extends CI_Controller {
 			$na4_id = null;
 		};*/
 
+		$addr_id = $this->input->post('address_id');
 		if ($this->form_validation->run() == TRUE)
 		{
+			// address table
+
 			// nationality table	
 			// nationality field 1		
 			if(strlen($na1_id)==0) { 
@@ -808,7 +826,49 @@ class Property_owner extends CI_Controller {
 			}				
 	
 			// passport table
+			if(strlen($ppn1_id)==0) { 
+				// insert
+                $this->passport_model->create_passport($property_owner_id, $ppn1);              									
+			} else if(strlen($ppn1)==0) {
+				// delete
+				$this->passport_model->delete_passport($ppn1_id);
+			} else if(isset($ppn1_id)  && $ppn1_id) {							
+				// update
+				$this->passport_model->update_passport($ppn1_id, $ppn1);	
+			}
 
+			if(strlen($ppn2_id)==0) { 
+				// insert
+                $this->passport_model->create_passport($property_owner_id, $ppn2);              									
+			} else if(strlen($ppn2)==0) {
+				// delete
+				$this->passport_model->delete_passport($ppn2_id);
+			} else if(isset($ppn2_id)  && $ppn2_id) {							
+				// update
+				$this->passport_model->update_passport($ppn2_id, $ppn2);	
+			}
+
+			if(strlen($ppn3_id)==0) { 
+				// insert
+                $this->passport_model->create_passport($property_owner_id, $ppn3);              									
+			} else if(strlen($ppn3)==0) {
+				// delete
+				$this->passport_model->delete_passport($ppn3_id);
+			} else if(isset($ppn3_id)  && $ppn3_id) {							
+				// update
+				$this->passport_model->update_passport($ppn3_id, $ppn3);	
+			}
+
+			if(strlen($ppn4_id)==0) { 
+				// insert
+                $this->passport_model->create_passport($property_owner_id, $ppn4);              									
+			} else if(strlen($ppn4)==0) {
+				// delete
+				$this->passport_model->delete_passport($ppn4_id);
+			} else if(isset($ppn4_id)  && $ppn4_id) {							
+				// update
+				$this->passport_model->update_passport($ppn4_id, $ppn4);	
+			}
 
 			$city = $this->input->post('city_name');
 			$city_name = $this->city_model->get_city_by_id($city);
@@ -832,7 +892,8 @@ class Property_owner extends CI_Controller {
 				'community' => $community_name,//$this->input->post('community'),
 				'subcommunity' => $subcommunity_name,// $this->input->post('subcommunity'),
 				're_property' => $this->input->post('re_property'),
-				'property_type' => $this->input->post('building_name'),
+				'property_type' => $this->input->post('property_type'),
+				'building_name' => $this->input->post('building_name'),
 				'unit_number' => $this->input->post('unit_number'),
 				'developer_name' => $this->input->post('developer_name'),
 				'street' => $this->input->post('street')				
