@@ -38,4 +38,11 @@ class Property_owner_has_tb_propertyfinder_model extends CI_Model{
 		pass;
 	}
 
+	public function count_rows($tb_property_owner_id, $tb_propertyfinder_id){
+		$this->db->where('tb_property_owner_id', $tb_property_owner_id);
+		$this->db->where('tb_propertyfinder_id', $tb_propertyfinder_id);
+		$query = $this->db->get('property_owner_has_tb_propertyfinder');
+		return $query->num_rows();
+	}
+
 }

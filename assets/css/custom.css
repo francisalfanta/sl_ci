@@ -5,6 +5,12 @@
 tbody.hide {
     display: none;
 }
+
+// target addrAddrBtn
+div#addAddrBtn {
+    margin-top: -30px !important;
+    padding-top: -50px !important;
+}
 // on-off button
 .onoffswitch {
     position: relative; width: 67px;

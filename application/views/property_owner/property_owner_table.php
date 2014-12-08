@@ -322,7 +322,7 @@
                                     <div class="col-xs-8">Address 2</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address2" value="address2" checked  /></span></div> 
                                     <div class="col-xs-8">Address 3</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address3" value="address3" checked  /></span></div> 
                                     <div class="col-xs-8">Address 4</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address4" value="address4" checked  /></span></div> 
-                                    <?php foreach(array_slice($table_fieldname,4, 30) as $label => $value){
+                                    <?php foreach(array_slice($table_fieldname,4, 20) as $label => $value){
                                           if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
@@ -344,7 +344,7 @@
 
                                 <div class="row col-sm-6 col-md-6 col-lg-6">
                                     <!-- foreach here -->
-                                    <?php foreach(array_slice($table_fieldname,34,count($table_fieldname)) as $label => $value){
+                                    <?php foreach(array_slice($table_fieldname,20,count($table_fieldname)) as $label => $value){
                                           if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
@@ -560,8 +560,8 @@
                                     
                                     <td>
                                       <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                          <a href="<?php echo base_url('property_owner/view_property_owner/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
-                                          <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id.'/'.$row->tb_propertyfinder_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
+                                          <a href="<?php $url='property_owner/view_property_owner/'.$row->tb_property_owner_id; echo base_url($url); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
+                                          <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
                                       </div>
                                     </td>
                                   </tr>
@@ -603,8 +603,9 @@
             } );
             var table = $('#owner_table').DataTable({
                     "deferRender": true,
-                    "dom": 'C<"clear">lfrtip',
-                    "sDom": 'T<"clear">lfrtip',
+                    //"dom": 'C<"clear">lfrtip',
+                    //"sDom": 'T<"clear">lfrtip',
+                    /*
                     "oTableTools": {
                         "aButtons": [
                             {
@@ -615,14 +616,14 @@
                                 }
                             }
                         ]
-                    } ,
+                    } ,*/
                     "scrollX": true,
                     "scrollY":        300,
-                    "scrollCollapse": true,
+                    //"scrollCollapse": true,
                     "jQueryUI":       true,
                     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                     "order": [[ 1, 'asc' ]],
-                    "columnDefs": [ 
+                   /* "columnDefs": [ 
                     {
                         "targets": [ 6 ],
                         "visible": false,
@@ -648,7 +649,7 @@
                         "targets": [ 11 ],
                         "visible": false
                     }
-                    ]     
+                    ]  */   
                     
                 });
             $('#container').css( 'display', 'block' );

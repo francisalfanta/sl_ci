@@ -232,7 +232,7 @@ class Property_owner extends CI_Controller {
 		return $fields;
 	}
 
-	public function view_property_owner($property_owner_id = null, $propertyfinder_id = null)
+	public function view_property_owner($property_owner_id = null, $propertyfinder_id = null) //<--- check here
 	{	
 		//if $id is null redirect to index
 		if($property_owner_id){
@@ -247,16 +247,36 @@ class Property_owner extends CI_Controller {
 			$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
 			$data['username']  = ucfirst($username);
 			$data['hide_contact_details'] = false;	
-			
+
+			// table nationality
+			$query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
+			$data['nationality_lists'] = $query_nationality->result();
+			// table passport
+			$query_passport = $this->nationality_model->get_nationality_info($property_owner_id);
+			$data['passport_lists'] = $query_passport->result();
+			// table address
+			$query_addr = $this->owner_addr_model->get_addr_info($property_owner_id);
+			$data['address_lists'] = $query_addr->result();
+			// table telephone no
+			$query_telno = $this->telephone_no_model->get_telno_info($property_owner_id);
+			$data['telno_lists'] = $query_telno->result();
+			// table fax no
+			$query_faxno = $this->fax_no_model->get_faxno_info($property_owner_id);
+			$data['faxno_lists'] = $query_faxno->result();
+			// table mobile no
+			$query_mobileno = $this->mobile_no_model->get_mobileno_info($property_owner_id);
+			$data['mobileno_lists'] = $query_mobileno->result();
+			// table email
+			$query_email = $this->email_model->get_email_info($property_owner_id);
+			$data['email_lists'] = $query_email->result();
+
+
 			$passport_no = null;
 			$first_name  = null;
 			$middle_name = null;
 			$last_name   = null;
 
 			$parents       	   = $this->property_owner_model->get_prop_owner($property_owner_id);
-			if(isset($parents['passport_no'])) {
-				$passport_no   = $parents['passport_no'];	
-			}
 			if(isset($parents['first_name'])) {
 				$first_name   = $parents['first_name'];	
 			}
@@ -270,14 +290,7 @@ class Property_owner extends CI_Controller {
 			$data['nationalities'] = $this->owner_addr_model->get_owner_addr($property_owner_id);
 			
 			$data['form_attributes'] = array('class' => 'form inline', 'role' => 'form');
-			$data['passport_no_attr']= array(
-							              'name'        => 'passport_no',
-							              'id'          => 'passport_no',
-							              'value'       => $passport_no,				              
-							              'style'       => 'width:50%;',//
-							              'class' 		=> 'form-control ',
-							              'placeholder' => 'Passport No'
-							           );
+			
 			$data['fn_attributes']   = array(
 							              'name'        => 'first_name',
 							              'id'          => 'fn_name',
@@ -320,13 +333,14 @@ class Property_owner extends CI_Controller {
         		$i.= 1;
         	}
 
-        	$data['city_options'] = $city_options;
+        	$data['city_options'] = $city_options;       
 
 			$city = null;
 			$community = null;
 			$subcommunity = null;
 			$re_property = null;
 			$property_type = null;
+			$street = null;
 			$building_name = null;
 			$unit_number = null;
 			$developer_name = null;
@@ -358,16 +372,19 @@ class Property_owner extends CI_Controller {
 						$re_property   = $propertyfinder['re_property'];	
 					}
 					if(isset($propertyfinder['property_type'])) {
-						$property_type   = $propertyfinder['property_type'];	
+						$property_type = $propertyfinder['property_type'];	
 					}
 					if(isset($propertyfinder['building_name'])) {
-						$building_name   = $propertyfinder['building_name'];	
+						$building_name = $propertyfinder['building_name'];	
 					}
 					if(isset($propertyfinder['unit_number'])) {
 						$unit_number   = $propertyfinder['unit_number'];	
 					}
 					if(isset($propertyfinder['developer_name'])) {
-						$developer_name   = $propertyfinder['developer_name'];	
+						$developer_name= $propertyfinder['developer_name'];	
+					}	
+					if(isset($propertyfinder['street'])) {
+						$street        = $propertyfinder['street'];	
 					}	
 				}
 			}
@@ -414,6 +431,14 @@ class Property_owner extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Property Type'
 							           );
+			$data['street_name_attributes'] = array(
+							              'name'        => 'street',
+							              'id'          => 'street',
+							              'value'       => $street,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Street'
+							           );
 			$data['building_name_attributes'] = array(
 							              'name'        => 'building_name',
 							              'id'          => 'building_name',
@@ -443,7 +468,7 @@ class Property_owner extends CI_Controller {
 			$this->load->view('layout/topbar');
 			$this->load->view('layout/admin_left_sidemenu', $data);
 			$this->load->view('layout/right_sidemenu');
-			$this->load->view('property_owner/property_owner_form', $data);		
+			$this->load->view('property_owner/property_owner_form_edit', $data);		
 			$this->load->view('layout/footer');	
 		} else {
 			echo 'redirect to property owner';
@@ -524,31 +549,43 @@ class Property_owner extends CI_Controller {
 		$unit_number = null;
 		$developer_name = null;
 
-		$propertyfinder = $this->propertyfinder_model->get_propertyfinder();
-		if(isset($propertyfinder['city'])) {
-			$city   = $propertyfinder['city'];	
-		}
-		if(isset($propertyfinder['community'])) {
-			$community   = $propertyfinder['community'];	
-		}
-		if(isset($propertyfinder['subcommunity'])) {
-			$subcommunity   = $propertyfinder['subcommunity'];	
-		}
-		if(isset($propertyfinder['re_property'])) {
-			$re_property   = $propertyfinder['re_property'];	
-		}
-		if(isset($propertyfinder['property_type'])) {
-			$property_type   = $propertyfinder['property_type'];	
-		}
-		if(isset($propertyfinder['building_name'])) {
-			$building_name   = $propertyfinder['building_name'];	
-		}
-		if(isset($propertyfinder['unit_number'])) {
-			$unit_number   = $propertyfinder['unit_number'];	
-		}
-		if(isset($propertyfinder['developer_name'])) {
-			$developer_name   = $propertyfinder['developer_name'];	
-		}
+		//$propertyfinder = $this->propertyfinder_model->get_propertyfinder();
+		$query_propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id($propertyfinder_id);
+
+			if($query_propertyfinder) {
+				foreach($query_propertyfinder as $propertyfinder){
+					if(isset($propertyfinder['city'])) {
+						$city   = $propertyfinder['city'];
+						$data['city'] = $city;
+						$data['city_id'] = $this->city_model->get_city_name_only($city);						
+					}
+					if(isset($propertyfinder['community'])) {
+						$community   = $propertyfinder['community'];
+						$data['community'] = $community;
+						$data['community_id'] = $this->community_model-> get_community_name_only($community);	
+					}
+					if(isset($propertyfinder['subcommunity'])) {
+						$subcommunity   = $propertyfinder['subcommunity'];	
+						$data['subcommunity'] = $subcommunity;
+						$data['subcommunity_id'] = $this->subcommunity_model->get_subcommunity_name_only($subcommunity);
+					}
+					if(isset($propertyfinder['re_property'])) {
+						$re_property   = $propertyfinder['re_property'];	
+					}
+					if(isset($propertyfinder['property_type'])) {
+						$property_type   = $propertyfinder['property_type'];	
+					}
+					if(isset($propertyfinder['building_name'])) {
+						$building_name   = $propertyfinder['building_name'];	
+					}
+					if(isset($propertyfinder['unit_number'])) {
+						$unit_number   = $propertyfinder['unit_number'];	
+					}
+					if(isset($propertyfinder['developer_name'])) {
+						$developer_name   = $propertyfinder['developer_name'];	
+					}	
+				}
+			}
 
 		$query = $this->city_model->get_city();       
 			
@@ -560,17 +597,7 @@ class Property_owner extends CI_Controller {
     	}
     	$data['city_options'] = $city_options;
     	$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
-		$data['city'] = $city;
-
-		$city = null;
-		$community = null;
-		$subcommunity = null;
-		$re_property = null;
-		$property_type = null;
-		$building_name = null;
-		$unit_number = null;
-		$developer_name = null;
-
+		$data['city'] = $city;	
 
 
 		$data['city_attributes'] = array(
@@ -677,21 +704,112 @@ class Property_owner extends CI_Controller {
 	}
 
 	public function del_nat($property_owner_id = null, $propertyfinder_id =null){	
-		if($property_owner_id && $propertyfinder_id){
-			$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
+		//if($property_owner_id && $propertyfinder_id){
+		//	$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
+		//}
+		if($property_owner_id){
+			$this->property_owner_model->update_owner_for_deletation($property_owner_id);
 		}	
 		redirect('property_owner');		
 	}
 
 	public function update_owner_personal_details($property_owner_id = null, $propertyfinder_id =null) //working 12/7/2014
-	{	
-		$this->form_validation->set_rules('passport_no', 'Passport No');
+	{			
+		
 		$this->form_validation->set_rules('first_name', 'First Name');
 		$this->form_validation->set_rules('middle_name', 'Middle Name');
 		$this->form_validation->set_rules('last_name', 'Last Name');
+		
+		$this->form_validation->set_rules('city_name', 'City');
+		$this->form_validation->set_rules('community', 'Community');
+		$this->form_validation->set_rules('subcommunity', 'Sub-community');
+
+		$this->form_validation->set_rules('street', 'Street');
+		$this->form_validation->set_rules('re_property', 'Property Name');
+		$this->form_validation->set_rules('building_name', 'Building Name');
+		
+		$na1 = $this->input->post('na1');
+		$na1_id = $this->input->post('na1_id');
+		$na2 = $this->input->post('na2');
+		$na2_id = $this->input->post('na2_id');
+		$na3 = $this->input->post('na3');
+		$na3_id = $this->input->post('na3_id');
+		$na4 = $this->input->post('na4');
+		$na4_id = $this->input->post('na4_id');
+
+		/* No validation needed if Nationality can be null
+		if(isset($na1) and $na1) {			
+			$this->form_validation->set_rules('na1', 'Nationality 1'); 
+		} else  {
+			$na1_id = null;
+		};		
+		//if(isset($na2) and $na2) {			
+		//	$this->form_validation->set_rules('na2', 'Nationality 2'); 
+		//} else {
+		//	$na2_id = null;
+		//};		
+		if(isset($na3) and $na3) {
+			$this->form_validation->set_rules('na3', 'Nationality 3'); 
+		} else {
+			$na3_id = null;
+		};
+		if(isset($na4) and $na4) {
+			$this->form_validation->set_rules('na4', 'Nationality 4'); 
+		} else {
+			$na4_id = null;
+		};*/
 
 		if ($this->form_validation->run() == TRUE)
 		{
+			// nationality table	
+			// nationality field 1		
+			if(strlen($na1_id)==0) { 
+				// insert
+                $this->nationality_model->create_prop_owner($property_owner_id, $na1);              									
+			} else if(strlen($na1)==0) {
+				// delete
+				$this->nationality_model->delete_nationality($na1_id);
+			} else if(isset($na1_id)  && $na1_id) {							
+				// update
+				$this->nationality_model->update_nationality($na1_id, $na1);	
+			}
+			// nationality field 2
+			if(strlen($na2_id)==0) { 
+				// insert
+                $this->nationality_model->create_prop_owner($property_owner_id, $na2);              									
+			} else if(strlen($na2)==0) {
+				// delete
+				$this->nationality_model->delete_nationality($na2_id);
+			} else if(isset($na2_id)  && $na2_id) {							
+				// update
+				$this->nationality_model->update_nationality($na2_id, $na2);	
+			}
+			// nationality field 3
+			if(strlen($na3_id)==0) { 
+				// insert
+                $this->nationality_model->create_prop_owner($property_owner_id, $na3);              									
+			} else if(strlen($na3)==0) {
+				// delete
+				$this->nationality_model->delete_nationality($na3_id);
+			} else if(isset($na3_id)  && $na3_id) {							
+				// update
+				$this->nationality_model->update_nationality($na3_id, $na3);	
+			}			
+			// nationality field 4 
+			if(strlen($na4_id)==0) { 
+				// insert
+                $this->nationality_model->create_prop_owner($property_owner_id, $na4);              									
+			} else if(strlen($na4)==0) {
+				// delete
+				$this->nationality_model->delete_nationality($na4_id);
+			} else if(isset($na4_id)  && $na4_id) {							
+				// update
+				$this->nationality_model->update_nationality($na4_id, $na4);	
+			}				
+	
+			// passport table
+
+
 			$city = $this->input->post('city_name');
 			$city_name = $this->city_model->get_city_by_id($city);
 
@@ -702,14 +820,13 @@ class Property_owner extends CI_Controller {
 			$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity);
 
 			$property_owner_id = $this->input->post('property_owner_id');		
-			
-			$data = array(
-				'passport_no' 	=> $this->input->post('passport_no'),
+			// property owner table
+			$data = array(			
 				'first_name' 	=> $this->input->post('first_name'),
 				'middle_name' 	=> $this->input->post('middle_name'),
 				'last_name'    	=> $this->input->post('last_name')			
 			);
-
+			// property finder table
 			$data_propertyfinder = array(
 				'city' => $city_name,//$this->input->post('city_name'),
 				'community' => $community_name,//$this->input->post('community'),
@@ -717,20 +834,27 @@ class Property_owner extends CI_Controller {
 				're_property' => $this->input->post('re_property'),
 				'property_type' => $this->input->post('building_name'),
 				'unit_number' => $this->input->post('unit_number'),
-				'developer_name' => $this->input->post('developer_name')
-				//'description' => $this->input->post('description')
+				'developer_name' => $this->input->post('developer_name'),
+				'street' => $this->input->post('street')				
 			);
 
 			$this->property_owner_model->update_owner_personal($property_owner_id, $data);
-			$this->propertyfinder_model->update_propertyfinder($propertyfinder_id, $data_propertyfinder);
-			// create new property
-			//$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
-			//$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
-			// create m2m record link
-			//$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);			
-		} 		
-		
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);			
+			//check if property owner have the property already
+			$check = $this->property_owner_has_tb_propertyfinder_model->count_rows($property_owner_id, $propertyfinder_id);
+			
+			if($check>0){
+				//print_r('check: '.$check);
+				$this->propertyfinder_model->update_propertyfinder($propertyfinder_id, $data_propertyfinder);	
+			} else {
+				//print_r('no data ');
+				// create new property
+				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
+				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();	
+				// create m2m record link
+				$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);			
+			}
+		} 	
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);		
 	}
 
 	public function view_staff_menu($id)

@@ -69,5 +69,12 @@ class property_owner_model extends CI_Model
 	{		
 		$this->db->where('tb_property_owner_id', $id);
 		$this->db->update('property_owner', $data); 		
-	}	
+	}
+
+	public function update_owner_for_deletation($id) 
+	{		
+		$data = array('for_deletion' => 1);
+		$this->db->where('tb_property_owner_id', $id);
+		$this->db->update('property_owner', $data); 		
+	}
 }?>
