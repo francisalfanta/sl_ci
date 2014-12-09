@@ -23,7 +23,7 @@
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
-                            <div class="widget-content padding">  
+                            <div class="widget-content padding"  id="property_filter">  
                                                 
                                 <div id="horizontal-form">                               
                                     <form class="form-horizontal" role="form">
@@ -96,7 +96,7 @@
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
                             </div>
-                            <div class="widget-content padding">
+                            <div class="widget-content padding"  id="fieldnames_toggle_list">
                               <div class="row">
                                 <!-- foreach here -->
                                 <?php foreach($propertyfinder_tb_fieldnames as $label => $value){
@@ -138,7 +138,7 @@
                             <br>                    
                                 <div class="table-responsive">
                                     <form class='form-horizontal' role='form'>
-                                    <table id="datatables-5" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
+                                    <table id="owner_table" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th class="city">City</th>
@@ -205,15 +205,82 @@
               
                 </form>	
     			<!-- Footer Start -->
-                <footer>
-                    Soft Line Cleaning Services &copy; 2014
-                    <div class="footer-links pull-right">
-                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-                    </div>
+                <footer >
+                Soft Line Cleaning Services &copy; 2014
+                <span class="footer-links">
+                    <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+                </span>
                 </footer>
+
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
-                 $(document).ready(function() {                   
+                 $(document).ready(function() {  
+
+                    $('#owner_table tfoot th').each( function () {
+                        var title = $('#example thead th').eq( $(this).index() ).text();
+                        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                    });        
+                     var table = $('#owner_table').DataTable({                    
+                    /*
+                    dom: 'T<"clear">lfrtip',
+                    tableTools: {
+                      sRowSelect: "os",
+                      sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                      aButtons: [
+                        { sExtends: "editor_create", editor: editor },
+                        { sExtends: "editor_edit",   editor: editor },
+                        { sExtends: "editor_remove", editor: editor },
+                        {
+                          sExtends: "collection",
+                          sButtonText: "Save",
+                          sButtonClass: "save-collection",
+                          aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
+                        },
+                        'print'
+                      ]
+                    },
+                    */
+                    "autoWidth": false,
+                    "deferRender" : true,
+                    "stateSave"   : true,
+                    //"columnDefs": [
+                    //{
+                          // The `data` parameter refers to the data for the cell (defined by the
+                          // `data` option, which defaults to the column being worked with, in
+                          // this case `data: 0`.
+                    //      "render": function ( data, type, row ) {
+                    //          return data +''+ row[11]+' '+row[12]+' '+row[13]+' '+row[14];
+                    //      },
+                    //      "targets": 10
+                    //  },
+                    //  { "visible": false,  
+                    //    "targets": [ 11,12,13,14 ] 
+                    //  }
+                    //],
+                    //"dom": 'C<"clear">lfrtip',
+                    //"sDom": 'T<"clear">lfrtip',
+                    /*
+                    "oTableTools": {
+                        "aButtons": [
+                            {
+                                "sExtends": "copy",
+                                "sButtonText": "Copy to clipboard",
+                                "oSelectorOpts": {
+                                    page: 'current'
+                                }
+                            }
+                        ]
+                    } ,*/
+                    "scrollX"     : true,
+                    "scrollY"     : 325,
+                    //"scrollCollapse": true,
+                    "jQueryUI":       true,
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                    //"order": [[ 1, 'asc' ]],
+                    "columnDefs": [
+                      { "width": "20%", "targets": 1 }
+                    ]
+                });         
                     // initial table set
                     function row_check(city, community, subcommunity, re_property, property_type, description, building_name, unit_number, developer_name){
                        

@@ -26,20 +26,30 @@
         <link href="<?php echo base_url(); ?>assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" />
+
         <!-- Code Highlighter for Demo -->
         <link href="<?php echo base_url(); ?>assets/libs/prettify/github.css" rel="stylesheet" />
         
                 <!-- Extra CSS Libraries Start -->
+                <link href="<?php echo base_url(); ?>assets/libs/rickshaw/rickshaw.min.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/morrischart/morris.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/jquery-jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/jquery-clock/clock.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-calendar/css/bic_calendar.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/jquery-weather/simpleweather.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-xeditable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
+
                 <?php if(strstr(strtolower($title), 'list')) { ?>
                     <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
                     <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
-                    
-                    <!--<link href="<?php echo base_url(); ?>assets/libs/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet">                    
-                    <script src="<?php echo base_url(); ?>assets/libs/bootstrap-switch-master/dist/js/bootstrap-switch.js"></script>-->
+                
                 <?php } ?>
                 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
                 <!-- Extra CSS Libraries End -->
-        <link href="<?php echo base_url(); ?>assets/css/style-responsive.css" rel="stylesheet" />
+                <link href="<?php echo base_url(); ?>assets/css/style-responsive.css" rel="stylesheet" />
+
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -61,12 +71,7 @@
             echo '<link href="'.base_url('assets/libs/select2-3.5.2/select2.css').'" type="text/css" rel="stylesheet"/>';
                        
         }?>
-        <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
-        <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 
-        <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
-         
         <style>
           .select-editable { position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px; }
           .select-editable select { position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0; }
@@ -75,8 +80,20 @@
         </style>
 
         <!-- FMA added 12/02/2014-->
-         <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" />
+        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.colVis.js'); ?>"></script>
         
+        <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
+        <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />
+
+
+
     </head>
     <body class="fixed-left login-page">
         <div id="indexLoader" style="width:100%;height:100%;position: absolute; background: white; opacity:0.8;">

@@ -37,6 +37,9 @@ class Property_owner extends CI_Controller {
 		$data['table_fieldname'] = $this->get_field_name_property_owner_master_list();
 		$data['country_list'] = $this->country_model->get_country();
 
+		$tb_property_owner_id = $this->input->post('property_owner_id');
+		$data['property_owned'] = $this->property_owner_has_tb_propertyfinder_model->count_property($tb_property_owner_id);
+
 		//set table id in table open tag
         //$tmpl = array('table_open' => '<table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">');
         //$this->table->set_template($tmpl);
@@ -714,8 +717,7 @@ class Property_owner extends CI_Controller {
 	}
 
 	public function update_owner_personal_details($property_owner_id = null, $propertyfinder_id =null) //working 12/7/2014
-	{			
-		
+	{
 		$this->form_validation->set_rules('first_name', 'First Name');
 		$this->form_validation->set_rules('middle_name', 'Middle Name');
 		$this->form_validation->set_rules('last_name', 'Last Name');
@@ -728,10 +730,17 @@ class Property_owner extends CI_Controller {
 		$this->form_validation->set_rules('re_property', 'Property Name');
 		$this->form_validation->set_rules('building_name', 'Building Name');
 
-		//$this->form_validation->set_rules('na1', 'Nationality 1');
-		//$this->form_validation->set_rules('na2', 'Nationality 2');
-		//$this->form_validation->set_rules('na3', 'Nationality 3');
-		//$this->form_validation->set_rules('na4', 'Nationality 4');
+		$this->form_validation->set_rules('country[]', 'Country Name', 'required');
+        $this->form_validation->set_rules('city[]', 'City');
+        $this->form_validation->set_rules('comm[]', 'Community');
+        $this->form_validation->set_rules('subcom[]', 'Sub-community');
+        $this->form_validation->set_rules('addr_street[]', 'Address');
+
+        $this->form_validation->set_rules('telephone_no[]', 'Telephone No');
+        $this->form_validation->set_rules('fax_no[]', 'Fax No');
+        $this->form_validation->set_rules('mobno[]', 'Mobile No');
+        $this->form_validation->set_rules('email_array[]', 'Email');
+
 		// Nationality
 		$na1 = $this->input->post('na1');
 		$na1_id = $this->input->post('na1_id');
@@ -752,72 +761,19 @@ class Property_owner extends CI_Controller {
 		$ppn4 = $this->input->post('ppn4');
 		$ppn4_id = $this->input->post('ppn4_id');
 
-		/* No validation needed if Nationality can be null
-		if(isset($na1) and $na1) {			
-			$this->form_validation->set_rules('na1', 'Nationality 1'); 
-		} else  {
-			$na1_id = null;
-		};		
-		//if(isset($na2) and $na2) {			
-		//	$this->form_validation->set_rules('na2', 'Nationality 2'); 
-		//} else {
-		//	$na2_id = null;
-		//};		
-		if(isset($na3) and $na3) {
-			$this->form_validation->set_rules('na3', 'Nationality 3'); 
-		} else {
-			$na3_id = null;
-		};
-		if(isset($na4) and $na4) {
-			$this->form_validation->set_rules('na4', 'Nationality 4'); 
-		} else {
-			$na4_id = null;
-		};*/
-
-		$addr_id = $this->input->post('address_id');
-		$max = count($addr_id);
-        for ($i = 0; $i < $max; $i++) {           
-            if($i===0){ $x=1;} else { $x= $i-1;};       
-            
-            if(isset($addr_id[$x]))
-            {   // update
-            	echo 'addr_id: '.$addr_id[$x].'<br>'; 
-
-        	} else { 
-        		// insert
-        		echo 'addr not set<br>';
-        	}
-            
-            $clist_name = 'clist'.$x;
-            $clist = $this->input->post($clist_name);
-           
-            $city_name = 'city'.$x;
-            $city = $this->input->post($city_name);
-          
-            $comm_name = 'add'.$x.'1';           
-            $community = $this->input->post($comm_name);
-          
-            $subcom_name = 'add'.$x.'2';    
-            $subcommunity = $this->input->post($subcom_name);
-      
-            $addr_name = 'add'.$x.'3';
-            $address = $this->input->post($addr_name);
-
-            $this->form_validation->set_rules($clist_name, 'Country Name');
-            $this->form_validation->set_rules($city_name, 'City');
-            $this->form_validation->set_rules($comm_name, 'Community');
-            $this->form_validation->set_rules($subcom_name, 'Sub-community');
-            $this->form_validation->set_rules($addr_name, 'Address');
-
-            
-            // form validation for address
-            if ($this->form_validation->run() == TRUE)
-			{  
-			}
-        }
+	
 		if ($this->form_validation->run() == TRUE)
 		{
 			// address table
+			$this->address_model->insert_or_update_batch_address($property_owner_id);
+			// telephone table
+			$this->telephone_no_model->insert_or_update_batch_telephone_no($property_owner_id);
+			// fax no table
+			$this->fax_no_model->insert_or_update_batch_fax_no($property_owner_id);
+			// mobile no table
+			$this->mobile_no_model->insert_or_update_batch_mobno($property_owner_id);
+			// email table
+			$this->email_model->insert_or_update_batch_email($property_owner_id);
 
 			// nationality table	
 			// nationality field 1		
@@ -957,7 +913,7 @@ class Property_owner extends CI_Controller {
 		} 	
 		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);		
 	}
-
+	/*
 	public function view_staff_menu($id)
 	{
 		// database query 
@@ -1005,7 +961,7 @@ class Property_owner extends CI_Controller {
 		$this->load->view('staff_menu/edit', $data);
 		$this->load->view('layout/footer');	
 	}
-
+	*/
 	public function find_owner(){
 
 		$first_name  =null;
@@ -1046,7 +1002,31 @@ class Property_owner extends CI_Controller {
 		echo json_encode($query->result_array());
 
 	}
-
+	// tested 12/09/2014
+	public function del_addr($property_owner_id, $propertyfinder_id, $tb_address_id){
+		$this->address_model->delete_address($tb_address_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#addrDiv');	
+	}
+	// tested 12/09/2014
+	public function del_telno($property_owner_id, $propertyfinder_id, $tb_telephone_no_id){
+		$this->telephone_no_model->delete_telephone_no($tb_telephone_no_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Telephone');	
+	}
+	// tested 12/09/2014
+	public function del_faxno($property_owner_id, $propertyfinder_id, $tb_telephone_no_id){
+		$this->fax_no_model->delete_fax_no($tb_telephone_no_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Fax');	
+	}
+	// tested 12/09/2014
+	public function del_mobileno($property_owner_id, $propertyfinder_id, $tb_mobile_id){
+		$this->mobile_no_model->delete_mobileno($tb_mobile_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Mobile');	
+	}
+	// tested 12/09/2014
+	public function del_email($property_owner_id, $propertyfinder_id, $tb_email_id){
+		$this->email_model->delete_email($tb_email_id);
+		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Email');	
+	}
 
 	// tested 12/07/2014
 	public function get_field_name_property_owner_master_list(){
@@ -1061,7 +1041,7 @@ class Property_owner extends CI_Controller {
 	}
 	// ---------------------------------------- //
 	
-
+	/*
 	public function update_staff_menu()
 	{		
 		$formSubmit = $this->input->post('submitForm');
@@ -1087,7 +1067,7 @@ class Property_owner extends CI_Controller {
 		} else {
 			$this->view_staff_menu($id);			
 		}
-	}
+	}*/
 
 
 }

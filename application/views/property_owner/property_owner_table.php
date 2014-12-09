@@ -7,6 +7,12 @@
             	<!-- Page Heading Start -->
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
                 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+                <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
+                <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
+                <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.fixedHeader.js'); ?>"></script>
+
+
+
 
             	<!-- Page Heading End-->  
               <div class="row">
@@ -20,7 +26,7 @@
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
-                            <div class="widget-content padding">   
+                            <div class="widget-content padding" id="property_filter">   
                              <?php echo form_open('unit_test', $form_attributes); ?> 
                                 <div id="horizontal-form">        
                                 <?php echo validation_errors(); ?>
@@ -310,11 +316,11 @@
                                 <h2><strong>Show / Hide</strong> Column Fields</h2>
                                 <div class="additional-btn">
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-toggle closed"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
                             </div>
-                            <div class="widget-content padding">
+                            <div class="widget-content padding" id="fieldnames_toggle_list">
                             <div class="row">
                                 <div class="row col-sm-6 col-md-6 col-lg-6">
                                     <!-- foreach here -->
@@ -438,66 +444,66 @@
                                         <th class="email2"><small>Email 2</small></th>
                                         <th class="email3"><small>Email 3</small></th>
                                         <th class="email4"><small>Email 4</small></th>   
-                                        <th class="status"><small>Status</small></th>                                                                                  
-                                        <th data-sortable="false">Option</th>
+                                        <th class="status" style="width:10px;"><small>Status</small></th>                                                                                  
+                                        <th class="option" style="width:80px;" data-sortable="false">Option</th>
                                   </tr>
                               </thead> 
                               <tfoot>
                                   <tr>                                            
-                                     <th class="fullname"><small>Full Name</small></th>
-                                       <th class="nationality1"><small>Nationality</small></th>
-                                        <th class="nationality2"><small>Nationality 2</small></th>
-                                        <th class="nationality3"><small>Nationality 3</small></th>
-                                        <th class="nationality4"><small>Nationality 4</small></th>
-                                        <th class="passport_no1"><small>Passport No</small></th>
-                                        <th class="passport_no2"><small>Passport No 2</small></th>
-                                        <th class="passport_no3"><small>Passport No 3</small></th>
-                                        <th class="passport_no4"><small>Passport No 4</small></th>
-                                        <th class="address1"><small>Address 1</small></th>
-                                        <th class="subcommunity1"><small>Subcommunity 1</small></th>
-                                        <th class="community1"><small>Community 1</small></th>
-                                        <th class="city1"><small>City 1</small></th>
-                                        <th class="country1"><small>Country 1</small></th>
+                                     <th class="fullname"><small>Full Name</small></th>             <!-- 1 -->
+                                       <th class="nationality1"><small>Nationality</small></th>     <!-- 2 -->
+                                        <th class="nationality2"><small>Nationality 2</small></th>  <!-- 3 -->
+                                        <th class="nationality3"><small>Nationality 3</small></th>  <!-- 4 -->
+                                        <th class="nationality4"><small>Nationality 4</small></th>  <!-- 5 -->
+                                        <th class="passport_no1"><small>Passport No</small></th>    <!-- 6 -->
+                                        <th class="passport_no2"><small>Passport No 2</small></th>  <!-- 7 -->
+                                        <th class="passport_no3"><small>Passport No 3</small></th>  <!-- 8 -->
+                                        <th class="passport_no4"><small>Passport No 4</small></th>  <!-- 9 -->
+                                        <th class="address1"><small>Address 1</small></th>          <!-- 10-->
+                                        <th class="subcommunity1"><small>Subcommunity 1</small></th><!-- 11 -->
+                                        <th class="community1"><small>Community 1</small></th>      <!-- 12-->
+                                        <th class="city1"><small>City 1</small></th>                <!-- 13-->
+                                        <th class="country1"><small>Country 1</small></th>          <!-- 14-->
 
-                                        <th class="address2"><small>Address 2</small></th>
-                                        <th class="subcommunity2"><small>Subcommunity 2</small></th>
-                                        <th class="community2"><small>Community 2</small></th>
-                                        <th class="city2"><small>City 2</small></th>
-                                        <th class="country2"><small>Country 2</small></th>
+                                        <th class="address2"><small>Address 2</small></th>          <!-- 15-->
+                                        <th class="subcommunity2"><small>Subcommunity 2</small></th><!-- 16-->
+                                        <th class="community2"><small>Community 2</small></th>      <!-- 17-->
+                                        <th class="city2"><small>City 2</small></th>                <!-- 18-->
+                                        <th class="country2"><small>Country 2</small></th>          <!-- 19-->
 
-                                        <th class="address3"><small>Address 3</small></th>
-                                        <th class="subcommunity3"><small>Subcommunity 3</small></th>
-                                        <th class="community3"><small>Community 3</small></th>
-                                        <th class="city3"><small>City 3</small></th>
-                                        <th class="country3"><small>Country 3</small></th>
+                                        <th class="address3"><small>Address 3</small></th>          <!-- 20-->
+                                        <th class="subcommunity3"><small>Subcommunity 3</small></th><!-- 21 -->
+                                        <th class="community3"><small>Community 3</small></th>      <!-- 22-->
+                                        <th class="city3"><small>City 3</small></th>                <!-- 23-->
+                                        <th class="country3"><small>Country 3</small></th>          <!-- 24-->
 
-                                        <th class="address4"><small>Address 4</small></th>
+                                        <th class="address4"><small>Address 4</small></th>          <!-- 25-->
                                         <th class="subcommunity4"><small>Subcommunity 4</small></th>
-                                        <th class="community4"><small>Community 4</small></th>
-                                        <th class="city4"><small>City 4</small></th>
-                                        <th class="country4"><small>Country 4</small></th>
+                                        <th class="community4"><small>Community 4</small></th>      <!-- 26-->
+                                        <th class="city4"><small>City 4</small></th>                <!-- 27-->
+                                        <th class="country4"><small>Country 4</small></th>          <!-- 28-->
 
-                                        <th class="telephone_no1"><small>Telephone No</small></th>
-                                        <th class="telephone_no2"><small>Telephone No 2</small></th>
-                                        <th class="telephone_no3"><small>Telephone No 3</small></th>
-                                        <th class="telephone_no4"><small>Telephone No 4</small></th>
+                                        <th class="telephone_no1"><small>Telephone No</small></th>  <!-- 29-->
+                                        <th class="telephone_no2"><small>Telephone No 2</small></th><!-- 30-->
+                                        <th class="telephone_no3"><small>Telephone No 3</small></th><!-- 31-->
+                                        <th class="telephone_no4"><small>Telephone No 4</small></th><!-- 32-->
 
-                                        <th class="fax_no1"><small>Fax No</small></th>
-                                        <th class="fax_no2"><small>Fax No 2</small></th>
-                                        <th class="fax_no3"><small>Fax No 3</small></th>
-                                        <th class="fax_no4"><small>Fax No 4</small></th>
+                                        <th class="fax_no1"><small>Fax No</small></th>              <!-- 33-->
+                                        <th class="fax_no2"><small>Fax No 2</small></th>            <!-- 34-->
+                                        <th class="fax_no3"><small>Fax No 3</small></th>            <!-- 35-->
+                                        <th class="fax_no4"><small>Fax No 4</small></th>            <!-- 36-->
 
-                                        <th class="mobile_no1"><small>Mobile No</small></th>
-                                        <th class="mobile_no2"><small>Mobile No 2</small></th>
-                                        <th class="mobile_no3"><small>Mobile No 3</small></th>
-                                        <th class="mobile_no4"><small>Mobile No 4</small></th>
+                                        <th class="mobile_no1"><small>Mobile No</small></th>        <!-- 37-->
+                                        <th class="mobile_no2"><small>Mobile No 2</small></th>      <!-- 38-->
+                                        <th class="mobile_no3"><small>Mobile No 3</small></th>      <!-- 39-->
+                                        <th class="mobile_no4"><small>Mobile No 4</small></th>      <!-- 40-->
 
-                                        <th class="email1"><small>Email</small></th>
-                                        <th class="email2"><small>Email 2</small></th>
-                                        <th class="email3"><small>Email 3</small></th>
-                                        <th class="email4"><small>Email 4</small></th>   
-                                        <th class="status"><small>Status</small></th>                                              
-                                      <th data-sortable="false">Option</th>
+                                        <th class="email1"><small>Email</small></th>                <!-- 41-->
+                                        <th class="email2"><small>Email 2</small></th>              <!-- 42-->
+                                        <th class="email3"><small>Email 3</small></th>              <!-- 43-->
+                                        <th class="email4"><small>Email 4</small></th>              <!-- 44-->
+                                        <th class="status" style="width:80px;"><small>Status</small></th>               <!-- 45-->                                        
+                                      <th class="option" style="width:80px;" data-sortable="false">Option</th>
                                     </tr>
                               </tfoot> 
                                 <tbody >
@@ -556,12 +562,12 @@
                                     <td class="email2"><small><?php echo $row->email2; ?></small></td>
                                     <td class="email3"><small><?php echo $row->email3; ?></small></td>
                                     <td class="email4"><small><?php echo $row->email4; ?></small></td> 
-                                    <td><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Danger</span>'; } ?></small></td>
+                                    <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Danger</span>'; } ?></small></td>
                                     
-                                    <td>
+                                    <td class="option" style="text-align: center;width:80px;">
                                       <div class="btn-group btn-group-xs">                                                                                                                                                                
                                           <a href="<?php $url='property_owner/view_property_owner/'.$row->tb_property_owner_id; echo base_url($url); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
-                                          <a href="<?php echo base_url('property_owner/del_nat/'.$row->tb_property_owner_id); ?>"  data-toggle="tooltip" title="Delete" class="md-trigger" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
+                                          <a href="#delete-record-modal" data-id="<?php echo $row->tb_property_owner_id; ?>" id="delete-record" title="Delete" data-toggle="modal" class="md-trigger open-delete-dialog" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
                                       </div>
                                     </td>
                                   </tr>
@@ -574,35 +580,88 @@
                             </div><!-- widget-content -->
                         </div>
                   </div>
+
               </div><!-- row -->
 					</jQuery(document).ready(function(){
 
           </form> 
     			<!-- Footer Start -->
-          <footer>
+          <footer >
               Soft Line Cleaning Services &copy; 2014
-              <div class="footer-links pull-right">
+              <span class="footer-links">
               	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-              </div>
+              </span>
           </footer>
           <!-- Footer End -->
           <script type="text/javascript">
             var editor; // use a global for the submit and return data rendering in the examples
 
             $(document).ready(function() {
+
+              //$('#delete-record-modal').on('show.bs.modal', function(e) {
+              //    alert('click');
+              //  var ownerId = $(e.relatedTarget).data('id');
+              //  $(e.currentTarget).find('input[name="todelete"]').val(ownerId);
+              //});
+
               $('table .address2, table .address3, table .address4, table .telephone_no2, table .telephone_no3, table .telephone_no4').hide();
               $('table .mobile_no2, table .mobile_no3, table .mobile_no4, table .fax_no2, table .fax_no3, table .fax_no4').hide();
               $('table .email2, table .email3, table .email4, table .passport_no2, table .passport_no3, table .passport_no4').hide();
               $('table .subcommunity2, table .subcommunity3, table .subcommunity4, table .community2, table .community3, table .community4').hide();
               $('table .city2, table .city3, table .city4, table .country2, table .country3, table .country4').hide();
               $('table .nationality2, table .nationality3, table .nationality4').hide();
+
+              $(document).on("click", ".open-delete-dialog", function () {
+              
+                var record_id = $(this).data('id');
+                $("div.md-content #todelete").val( record_id );
+                // As pointed out in comments, 
+                // it is superfluous to have to manually call the modal.
+                // $('#addBookDialog').modal('show');
+              });
+              
             // Setup - add a text input to each footer cell
             $('#owner_table tfoot th').each( function () {
               var title = $('#example thead th').eq( $(this).index() ).text();
               $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
             } );
-            var table = $('#owner_table').DataTable({
-                    "deferRender": true,
+            var table = $('#owner_table').DataTable({                    
+                    /*
+                    dom: 'T<"clear">lfrtip',
+                    tableTools: {
+                      sRowSelect: "os",
+                      sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                      aButtons: [
+                        { sExtends: "editor_create", editor: editor },
+                        { sExtends: "editor_edit",   editor: editor },
+                        { sExtends: "editor_remove", editor: editor },
+                        {
+                          sExtends: "collection",
+                          sButtonText: "Save",
+                          sButtonClass: "save-collection",
+                          aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
+                        },
+                        'print'
+                      ]
+                    },
+                    */
+                    "autoWidth": false,
+                    "deferRender" : true,
+                    "stateSave"   : true,
+                    //"columnDefs": [
+                    //{
+                          // The `data` parameter refers to the data for the cell (defined by the
+                          // `data` option, which defaults to the column being worked with, in
+                          // this case `data: 0`.
+                    //      "render": function ( data, type, row ) {
+                    //          return data +''+ row[11]+' '+row[12]+' '+row[13]+' '+row[14];
+                    //      },
+                    //      "targets": 10
+                    //  },
+                    //  { "visible": false,  
+                    //    "targets": [ 11,12,13,14 ] 
+                    //  }
+                    //],
                     //"dom": 'C<"clear">lfrtip',
                     //"sDom": 'T<"clear">lfrtip',
                     /*
@@ -617,43 +676,22 @@
                             }
                         ]
                     } ,*/
-                    "scrollX": true,
-                    "scrollY":        300,
-                    //"scrollCollapse": true,
+                    "scrollX"     : true,
+                    "scrollY"     : 325,
+                    "scrollCollapse": true,
                     "jQueryUI":       true,
                     "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                    "order": [[ 1, 'asc' ]],
-                   /* "columnDefs": [ 
-                    {
-                        "targets": [ 6 ],
-                        "visible": false,
-                        "searchable": false
-                    },
-                    {
-                        "targets": [ 7 ],
-                        "visible": false
-                    },
-                     {
-                        "targets": [ 8 ],
-                        "visible": false
-                    },
-                     {
-                        "targets": [ 9 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 10 ],
-                        "visible": false
-                    },
-                      {
-                        "targets": [ 11 ],
-                        "visible": false
-                    }
-                    ]  */   
-                    
+                    //"order": [[ 1, 'asc' ]],
+                    "columnDefs": [
+                      { "width": "20%", "targets": 1 }
+                    ]
                 });
-            $('#container').css( 'display', 'block' );
-            table.columns.adjust().draw();
+            //new $.fn.dataTable.FixedColumns( table );
+            
+            table.on( 'column-sizing.dt', function ( e, settings ) {
+              console.log( 'Column width recalculated in table' );
+            } );
+
             // Apply the search
             table.columns().eq( 0 ).each( function ( colIdx ) {
                 $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
@@ -856,13 +894,48 @@
                       }
                   }                          
               }); 
-            });             
+            });
+
+            // to do create an ajax to check if the owner
+            // contain a property
+            // then give the count to modal delete-record
+            // delete-record-modal will process if the deletion will proceed or not
+            $("#delete-record").click(function(){                                                                                            
+                 var record_id = $(this).data('id');
+                        $.ajax({
+                            url: "<?php echo base_url('property_owner'); ?>",
+                            type: 'POST',
+                            dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                            data:{  'property_owner_id' : record_id                                   
+                                 },                              
+                            error:  function(xhr, status, error) {
+                                        var err = JSON.parse(xhr.responseText);
+                                        //alert(err.Message);
+                                    },
+                            statusCode: {
+                                     404: function() {
+                                            alert( "page not found" );
+                                        }
+                            },
+                            success: function (response) { 
+                                var property_count = '';
+                                $.each(response, function (i, item) {
+                                    property_count = item;
+                                    console.log('item :'+ item);
+                                    console.log('i :'+ i);
+                                });                                                                 
+                                $('#subcommunity_count').empty().append(display_msg(property_count));
+                            },
+                            complete: function(xhr, status){
+                                var xhr = JSON.parse(xhr.responseText);
+                                //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                            }
+                        });//
+             });//
+
           </script>
          
-           <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
-           <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
-            <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.colVis.js'); ?>"></script>
-        </div>
+      </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->
 			<!-- ============================================================== -->

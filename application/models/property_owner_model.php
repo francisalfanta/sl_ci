@@ -77,4 +77,4 @@ class property_owner_model extends CI_Model
 		$this->db->where('tb_property_owner_id', $id);
 		$this->db->update('property_owner', $data); 		
 	}
-}?>
+}

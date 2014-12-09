@@ -13,8 +13,8 @@
             	<!-- Page Heading End-->   
                 <?php if($this->uri->segment(3,0) > 0){
                         // For edit or view
-                        //$action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
-                        $action = 'unit_test';
+                        $action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
+                        //$action = 'unit_test/m_email_insert';
                         echo form_open($action, $form_attributes);
                         echo '<input type="hidden" name="property_owner_id" value="'.$this->uri->segment(3,0).'" id="input-'.$this->uri->segment(3,0).'" >';                       
                       } else {
@@ -56,11 +56,9 @@
                                         </div><!-- form-group -->
 
                                     </div><!-- col-md-12 col-lg-12 portlets -->
-
-                                </div><!-- row -->
-                               
+                                </div><!-- row -->                               
                             </div><!-- widget-content padding -->
-                           </form>    
+                            </form>    
                         <div class="widget">
                             <div class="widget-header transparent">   
                                 <h2>Contact Details</h2> 
@@ -69,8 +67,7 @@
                                     <a href="<?php echo base_url('nationality/create_page/'.$this->uri->segment(3,0)); ?>"><i class="icon-user-add"></i></a>
                                 </div>                                                              
                             </div>
-                            <div class="widget-content padding">  
-                                
+                            <div class="widget-content padding">
                                 <div class="row">
                                     <div class="col-md-12">   
                                         
@@ -99,82 +96,219 @@
                                             </div>
                                         </div>
 
-                    <div id="addrDiv" class="widget">
-<!-- Address One -->    <?php $i=1; if(count($address_lists)==0) { ?>
-                        <span> <input type="hidden" name="address_id[]" value=""/> 
-                                                              
-                        <div class="widget-header transparent">
-                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 1</h2>
-                            <div class="additional-btn">                                
-                               <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="widget-content padding">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('clist1'); ?></h6><input type="text" name="clist1" value="<?php echo set_value('clist1'); ?>" class="form-control input-sm" placeholder="Country"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('city1'); ?></h6><input type="text" name="city1" value="<?php echo set_value('city1'); ?>" class="form-control input-sm" placeholder="City"></div>
-                                                
+                                        <div id="addrDiv" class="widget">
+                    <!-- Address -->    <?php $i=1; if(count($address_lists)==0) { ?>
+                                            <span> <input type="hidden" name="address_id[]" value=""/> 
+                                                                                  
+                                            <div class="widget-header transparent">
+                                                <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 1</h2>
+                                                <div class="additional-btn">                                
+                                                   <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
                                             </div>
-                                        </div>                                       
-                                        
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('add11'); ?></h6><input type="text" name="add11" value="<?php echo set_value('add11'); ?>" class="form-control input-sm" placeholder="Community"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('add12'); ?></h6><input type="text" name="add12" value="<?php echo set_value('add12'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('add13'); ?></h6><input type="text" name="add13" value="<?php echo set_value('add13'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            <div class="widget-content padding">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo set_value('city'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                                    
+                                                                </div>
+                                                            </div>                                       
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo set_value('subcom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                                                </div>
+                                                            </div>                                                                  
+                                                        </div>                          
+                                                    </div>                               
                                             </div>
-                                        </div>                                                                  
-                                    </div>                          
-                                </div>                               
-                        </div>
-                        </span>
-                        <?php } else { foreach($address_lists as $address){ ?> 
-                        <span> <input type="hidden" name="address_id[]" value="<?php echo $address->tb_address_id; ?>"/> 
-                                                              
-                        <div class="widget-header transparent">
-                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address <?php echo $i;?></h2>
-                            <div class="additional-btn">                                
-                               <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="widget-content padding">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('clist1'); ?></h6><input type="text" name="clist1" value="<?php echo $address->addressCountry; echo set_value($address->addressCountry); ?>" class="form-control input-sm" placeholder="Country"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('city1'); ?></h6><input type="text" name="city1" value="<?php echo $address->addressCity; echo set_value($address->addressCity); ?>" class="form-control input-sm" placeholder="City"></div>
-                                                
+                                            </span>
+                                            <?php } else { foreach($address_lists as $address){ ?> 
+                                            <span> <input type="hidden" name="address_id[]" value="<?php echo $address->tb_address_id; ?>"/> 
+                                                                                  
+                                            <div class="widget-header transparent">
+                                                <h2><i class="fa fa-home"></i><strong> Owner</strong> Address <?php echo $i;?></h2>
+                                                <div class="additional-btn">                                
+                                                   <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
                                             </div>
-                                        </div>                                       
-                                        
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('add11'); ?></h6><input type="text" name="add11" value="<?php echo $address->addressCommunity; echo set_value($address->addressCommunity); ?>" class="form-control input-sm" placeholder="Community"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('add12'); ?></h6><input type="text" name="add12" value="<?php echo $address->addressSubcommunity; echo set_value($address->addressSubcommunity); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
-                                                <div class="col-md-3"><h6><?php echo form_error('add13'); ?></h6><input type="text" name="add13" value="<?php echo $address->address; echo set_value($address->address); ?>" class="form-control input-sm" placeholder="Street"></div>
-                                            </div>
-                                        </div>                                                                  
-                                    </div>                          
-                                </div>                               
-                        </div>
-                        </span>
-                        <?php ++$i;}} ?>                             
-                    </div> 
+                                            <div class="widget-content padding">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo $address->addressCountry; echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo $address->addressCity; echo set_value('city[]'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                                    
+                                                                </div>
+                                                            </div>                                       
+                                                            
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo $address->addressCommunity; echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo $address->addressSubcommunity; echo set_value('subocom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo $address->address; echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                                                    <div  class="btn btn-sm" style="margin-top: 11px; margin-left: -12px;" ><a href="<?php $url='property_owner/del_addr/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$address->tb_address_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Address <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </div>
+                                                                </div>
+                                                            </div>                                                                  
+                                                        </div>                          
 
+                                                    </div>                               
+                                            </div>
+                                            </span>
+                                            <?php ++$i;}} ?>                             
+                                        </div> 
 
-                    <div class="widget-content padding" style="margin-left: 12px;">
-                        <div class="form-group">
-                            <div class="row">
-                                <div id="addaddrbtn">
-                                    <button class="btn btn-green-1">Add Another Address</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                        <div class="widget-content padding" style="margin-left: 12px;">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div id="addaddrbtn">
+                                                        <button class="btn btn-green-1">Add Another Address</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    <!-- / Address -->  </div><!-- widget -->
+                    <!-- Telephone -->
+                                        <div class="widget" id="Telephone">
+                                            <div class="widget-header padding">
+                                                <h2><i class="fa fa-phone-square"></i><strong> Telephone</strong> Number</h2>
+                                                <div class="additional-btn">                                
+                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content padding">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div id="telnoDiv" class="row">
+                                                            
+                                                            <?php $i=1; if(count($telno_lists)>0) { foreach($telno_lists as $telno){ ?>
+                                                            <span><input type="hidden" name="telno_id[]" value="<?php echo $telno->tb_telephone_no_id; ?>"/> 
+
+                                                                <div class="col-md-3"><h6><?php echo form_error('telephone_no[]'); ?></h6>
+                                                                    <input type="text" name="telephone_no[]" value="<?php echo $telno->telephone_no; echo set_value('telephone_no[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>.">                                                                    
+                                                                </div>
+                                                                <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_telno/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$telno->tb_telephone_no_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Telephone No <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>
+                                                            </span>
+                                                            <?php ++$i;}} else { ?>
+                                                            <span><input type="hidden" name="telno_id[]" value=""/> 
+                                                                <div class="col-md-3"><h6><?php echo form_error('telephone_no[]'); ?></h6><input type="text" name="telephone_no[]" value="<?php echo set_value('telephone_no[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                            </span>                                         
+                                                            <?php ++$i;} ?>                                               
+                                                            </div>                                                                                        
+                                                        </div>    
+                                                        <div id="addTelnoBtn"><a href=""  class="btn btn-green-1" >Add Another Telephone No</a></div>                                                          
+                                                    </div>                          
+                                                </div>
+                                            </div>                          
+                    <!-- /Telephone --> </div><!-- widget -->
+                    <!-- Fax No --> 
+                                        <div class="widget"  id="Fax">
+                                            <div class="widget-header transparent">
+                                                <h2><i class="glyphicon glyphicon-print"></i><strong> Fax</strong> Number</h2>
+                                                <div class="additional-btn">                                
+                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content padding">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div id="faxnoDiv" class="row">
+                                                            <?php $i=1; if(count($faxno_lists)>0) { foreach($faxno_lists as $faxno){ ?>
+                                                                <span><input type="hidden" name="faxno_id[]" value="<?php echo $faxno->tb_fax_no_id; ?>"/>
+
+                                                                    <div class="col-md-3"><h6><?php echo form_error('fax_no[]'); ?></h6><input type="text" name="fax_no[]" value="<?php echo $faxno->fax_no; echo set_value('fax_no[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                    <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_faxno/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$faxno->tb_fax_no_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Fax #<?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>                                                               
+                                                                </span>
+                                                            <?php ++$i;}} else { ?>  
+                                                            
+                                                                <span>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('fax_no[]'); ?></h6><input type="text" name="fax_no[]" value="" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                </span>
+                                                            
+                                                            <?php ++$i; } ?>
+                                                            </div>
+                                                        </div> 
+                                                        <div id="addFaxnoBtn"><a href=""  class="btn btn-green-1" >Add Another Fax No</a></div>                                                               
+                                                    </div>                          
+                                                </div>
+                                            </div>                          
+                    <!-- /Fax No -->    </div><!-- widget -->
+                    <!-- Mobile No -->
+                                        <div class="widget"  id="Mobile">
+                                            <div class="widget-header transparent">
+                                                <h2><i class="icon-mobile-2"></i><strong>Mobile</strong> Number</h2>
+                                                <div class="additional-btn">                                
+                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content padding">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <div id="mobilenoDiv" class="row">
+                                                            <?php $i=1; if(count($mobileno_lists)>0) { foreach($mobileno_lists as $mobileno){ ?>
+                                                            
+                                                            <span><input type="hidden" name="mobileno_id[]" value="<?php echo $mobileno->tb_mobile_id; ?>"/>
+                                                                <div class="col-md-3"><h6><?php echo form_error('mobno[]'); ?></h6><input type="text" name="mobno[]" value="<?php echo $mobileno->mobile_no; echo set_value('mobno[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_mobileno/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$mobileno->tb_mobile_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Fax #<?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>                                                               
+                                                            </span>
+                                                           
+                                                            <?php ++$i;}} else { ?>                                                 
+                                                           
+                                                            <span>
+                                                                <div class="col-md-3"><h6><?php echo form_error('mobno[]'); ?></h6><input type="text" name="mobno[]" value="" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                            </span>
+                                                            <?php  ++$i; } ?>
+                                                            </div>
+                                                        </div>
+                                                        <div id="addMobilenoBtn"><a href=""  class="btn btn-green-1" >Add Another Mobile No</a></div>                                                              
+                                                    </div>                          
+                                                </div>
+                                            </div>                          
+                                        </div>
+                    <!-- End Mobile -->
+                    <!-- Email -->      <div class="widget"  id="Email">
+                                            <div class="widget-header transparent">
+                                                <h2><i class="icon-mail-3"></i><strong> Email</strong> Address</a></h2>
+                                                <div class="additional-btn">                                
+                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="widget-content padding">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div id="emailDiv" class="form-group">
+                                                            <div class="row">
+                                                            <?php $i=1; if(count($email_lists)>0) { foreach($email_lists as $email){ ?>
+                                                            <span><input type="hidden" name="email_id[]" value="<?php echo $email->tb_email_id; ?>"/>
+                                                                <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="<?php echo $email->email; echo set_value('email_array[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_email/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$email->tb_email_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Email <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>                                                               
+                                                            </span>
+                                                            
+                                                            <?php ++$i;}} else { ?>  
+                                                            
+                                                            <span>
+                                                                <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                            </span>
+                                                            <?php ++$i;} ?>                                               
+                                                            
+                                                            </div><!-- row -->
+                                                        </div><!-- form-group -->
+                                                        <div id="addEmailBtn"><a href=""  class="btn btn-green-1" >Add Another Email</a></div>                                                                                                                             
+                                                    </div><!-- col-md-12 -->   
+                                                </div><!-- row -->
+                                            </div><!-- widget-content padding -->          
+                                        </div>                         
+                    <!-- End Email -->
+
+                   
 
 
                                     </div>                          
@@ -295,7 +429,7 @@
                                 <div id="formsubmit">
                                     <!--<a href="<?php $url='property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0); echo base_url($url); ?>"  name="formsubmit" class="btn btn-green-1" >Update</a>                                        -->
                                     <button  type="submit" name="formsubmit" class="btn btn-green-1" >Update</button>
-                                    <a href="<?php $url = "property_owner/view_property_owner/".$this->uri->segment(3,0).'/'.$this->uri->segment(4,0); echo base_url($url); ?>"><a href="" type="text" class="btn btn-default" tabindex="10">Cancel<a></a>
+                                    <a href="<?php echo base_url(); ?>property_owner" type="text" class="btn btn-default" tabindex="10">Cancel<a>
                                 </div>
                             </div> <!-- form-group -->
                         </div><!-- widget-content padding -->
@@ -328,7 +462,7 @@
 
                     // Add Address Button
                     $('#addaddrbtn').on('click', function() {
-                            $('<span><div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding"><div class="row"><div class="col-md-12"><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("clist'+i+'"); ?></h6><input type="text" name="clist'+i+'" value="" class="form-control input-sm" placeholder="Country"></div><div class="col-md-3"><h6><?php echo form_error("city'+i+'"); ?></h6><input type="text" name="city'+i+'" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("add'+i+'1"); ?></h6><input type="text" name="add'+i+'1" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("add1'+i+'2"); ?></h6><input type="text" name="add'+i+'2" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("add1'+i+'3"); ?></h6><input type="text" name="add'+i+'3" value="" class="form-control input-sm" placeholder="Subcommunity"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1">Remove</a></div></div></div></div></div></div></span>').appendTo(addrDiv);
+                            $('<span><input type="hidden" name="address_id[]" value=""/> <div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding"><div class="row"><div class="col-md-12"><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("country[]"); ?></h6><input type="text" name="country[]" value="" class="form-control input-sm" placeholder="Country"></div><div class="col-md-3"><h6><?php echo form_error("city[]"); ?></h6><input type="text" name="city[]" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("comm[]"); ?></h6><input type="text" name="comm[]" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("subcom[]"); ?></h6><input type="text" name="subcom[]" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("addr_street[]"); ?></h6><input type="text" name="addr_street[]" value="" class="form-control input-sm" placeholder="Street"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1">Remove</a></div></div></div></div></div></div></span>').appendTo(addrDiv);
                             i++;
                         return false;
                     });
@@ -341,7 +475,7 @@
                     });
                     // Add Telephone Button
                     $('#addTelnoBtn').on('click', function() {
-                            $('<div class="col-md-3"><h6><?php echo form_error("tel'+t+'"); ?></h6><input type="text" name="tel'+t+'" value="<?php echo set_value("tel'+t+'"); ?>" class="form-control input-sm" placeholder="'+t+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remTelno">Remove</a></div></div></div></div></div></div></span>').appendTo(telnoDiv);                        
+                            $('<span><input type="hidden" name="telno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("telephone_no[]"); ?></h6><input type="text" name="telephone_no[]" value="<?php echo set_value("telephone_no[]"); ?>" class="form-control input-sm" placeholder="'+t+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remTelno">Remove</a></div></div></div></div></div></div></span>').appendTo(telnoDiv);                        
                             t++;
                         return false;
                     });
@@ -355,7 +489,7 @@
                     });
                     // Add Fax Button
                     $('#addFaxnoBtn').on('click', function() {
-                            $('<div class="col-md-3"><h6><?php echo form_error("fax'+f+'"); ?></h6><input type="text" name="fax'+f+'" value="" class="form-control input-sm" placeholder="'+f+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remFaxno">Remove</a></div></div></div></div></div></div></span>').appendTo(faxnoDiv);                        
+                            $('<span><input type="hidden" name="faxno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("fax_no[]"); ?></h6><input type="text" name="fax_no[]" value="" class="form-control input-sm" placeholder="'+f+'."></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remFaxno">Remove</a></div></div></div></div></div></div></span>').appendTo(faxnoDiv);                        
                             f++;
                         return false;
                     });
@@ -369,7 +503,7 @@
                     });
                     // Add Mobile Button
                     $('#addMobilenoBtn').on('click', function() {
-                            $('<div class="col-md-3"><h6><?php echo form_error("mnum'+m+'"); ?></h6><input type="text" name="mnum'+m+'" value="" class="form-control input-sm" placeholder="'+m+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remMobileno">Remove</a></div></div></div></div></div></div></span>').appendTo(mobilenoDiv);                        
+                            $('<span><input type="hidden" name="mobileno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("mobno[]"); ?></h6><input type="text" name="mobno[]" value="" class="form-control input-sm" placeholder="'+m+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remMobileno">Remove</a></div></div></div></div></div></div></span>').appendTo(mobilenoDiv);                        
                             m++;
                         return false;
                     });
@@ -383,7 +517,7 @@
                     });
                     // Add Email Button
                      $('#addEmailBtn').on('click', function() {
-                            $('<div class="col-md-3"><h6><?php echo form_error("mnum'+e+'"); ?></h6><input type="text" name="mnum'+e+'" value="" class="form-control input-sm" placeholder="'+e+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remEmailno">Remove</a></div></div></div></div></div></div></span>').appendTo(emailDiv);                        
+                            $('<span><input type="hidden" name="email_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("email_array[]"); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="'+e+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remEmailno">Remove</a></div></div></div></div></div></div></span>').appendTo(emailDiv);                        
                             e++;
                         return false;
                     });

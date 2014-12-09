@@ -37,20 +37,14 @@
 
 	<script src="<?php echo base_url(); ?>assets/js/init.js"></script>
 	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
-	<script src="<?php echo base_url(); ?>assets/libs/jquery-wizard/jquery.easyWizard.js"></script>
-	<script src="<?php echo base_url(); ?>assets/js/pages/form-wizard.js"></script>
-    <?php if($title =='SoftLine | Property Finder' || $title == 'SoftLine | Property Owner'){
-		echo '<script src="'.base_url('assets/libs/select2-3.5.2/select2.js').'"></script>';
-    	echo '<script src="'.base_url('assets/libs/select2-3.5.2/select2.min.js').'"></script>';
-    }?>
+	
+   
 
   <!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css">
  
   <!-- DataTables -->
 	<script type="text/javascript" charset="utf8" src="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
-	
-	
 
  <!-- Page Specific JS Libraries Tables Pages-->
     
@@ -64,38 +58,7 @@
         /**     Code from ExpressionEngine v 1.6.3
         /**     Slightly modified to accept the parameter fieldcount
         /** -------------------------------------*/
-        $(function(){  
-        	// loading features
-        	$('#indexLoader').fadeOut('fast');
-
-        	$("#input_city").autocomplete({	        	
-	        	source: 'propertyfinder/get_city/'
-    		});
-
-    		$('#input_city').change( function()
-	        { 
-	            var q = $('#input_city').val();
-	                $.ajax(
-	                {
-	                    type: "POST",
-	                    url:"propertyfinder/get_city/"+q,
-	                    /*success: function(comuni)
-	                    {
-	                                             $('#comuni').empty();
-	                        $.each(comuni,function(id_comune, nome_comune)
-	                            {
-	                                var opt = $('<option />');
-	                                opt.val(id_comune);
-	                                opt.text(nome_comune);
-	                                $('#comuni').append(opt);
-	                            });
-
-	                                                        
-	                    }*/
-	                });
-	        });
-
-        });
+       
         function liveUrlTitle(fieldcount)
         {
         	var defaultTitle = '';

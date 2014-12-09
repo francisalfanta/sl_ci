@@ -17,79 +17,26 @@ class Unit_test extends CI_Controller {
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
         //$query_addr = $this->owner_addr_model->get_addr_info(1);
+        $this->form_validation->set_rules('country[]', 'Country Name', 'required');
+        $this->form_validation->set_rules('city[]', 'City');
+        $this->form_validation->set_rules('comm[]', 'Community');
+        $this->form_validation->set_rules('subcom[]', 'Sub-community');
+        $this->form_validation->set_rules('addr_street[]', 'Address');
         $tb_property_owner_id = $this->input->post('property_owner_id');
-        $addr_id = $this->input->post('address_id');
-        $max = count($addr_id);
-        for ($i = 0, $array_id=1; $i < $max; $i++, $array_id++) {
-            echo '$i: '.$i.'<br>';
-            if($i===0){ $x=1;} else { $x= $i+1;};
-            echo '$x: '.$x.'<br>';
-            echo '$array_id: '.$array_id.'<br>';
-            
-            if(isset($addr_id[$array_id]))
-            { 
-                echo 'addr_id: '.$addr_id[$array_id].'<br>'; 
-                $address_id = $addr_id[$array_id];
-            } else { 
-                echo 'addr not set<br>';
-            }
-            
-            $clist_name = 'clist'.$array_id;
-            $clist = $this->input->post($clist_name);
-            echo '$clist '.$clist.'<br>';
-            $city_name = 'city'.$array_id;
-            $city = $this->input->post($city_name);
-            echo '$city: '.$city.'<br>';
-            $comm_name = 'add'.$array_id.'1';
-            echo 'comm_name: '. $comm_name.'<br>';
-            $community = $this->input->post($comm_name);
-            echo '$comm: '. $community.'<br>';
-            $subcom_name = 'add'.$array_id.'2';
-            echo 'subcomm_name: '.$subcom_name.'<br>';
-            $subcommunity = $this->input->post($subcom_name);
-            echo '$subcom: '.$subcommunity.'<br>';
-            $addr_name = 'add'.$array_id.'3';
-            echo 'addr_name: '. $addr_name.'<br>';
-            $address = $this->input->post($addr_name);
-            echo '$addr: '. $address.'<br>';
-            
-            $this->form_validation->set_rules($clist_name, 'Country Name');
-            $this->form_validation->set_rules($city_name, 'City');
-            $this->form_validation->set_rules($comm_name, 'Community');
-            $this->form_validation->set_rules($subcom_name, 'Sub-community');
-            $this->form_validation->set_rules($addr_name, 'Address');
-            
-            $address_data = array(
-                'address' => $address,
-                'addressSubcommunity'=> $subcommunity,
-                'addressCommunity' => $community,
-                'addressCity' => $city,
-                'addressCountry' => $clist,
-                'tb_property_owner_id' => $tb_property_owner_id
-            );
-
-             // form validation for address
-            if ($this->form_validation->run() == TRUE && isset($addr_id[$array_id]))
-            {  // update
-                echo "yes";  
-                var_dump($address_data);
-                $this->address_model->update_address($address_id, $address_data);
-            } else { // insert
-                echo "no";
-                $this->address_model->insert_address($address_data);
-            }
+        
+        if ($this->form_validation->run() == TRUE) {
+            // check if insert or update
+            $this->address_model->update_batch_address($tb_property_owner_id);         
+        
+        } else { // insert
+                echo "no<br>";
+                //$this->address_model->insert_address($address_data);
         }
-
-       
-
-
-
-
-        var_dump($addr_id);   
+        //var_dump($addr_id);   
      
         //var_dump($query_addr->result());
 
-        $test_unit = $addr_id;
+        $test_unit = '';
 		if (is_null($test_unit)) 
         {
            echo '$query is null';
@@ -190,5 +137,163 @@ class Unit_test extends CI_Controller {
     public function m_get_propertyfinder_by_id(){
         $propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id(8);
         var_dump($propertyfinder);
-    }    
+    } 
+
+    public function m_telno_insert(){
+        $this->form_validation->set_rules('tel[]', 'Telephone No');
+
+        if ($this->form_validation->run() == TRUE) {
+            echo 'valid tel no<br>';
+            $telno_id = $this->input->post('telno_id');
+            echo '$telno_id: '. var_dump($telno_id);
+            $tel_no = $this->input->post('telephone_no');         
+            echo '<br>';
+            var_dump($tel_no);
+
+            $tb_property_owner_id = $this->input->post('property_owner_id');
+
+            $telno_data = array();
+                  
+            for($x = 0; $x < sizeof($telno_id); $x++){
+                $telno_data = array(
+                    'tb_telephone_no_id'   => $telno_id[$x], 
+                    'telephone_no'         => $tel_no[$x],                  
+                    'tb_property_owner_id' => $tb_property_owner_id                    
+                );  
+                // check if for update or insert           
+                if($telno_id[$x]){          
+                    echo 'updating: '.$telno_id[$x].'<br>';
+                    $this->db->where('tb_telephone_no_id', $telno_id[$x]);
+                    $status = $this->db->update('telephone_no', $telno_data); 
+                } else {           
+                    echo 'inserting: '.$telno_id[$x].'<br>';
+                    $status = $this->db->insert('telephone_no', $telno_data); 
+                }        
+            }      
+
+        } else {
+            echo 'not valid<br>';
+        }
+    }   
+
+    public function m_faxno_insert(){
+        $this->form_validation->set_rules('fax_no[]', 'Fax No');
+
+        if ($this->form_validation->run() == TRUE) {
+            echo 'valid fax no<br>';
+            $faxno_id = $this->input->post('faxno_id');
+            echo '$faxno_id: <br>';
+            var_dump($faxno_id);
+            $fax_no = $this->input->post('fax_no');         
+            echo '<br>';
+            var_dump($fax_no);
+
+            $tb_property_owner_id = $this->input->post('property_owner_id');
+
+            $telno_data = array();
+                  
+            for($x = 0; $x < sizeof($faxno_id); $x++){
+                $faxno_data = array(
+                    'tb_fax_no_id'   => $faxno_id[$x], 
+                    'fax_no'         => $fax_no[$x],                  
+                    'tb_property_owner_id' => $tb_property_owner_id                    
+                );  
+                // check if for update or insert           
+                if($faxno_id[$x]){          
+                    echo 'updating: '.$faxno_id[$x].'<br>';
+                    $this->db->where('tb_fax_no_id', $faxno_id[$x]);
+                    $status = $this->db->update('fax_no', $faxno_data); 
+                } else {           
+                    echo 'inserting: '.$faxno_id[$x].'<br>';
+                    $status = $this->db->insert('fax_no', $faxno_data); 
+                }        
+            }      
+
+        } else {
+            echo 'not valid<br>';
+        }
+    }
+
+    public function m_mobno_insert(){
+        $this->form_validation->set_rules('mobno[]', 'Fax No');
+
+        if ($this->form_validation->run() == TRUE) {
+            echo 'valid mob no<br>';
+            $mobno_id = $this->input->post('mobileno_id');
+            echo '$mobno_id: <br>';
+            var_dump($mobno_id);
+            $mob_no = $this->input->post('mobno');         
+            echo '<br>';
+            var_dump($mob_no);
+
+            $tb_property_owner_id = $this->input->post('property_owner_id');
+
+            $mobno_data = array();
+                  
+            for($x = 0; $x < sizeof($mobno_id); $x++){
+                $mobileno_data = array(
+                    'tb_mobile_id'   => $mobno_id[$x], 
+                    'mobile_no'         => $mob_no[$x],                  
+                    'tb_property_owner_id' => $tb_property_owner_id                    
+                );  
+                // check if for update or insert           
+                if($mobno_id[$x]){          
+                    echo 'updating: '.$mobno_id[$x].'<br>';
+                    $this->db->where('tb_mobile_id', $mobno_id[$x]);
+                    $status = $this->db->update('mobile_no', $mobileno_data); 
+                } else {           
+                    echo 'inserting: '.$mobno_id[$x].'<br>';
+                    $status = $this->db->insert('mobile_no', $mobileno_data); 
+                }        
+            }      
+
+        } else {
+            echo 'not valid<br>';
+        }
+    }
+
+    public function m_email_insert(){
+        $this->form_validation->set_rules('email_array[]', 'Email');
+
+        if ($this->form_validation->run() == TRUE) {
+            echo 'valid Email<br>';
+            $email_id = $this->input->post('email_id');
+            echo '$email_id: <br>';
+            var_dump($email_id);
+            $email = $this->input->post('email_array');         
+            echo '<br>';
+            var_dump($email);
+
+            $tb_property_owner_id = $this->input->post('property_owner_id');
+
+            $email_data = array();
+                  
+            for($x = 0; $x < sizeof($email_id); $x++){
+                $email_data = array(
+                    'tb_email_id'           => $email_id[$x], 
+                    'email'                 => $email[$x],                  
+                    'tb_property_owner_id'  => $tb_property_owner_id                    
+                );  
+                // check if for update or insert           
+                if($email_id[$x]){          
+                    echo 'updating: '.$email_id[$x].'<br>';
+                    $this->db->where('tb_email_id', $email_id[$x]);
+                    $status = $this->db->update('email', $email_data); 
+                } else {           
+                    echo 'inserting: '.$email_id[$x].'<br>';
+                    $status = $this->db->insert('email', $email_data); 
+                }        
+            }      
+
+        } else {
+            echo 'not valid<br>';
+        }
+    }
+
+    public function m_email_del(){
+        $this->email_model->delete_email($tb_email_id);
+        $status = $this->db->delete('email');
+
+        echo $status;
+    }
 }

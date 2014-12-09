@@ -7,13 +7,14 @@
         <div class="md-content">
             <h3><strong>Delete record</strong> Confirmation</h3>
             <div>
+                <?php echo $property_owned; ?>
                 <p class="text-center">Are you sure want you wanna delete the record?</p>
                 <p class="text-center">
                     <button class="btn btn-danger md-close">Cancel</button>
-                    <input type="hidden" id="to-delete" value="">
-                    <a href='<?php echo base_url(); ?>property_owner/del_nat/' class="btn btn-success md-close">Delete</a>  <!-- Modified by: Lemuel 11/27/2014 -->
+                    <input type="text" name="todelete" id="todelete" value=""/>
+                    <a href='<?php echo base_url(); ?>' class="btn btn-success md-close">Delete</a>  <!-- Modified by: Lemuel 11/27/2014 -->
                 </p>
             </div>
         </div>
     </div>        
-<!-- Modal End -->   
+<!-- Modal End -->

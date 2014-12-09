@@ -6,6 +6,30 @@ tbody.hide {
     display: none;
 }
 
+#fieldnames_toggle_list, #property_filter {
+    display: none;
+}
+table {
+    margin-left: auto !important;
+    margin-right: auto !important;    
+}
+table td:nth-child(45) {
+    width: 10px !important;
+}
+
+footer {
+    margin: 10px 0px 0px 5px; 
+    padding: 0 10px 0px 5px;
+}
+
+th, td { 
+    white-space: nowrap; 
+}
+div.dataTables_wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
 // target addrAddrBtn
 div#addAddrBtn {
     margin-top: -30px !important;
