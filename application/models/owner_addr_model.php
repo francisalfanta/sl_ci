@@ -72,4 +72,4 @@ class owner_addr_model extends CI_Model {
 		return $query;
 
 	}	
-}?>
+}

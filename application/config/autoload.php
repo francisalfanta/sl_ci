@@ -133,7 +133,8 @@ $autoload['model'] = array('slcs_staff_model',
 						   'fax_no_model',
 						   'mobile_no_model',
 						   'email_model',
-						   'passport_model');
+						   'passport_model',
+						   'address_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */

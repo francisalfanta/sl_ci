@@ -775,6 +775,46 @@ class Property_owner extends CI_Controller {
 		};*/
 
 		$addr_id = $this->input->post('address_id');
+		$max = count($addr_id);
+        for ($i = 0; $i < $max; $i++) {           
+            if($i===0){ $x=1;} else { $x= $i-1;};       
+            
+            if(isset($addr_id[$x]))
+            {   // update
+            	echo 'addr_id: '.$addr_id[$x].'<br>'; 
+
+        	} else { 
+        		// insert
+        		echo 'addr not set<br>';
+        	}
+            
+            $clist_name = 'clist'.$x;
+            $clist = $this->input->post($clist_name);
+           
+            $city_name = 'city'.$x;
+            $city = $this->input->post($city_name);
+          
+            $comm_name = 'add'.$x.'1';           
+            $community = $this->input->post($comm_name);
+          
+            $subcom_name = 'add'.$x.'2';    
+            $subcommunity = $this->input->post($subcom_name);
+      
+            $addr_name = 'add'.$x.'3';
+            $address = $this->input->post($addr_name);
+
+            $this->form_validation->set_rules($clist_name, 'Country Name');
+            $this->form_validation->set_rules($city_name, 'City');
+            $this->form_validation->set_rules($comm_name, 'Community');
+            $this->form_validation->set_rules($subcom_name, 'Sub-community');
+            $this->form_validation->set_rules($addr_name, 'Address');
+
+            
+            // form validation for address
+            if ($this->form_validation->run() == TRUE)
+			{  
+			}
+        }
 		if ($this->form_validation->run() == TRUE)
 		{
 			// address table

@@ -100,7 +100,38 @@
                                         </div>
 
                     <div id="addrDiv" class="widget">
-<!-- Address One -->    <?php $i=1; foreach($address_lists as $address){ ?> 
+<!-- Address One -->    <?php $i=1; if(count($address_lists)==0) { ?>
+                        <span> <input type="hidden" name="address_id[]" value=""/> 
+                                                              
+                        <div class="widget-header transparent">
+                            <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 1</h2>
+                            <div class="additional-btn">                                
+                               <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="widget-content padding">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('clist1'); ?></h6><input type="text" name="clist1" value="<?php echo set_value('clist1'); ?>" class="form-control input-sm" placeholder="Country"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('city1'); ?></h6><input type="text" name="city1" value="<?php echo set_value('city1'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                
+                                            </div>
+                                        </div>                                       
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3"><h6><?php echo form_error('add11'); ?></h6><input type="text" name="add11" value="<?php echo set_value('add11'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add12'); ?></h6><input type="text" name="add12" value="<?php echo set_value('add12'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('add13'); ?></h6><input type="text" name="add13" value="<?php echo set_value('add13'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                            </div>
+                                        </div>                                                                  
+                                    </div>                          
+                                </div>                               
+                        </div>
+                        </span>
+                        <?php } else { foreach($address_lists as $address){ ?> 
                         <span> <input type="hidden" name="address_id[]" value="<?php echo $address->tb_address_id; ?>"/> 
                                                               
                         <div class="widget-header transparent">
@@ -131,7 +162,7 @@
                                 </div>                               
                         </div>
                         </span>
-                        <?php ++$i;} ?>                             
+                        <?php ++$i;}} ?>                             
                     </div> 
 
 

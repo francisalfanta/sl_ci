@@ -16,30 +16,68 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $query_addr = $this->owner_addr_model->get_addr_info(1);
+        //$query_addr = $this->owner_addr_model->get_addr_info(1);
+        $tb_property_owner_id = $this->input->post('property_owner_id');
         $addr_id = $this->input->post('address_id');
         $max = count($addr_id);
-        for ($i = 0; $i < $max; $i++) {
-            if($x = $i-1;
-            echo 'addr_id: '.$addr_id[$x].'<br>';
-            $clist_name = 'clist'.$x;
+        for ($i = 0, $array_id=1; $i < $max; $i++, $array_id++) {
+            echo '$i: '.$i.'<br>';
+            if($i===0){ $x=1;} else { $x= $i+1;};
+            echo '$x: '.$x.'<br>';
+            echo '$array_id: '.$array_id.'<br>';
+            
+            if(isset($addr_id[$array_id]))
+            { 
+                echo 'addr_id: '.$addr_id[$array_id].'<br>'; 
+                $address_id = $addr_id[$array_id];
+            } else { 
+                echo 'addr not set<br>';
+            }
+            
+            $clist_name = 'clist'.$array_id;
             $clist = $this->input->post($clist_name);
             echo '$clist '.$clist.'<br>';
-            $city_name = 'city'.$x;
+            $city_name = 'city'.$array_id;
             $city = $this->input->post($city_name);
             echo '$city: '.$city.'<br>';
-            $comm_name = 'add'.$x.'1';
+            $comm_name = 'add'.$array_id.'1';
             echo 'comm_name: '. $comm_name.'<br>';
             $community = $this->input->post($comm_name);
             echo '$comm: '. $community.'<br>';
-            $subcom_name = 'add'.$x.'2';
+            $subcom_name = 'add'.$array_id.'2';
             echo 'subcomm_name: '.$subcom_name.'<br>';
             $subcommunity = $this->input->post($subcom_name);
             echo '$subcom: '.$subcommunity.'<br>';
-            $addr_name = 'add'.$x.'3';
+            $addr_name = 'add'.$array_id.'3';
             echo 'addr_name: '. $addr_name.'<br>';
             $address = $this->input->post($addr_name);
             echo '$addr: '. $address.'<br>';
+            
+            $this->form_validation->set_rules($clist_name, 'Country Name');
+            $this->form_validation->set_rules($city_name, 'City');
+            $this->form_validation->set_rules($comm_name, 'Community');
+            $this->form_validation->set_rules($subcom_name, 'Sub-community');
+            $this->form_validation->set_rules($addr_name, 'Address');
+            
+            $address_data = array(
+                'address' => $address,
+                'addressSubcommunity'=> $subcommunity,
+                'addressCommunity' => $community,
+                'addressCity' => $city,
+                'addressCountry' => $clist,
+                'tb_property_owner_id' => $tb_property_owner_id
+            );
+
+             // form validation for address
+            if ($this->form_validation->run() == TRUE && isset($addr_id[$array_id]))
+            {  // update
+                echo "yes";  
+                var_dump($address_data);
+                $this->address_model->update_address($address_id, $address_data);
+            } else { // insert
+                echo "no";
+                $this->address_model->insert_address($address_data);
+            }
         }
 
        
@@ -49,7 +87,7 @@ class Unit_test extends CI_Controller {
 
         var_dump($addr_id);   
      
-        var_dump($query_addr->result());
+        //var_dump($query_addr->result());
 
         $test_unit = $addr_id;
 		if (is_null($test_unit)) 
