@@ -2,6 +2,12 @@
 	float: right;
 }
 
+.help-block {
+    font-size: 10px;
+    font-style: italic;
+    color: red;
+    text-align: justify;
+}
 tbody.hide {
     display: none;
 }
@@ -13,6 +19,7 @@ table {
     margin-left: auto !important;
     margin-right: auto !important;    
 }
+
 table td:nth-child(45) {
     width: 10px !important;
 }

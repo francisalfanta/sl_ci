@@ -4,11 +4,9 @@
 			<!-- Start Content here -->
 			<!-- ============================================================== -->
         <div class="content">
-            	<!-- Page Heading Start -->
-         
-              
-                <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
-                <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.fixedHeader.js'); ?>"></script>
+            	<!-- Page Heading Start -->   
+              <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
+              <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.fixedHeader.js'); ?>"></script>
 
             	<!-- Page Heading End-->  
               <div class="row">
@@ -747,8 +745,10 @@
                 //$(this).tablesorter({ sortList: [[0,0]]});
                 $('#owner_table tfoot th').each( function () {
                   var title = $('#owner_table thead th').eq( $(this).index() ).text();
-                  $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
-                } );
+                  if(title!='Option' && title!='Status'){
+                    $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;width:100%;" />' );
+                  }
+                });
               }
 
               var table = $('#owner_table').DataTable({ 

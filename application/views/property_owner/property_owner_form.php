@@ -227,106 +227,106 @@
                              </div><!-- widget-content padding -->                       
                         </div><!-- widget -->                        
 					</div><!-- col-md-12 portlets -->
-                     <!-- Horizontal Form Start here --> 
-                        <div class="portlets">                        
-                            <div class="widget">
-                                <div class="widget-header transparent">
-                                    <h2><strong>Property Details</strong> Form <?php echo $city; ?></h2>
-                                    <div class="additional-btn">
-                                        <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                        <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
-                                        <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                    <!-- Horizontal Form Start here --> 
+                    <div class="portlets"> 
+                        <div class="widget">
+                            <div class="widget-header transparent">
+                                <h2><strong>Property Details</strong> Form <?php echo $city; ?></h2>
+                                <div class="additional-btn">
+                                    <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
+                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+                                    <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+                                </div>
+                            </div>
+                            <div class="widget-content padding">                        
+                            <div id="horizontal-form">
+                                 
+                                <div class="form-group"> <!-- City -->
+                                    <label for="city" class="col-sm-2 control-label">City</label>
+                                    <div class="col-sm-10">
+                                        <select name="city_name" id="city" tabindex="1" class="form-control">
+                                            
+                                            <option value="<?php if($city){ echo $city_id; } ?>" > <?php if($city){ echo $city; }  else { echo 'Select City'; } ?></option>                                                   
+
+                                            <option value="1" <?php echo set_select('city', 'Abu Dhabi'); ?>>Abu Dhabi</option>
+                                            <option value="2" <?php echo set_select('city', 'Ajman'); ?>>Ajman</option>
+                                            <option value="3" <?php echo set_select('city', 'Al Ain'); ?>>Al Ain</option>
+                                            <option value="4" <?php echo set_select('city', 'Dubai'); ?>>Dubai</option>
+                                            <option value="5" <?php echo set_select('city', 'Fujairah'); ?>>Fujairah</option>
+                                            <option value="6" <?php echo set_select('city', 'Ras Al Khaimah'); ?>>Ras Al Khaimah</option>
+                                            <option value="7" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
+                                            <option value="8" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
+                                        </select>
+                                    <p class="help-block"> </p>
                                     </div>
-                                </div>
-                                <div class="widget-content padding">                        
-                                <div id="horizontal-form">
-                                     
-                                    <div class="form-group"> <!-- City -->
-                                        <label for="city" class="col-sm-2 control-label">City</label>
-                                        <div class="col-sm-10">
-                                            <select name="city_name" id="city" tabindex="1" class="form-control">
-                                                
-                                                <option value="<?php if($city){ echo $city_id; } ?>" > <?php if($city){ echo $city; }  else { echo 'Select City'; } ?></option>                                                   
+                                </div><!-- form-group -->
 
-                                                <option value="1" <?php echo set_select('city', 'Abu Dhabi'); ?>>Abu Dhabi</option>
-                                                <option value="2" <?php echo set_select('city', 'Ajman'); ?>>Ajman</option>
-                                                <option value="3" <?php echo set_select('city', 'Al Ain'); ?>>Al Ain</option>
-                                                <option value="4" <?php echo set_select('city', 'Dubai'); ?>>Dubai</option>
-                                                <option value="5" <?php echo set_select('city', 'Fujairah'); ?>>Fujairah</option>
-                                                <option value="6" <?php echo set_select('city', 'Ras Al Khaimah'); ?>>Ras Al Khaimah</option>
-                                                <option value="7" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
-                                                <option value="8" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
-                                            </select>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Community -->
+                                    <label for="community" class="col-sm-2 control-label">Community</label>
+                                    <div class="col-sm-10">
+                                    <select name="community" id="cityDrp" class="form-control">
+                                    <option value="<?php if($community){ echo $community_id; } ?>" > <?php if($community){ echo $community; }  else { echo 'Please select first City'; } ?></option> 
+                                    </select>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Community -->
-                                        <label for="community" class="col-sm-2 control-label">Community</label>
-                                        <div class="col-sm-10">
-                                        <select name="community" id="cityDrp" class="form-control">
-                                        <option value="<?php if($community){ echo $community_id; } ?>" > <?php if($community){ echo $community; }  else { echo 'Please select first City'; } ?></option> 
-                                        </select>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Sub-community -->
+                                    <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
+                                    <div class="col-sm-10">
+                                    <select name="subcommunity" id="subcommunity" class="form-control">
+                                    <option value="<?php if($subcommunity){ echo $subcommunity_id; } ?>" > <?php if($subcommunity){ echo $subcommunity; }  else { echo 'Please select first Community'; } ?></option> 
+                                    </select>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Sub-community -->
-                                        <label for="subcommunity" class="col-sm-2 control-label">Sub-community</label>
-                                        <div class="col-sm-10">
-                                        <select name="subcommunity" id="subcommunity" class="form-control">
-                                        <option value="<?php if($subcommunity){ echo $subcommunity_id; } ?>" > <?php if($subcommunity){ echo $subcommunity; }  else { echo 'Please select first Community'; } ?></option> 
-                                        </select>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Property -->
+                                    <label for="reproperty" class="col-sm-2 control-label">Property</label>
+                                    <div class="col-sm-10">
+                                    <?php echo form_input($reproperty_attributes); ?>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Property -->
-                                        <label for="reproperty" class="col-sm-2 control-label">Property</label>
-                                        <div class="col-sm-10">
-                                        <?php echo form_input($reproperty_attributes); ?>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Property Type -->
+                                    <label for="property_type" class="col-sm-2 control-label">Property Type</label>
+                                    <div class="col-sm-10">
+                                    <?php echo form_input($property_type_attributes); ?>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Property Type -->
-                                        <label for="property_type" class="col-sm-2 control-label">Property Type</label>
-                                        <div class="col-sm-10">
-                                        <?php echo form_input($property_type_attributes); ?>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Building name -->
+                                    <label for="building_name" class="col-sm-2 control-label">Building name</label>
+                                    <div class="col-sm-10">
+                                    <?php echo form_input($building_name_attributes); ?>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Building name -->
-                                        <label for="building_name" class="col-sm-2 control-label">Building name</label>
-                                        <div class="col-sm-10">
-                                        <?php echo form_input($building_name_attributes); ?>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Unit no -->
+                                    <label for="unit_number" class="col-sm-2 control-label">Unit no</label>
+                                    <div class="col-sm-10">
+                                    <?php echo form_input($unit_number_attributes); ?>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->
 
-                                    <div class="form-group"> <!-- Unit no -->
-                                        <label for="unit_number" class="col-sm-2 control-label">Unit no</label>
-                                        <div class="col-sm-10">
-                                        <?php echo form_input($unit_number_attributes); ?>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->
+                                <div class="form-group"> <!-- Developer name -->
+                                    <label for="developer_name" class="col-sm-2 control-label">Developer name</label>
+                                    <div class="col-sm-10">
+                                    <?php echo form_input($developer_name_attributes); ?>
+                                    <p class="help-block"> </p>
+                                    </div>
+                                </div><!-- form-group -->                               
 
-                                    <div class="form-group"> <!-- Developer name -->
-                                        <label for="developer_name" class="col-sm-2 control-label">Developer name</label>
-                                        <div class="col-sm-10">
-                                        <?php echo form_input($developer_name_attributes); ?>
-                                        <p class="help-block"> </p>
-                                        </div>
-                                    </div><!-- form-group -->                               
-
-                                </div>
-                                </div>
-                            </div>                        
-                        </div>
-                        <!-- Horizontal Form End here -->
-                    <div class="portlets">
+                            </div>
+                            </div>
+                        </div>                        
+                    </div>
+                    <!-- Horizontal Form End here -->
+                    <div class="portlets"> 
                         <div class="widget">
                         <div class="widget-content padding">                                                              
                             <div class="form-group">

@@ -129,7 +129,7 @@
 
                                 <div class="additional-btn">                                    
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                    <a href="slcs_staff/create_member"><i class="icon-user-add"></i></a>                                    
+                                    <a href="#"><i class="icon-user-add"></i></a>                                    
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
@@ -182,7 +182,7 @@
                                                 <td class="building_name"><?php echo $property['building_name']; ?></td>  
                                                 <td class="unit_number"><?php echo $property['unit_number']; ?></td>   
                                                 <td class="developer_name"><?php echo $property['developer_name']; ?></td>                                                                                            
-                                                <td>
+                                                <td style="text-align: center;width:80px;">
                                                     <div class="btn-group btn-group-xs">                        
                                                         <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a>
                                                         <a href="" onClick="delete_record(<?php echo $property['tb_propertyfinder_id'];?>)" data-toggle="tooltip" title="Off" class="btn custom-del"><i class="glyphicon glyphicon-remove"></i></a>
@@ -215,11 +215,7 @@
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
                  $(document).ready(function() {  
-
-                    $('#owner_table tfoot th').each( function () {
-                        var title = $('#owner_table thead th').eq( $(this).index() ).text();
-                        $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
-                    });        
+     
                     var table = $('#owner_table').DataTable({                    
                     /*
                     dom: 'T<"clear">lfrtip',
@@ -242,7 +238,7 @@
                     */
                     "autoWidth": false,
                     "deferRender" : true,
-                    "stateSave"   : true,
+                    //"stateSave"   : true,
                     //"columnDefs": [
                     //{
                           // The `data` parameter refers to the data for the cell (defined by the
@@ -403,8 +399,7 @@
                         } else {   
                             // to hide the table column name mention                       
                             $(column).hide();  
-                        } 
-                         
+                        }                          
                     });
                     
                     function delete_record(tb_propertyfinder_id){                        

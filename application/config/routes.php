@@ -57,7 +57,7 @@ $route['property_owner/datatable'] = 'property_owner/datatable';
 $route['property_owner/q_prop_owner'] = 'property_owner/q_prop_owner';
 $route['property_owner/view_property_owner/(:any)'] = 'property_owner/view_property_owner/$1';
 $route['property_owner/update_owner_personal_details'] = 'property_owner/update_owner_personal_details';
-
+$route['property_owner'] = 'property_owner';
 
 $route['community/del_comm_name'] = 'community/del_comm_name';
 $route['community/create_comm_name'] = 'community/create_comm_name'; 
@@ -93,7 +93,7 @@ $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
 $route['slcs_staff'] = 'slcs_staff';
 
 $route['nationality']  = 'nationality';
-$route['property_owner'] = 'property_owner';
+
 $route['login'] = 'login';
 $route['tables'] = 'tables';
 

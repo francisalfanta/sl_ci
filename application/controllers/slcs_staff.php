@@ -20,12 +20,12 @@ class Slcs_staff extends CI_Controller {
 		$this->pagination->initialize($data);
 
 		
-		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['staffs'] 	= $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections'] = $this->sections_model->get_sections();
+		$data['sections'] 	= $this->sections_model->get_sections();
 		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		$data['title'] = 'SoftLine | Staff';
-		$data['description'] = '';	
+		$data['title'] 		= 'SoftLine | Staff';
+		$data['description']= '';	
 		
 		$username = $this->session->userdata('username'); 			
 		$data['username'] = ucfirst($username);	
@@ -234,9 +234,7 @@ class Slcs_staff extends CI_Controller {
 			$this->load->view('slcs_staff/license'); //added by prime 11/27/2014
 			$this->load->view('layout/footer');	
 		
-			}
-		
-		
+			}	
 	}
 	
 	public function del($q)

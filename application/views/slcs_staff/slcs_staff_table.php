@@ -32,46 +32,56 @@
 							</div>
 							<div class="widget-content">					
 								<div class="table-responsive">
-									<table data-sortable class="table">
+									<table id="slcs_staff_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
 										<thead>
 											<tr>
-												<th>No</th>
-												<th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
+												<th>No</th>												
 												<th>Full Name</th>
 												<th>Address</th>
-												<th>Date of birth</th>
+												<th style="text-align: center; width:60px;">Date of birth</th>
 												<th>Email</th>
 												<th>Mobile Number</th>
-												<th>Print</th>
+												<th style="text-align: center; width:60px;">Print</th>
 												<th data-sortable="false">Actions</th>
 											</tr>
 										</thead>
+                    <tfoot>
+                      <tr>
+                        <th>No</th>                       
+                        <th>Full Name</th>
+                        <th>Address</th>
+                        <th style="text-align: center; width:60px;">Date of birth</th>
+                        <th>Email</th>
+                        <th>Mobile Number</th>
+                        <th style="text-align: center; width:60px;">Print</th>
+                        <th data-sortable="false">Actions</th>
+                      </tr>
+                    </tfoot>
 										
 										<tbody>
-
 											<?php 
 												$i = 1; // counter
 												foreach($staffs as $staff) { ?>
 
 											<tr>
-												<td><?php echo $i; ?></td>
-												<td><input type="checkbox" class="rows-check"></td>
+												<td style="text-align: center;width:40px;"><?php echo $i; ?></td>
+											
 												<td><strong><?php echo $staff['fname']; ?>&nbsp;
 															<?php echo $staff['mname']; ?>&nbsp;
 															<?php echo $staff['lname']; ?></strong></td>
 												<td><?php echo $staff['complete_address']; ?></td>
-												<td><?php echo $staff['dob']; ?></td>
+												<td style="text-align: center; width:60px;"><?php echo $staff['dob']; ?></td>
 												<td><a href="mailto:<?php echo $staff['email']; ?>"><?php echo $staff['email']; ?></a></td>
 												<td><?php echo $staff['mnumber']; ?></td>
-												<td>
+												<td style="text-align: center; width:60px;">
 													<div class="btn-group btn-group-xs">
 														<a href="<?php echo base_url('slcs_staff/print_form/'.$staff['id']); ?>" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-default"><i class="icon-print-2"></i></a>
 													</div>
 												</td>
-												<td>
-													<div class="btn-group btn-group-xs">
-														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" class="btn btn-default"><i class="fa fa-times"></i></a>
-														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-pencil"></i></a>
+												<td  style="text-align: center;width:80px;">
+													<div class="btn-group btn-group-xs">														
+														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
+                            <a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" ><i class="glyphicon glyphicon-remove"></i></a>
 													</div>
 												</td>
 											</tr>
@@ -88,121 +98,126 @@
                 
                 </form>	
     			<!-- Footer Start -->
-                <footer>
-                    Soft Line Cleaning Services &copy; 2014
-                    <div class="footer-links pull-right">
-                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact </a>
-                    </div>
+                <footer >
+                  Soft Line Cleaning Services &copy; 2014
+                  <span class="footer-links">
+                  <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+                </span>
                 </footer>
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
                     $(document).ready(function() {                      
-                        //$('#city').select2();                              // add on function for select box autocomplete
-                       // $("#city").autocomplete(){
-                       //     source: "<?php echo base_url('city/get_city'); ?>"
-                       // }
-                        $('#community_name').select2({                        // add on function for select box autocomplete
-                           placeholder: "Community Name",
-                           //data : [{id: 0, text: 'story'},{id: 1, text: 'bug'},{id: 2, text: 'task'}],
-                           allowClear: true,
-                           minimumInputLength: 2,
-                           /*
-                           createSearchChoice:function(term, data) { 
-                                                if ($(data).filter(function() { 
-                                                                        return this.text.localeCompare(term)===0; 
-                                                                    }).length===0) {
-                                                    return {id:term, text:term};
-                                                } }
-                           */
-                           //: {
-                           //     url:
-                           //     data:
-                           //     results:
-                           //     cache: true
-                           //
-                           //}
+                      // Setup - add a text input to each footer cell
+                      if ($("table#slcs_staff_table tbody tr").length > 0) {
+                        //$(this).tablesorter({ sortList: [[0,0]]});
+                        $('#slcs_staff_table tfoot th').each( function () {
+                            var title = $('#owner_table thead th').eq( $(this).index() ).text();
+                            if(title!='Action' && title!='Status'){
+                              $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;width:100%;" />' );
+                            }
                         });
-                         $('#subcommunity_name').select2({                        // add on function for select box autocomplete
-                           placeholder: "Sub-Community Name",
-                           allowClear: true,
-                           minimumInputLength: 2
-                           //: {
-                           //     url:
-                           //     data:
-                           //     results:
-                           //     cache: true
-                           //
-                           //}
-                        });
-                        //$('select#community_name').attr('disabled', true);
-                        $("#city").focus(function(){
-                            //alert( "Handler for .change() called." );
-                            $('#logcity').html('');    
-                        });
-                        //$( "#city" ).blur(function() {
-                        //    alert( "Handler for .change() called." );
-                        //});  
+                      }
+
+                      var table = $('#slcs_staff_table').DataTable({ 
+                        /*
+                        dom: 'T<"clear">lfrtip',
+                        tableTools: {
+                          sRowSelect: "os",
+                          sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                          aButtons: [
+                            { sExtends: "editor_create", editor: editor },
+                            { sExtends: "editor_edit",   editor: editor },
+                            { sExtends: "editor_remove", editor: editor },
+                            {
+                              sExtends: "collection",
+                              sButtonText: "Save",
+                              sButtonClass: "save-collection",
+                              aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
+                            },
+                            'print'
+                          ]
+                        },
+                        */
+                        "autoWidth": true,
+                        "deferRender" : true,
+                        
+                        //"dom": 'C<"clear">lfrtip',
+                        //"sDom": 'T<"clear">lfrtip',
+                        /*
+                        "oTableTools": {
+                            "aButtons": [
+                                {
+                                    "sExtends": "copy",
+                                    "sButtonText": "Copy to clipboard",
+                                    "oSelectorOpts": {
+                                        page: 'current'
+                                    }
+                                }
+                            ]
+                        } ,*/
+                        "scrollX"     : true,
+                        "scrollY"     : 325,
+                        "scrollCollapse": true,
+                        "jQueryUI":       true,
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        //"order": [[ 1, 'asc' ]],
+                        //"columnDefs": [
+                        //  { "width": "20%", "targets": 1 }
+                        //]
+                      });
+                      
+                      function del_city(){
+                          var city = $('#city').val();
+                          
+                          $.ajax({
+                           type : 'POST',
+                           data : 'city='+city,
+                           url : "<?php echo base_url('city/del_city_name'); ?>",
+                           success : function(data){
+                                  $( "#logcity" ).text( "Delete successful." );
+                           }
+                       });
+                      }
+  					
+                      function del_community(){
+                          var comm_name = $("#community_name").select2("val"); //$('#community_name').val();
+                          alert('del-entered the function');
+                          $.ajax({
+                           type : 'POST',
+                           data : 'city='+comm_name,
+                           url : "<?php echo base_url('community/del_comm_name'); ?>",
+                           success : function(data){
+                                  $( "#logcomm" ).text( "Delete successful." );
+                           }
+                       });
+                      }
+  					
+                      function add_city(){
+                          var city = $('#city').val();
+                          
+                          $.ajax({
+                           type : 'POST',
+                           data : 'city='+city,
+                           url : "<?php echo base_url('city/create_city_name'); ?>",
+                           success : function(data){
+                                  $( "#logcity" ).text( "Created successfully." );
+                           }
+                       });
+                      }
+                      function add_community(){
+                          var comm_name = $('#community_name').val();
+                          alert('entered the function: '+comm_name);
+                          $.ajax({
+                           type : 'POST',
+                           data : 'city='+comm_name,
+                           url : "<?php echo base_url('community/create_comm_name'); ?>",
+                           success : function(data){
+                                  $( "#logcomm" ).text( "Created successfully." );
+                           }
+                       });
+                      }
                     });
-                    
-                    //function empty_content(id){
-                    //    document.getElementById(id).innerHTML = "";
-                    //}
-
-                    function del_city(){
-                        var city = $('#city').val();
-                        
-                        $.ajax({
-                         type : 'POST',
-                         data : 'city='+city,
-                         url : "<?php echo base_url('city/del_city_name'); ?>",
-                         success : function(data){
-                                $( "#logcity" ).text( "Delete successful." );
-                         }
-                     });
-                    }
-					
-                    function del_community(){
-                        var comm_name = $("#community_name").select2("val"); //$('#community_name').val();
-                        alert('del-entered the function');
-                        $.ajax({
-                         type : 'POST',
-                         data : 'city='+comm_name,
-                         url : "<?php echo base_url('community/del_comm_name'); ?>",
-                         success : function(data){
-                                $( "#logcomm" ).text( "Delete successful." );
-                         }
-                     });
-                    }
-					
-                    function add_city(){
-                        var city = $('#city').val();
-                        
-                        $.ajax({
-                         type : 'POST',
-                         data : 'city='+city,
-                         url : "<?php echo base_url('city/create_city_name'); ?>",
-                         success : function(data){
-                                $( "#logcity" ).text( "Created successfully." );
-                         }
-                     });
-                    }
-                    function add_community(){
-                        var comm_name = $('#community_name').val();
-                        alert('entered the function: '+comm_name);
-                        $.ajax({
-                         type : 'POST',
-                         data : 'city='+comm_name,
-                         url : "<?php echo base_url('community/create_comm_name'); ?>",
-                         success : function(data){
-                                $( "#logcomm" ).text( "Created successfully." );
-                         }
-                     });
-                    }
-                    //$(document).ajaxSuccess(function() {
-                    //    $(".log").text("New City name created successfully.");
-                    //});
-
-                   
+                                     
                 </script>	
             </div>
 			<!-- ============================================================== -->

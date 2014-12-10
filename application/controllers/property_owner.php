@@ -185,8 +185,7 @@ class Property_owner extends CI_Controller {
 		$this->load->view('property_owner/property_owner_table', $data);		
 		$this->load->view('layout/footer');	
 	}
-
-	 //function to handle callbacks
+	//function to handle callbacks
     public function datatable()
     {	
         $this->datatables->select('tb_property_owner_id,first_name, middle_name, last_name')
@@ -298,7 +297,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'first_name',
 							              'id'          => 'fn_name',
 							              'value'       => $first_name,						              
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              'style'       => 'width:100%;',
 							              'placeholder' => 'First Name'
 							           );
@@ -306,7 +305,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'middle_name',
 							              'id'          => 'fn_name',
 							              'value'       => $middle_name,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              'style'       => 'width:100%;',
 							              'placeholder' => 'Middle Name'
 							           );
@@ -314,7 +313,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'last_name',
 							              'id'          => 'ln_name',
 							              'value'       => $last_name,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              'style'       => 'width:100%;',
 							              'placeholder' => 'Last Name'
 							           );	
@@ -396,7 +395,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'city_name',
 							              'id'          => 'city',
 							              'value'       => $city,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'City'
 							           );
@@ -406,7 +405,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'community',
 							              'id'          => 'community',
 							              'value'       => $community,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Community'
 							           );
@@ -414,7 +413,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'subcommunity',
 							              'id'          => 'subcommunity',
 							              'value'       => $subcommunity,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Sub-community'
 							           );
@@ -422,7 +421,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 're_property',
 							              'id'          => 're_property',
 							              'value'       => $re_property,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Property'
 							           );
@@ -430,7 +429,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'property_type',
 							              'id'          => 'property_type',
 							              'value'       => $property_type,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Property Type'
 							           );
@@ -438,7 +437,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'street',
 							              'id'          => 'street',
 							              'value'       => $street,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Street'
 							           );
@@ -446,7 +445,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'building_name',
 							              'id'          => 'building_name',
 							              'value'       => $building_name,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Building name'
 							           );
@@ -454,7 +453,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'unit_number',
 							              'id'          => 'unit_number',
 							              'value'       => $unit_number,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Unit No.'
 							           );
@@ -462,7 +461,7 @@ class Property_owner extends CI_Controller {
 							              'name'        => 'developer_name',
 							              'id'          => 'developer_name',
 							              'value'       => $developer_name,
-							              'class' 		=> 'form-control',
+							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Developers name'
 							           );
@@ -478,22 +477,11 @@ class Property_owner extends CI_Controller {
 			//redirect('property_owner');
 		}
 	}
-	/*order of saving
-	1. - insert table address
-	$tb_address_id = $this->db->insert_id();
-	2. - insert table property_owner
-	$tb_property_owner_id = $this->db->insert_id();
-	3. - insert table nationality
-	     insert_data includes $tb_address_id and $tb_property_owner_id
-	4. - insert table propertyfinder
-	$tb_propertyfinder_id = $this->db->insert_id();
-	5. - insert table property owner/finder */
+	
 	public function insert_property_owner(){
-		//1. - insert table address
-		//$tb_address_id = $this->db->insert_id();
-
+		pass;
 	}
-
+	/*// for deletion 12/10/2014 verify first 
 	public function create_prop_owner() // insert lem form here
 	{	
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
@@ -705,7 +693,7 @@ class Property_owner extends CI_Controller {
 			}
 		}		
 	}
-
+	*/
 	public function del_nat($property_owner_id = null, $propertyfinder_id =null){	
 		if($property_owner_id && $propertyfinder_id){
 			$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
@@ -726,19 +714,20 @@ class Property_owner extends CI_Controller {
 
 	public function update_owner_personal_details($property_owner_id = null, $propertyfinder_id =null) //working 12/7/2014
 	{
+		$this->load->library('form_validation');
 		$this->form_validation->set_rules('first_name', 'First Name');
 		$this->form_validation->set_rules('middle_name', 'Middle Name');
 		$this->form_validation->set_rules('last_name', 'Last Name');
 		
 		$this->form_validation->set_rules('city_name', 'City');
-		$this->form_validation->set_rules('community', 'Community');
-		$this->form_validation->set_rules('subcommunity', 'Sub-community');
+        $this->form_validation->set_rules('community', 'Community');
+        $this->form_validation->set_rules('subcommunity', 'Sub-community');
 
-		$this->form_validation->set_rules('street', 'Street');
-		$this->form_validation->set_rules('re_property', 'Property Name');
-		$this->form_validation->set_rules('building_name', 'Building Name');
+        $this->form_validation->set_rules('street', 'Street');
+        $this->form_validation->set_rules('re_property', 'Property Name');
+        $this->form_validation->set_rules('building_name', 'Building Name');
 
-		$this->form_validation->set_rules('country[]', 'Country Name', 'required');
+        //$this->form_validation->set_rules('country[]', 'Country Name', 'required');
         $this->form_validation->set_rules('city[]', 'City');
         $this->form_validation->set_rules('comm[]', 'Community');
         $this->form_validation->set_rules('subcom[]', 'Sub-community');
@@ -869,7 +858,7 @@ class Property_owner extends CI_Controller {
 			} else if(strlen($ppn4)==0) {
 				// delete
 				$this->passport_model->delete_passport($ppn4_id);
-			} else if(isset($ppn4_id)  && $ppn4_id) {							
+			} else if(isset($ppn4_id)  && $ppn4_id) {
 				// update
 				$this->passport_model->update_passport($ppn4_id, $ppn4);	
 			}
@@ -990,7 +979,6 @@ class Property_owner extends CI_Controller {
 		$this->email_model->delete_email($tb_email_id);
 		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Email');	
 	}
-
 	// tested 12/07/2014
 	public function get_field_name_property_owner_master_list(){
 		
@@ -1230,88 +1218,6 @@ class Property_owner extends CI_Controller {
 				$this->load->view('property_owner/property_owner_personal_details'); //added by prime 12/07/2014			
 				$this->load->view('property_owner/property_owner_property_details'); //added by prime 12/07/2014
 				$this->load->view('layout/footer');	
-			}		
-		
+			}				
 	}
-
-	// ---------------------------------------- //
-	
-	/*
-	public function update_staff_menu()
-	{		
-		$formSubmit = $this->input->post('submitForm');
-		if($formSubmit == 'formUpdate') { 
-			//redirect($this->config->item('backend_folder').'/categories/form');
-			$id = $this->input->post('id');		
-			$data = array(
-				'menu' 		 => ucfirst($this->input->post('menu')),
-				'url' 		 => $this->input->post('url'),
-				'send_value' => $this->input->post('send_value'),
-				'method'     => $this->input->post('method'),
-				'order'      => $this->input->post('order'),
-				'parent'     => $this->input->post('parent'),
-				'include'    => $this->input->post('include'),
-				'active'     => $this->input->post('active')
-			);
-			$this->staff_menu_model->update_staff_menu($id, $data);				
-			$this->view_staff_menu($id);
-
-		} else if ($formSubmit == 'formDelete'){
-			$id = $this->input->post('id');
-			$this->delete_staff_menu($id);	    			
-		} else {
-			$this->view_staff_menu($id);			
-		}
-	}*/
-	/*
-	public function view_staff_menu($id)
-	{
-		// database query 
-		$data['staffs']    = $this->slcs_staff_model->get_staff();
-		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']  = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		// custom data
-		$data['title']     = 'SoftLine | Edit Nationality';	
-		
-		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
-		$data['username']  = ucfirst($username);	
-		//select values
-		$method            = array('_parent','_self','_blank');
-		$active            = array(1,0);
-		$parents           = $this->staff_menu_model->get_parent_staff_menu();
-		$children          = $this->staff_menu_model->get_child_staff_menu();
-		$data['parents']   = $parents;
-		$data['children']  = $children;
-		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
-
-		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
-		$data['table_fields'] = array(
-			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
-			'url' 		 => array('2', 'url', 'URL', 'input'),
-			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
-			'method'     => array('4', 'method', 'Method', 'select', $method),
-			'order'      => array('5', 'order', 'Order', 'input'),
-			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
-			'include'    => array('7','include', 'Include', 'input'),
-			'active'     => array('8', 'active', 'Active', 'select', $active),
-			);	
-
-		if (empty($data['staff_menu']))
-		{
-			show_404();			
-		}		
-		// specific menu
-		$this->load->helper('url');
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
-		$this->load->view('layout/right_sidemenu');
-		$this->load->view('staff_menu/staff_menu_form', $data);
-		$this->load->view('staff_menu/edit', $data);
-		$this->load->view('layout/footer');	
-	}
-	*/
-
-
 }

@@ -87,7 +87,7 @@
 
                                 <div class="additional-btn">                                    
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                    <a href="slcs_staff/create_member"><i class="icon-user-add"></i></a>                                    
+                                    <a href="#"><i class="icon-user-add"></i></a>                                    
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
@@ -105,6 +105,16 @@
                                                 <th data-sortable="false">Option</th>
                                             </tr>
                                         </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>No</th>                                               
+                                                <th>City</th>
+                                                <th>Community</th>
+                                                <th>Sub-Community</th>
+                                                <th>Property</th>                                               
+                                                <th data-sortable="false">Option</th>
+                                            </tr>
+                                        </tfoot>
                                         
                                         <tbody>
 
@@ -113,15 +123,15 @@
                                                 foreach($properties as $property) { ?>
 
                                             <tr>
-                                                <td><?php echo $i; ?></td>                                                
+                                                <td style="text-align: center;width:40px;"><?php echo $i; ?></td>                                                
                                                 <td><?php echo $property['city'];?></td>
                                                 <td><?php echo $property['community'];?></td>
                                                 <td><?php echo $property['subcommunity']; ?></td>
-                                                <td><?php echo $property['re_property']; ?></td>                                                
-                                                <td>
+                                                <td ><?php echo $property['re_property']; ?></td>                                                
+                                                <td style="text-align: center;width:80px;">
                                                     <div class="btn-group btn-group-xs">
-                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-power-off"></i></a>
-                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('propertyfinder/view_propertyfinder/'.$property['tb_propertyfinder_id']); ?>"data-toggle="tooltip" title="Edit" ><i class="fa fa-edit"></i></a>
+                                                        <a href="<?php echo base_url('propertyfinder/del/'.$property['tb_propertyfinder_id']); ?>" data-toggle="tooltip" title="Off" ><i class="glyphicon glyphicon-remove"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -135,30 +145,81 @@
                     </div>
                 </div><!-- row -->
 
-                </jQuery(document).ready(function(){
+                </jQuery(document).ready(function(){                
                 
-                <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-10 col-md-12 text-right">
-                        <button type="submit" name="submitForm" value="formUpdate" class="btn btn-default">Save</button>
-                    </div><!-- col-sm-offset-2 col-sm-10 -->
-                </div><!-- form-group -->  
-                </div><!-- row -->
                 </form>	
     			<!-- Footer Start -->
-                <footer>
-                    Soft Line Cleaning Services &copy; 2014
-                    <div class="footer-links pull-right">
-                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-                    </div>
-                </footer>
+                <footer >
+                  Soft Line Cleaning Services &copy; 2014
+                    <span class="footer-links">
+                    <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+                  </span>
+                </footer>              
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
                 $(document).ready(function() { 
-                    $('#owner_table tfoot th').each( function () {
-                        var title = $('#owner_table thead th').eq( $(this).index() ).text();
-                        $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
-                    });  
+
+                    var table = $('#owner_table').DataTable({                    
+                        /*
+                        dom: 'T<"clear">lfrtip',
+                        tableTools: {
+                          sRowSelect: "os",
+                          sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                          aButtons: [
+                            { sExtends: "editor_create", editor: editor },
+                            { sExtends: "editor_edit",   editor: editor },
+                            { sExtends: "editor_remove", editor: editor },
+                            {
+                              sExtends: "collection",
+                              sButtonText: "Save",
+                              sButtonClass: "save-collection",
+                              aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
+                            },
+                            'print'
+                          ]
+                        },
+                        */
+                        "autoWidth"   : false,
+                        "deferRender" : true,
+                        //"stateSave"   : true,
+                        //"columnDefs": [
+                        //{
+                              // The `data` parameter refers to the data for the cell (defined by the
+                              // `data` option, which defaults to the column being worked with, in
+                              // this case `data: 0`.
+                        //      "render": function ( data, type, row ) {
+                        //          return data +''+ row[11]+' '+row[12]+' '+row[13]+' '+row[14];
+                        //      },
+                        //      "targets": 10
+                        //  },
+                        //  { "visible": false,  
+                        //    "targets": [ 11,12,13,14 ] 
+                        //  }
+                        //],
+                        //"dom": 'C<"clear">lfrtip',
+                        //"sDom": 'T<"clear">lfrtip',
+                        /*
+                        "oTableTools": {
+                            "aButtons": [
+                                {
+                                    "sExtends": "copy",
+                                    "sButtonText": "Copy to clipboard",
+                                    "oSelectorOpts": {
+                                        page: 'current'
+                                    }
+                                }
+                            ]
+                        } ,*/
+                        "scrollX"     : true,
+                        "scrollY"     : 325,
+                        "scrollCollapse": true,
+                        "jQueryUI":       true,
+                        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                        //"order": [[ 1, 'asc' ]],
+                        //"columnDefs": [
+                        //  { "width": "100%", "targets": 1 }
+                        //]
+                    });   
 
                     $("#city_name").change(function(){                           
                             /*dropdown post */
