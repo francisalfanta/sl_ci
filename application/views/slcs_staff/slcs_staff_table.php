@@ -42,7 +42,8 @@
 												<th>Date of birth</th>
 												<th>Email</th>
 												<th>Mobile Number</th>
-												<th data-sortable="false">Option</th>
+												<th>Print</th>
+												<th data-sortable="false">Actions</th>
 											</tr>
 										</thead>
 										
@@ -64,6 +65,11 @@
 												<td><?php echo $staff['mnumber']; ?></td>
 												<td>
 													<div class="btn-group btn-group-xs">
+														<a href="<?php echo base_url('slcs_staff/print_form/'.$staff['id']); ?>" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-default"><i class="icon-print-2"></i></a>
+													</div>
+												</td>
+												<td>
+													<div class="btn-group btn-group-xs">
 														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" class="btn btn-default"><i class="fa fa-times"></i></a>
 														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" class="btn btn-default"><i class="fa fa-pencil"></i></a>
 													</div>
@@ -82,12 +88,13 @@
                 
                 </form>	
     			<!-- Footer Start -->
-          <footer >
-              Soft Line Cleaning Services &copy; 2014
-              <span class="footer-links">
-                <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-              </span>
-          </footer>                <!-- Footer End -->	
+                <footer>
+                    Soft Line Cleaning Services &copy; 2014
+                    <div class="footer-links pull-right">
+                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact </a>
+                    </div>
+                </footer>
+                <!-- Footer End -->	
                 <script type="text/javascript">                    
                     $(document).ready(function() {                      
                         //$('#city').select2();                              // add on function for select box autocomplete

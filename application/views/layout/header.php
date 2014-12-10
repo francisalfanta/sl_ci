@@ -12,7 +12,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="coco bootstrap template, coco admin, bootstrap,admin template, bootstrap admin,">
         <meta name="author" content="Huban Creative">
-
+        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
         <!-- Base Css Files -->
         <link href="<?php echo base_url(); ?>assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -31,12 +31,11 @@
         <link href="<?php echo base_url(); ?>assets/libs/prettify/github.css" rel="stylesheet" />
         
                 <!-- Extra CSS Libraries Start -->
-                <link href="<?php echo base_url(); ?>assets/libs/rickshaw/rickshaw.min.css" rel="stylesheet" type="text/css" />
+                <!--<link href="<?php echo base_url(); ?>assets/libs/rickshaw/rickshaw.min.css" rel="stylesheet" type="text/css" />-->
                 <link href="<?php echo base_url(); ?>assets/libs/morrischart/morris.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-clock/clock.css" rel="stylesheet" type="text/css" />
-                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-calendar/css/bic_calendar.css" rel="stylesheet" type="text/css" />
-                <link href="<?php echo base_url(); ?>assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet" type="text/css" />
+                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-calendar/css/bic_calendar.css" rel="stylesheet" type="text/css" />                
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-weather/simpleweather.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/bootstrap-xeditable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
@@ -84,23 +83,34 @@
         <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.colVis.js'); ?>"></script>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         
         <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
         <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+       
 
         <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />        
+        <link href="<?php echo base_url(); ?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+        <!-- added 12/10/2014 -->
+        <link href="<?php echo base_url(); ?>assets/css/center_radar.css" rel="stylesheet" />
+        <script>
+            paceOptions = {
+                target: 'div.loader'
+                //elements: true
+            };
+        </script>
 
-
-
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/pace.min.js"></script>
+      
+    
+        <script type="text/javascript">
+            $(window).load(function() {
+                $(".loader").fadeOut("slow");                
+            });
+        </script>       
     </head>
-    <body class="fixed-left login-page">
-        <div id="indexLoader" style="width:100%;height:100%;position: absolute; background: white; opacity:0.8;">
-        <center>
-            <br /><br />
-            <img src="<?php base_url('assets/img/ajax-loader.gif'); ?>">
-            <br /><br />
-            Please wait the site is Loading ...
-        </center>
-        </div> 
+    <body class="fixed-left">
+    <div class="loader"></div>
+    

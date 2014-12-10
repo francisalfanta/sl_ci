@@ -65,8 +65,8 @@
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2"><h6><?php echo form_error('tamt_sal'); ?></h6>
-											<input type="text" name="tamt_sal" value="<?php echo $r->total_salary; ?>" class="form-control input-sm" placeholder="Total Amt. Salary (AED)">
+										<div class="col-md-2"><!--<h6><?php echo form_error('tamt_sal'); ?></h6>-->
+											<input type="text" value="<?php echo $r->total_salary; ?>" class="form-control input-sm" disabled>
 										</div>
 									</div>
 								</div>							

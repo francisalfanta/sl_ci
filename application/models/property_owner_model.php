@@ -18,6 +18,8 @@ class property_owner_model extends CI_Model
 	{
 		if (is_null($tb_property_owner_id))
 		{
+			// do not show record for deletion
+			$this->db->where('for_deletion', 0);
 			$query = $this->db->get('property_owner');
 			return $query->result_array();
 		}
@@ -30,13 +32,12 @@ class property_owner_model extends CI_Model
 	{
 		if (is_null($tb_property_owner_id))
         {
-            //$sql =  sl_sql_left_join();
+            // do not show record for deletion
+			$this->db->where('for_deletion', 0);
             $query = $this->db->get('property_owner_master_list');
             $test_unit = $query->result_array();
-        }
-        //$sql =  sl_sql_left_join_where_id();      
-        $this->db->where('property_owner_master_list_id', $tb_property_owner_id);        
-        //$query = $this->db->query($sql, array($tb_property_owner_id));
+        }        
+        $this->db->where('property_owner_master_list_id', $tb_property_owner_id);                
         $query = $this->db->get('property_owner_master_list');
 		
 		return $query->row_array();
@@ -72,9 +73,13 @@ class property_owner_model extends CI_Model
 	}
 
 	public function update_owner_for_deletation($id) 
-	{		
-		$data = array('for_deletion' => 1);
-		$this->db->where('tb_property_owner_id', $id);
-		$this->db->update('property_owner', $data); 		
+	{   // set 1 for true or 0 for false		
+		$data = array('for_deletion' => 1);       
+        
+        $this->db->where('tb_property_owner_id', $id);
+        $status = $this->db->update('property_owner', $data); 
+
+        echo 'inside update owner id: '.$id.'status: '.$status.'<br>';
+        return $status;
 	}
 }

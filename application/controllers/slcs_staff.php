@@ -130,7 +130,6 @@ class Slcs_staff extends CI_Controller {
 		$this->form_validation->set_rules('accom', 'Amount', 'numeric');
 		$this->form_validation->set_rules('transpo', 'Amount', 'numeric');
 		$this->form_validation->set_rules('tamt', 'Amount', 'numeric');
-		$this->form_validation->set_rules('tamt_sal', 'Amount', 'numeric');
 		$this->form_validation->set_rules('yrs', 'Years', 'numeric');
 		$this->form_validation->set_rules('mnths', 'Months', 'numeric');
 		$this->form_validation->set_rules('radiogp', 'Graduity Pay');
@@ -276,7 +275,7 @@ class Slcs_staff extends CI_Controller {
 		$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
 		$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
 		$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
-		$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
+		$this->load->view('slcs_staff/editsalary',$data); //added by prime 12/1/2014		
 		$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
 		$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
 		$this->load->view('layout/footer');	
@@ -335,7 +334,6 @@ class Slcs_staff extends CI_Controller {
 		 $this->form_validation->set_rules('accom', 'Amount', 'numeric');
 		 $this->form_validation->set_rules('transpo', 'Amount', 'numeric');
 		 $this->form_validation->set_rules('tamt', 'Amount', 'numeric');
-		 $this->form_validation->set_rules('tamt_sal', 'Amount', 'numeric');
 		 $this->form_validation->set_rules('yrs', 'Years', 'numeric');
 		 $this->form_validation->set_rules('mnths', 'Months', 'numeric');
 		 $this->form_validation->set_rules('radiogp', 'Graduity Pay');
@@ -473,5 +471,18 @@ class Slcs_staff extends CI_Controller {
 		
 			}
 	}
+	
+	public function print_form($id)
+	{
+		$row = $this->slcs_staff_model->get_slcs_staff($id);
+		$data['r'] = $row;
+		$username = $this->session->userdata('username'); 					
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Edit staff';
+				
+		
+		$this->load->view('slcs_staff/print_form',$data);
+	}
+	
 
 }

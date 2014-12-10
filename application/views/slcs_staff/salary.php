@@ -65,8 +65,10 @@
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-2"><h6><?php echo form_error('tamt_sal'); ?></h6>
-											<input type="text" name="tamt_sal" value="<?php echo set_value('tamt_sal'); ?>" class="form-control input-sm" placeholder="Total Amt. Salary (AED)">
+										<div class="col-md-2"><!--<h6><?php echo form_error('tamt_sal'); ?></h6>-->
+											<!-- <input type="text" name="tamt_sal" value="<?php echo set_value('tamt_sal'); ?>" class="form-control input-sm" placeholder="Total Amt. Salary (AED)"> -->
+											<input type="text" name="tamt_sal" class="form-control input-sm" id="input-text-disabled" placeholder="Total Amt. Salary (AED)" disabled>
+
 										</div>
 									</div>
 								</div>														

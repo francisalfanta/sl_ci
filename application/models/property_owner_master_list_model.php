@@ -85,4 +85,16 @@ class property_owner_master_list_model extends CI_Model
 		return $query->result();
 	}
 
+
+    public function update_owner_for_deletation($id) 
+    {   // set 1 for true or 0 for false
+        $data = array('for_deletion' => 1);       
+        
+        $this->db->where('tb_property_owner_id', $id);
+        $status = $this->db->update('property_owner_master_list', $data); 
+
+        echo 'inside master_list update owner id: '.$id.'status: '.$status.'<br>';
+        return $status;
+    }
+
 }

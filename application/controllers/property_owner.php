@@ -707,13 +707,21 @@ class Property_owner extends CI_Controller {
 	}
 
 	public function del_nat($property_owner_id = null, $propertyfinder_id =null){	
-		//if($property_owner_id && $propertyfinder_id){
-		//	$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
-		//}
-		if($property_owner_id){
-			$this->property_owner_model->update_owner_for_deletation($property_owner_id);
-		}	
+		if($property_owner_id && $propertyfinder_id){
+			$this->property_owner_has_tb_propertyfinder_model->del_record($property_owner_id,  $propertyfinder_id);						
+		}
+		
 		redirect('property_owner');		
+	}
+	// tested 12/10/2014
+	public function for_deletion_owner(){			
+		$property_owner_id = $this->input->post('todelete');		
+		// update table master list
+		$status = $this->property_owner_master_list_model->update_owner_for_deletation($property_owner_id);		
+		// update table owner list
+		$status = $this->property_owner_model->update_owner_for_deletation($property_owner_id);
+		
+		redirect('property_owner');
 	}
 
 	public function update_owner_personal_details($property_owner_id = null, $propertyfinder_id =null) //working 12/7/2014
@@ -908,60 +916,15 @@ class Property_owner extends CI_Controller {
 				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
 				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();	
 				// create m2m record link
-				$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);			
+				$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);
+
+
 			}
-		} 	
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);		
+			echo 'validation successful';	
+		} 	else { echo 'validation error'; }
+		//redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);		
 	}
-	/*
-	public function view_staff_menu($id)
-	{
-		// database query 
-		$data['staffs']    = $this->slcs_staff_model->get_staff();
-		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']  = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		// custom data
-		$data['title']     = 'SoftLine | Edit Nationality';	
-		
-		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
-		$data['username']  = ucfirst($username);	
-		//select values
-		$method            = array('_parent','_self','_blank');
-		$active            = array(1,0);
-		$parents           = $this->staff_menu_model->get_parent_staff_menu();
-		$children          = $this->staff_menu_model->get_child_staff_menu();
-		$data['parents']   = $parents;
-		$data['children']  = $children;
-		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
-
-		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
-		$data['table_fields'] = array(
-			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
-			'url' 		 => array('2', 'url', 'URL', 'input'),
-			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
-			'method'     => array('4', 'method', 'Method', 'select', $method),
-			'order'      => array('5', 'order', 'Order', 'input'),
-			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
-			'include'    => array('7','include', 'Include', 'input'),
-			'active'     => array('8', 'active', 'Active', 'select', $active),
-			);	
-
-		if (empty($data['staff_menu']))
-		{
-			show_404();			
-		}		
-		// specific menu
-		$this->load->helper('url');
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/topbar');
-		$this->load->view('layout/admin_left_sidemenu');
-		$this->load->view('layout/right_sidemenu');
-		$this->load->view('staff_menu/staff_menu_form', $data);
-		$this->load->view('staff_menu/edit', $data);
-		$this->load->view('layout/footer');	
-	}
-	*/
+	
 	public function find_owner(){
 
 		$first_name  =null;
@@ -1039,6 +1002,238 @@ class Property_owner extends CI_Controller {
         }    	
 		return $fields;
 	}
+	// tested Lem 12/10/2014
+	public function create_property_owner()
+	{
+		$this->load->helper(array('form', 'url'));
+		$this->load->library('form_validation');		
+		
+		$data['staffs'] = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections'] = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
+		
+		$data['city']        = $this->city_model->get_city();
+		$data['community']   = $this->community_model->get_community();
+		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
+		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+		
+		$username = $this->session->userdata('username'); 					
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Create Property Owner';
+		
+		//$this->form_validation->set_rules('faname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
+		//$this->form_validation->set_rules('miname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
+		//$this->form_validation->set_rules('laname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
+		//$this->form_validation->set_rules('na1', 'Nationality', 'trim|required');
+		//$this->form_validation->set_rules('ppn1', 'Passport No.', 'trim|required');
+		
+		//$this->form_validation->set_rules('tel1', 'Tel. No.', 'num_space_hypen');
+		$this->form_validation->set_rules('email1', 'Email address', 'valid_emails');
+		$this->form_validation->set_rules('email2', 'Email address', 'valid_emails');
+		$this->form_validation->set_rules('email3', 'Email address', 'valid_emails');
+		$this->form_validation->set_rules('email4', 'Email address', 'valid_emails');
+		
+		//$this->form_validation->set_rules('city_name', 'City', 'required');
+		//$this->form_validation->set_rules('community_name', 'Community', 'required');
+		//$this->form_validation->set_rules('subcommunity_name', 'Sub-Community', 'required');
+		//$this->form_validation->set_rules('re_property_name', 'Property');
+		
+		if ($this->form_validation->run() == TRUE){
+		
+				
+				//$city_id         = $this->input->post('city_name');
+				//$community_id    = $this->input->post('community_name');
+				//$subcommunity_id = $this->input->post('subcommunity_name');
+
+				//$city_name         = $this->city_model->get_city_by_id($city_id);		
+				//$community_name    = $this->community_model->get_community_by_id($community_id);
+				//$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity_id);
+				//echo $city_name;
+				//echo $community_name;
+				//echo $subcommunity_name;
+				$this->owner_addr_model->insert_addr();
+				//redirect('propertyfinder/propertyfinder', $data); //IBALIK				
+				
+		}
+		else{
+				$data['staffs']      = $this->slcs_staff_model->get_staff();
+				$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
+				$data['sections']    = $this->sections_model->get_sections();
+
+				$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+				$data['children']    = $this->staff_menu_model->get_child_staff_menu();
+
+				$data['city']        = $this->city_model->get_city();
+				$data['community']   = $this->community_model->get_community();
+				$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
+				$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+				// title with word LIST will add optional JS
+				$data['title']       = 'SoftLine | Create Property Owner';	
+				$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
+
+				$username = $this->session->userdata('username'); 			
+				$data['username']    = ucfirst($username);	
+				
+				$query = $this->city_model->get_city();       
+			
+        	$city_options = array();
+        	$new = array();
+        	foreach($query as $row){
+            	$new[$row['city_name']] = $row['city_name'];
+            	$city_options = array_merge($city_options, $new);
+        	}
+
+        	// get owner address
+        	$address_list = $this->owner_addr_model->get_addr_info();
+        	$i = 1;
+        	foreach($address_list as $key => $value) {
+        		$addressname = $key.$i;
+        		$data[$addressname] = $value;
+        		$i.= 1;
+        	}
+
+        	$data['city_options'] = $city_options;       // <-- start here
+
+			$city = null;
+			$community = null;
+			$subcommunity = null;
+			$re_property = null;
+			$property_type = null;
+			$street = null;
+			$building_name = null;
+			$unit_number = null;
+			$developer_name = null;
+			$data['city'] = null;
+			$data['community'] = null;
+			$data['subcommunity'] = null;
+			$data['propertyfinder_id'] = null;
+			
+			$query_propertyfinder = null; 
+
+			if($query_propertyfinder) {
+				foreach($query_propertyfinder as $propertyfinder){
+					if(isset($propertyfinder['city'])) {
+						$city   = $propertyfinder['city'];
+						$data['city'] = $city;
+						$data['city_id'] = $this->city_model->get_city_name_only($city);						
+					}
+					if(isset($propertyfinder['community'])) {
+						$community   = $propertyfinder['community'];
+						$data['community'] = $community;
+						$data['community_id'] = $this->community_model-> get_community_name_only($community);	
+					}
+					if(isset($propertyfinder['subcommunity'])) {
+						$subcommunity   = $propertyfinder['subcommunity'];	
+						$data['subcommunity'] = $subcommunity;
+						$data['subcommunity_id'] = $this->subcommunity_model->get_subcommunity_name_only($subcommunity);
+					}
+					if(isset($propertyfinder['re_property'])) {
+						$re_property   = $propertyfinder['re_property'];	
+					}
+					if(isset($propertyfinder['property_type'])) {
+						$property_type   = $propertyfinder['property_type'];	
+					}
+					if(isset($propertyfinder['building_name'])) {
+						$building_name   = $propertyfinder['building_name'];	
+					}
+					if(isset($propertyfinder['unit_number'])) {
+						$unit_number   = $propertyfinder['unit_number'];	
+					}
+					if(isset($propertyfinder['developer_name'])) {
+						$developer_name   = $propertyfinder['developer_name'];	
+					}	
+				}
+			}
+
+			$data['city_attributes'] = array(
+							              'name'        => 'city_name',
+							              'id'          => 'city',
+							              'value'       => $city,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'City'
+							           );
+			$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
+			
+			$data['community_attributes'] = array(
+							              'name'        => 'community',
+							              'id'          => 'community',
+							              'value'       => $community,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Community'
+							           );
+			$data['subcommunity_attributes'] = array(
+							              'name'        => 'subcommunity',
+							              'id'          => 'subcommunity',
+							              'value'       => $subcommunity,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Sub-community'
+							           );
+			$data['reproperty_attributes'] = array(
+							              'name'        => 're_property',
+							              'id'          => 're_property',
+							              'value'       => $re_property,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Property'
+							           );
+			$data['property_type_attributes'] = array(
+							              'name'        => 'property_type',
+							              'id'          => 'property_type',
+							              'value'       => $property_type,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Property Type'
+							           );
+			$data['street_name_attributes'] = array(
+							              'name'        => 'street',
+							              'id'          => 'street',
+							              'value'       => $street,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Street'
+							           );
+			$data['building_name_attributes'] = array(
+							              'name'        => 'building_name',
+							              'id'          => 'building_name',
+							              'value'       => $building_name,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Building name'
+							           );
+			$data['unit_number_attributes'] = array(
+							              'name'        => 'unit_number',
+							              'id'          => 'unit_number',
+							              'value'       => $unit_number,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Unit No.'
+							           );
+			$data['developer_name_attributes'] = array(
+							              'name'        => 'developer_name',
+							              'id'          => 'developer_name',
+							              'value'       => $developer_name,
+							              'class' 		=> 'form-control',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Developers name'
+							           );
+				
+				$this->load->helper('url');
+				$this->load->view('layout/header', $data);
+				$this->load->view('layout/topbar');
+				$this->load->view('layout/admin_left_sidemenu', $data);
+				$this->load->view('layout/right_sidemenu');
+				$this->load->view('property_owner/property_owner_personal_details'); //added by prime 12/07/2014			
+				$this->load->view('property_owner/property_owner_property_details'); //added by prime 12/07/2014
+				$this->load->view('layout/footer');	
+			}		
+		
+	}
+
 	// ---------------------------------------- //
 	
 	/*
@@ -1068,6 +1263,55 @@ class Property_owner extends CI_Controller {
 			$this->view_staff_menu($id);			
 		}
 	}*/
+	/*
+	public function view_staff_menu($id)
+	{
+		// database query 
+		$data['staffs']    = $this->slcs_staff_model->get_staff();
+		$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
+		$data['sections']  = $this->sections_model->get_sections();
+		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		// custom data
+		$data['title']     = 'SoftLine | Edit Nationality';	
+		
+		$username          = $this->session->userdata('username'); 						// TO DO: Refractor this
+		$data['username']  = ucfirst($username);	
+		//select values
+		$method            = array('_parent','_self','_blank');
+		$active            = array(1,0);
+		$parents           = $this->staff_menu_model->get_parent_staff_menu();
+		$children          = $this->staff_menu_model->get_child_staff_menu();
+		$data['parents']   = $parents;
+		$data['children']  = $children;
+		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
+
+		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
+		$data['table_fields'] = array(
+			'menu' 		 => array('1', 'menu', 'Menu', 'input'),
+			'url' 		 => array('2', 'url', 'URL', 'input'),
+			'send_value' => array('3', 'send_value', 'Send Value', 'input'),
+			'method'     => array('4', 'method', 'Method', 'select', $method),
+			'order'      => array('5', 'order', 'Order', 'input'),
+			'parent'     => array('6', 'parent', 'Parent', 'custom', $parents),
+			'include'    => array('7','include', 'Include', 'input'),
+			'active'     => array('8', 'active', 'Active', 'select', $active),
+			);	
+
+		if (empty($data['staff_menu']))
+		{
+			show_404();			
+		}		
+		// specific menu
+		$this->load->helper('url');
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/topbar');
+		$this->load->view('layout/admin_left_sidemenu');
+		$this->load->view('layout/right_sidemenu');
+		$this->load->view('staff_menu/staff_menu_form', $data);
+		$this->load->view('staff_menu/edit', $data);
+		$this->load->view('layout/footer');	
+	}
+	*/
 
 
 }

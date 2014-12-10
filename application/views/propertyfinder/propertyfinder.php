@@ -217,10 +217,10 @@
                  $(document).ready(function() {  
 
                     $('#owner_table tfoot th').each( function () {
-                        var title = $('#example thead th').eq( $(this).index() ).text();
-                        $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+                        var title = $('#owner_table thead th').eq( $(this).index() ).text();
+                        $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
                     });        
-                     var table = $('#owner_table').DataTable({                    
+                    var table = $('#owner_table').DataTable({                    
                     /*
                     dom: 'T<"clear">lfrtip',
                     tableTools: {

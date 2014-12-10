@@ -46,12 +46,13 @@
                                     <div class="col-md-12 portlets container">
                                         <div class="form-group col-lg-4"> <!-- First Name -->
                                             <label class="sr-only" for="fn_name">First Name</label>
-                                            <?php echo form_input($fn_attributes); ?>
+                                            <?php echo form_input($fn_attributes); echo form_error('first_name'); ?>
+
                                         </div><!-- form-group -->
 
                                         <div class="form-group col-lg-4"> <!-- Middle Name -->
                                             <label class="sr-only" for="mn_name">Middle Name</label>
-                                            <?php echo form_input($mn_attributes); ?>
+                                            <?php echo form_input($mn_attributes); echo form_error('middle_name'); ?>
                                         </div><!-- form-group -->
 
                                         <div class="form-group col-lg-4"> <!-- Last Name -->

@@ -296,4 +296,22 @@ class Unit_test extends CI_Controller {
 
         echo $status;
     }
+
+    public function m_prop_owner_for_delation(){      
+        $data = array('for_deletion' => 1);
+        echo '<br>inside update<br>';
+        
+        $this->db->where('tb_property_owner_id', $id);
+        $this->db->update('property_owner', $data); 
+    }
+
+     public function m_prop_owner_masterlist_for_delation(){      
+        $id = 14;
+        $data = array('for_deletion' => 1);
+
+        echo 'inside master_list update owner';
+        
+        $this->db->where('tb_property_owner_id', $id);
+        $this->db->update('property_owner_master_list', $data); 
+    }
 }

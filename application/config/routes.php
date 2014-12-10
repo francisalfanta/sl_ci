@@ -50,6 +50,8 @@ $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
 $route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';
 
+$route['property_owner/create_property_owner'] = 'property_owner/create_property_owner';
+$route['property_owner/for_deletion_owner'] = 'property_owner/for_deletion_owner';
 $route['property_owner/del_addr/(:any)'] = 'property_owner/del_addr/$1';
 $route['property_owner/datatable'] = 'property_owner/datatable';
 $route['property_owner/q_prop_owner'] = 'property_owner/q_prop_owner';
@@ -86,9 +88,10 @@ $route['login/sl_admin'] = 'login/sl_admin'; 					// added this line : Lemuel
 $route['login/logout_mod'] = 'login/logout_mod'; 				// added this line : Lemuel
 $route['login/logout_mod'] = 'login/logout'; 					// added this line : Lemuel
 
+$route['slcs_staff/print_form'] = 'slcs_staff/print_form';
 $route['slcs_staff/create_member'] = 'slcs_staff/create_member';
-
 $route['slcs_staff'] = 'slcs_staff';
+
 $route['nationality']  = 'nationality';
 $route['property_owner'] = 'property_owner';
 $route['login'] = 'login';
@@ -110,6 +113,7 @@ $route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';
 $route['propertyfinder'] = 'propertyfinder';    
 
+$route['unit_test/m_prop_owner_for_delation'] ='unit_test/m_prop_owner_for_delation';
 $route['unit_test'] = 'unit_test';
 $route['test'] = 'test';
 $route['formigniter'] = 'formigniter';                          // Form Generator

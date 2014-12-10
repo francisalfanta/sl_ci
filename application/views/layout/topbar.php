@@ -195,7 +195,35 @@
                     </li>
                     <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                     <li class="dropdown topbar-profile">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="rounded-image topbar-profile-image"><img src="<?php echo site_url(); ?>images/users/user-35.jpg"></span><?php foreach($staffs as $staff) { if(strtolower($username)==strtolower($staff['username'])) {echo $staff['fname']; }}?><strong> <?php foreach($staffs as $staff) { if(strtolower($username)==strtolower($staff['username'])) {echo $staff['lname']; }}?></strong> <i class="fa fa-caret-down"></i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						<?php foreach($staffs as $staff)
+							  { 
+								if(strtolower($username)==strtolower($staff['username']))
+									{ $profilepic = $staff['file_name'];
+									  //echo $profilepic;
+									  echo '<span class="rounded-image topbar-profile-image"><img src=http://localhost/sl_ci/images/profile_pic/'.$profilepic.'></span>';
+									//echo '<span class="rounded-image topbar-profile-image"><img src=http://192.168.10.121/sl_ci/images/profile_pic/'.$profilepic.'></span>';
+									}
+							  }
+						?>
+						<?php foreach($staffs as $staff)
+							  {
+								if(strtolower($username)==strtolower($staff['username']))
+									{
+									 echo $staff['fname'];
+									}
+							  }
+						?>
+						<strong>
+						<?php foreach($staffs as $staff)
+						      {
+							    if(strtolower($username)==strtolower($staff['username']))
+									{
+									 echo $staff['lname'];
+									}
+							  }
+						?>
+						</strong> <i class="fa fa-caret-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">My Profile</a></li>
                             <li><a href="#">Change Password</a></li>

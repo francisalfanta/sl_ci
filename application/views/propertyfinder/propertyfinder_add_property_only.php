@@ -94,7 +94,7 @@
                             </div>
                             <div class="widget-content">                    
                                 <div class="table-responsive">
-                                    <table id="datatables-5" data-sortable class="table table-striped table-bordered display compact" data-sortable>
+                                    <table id="owner_table" data-sortable class="table table-striped table-bordered display compact" data-sortable>
                                         <thead>
                                             <tr>
                                                 <th>No</th>                                               
@@ -154,7 +154,11 @@
                 </footer>
                 <!-- Footer End -->	
                 <script type="text/javascript">                    
-                $(document).ready(function() {  
+                $(document).ready(function() { 
+                    $('#owner_table tfoot th').each( function () {
+                        var title = $('#owner_table thead th').eq( $(this).index() ).text();
+                        $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
+                    });  
 
                     $("#city_name").change(function(){                           
                             /*dropdown post */

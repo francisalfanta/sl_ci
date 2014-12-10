@@ -51,6 +51,29 @@ class MY_Form_validation extends CI_Form_validation
     	}
 	}
 	
+	function valid_date($str, $field){
+	
+			if ( @ereg ("([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})", $str) )
+			{
+				$arr = explode ("/", $str);    // splitting the array
+				$mm = $arr[0];              // 1 element is month
+				$dd = $arr[1];              // 2 element is days
+				$yyyy = $arr[2];            // 3 element of the array is year
+				return ( checkdate($mm, $dd, $yyyy) );
+			} 
+			else 
+			{
+				return FALSE;
+			}
+	}
+
+	function alpha_space_hypen($str, $field){
+        return ( ! preg_match("/^[A-Za-z- ]*$/", $str)) ? FALSE : TRUE;
+    }
+	
+	function num_space_hypen($str, $field){
+        return ( ! preg_match("/^[0-9- ]*$/", $str)) ? FALSE : TRUE;
+    }
 	// --------------------------------------------------------------------
 }
 ?>

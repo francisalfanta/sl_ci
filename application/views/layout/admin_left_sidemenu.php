@@ -16,7 +16,18 @@
                 <!--- Profile -->
                 <div class="profile-info">
                     <div class="col-xs-4">
-                      <a href="profile.html" class="rounded-image profile-image"><img src="<?php echo base_url(); ?>images/users/user-100.jpg"></a>
+					
+					  <?php foreach($staffs as $staff)
+							  { 
+								if(strtolower($username)==strtolower($staff['username']))
+									{ $profilepic = $staff['file_name'];
+                                      $url='images/profile_pic/'.$profilepic;   
+									  //echo $profilepic;
+									  echo '<a href="profile.html" class="rounded-image profile-image"><img src="'.base_url($url).'"></a>';
+									//echo '<a href="profile.html" class="rounded-image profile-image"><img src=http://192.168.10.121/sl_ci/images/profile_pic/'.$profilepic.'></a>';
+									}
+							  }
+					  ?>
                     </div>
                     <div class="col-xs-8">
                         <div class="profile-text">Welcome <b><?php echo $username; ?></b></div>

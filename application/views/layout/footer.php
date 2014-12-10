@@ -36,20 +36,19 @@
 	<script src="<?php echo base_url(); ?>assets/libs/prettify/prettify.js"></script>
 
 	<script src="<?php echo base_url(); ?>assets/js/init.js"></script>
-	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
 	
-   
-
-  <!-- DataTables CSS -->
+	<!-- Page Specific JS Libraries  TODO create if statement when page only using wizard-->
+	<!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css">
  
-  <!-- DataTables -->
+  	<!-- DataTables -->
 	<script type="text/javascript" charset="utf8" src="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf8" src="<?php echo base_url();?>assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.min.js"></script>
 
- <!-- Page Specific JS Libraries Tables Pages-->
+ 	<!-- Page Specific JS Libraries Tables Pages-->
     
-    <!-- custom added for datatable 12-05-2014 -->
-   
+    <!-- FMA custom added 12-10-2014 -->
+    <script src="<?php echo base_url(); ?>assets/js/slcs_modal_box.js"></script>
   
 	<script type="text/javascript"> 
            

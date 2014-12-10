@@ -42,17 +42,17 @@
                                     <div class="col-md-12 portlets container">
                                         <div class="form-group col-lg-4"> <!-- First Name -->
                                             <label class="sr-only" for="fn_name">First Name</label>
-                                            <?php echo form_input($fn_attributes); ?>
+                                            <?php echo form_input($fn_attributes); echo form_error('first_name'); ?>
                                         </div><!-- form-group -->
 
                                         <div class="form-group col-lg-4"> <!-- Middle Name -->
                                             <label class="sr-only" for="mn_name">Middle Name</label>
-                                            <?php echo form_input($mn_attributes); ?>
+                                            <?php echo form_input($mn_attributes); echo form_error('middle_name'); ?>
                                         </div><!-- form-group -->
 
                                         <div class="form-group col-lg-4"> <!-- Last Name -->
                                             <label class="sr-only" for="mn_name">Last Name</label>
-                                            <?php echo form_input($ln_attributes); ?>
+                                            <?php echo form_input($ln_attributes); echo form_error('last_name'); ?>
                                         </div><!-- form-group -->
 
                                     </div><!-- col-md-12 col-lg-12 portlets -->
@@ -345,7 +345,7 @@
                                                 <option value="7" <?php echo set_select('city', 'Sharjah'); ?>>Sharjah</option>
                                                 <option value="8" <?php echo set_select('city', 'Umm Al Quwain'); ?>>Umm Al Quwain</option>
                                             </select>
-                                        <p class="help-block"> </p>
+                                        <p class="help-block"><?php echo form_error('city_name'); ?></p>
                                         </div>
                                     </div><!-- form-group -->
 
@@ -355,7 +355,7 @@
                                         <select name="community" id="cityDrp" class="form-control">
                                         <option value="<?php if($community){ echo $community_id; } ?>" > <?php if($community){ echo $community; }  else { echo 'Please select first City'; } ?></option> 
                                         </select>
-                                        <p class="help-block"> </p>
+                                        <p class="help-block"><?php echo form_error('community'); ?></p>
                                         </div>
                                     </div><!-- form-group -->
 
@@ -365,7 +365,7 @@
                                         <select name="subcommunity" id="subcommunity" class="form-control">
                                         <option value="<?php if($subcommunity){ echo $subcommunity_id; } ?>" > <?php if($subcommunity){ echo $subcommunity; }  else { echo 'Please select first Community'; } ?></option> 
                                         </select>
-                                        <p class="help-block"> </p>
+                                        <p class="help-block"><?php echo form_error('subcommunity'); ?> </p>
                                         </div>
                                     </div><!-- form-group -->
 
@@ -373,7 +373,7 @@
                                         <label for="reproperty" class="col-sm-2 control-label">Property Name</label>
                                         <div class="col-sm-10">
                                         <?php echo form_input($reproperty_attributes); ?>
-                                        <p class="help-block"> </p>
+                                        <p class="help-block"><?php echo form_error('re_property'); ?> </p>
                                         </div>
                                     </div><!-- form-group -->
 

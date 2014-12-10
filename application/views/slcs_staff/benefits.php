@@ -58,9 +58,9 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-5">
-											<label><input type="checkbox" name="mycheck1" value="1" <?php echo set_checkbox('mycheck1', '1', FALSE); ?> />Yearly Ticket</label>&nbsp;&nbsp;
-											<label><input type="checkbox" name="mycheck2" value="1" <?php echo set_checkbox('mycheck2', '1', FALSE); ?> /> Annual Paid Leave</label>&nbsp;&nbsp;
-											<label><input type="checkbox" name="mycheck3" value="1" <?php echo set_checkbox('mycheck3', '1', FALSE); ?>/>30 Day Annual Leave</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck1" value="yes" <?php echo set_checkbox('mycheck1', 'yes', FALSE); ?> />Yearly Ticket</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck2" value="yes" <?php echo set_checkbox('mycheck2', 'yes', FALSE); ?> /> Annual Paid Leave</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck3" value="yes" <?php echo set_checkbox('mycheck3', 'yes', FALSE); ?>/>30 Day Annual Leave</label>&nbsp;&nbsp;
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mbonus'); ?></h6>
 											<input type="text" name="mbonus" value="<?php echo set_value('mbonus'); ?>" class="form-control input-sm" placeholder="Bonus"> 

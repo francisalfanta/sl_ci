@@ -58,9 +58,9 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-5">
-											<label><input type="checkbox" name="mycheck1" value="1" <?php if($r->bapl == "1"){echo "checked";} ?> />Yearly Ticket</label>&nbsp;&nbsp;
-											<label><input type="checkbox" name="mycheck2" value="1" <?php if($r->byt == "1"){echo "checked";} ?> />Annual Paid Leave</label>&nbsp;&nbsp;
-											<label><input type="checkbox" name="mycheck3" value="1" <?php if($r->b30dal == "1"){echo "checked";} ?> />30 Day Annual Leave</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck1" value="yes" <?php if($r->bapl == "yes"){echo "checked";} ?> />Yearly Ticket</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck2" value="yes" <?php if($r->byt == "yes"){echo "checked";} ?> />Annual Paid Leave</label>&nbsp;&nbsp;
+											<label><input type="checkbox" name="mycheck3" value="yes" <?php if($r->b30dal == "yes"){echo "checked";} ?> />30 Day Annual Leave</label>&nbsp;&nbsp;
 										</div>
 										<div class="col-md-2"><h6><?php echo form_error('mbonus'); ?></h6>
 											<input type="text" name="mbonus" value="<?php echo $r->m_bonus; ?>" class="form-control input-sm" placeholder="Bonus"> 

@@ -5,14 +5,10 @@
 			<!-- ============================================================== -->
         <div class="content">
             	<!-- Page Heading Start -->
-                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-                <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-                <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
+         
+              
                 <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
                 <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.fixedHeader.js'); ?>"></script>
-
-
-
 
             	<!-- Page Heading End-->  
               <div class="row">
@@ -329,7 +325,7 @@
                                     <div class="col-xs-8">Address 3</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address3" value="address3" checked  /></span></div> 
                                     <div class="col-xs-8">Address 4</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address4" value="address4" checked  /></span></div> 
                                     <?php foreach(array_slice($table_fieldname,4, 20) as $label => $value){
-                                          if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false){
+                                          if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false and strpos(strtolower($label),'no_property_owned') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
                                     ?>                               
@@ -351,7 +347,7 @@
                                 <div class="row col-sm-6 col-md-6 col-lg-6">
                                     <!-- foreach here -->
                                     <?php foreach(array_slice($table_fieldname,20,count($table_fieldname)) as $label => $value){
-                                          if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false){
+                                          if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false and strpos(strtolower($label),'no_property_owned') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
                                     ?>                               
@@ -381,7 +377,7 @@
 
                                 <div class="additional-btn">                                    
                                   <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                  <a href="<?php echo base_url('property_owner/create_prop_owner');?>"><i class="icon-user-add"></i></a>  
+                                  <a href="<?php echo base_url('property_owner/create_property_owner');?>"><i class="icon-user-add"></i></a>  
                                   <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                   <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
@@ -392,7 +388,8 @@
                               <form class='form-horizontal' role='form'>
                               <table id="owner_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
                               <thead>
-                                  <tr> <th class="fullname"><small>Full Name</small></th>
+                                  <tr> <th class="fullname"><small>Full Name / No of Property</small></th>
+                                       <th class="no_property_owned"><small>No of Property</small></th> 
                                        <th class="nationality1"><small>Nationality</small></th>
                                         <th class="nationality2"><small>Nationality 2</small></th>
                                         <th class="nationality3"><small>Nationality 3</small></th>
@@ -450,7 +447,8 @@
                               </thead> 
                               <tfoot>
                                   <tr>                                            
-                                     <th class="fullname"><small>Full Name</small></th>             <!-- 1 -->
+                                     <th class="fullname"><small>Full Name  / No of Property</small></th>             <!-- 1 -->
+                                      <th class="no_property_owned"><small>No of Property</small></th> 
                                        <th class="nationality1"><small>Nationality</small></th>     <!-- 2 -->
                                         <th class="nationality2"><small>Nationality 2</small></th>  <!-- 3 -->
                                         <th class="nationality3"><small>Nationality 3</small></th>  <!-- 4 -->
@@ -507,10 +505,11 @@
                                     </tr>
                               </tfoot> 
                                 <tbody >
-                                 <?php  $mobile_no = null;  
+                               <?php  $mobile_no = null;  
                                         foreach($records as $row) {  
                                 ?><tr> 
                                     <td class="fullname"><small><?php echo $row->first_name.' '.$row->middle_name.' '.$row->last_name; ?></small></td>
+                                    <td class="no_property_owned"><small><?php echo $row->no_property_owned; ?></small></td>
                                     <td class="nationality1"><small><?php echo $row->nationality1; ?></small></td>
                                     <td class="nationality2"><small><?php echo $row->nationality2; ?></small></td>
                                     <td class="nationality3"><small><?php echo $row->nationality3; ?></small></td>
@@ -562,17 +561,20 @@
                                     <td class="email2"><small><?php echo $row->email2; ?></small></td>
                                     <td class="email3"><small><?php echo $row->email3; ?></small></td>
                                     <td class="email4"><small><?php echo $row->email4; ?></small></td> 
-                                    <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Danger</span>'; } ?></small></td>
+                                    <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Suspended</span>'; } ?></small></td>
                                     
                                     <td class="option" style="text-align: center;width:80px;">
                                       <div class="btn-group btn-group-xs">                                                                                                                                                                
                                           <a href="<?php $url='property_owner/view_property_owner/'.$row->tb_property_owner_id; echo base_url($url); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
-                                          <a href="#delete-record-modal" data-id="<?php echo $row->tb_property_owner_id; ?>" id="delete-record" title="Delete" data-toggle="modal" class="md-trigger open-delete-dialog" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                                       
+                                          <?php if($row->no_property_owned==0) { ?>
+                                          <a href="#delete-record-modal" data-id="<?php echo $row->tb_property_owner_id; ?>" id="delete-record" title="Delete"  class="md-trigger open-delete-dialog" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                          
+                                          <?php } else { ?>
+                                          <a href="#" id="delete-record" title="Delete"  class="md-trigger" data-modal="cnt-delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>             
+                                          <?php } ?>                            
                                       </div>
                                     </td>
-                                  </tr>
-                                     
-                                <?php } ?>  
+                                       <?php } ?>  
+                             
                                 </tbody>
                               </table>
                               </form>
@@ -582,6 +584,7 @@
                   </div>
 
               </div><!-- row -->
+
 					</jQuery(document).ready(function(){
 
           </form> 
@@ -593,117 +596,10 @@
               </span>
           </footer>
           <!-- Footer End -->
+          
+          
           <script type="text/javascript">
             var editor; // use a global for the submit and return data rendering in the examples
-
-            $(document).ready(function() {
-
-              //$('#delete-record-modal').on('show.bs.modal', function(e) {
-              //    alert('click');
-              //  var ownerId = $(e.relatedTarget).data('id');
-              //  $(e.currentTarget).find('input[name="todelete"]').val(ownerId);
-              //});
-
-              $('table .address2, table .address3, table .address4, table .telephone_no2, table .telephone_no3, table .telephone_no4').hide();
-              $('table .mobile_no2, table .mobile_no3, table .mobile_no4, table .fax_no2, table .fax_no3, table .fax_no4').hide();
-              $('table .email2, table .email3, table .email4, table .passport_no2, table .passport_no3, table .passport_no4').hide();
-              $('table .subcommunity2, table .subcommunity3, table .subcommunity4, table .community2, table .community3, table .community4').hide();
-              $('table .city2, table .city3, table .city4, table .country2, table .country3, table .country4').hide();
-              $('table .nationality2, table .nationality3, table .nationality4').hide();
-
-              $(document).on("click", ".open-delete-dialog", function () {
-              
-                var record_id = $(this).data('id');
-                $("div.md-content #todelete").val( record_id );
-                // As pointed out in comments, 
-                // it is superfluous to have to manually call the modal.
-                // $('#addBookDialog').modal('show');
-              });
-              
-            // Setup - add a text input to each footer cell
-            $('#owner_table tfoot th').each( function () {
-              var title = $('#example thead th').eq( $(this).index() ).text();
-              $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
-            } );
-            var table = $('#owner_table').DataTable({                    
-                    /*
-                    dom: 'T<"clear">lfrtip',
-                    tableTools: {
-                      sRowSelect: "os",
-                      sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
-                      aButtons: [
-                        { sExtends: "editor_create", editor: editor },
-                        { sExtends: "editor_edit",   editor: editor },
-                        { sExtends: "editor_remove", editor: editor },
-                        {
-                          sExtends: "collection",
-                          sButtonText: "Save",
-                          sButtonClass: "save-collection",
-                          aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
-                        },
-                        'print'
-                      ]
-                    },
-                    */
-                    "autoWidth": false,
-                    "deferRender" : true,
-                    "stateSave"   : true,
-                    //"columnDefs": [
-                    //{
-                          // The `data` parameter refers to the data for the cell (defined by the
-                          // `data` option, which defaults to the column being worked with, in
-                          // this case `data: 0`.
-                    //      "render": function ( data, type, row ) {
-                    //          return data +''+ row[11]+' '+row[12]+' '+row[13]+' '+row[14];
-                    //      },
-                    //      "targets": 10
-                    //  },
-                    //  { "visible": false,  
-                    //    "targets": [ 11,12,13,14 ] 
-                    //  }
-                    //],
-                    //"dom": 'C<"clear">lfrtip',
-                    //"sDom": 'T<"clear">lfrtip',
-                    /*
-                    "oTableTools": {
-                        "aButtons": [
-                            {
-                                "sExtends": "copy",
-                                "sButtonText": "Copy to clipboard",
-                                "oSelectorOpts": {
-                                    page: 'current'
-                                }
-                            }
-                        ]
-                    } ,*/
-                    "scrollX"     : true,
-                    "scrollY"     : 325,
-                    "scrollCollapse": true,
-                    "jQueryUI":       true,
-                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                    //"order": [[ 1, 'asc' ]],
-                    "columnDefs": [
-                      { "width": "20%", "targets": 1 }
-                    ]
-                });
-            //new $.fn.dataTable.FixedColumns( table );
-            
-            table.on( 'column-sizing.dt', function ( e, settings ) {
-              console.log( 'Column width recalculated in table' );
-            } );
-
-            // Apply the search
-            table.columns().eq( 0 ).each( function ( colIdx ) {
-                $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
-                    table
-                        .column( colIdx )
-                        .search( this.value )
-                        .draw();
-                } );
-            } );
-
-              //table.fnSetColumnVis( 2, false );
-              //$.fn.dataTable.ColVis.fnRebuild( table );
 
             function row_check_owner(tb_property_owner_id, fullname, address, mobile_no, telephone_no, re_property, property_type, building_name, status){
                  
@@ -737,7 +633,7 @@
                   row_html  += '<td><div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" onClick="delete_record()" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
                   
                   return row_html;    
-              };
+            };
 
             function render_filtered_owner_table(first_name, middle_name, last_name, nationality, country, telephone_no, mobile_no, fax_no, email){
                   //city_name           = typeof city_name !== 'undefined' ? city_name : null;
@@ -751,16 +647,13 @@
                   telephone_no = typeof telephone_no !== 'undefined' ? telephone_no : null;
                   mobile_no    = typeof mobile_no !== 'undefined' ? mobile_no : null;
                   fax_no       = typeof last_name !== 'undefined' ? fax_no : null;
-                  email        = typeof last_name !== 'undefined' ? email : null;
+                  email        = typeof email !== 'undefined' ? email : null;
 
                   return $.ajax({
                               url: "<?php echo base_url('property_owner/find_owner'); ?>",
                               type: 'POST',
                               dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
-                              data:{  
-                                      //'city' :city_name,
-                                      //'community_name': community_name,
-                                      //'subcommunity_name': subcommunity_name
+                              data:{                                        
                                       'first_name': first_name,
                                       'middle_name': middle_name,
                                       'last_name': last_name,
@@ -802,136 +695,250 @@
                                   //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
                               }
                           });// end inter-active table 
-              };
+            };
 
-             // toggle class off associated to default checkbox                                                  
-              $('.field_name').click(function(){
-                  // jquery flow guide on this action
-                  // re-render filtered table then
-                  // parent node class field_name is looking for a class iswitch in children node
-                  //var child_switch = $(this).find('.iswitch');
-                  // if the children node contain a class name on
-                  //var iswitch = child_switch.hasClass('on');
-                  // find the input tag
-                  //var input_check = iswitch.siblings('input');
-                  // get the sibling attribute name
-                  //var input_attr = input_check.attr('name');
-                  var city_name         = $('#city_name').val();
-                  var community_name    = $('#cityDrp').val();
-                  var subcommunity_name = $('#cityDrp2').val();
+            $(document).on("click", ".open-delete-dialog", function () {              
+                var record_id = $(this).data('id');                  
+                //var search_dash = todelete.search('-');
+                //var rec_id_only = todelete.slice(0,search_dash);
+                //var no_property_owned = todelete.slice(search_dash+1);
 
-                  // inter-active table    
-                  console.log('inside field_name click');
-                  //render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
-                  //    console.log('ajax within a function successful');
-                  //});
-                  console.log('after rendered inside field_name click');
-                  // end inter-active table
-                  
-                  var check_switch = $(this).find('.iswitch').hasClass('on');
-                  var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
-                  var column = "table ." + field_name_checkbox;
-                 
-                  if(check_switch){ 
-                      // to show the table column name mention
-                        
-                      if(field_name_checkbox == 'address1'){                              
-                        $('table .address1').toggle();
-                        $('table .subcommunity1').toggle();
-                        $('table .community1').toggle();
-                        $('table .city1').toggle();
-                        $('table .country1').toggle();                             
-                      } else if(field_name_checkbox == 'address2'){                              
-                        $('table .address2').toggle();
-                        $('table .subcommunity2').toggle();
-                        $('table .community2').toggle();
-                        $('table .city2').toggle();
-                        $('table .country2').toggle();  
-                      } else if(field_name_checkbox == 'address3'){                              
-                        $('table .address3').toggle();
-                        $('table .subcommunity3').toggle();
-                        $('table .community3').toggle();
-                        $('table .city3').toggle();
-                        $('table .country3').toggle();  
-                      } else if(field_name_checkbox == 'address4'){                              
-                        $('table .address4').toggle();
-                        $('table .subcommunity4').toggle();
-                        $('table .community4').toggle();
-                        $('table .city4').toggle();
-                        $('table .country4').toggle();  
-                      } else {
-                        $(column).toggle();
-                      }
-                                                
-                  } else {   
-                      // to hide the table column name mention 
-                      if(field_name_checkbox=='address1'){
-                        $('table .address1').hide();
-                        $('table .subcommunity1').hide();
-                        $('table .community1').hide();
-                        $('table .city1').hide();
-                        $('table .country1').hide();                             
-                      } else if(field_name_checkbox=='address2'){
-                        $('table .address2').hide();
-                        $('table .subcommunity2').hide();
-                        $('table .community2').hide();
-                        $('table .city2').hide();
-                        $('table .country2').hide();                             
-                      } else if(field_name_checkbox=='address3'){
-                        $('table .address3').hide();
-                        $('table .subcommunity3').hide();
-                        $('table .community3').hide();
-                        $('table .city3').hide();
-                        $('table .country3').hide();                             
-                      } else if(field_name_checkbox=='address4'){
-                        $('table .address4').hide();
-                        $('table .subcommunity4').hide();
-                        $('table .community4').hide();
-                        $('table .city4').hide();
-                        $('table .country4').hide();                             
-                      } else {
-                        $(column).hide();
-                      }
-                  }                          
-              }); 
+                $("div.md-content #todelete").val( record_id );
+                //$("#cnt-del-no-property").text(no_property_owned);                
             });
 
-            // to do create an ajax to check if the owner
-            // contain a property
-            // then give the count to modal delete-record
-            // delete-record-modal will process if the deletion will proceed or not
-            $("#delete-record").click(function(){                                                                                            
-                 var record_id = $(this).data('id');
-                        $.ajax({
-                            url: "<?php echo base_url('property_owner'); ?>",
-                            type: 'POST',
-                            dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
-                            data:{  'property_owner_id' : record_id                                   
-                                 },                              
-                            error:  function(xhr, status, error) {
-                                        var err = JSON.parse(xhr.responseText);
-                                        //alert(err.Message);
-                                    },
-                            statusCode: {
-                                     404: function() {
-                                            alert( "page not found" );
-                                        }
-                            },
-                            success: function (response) { 
+            $(document).ready(function() {
+              //$('.slcs_modal').slcs_modal_box(); 
+              $('#del-record').on('click',function(){
+                var todelete = $('#todelete').val();
+            
+                $.ajax({
+                  url: "<?php echo base_url('property_owner/for_deletion_owner'); ?>",
+                  type: 'POST',
+                  dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                  data:{  'property_owner_id' : todelete
+                  },
+                  success: function (response) { 
                                 var property_count = '';
                                 $.each(response, function (i, item) {
                                     property_count = item;
-                                    console.log('item :'+ item);
-                                    console.log('i :'+ i);
-                                });                                                                 
-                                $('#subcommunity_count').empty().append(display_msg(property_count));
-                            },
-                            complete: function(xhr, status){
-                                var xhr = JSON.parse(xhr.responseText);
-                                //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
-                            }
-                        });//
-             });//
+                                    //console.log('item :'+ item);
+                                    //console.log('i :'+ i);
+                                });
+                  }                 
+                });// delete record
+              });           
+
+              $('table .address2, table .address3, table .address4, table .telephone_no2, table .telephone_no3, table .telephone_no4').hide();
+              $('table .mobile_no2, table .mobile_no3, table .mobile_no4, table .fax_no2, table .fax_no3, table .fax_no4').hide();
+              $('table .email2, table .email3, table .email4, table .passport_no2, table .passport_no3, table .passport_no4').hide();
+              $('table .subcommunity2, table .subcommunity3, table .subcommunity4, table .community2, table .community3, table .community4').hide();
+              $('table .city2, table .city3, table .city4, table .country2, table .country3, table .country4').hide();
+              $('table .nationality2, table .nationality3, table .nationality4').hide();
+
+              //$('#delete-record-modal').on('show.bs.modal', function(e) {
+              //    alert('click');
+              //  var ownerId = $(e.relatedTarget).data('id');
+              //  $(e.currentTarget).find('input[name="todelete"]').val(ownerId);
+              //});
+              
+              // Setup - add a text input to each footer cell
+              if ($("table#owner_table tbody tr").length > 0) {
+                //$(this).tablesorter({ sortList: [[0,0]]});
+                $('#owner_table tfoot th').each( function () {
+                  var title = $('#owner_table thead th').eq( $(this).index() ).text();
+                  $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;" />' );
+                } );
+              }
+
+              var table = $('#owner_table').DataTable({ 
+                      /*
+                      dom: 'T<"clear">lfrtip',
+                      tableTools: {
+                        sRowSelect: "os",
+                        sSwfPath: "<?php echo base_url(); ?>assets/lib/DataTables-1.10.4/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                        aButtons: [
+                          { sExtends: "editor_create", editor: editor },
+                          { sExtends: "editor_edit",   editor: editor },
+                          { sExtends: "editor_remove", editor: editor },
+                          {
+                            sExtends: "collection",
+                            sButtonText: "Save",
+                            sButtonClass: "save-collection",
+                            aButtons: [ 'copy', 'csv', 'xls', 'pdf' ]
+                          },
+                          'print'
+                        ]
+                      },
+                      */
+                      "autoWidth": false,
+                      "deferRender" : true,
+                      //"stateSave"   : true,
+                      "columnDefs": [
+                        {
+                            // The `data` parameter refers to the data for the cell (defined by the
+                            // `data` option, which defaults to the column being worked with, in
+                            // this case `data: 0`.
+                             "render": function ( data, type, row ) {                                              
+                                var x = $(row[1]);                              
+                                if(x.text()>0){
+                                  return data +' ('+ row[1]+')';
+                                } else {
+                                  return data +' ('+ 0+')';
+                                }                            
+                             },
+                            "targets": 0
+                        },
+                        { "visible": false,  
+                          "targets": [ 1 ] 
+                        },
+                        {
+                            // The `data` parameter refers to the data for the cell (defined by the
+                            // `data` option, which defaults to the column being worked with, in
+                            // this case `data: 0`.
+                             "render": function ( data, type, row ) {                                                                            
+                                return data +' '+row[11]+' '+row[12]+' '+row[13];
+                             },
+                            "targets": 10
+                        },
+                        { "visible": false,  
+                          "targets": [ 11,12,13 ] 
+                        }
+                      ],
+                      //"dom": 'C<"clear">lfrtip',
+                      //"sDom": 'T<"clear">lfrtip',
+                      /*
+                      "oTableTools": {
+                          "aButtons": [
+                              {
+                                  "sExtends": "copy",
+                                  "sButtonText": "Copy to clipboard",
+                                  "oSelectorOpts": {
+                                      page: 'current'
+                                  }
+                              }
+                          ]
+                      } ,*/
+                      "scrollX"     : true,
+                      "scrollY"     : 325,
+                      "scrollCollapse": true,
+                      "jQueryUI":       true,
+                      "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+                      //"order": [[ 1, 'asc' ]],
+                      //"columnDefs": [
+                      //  { "width": "20%", "targets": 1 }
+                      //]
+              });
+              //new $.fn.dataTable.FixedColumns( table );
+              
+              table.on( 'column-sizing.dt', function ( e, settings ) {
+                console.log( 'Column width recalculated in table' );
+              });
+
+              // Apply the search
+              table.columns().eq( 0 ).each( function ( colIdx ) {
+                  $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+                      table
+                          .column( colIdx )
+                          .search( this.value )
+                          .draw();
+                  } );
+              });
+
+              //table.fnSetColumnVis( 2, false );
+              //$.fn.dataTable.ColVis.fnRebuild( table );          
+
+              // toggle class off associated to default checkbox                                                  
+              $('.field_name').click(function(){
+                    // jquery flow guide on this action
+                    // re-render filtered table then
+                    // parent node class field_name is looking for a class iswitch in children node
+                    //var child_switch = $(this).find('.iswitch');
+                    // if the children node contain a class name on
+                    //var iswitch = child_switch.hasClass('on');
+                    // find the input tag
+                    //var input_check = iswitch.siblings('input');
+                    // get the sibling attribute name
+                    //var input_attr = input_check.attr('name');
+                    var city_name         = $('#city_name').val();
+                    var community_name    = $('#cityDrp').val();
+                    var subcommunity_name = $('#cityDrp2').val();
+
+                    // inter-active table    
+                    console.log('inside field_name click');
+                    //render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
+                    //    console.log('ajax within a function successful');
+                    //});
+                    console.log('after rendered inside field_name click');
+                    // end inter-active table
+                    
+                    var check_switch = $(this).find('.iswitch').hasClass('on');
+                    var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
+                    var column = "table ." + field_name_checkbox;
+                   
+                    if(check_switch){ 
+                        // to show the table column name mention
+                          
+                        if(field_name_checkbox == 'address1'){                              
+                          $('table .address1').toggle();
+                          $('table .subcommunity1').toggle();
+                          $('table .community1').toggle();
+                          $('table .city1').toggle();
+                          $('table .country1').toggle();                             
+                        } else if(field_name_checkbox == 'address2'){                              
+                          $('table .address2').toggle();
+                          $('table .subcommunity2').toggle();
+                          $('table .community2').toggle();
+                          $('table .city2').toggle();
+                          $('table .country2').toggle();  
+                        } else if(field_name_checkbox == 'address3'){                              
+                          $('table .address3').toggle();
+                          $('table .subcommunity3').toggle();
+                          $('table .community3').toggle();
+                          $('table .city3').toggle();
+                          $('table .country3').toggle();  
+                        } else if(field_name_checkbox == 'address4'){                              
+                          $('table .address4').toggle();
+                          $('table .subcommunity4').toggle();
+                          $('table .community4').toggle();
+                          $('table .city4').toggle();
+                          $('table .country4').toggle();  
+                        } else {
+                          $(column).toggle();
+                        }
+                                                  
+                    } else {   
+                        // to hide the table column name mention 
+                        if(field_name_checkbox=='address1'){
+                          $('table .address1').hide();
+                          $('table .subcommunity1').hide();
+                          $('table .community1').hide();
+                          $('table .city1').hide();
+                          $('table .country1').hide();                             
+                        } else if(field_name_checkbox=='address2'){
+                          $('table .address2').hide();
+                          $('table .subcommunity2').hide();
+                          $('table .community2').hide();
+                          $('table .city2').hide();
+                          $('table .country2').hide();                             
+                        } else if(field_name_checkbox=='address3'){
+                          $('table .address3').hide();
+                          $('table .subcommunity3').hide();
+                          $('table .community3').hide();
+                          $('table .city3').hide();
+                          $('table .country3').hide();                             
+                        } else if(field_name_checkbox=='address4'){
+                          $('table .address4').hide();
+                          $('table .subcommunity4').hide();
+                          $('table .community4').hide();
+                          $('table .city4').hide();
+                          $('table .country4').hide();                             
+                        } else {
+                          $(column).hide();
+                        }
+                    }                          
+              }); 
+            });
 
           </script>
          

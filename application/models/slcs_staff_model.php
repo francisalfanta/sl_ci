@@ -35,6 +35,11 @@ class Slcs_staff_model extends CI_Model {
 		$lname    = $this->input->post('lname');
 		$email    = $this->input->post('ea');
 		
+		$basics	  = $this->input->post('basic_salary');
+		$accomo	  = $this->input->post('accom');
+		$transp	  = $this->input->post('transpo');
+		$tas	  = ($basics + $accomo + $transp);
+		
 		$fullname = $fname." ".$lname;
 
 		$new_staff_insert_data = array(
@@ -93,15 +98,15 @@ class Slcs_staff_model extends CI_Model {
 			'months_of_service' => $this->input->post('mnths'),
 			'transpo_allowance' => $this->input->post('transpo'),
 			'total_amount' => $this->input->post('tamt'),
-			'total_salary' => $this->input->post('tamt_sal'),					
+			'total_salary' => $tas,					
 			
 			'm_card_num' => $this->input->post('midcno'),
 			'm_issue_date' => $this->input->post('midate'),
 			'm_expiry_date' => $this->input->post('mexdate'),
 			'm_others' => $this->input->post('miothers'),
-			'bapl' => ($this->input->post('mycheck1') === FALSE) ? 0 : 1,
-			'byt' => ($this->input->post('mycheck2') === FALSE) ? 0 : 1,
-			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? 0 : 1,
+			'bapl' => ($this->input->post('mycheck1') === FALSE) ? "no" : "yes",
+			'byt' => ($this->input->post('mycheck2') === FALSE) ? "no" : "yes",
+			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? "no" : "yes",
 			'm_bonus' => $this->input->post(',mbonus'),
 			'bn_bonus' => $this->input->post(',bnbonus'),
 			
@@ -164,6 +169,11 @@ class Slcs_staff_model extends CI_Model {
 	{
 		
 		$id = $this->input->post('id');
+		$basics	  = $this->input->post('basic_salary');
+		$accomo	  = $this->input->post('accom');
+		$transp	  = $this->input->post('transpo');
+		$tas	  = ($basics + $accomo + $transp);
+		
 		$data = array(
 			'fname' => $this->input->post('fname'),
 			'mname' => $this->input->post('mname'),
@@ -218,15 +228,15 @@ class Slcs_staff_model extends CI_Model {
 			'months_of_service' => $this->input->post('mnths'),
 			'transpo_allowance' => $this->input->post('transpo'),
 			'total_amount' => $this->input->post('tamt'),
-			'total_salary' => $this->input->post('tamt_sal'),					
+			'total_salary' => $tas,
 			
 			'm_card_num' => $this->input->post('midcno'),
 			'm_issue_date' => $this->input->post('midate'),
 			'm_expiry_date' => $this->input->post('mexdate'),
 			'm_others' => $this->input->post('miothers'),
-			'bapl' => ($this->input->post('mycheck1') === FALSE) ? 0 : 1,
-			'byt' => ($this->input->post('mycheck2') === FALSE) ? 0 : 1,
-			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? 0 : 1,
+			'bapl' => ($this->input->post('mycheck1') === FALSE) ? "no" : "yes",
+			'byt' => ($this->input->post('mycheck2') === FALSE) ? "no" : "yes",
+			'b30dal' => ($this->input->post('mycheck3') === FALSE) ? "no" : "yes",
 			'm_bonus' => $this->input->post(',mbonus'),
 			'bn_bonus' => $this->input->post(',bnbonus'),
 			
