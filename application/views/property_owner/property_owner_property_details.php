@@ -1,7 +1,7 @@
 <!-- Created by  : Prime R.
      Date        : November 27, 2014
      Script Lines: All unless noted otherwise
--->				<div class="col-sm-6 portlets"><!-- License and Ids-->
+-->				<div class="col-sm-6 portlets"><!-- Property Details-->
 					<div class="widget">
 						<div class="widget-header">
 							<h2><i class=" icon-clipboard"></i><strong> Property</strong> Details</h2>
@@ -22,7 +22,7 @@
 										</div> -->
 										<div class="col-md-6"><h6><?php echo form_error('city_name'); ?></h6>
 										<select name="city_name" id="city" tabindex="1" class="form-control input-sm">                                                
-                                                <option value="<?php if($city){ echo $city_id; } ?>" > <?php if($city){ echo $city; }  else { echo 'Select City'; } ?></option>
+                                                <option value="<?php set_select('city_name'); ?>" > <?php if(set_select('city_name')){  set_select('city_name'); }  else { echo 'Select City'; } ?></option>
 												<option value="1" <?php echo set_select('city_name', 'Abu Dhabi'); ?>>Abu Dhabi</option>
                                                 <option value="2" <?php echo set_select('city_name', 'Ajman'); ?>>Ajman</option>
                                                 <option value="3" <?php echo set_select('city_name', 'Al Ain'); ?>>Al Ain</option>
@@ -87,15 +87,30 @@
 								
 								<div class="form-group">
 									<div class="row">
-										<div class="col-md-3">
-											<label>Property Type :</label>
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('ptype1'); ?></h6>
-											<input type="text" name="ptype1" value="<?php echo set_value('ptype1'); ?>" class="form-control input-sm">
-										</div>
-										<div class="col-md-3"><h6><?php echo form_error('ptype2'); ?></h6>
-											<input type="text" name="ptype2" value="<?php echo set_value('ptype2'); ?>" class="form-control input-sm">
-										</div>
+										<label for="property_type" class="col-sm-3 col-md-3 control-label">Property Type :</label>
+										<div class="form-group col-sm-9 col-md-9">
+                                        <div class="row">                                      
+                                            <div class="col-sm-6 col-md-6"><h6><?php echo form_error('ptype1'); ?></h6>
+                                                <!--<input type="text" name="ptype1" value="<?php echo set_value('ptype1'); ?>" class="form-control input-sm">-->
+                                                <select name="property_category" id="property_category" class="form-control input-sm">
+                                                    <option value="<?php echo set_select('property_category'); ?>"></option>
+                                                    <option value="commercial_type">Commercial</option>
+                                                    <option value="residential_type">Residential</option>
+                                                </select>
+                                                <p class="help-block">Property Category</p>
+                                            </div>
+                                            <div class=" col-sm-6 col-md-6"><h6><?php echo form_error('ptype2'); ?></h6>
+                                                <!--<input type="text" name="property_type" value="<?php echo set_value('ptype2'); ?>" class="form-control input-sm">-->
+                                                <select name="property_type" id="property_type" class="form-control input-sm">
+                                                    <option value="<?php echo set_select('property_type'); ?>"></option>
+                                                    <?php foreach($property_type as $key => $value) { ?>
+                                                    <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                                <p class="help-block">Property Type</p>
+                                            </div><!-- col-sm-6 col-md-6 -->
+                                        </div><!-- row -->
+                                    </div><!-- form group -->
 									</div>
 								</div>
 								
@@ -231,7 +246,20 @@
                             }
                         
                         });
-                    });               
+                    });
+                    $("#property_category").change(function(){ 
+                            console.log($(this).val()); 
+                            /*dropdown post */
+                            $.ajax({
+                            url:"<?php echo base_url(); ?>property_owner/buildDropPropertyTypes",    
+                            data: {property_category: $(this).val()},
+                            type: "POST",
+                            success: function(data){                                                          
+                                $("#property_type").html(data);
+                            }                    
+                        });
+                    });     
+
                 });                     
                 </script>               
             </div>

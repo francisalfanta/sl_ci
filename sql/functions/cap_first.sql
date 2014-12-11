@@ -1,7 +1,6 @@
-DELIMITER $$
-USE `softlinecsdb`$$
-$$
-
+DELIMITER |
+USE `softlinecsdb`|
+|
 
 CREATE FUNCTION CAP_FIRST (input VARCHAR(255))
 
@@ -32,4 +31,5 @@ BEGIN
 
 	RETURN input;
 END
+|
 DELIMITER ;

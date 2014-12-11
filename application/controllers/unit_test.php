@@ -16,23 +16,8 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        //$query_addr = $this->owner_addr_model->get_addr_info(1);
-        $this->form_validation->set_rules('country[]', 'Country Name', 'required');
-        $this->form_validation->set_rules('city[]', 'City');
-        $this->form_validation->set_rules('comm[]', 'Community');
-        $this->form_validation->set_rules('subcom[]', 'Sub-community');
-        $this->form_validation->set_rules('addr_street[]', 'Address');
-        $tb_property_owner_id = $this->input->post('property_owner_id');
-        
-        if ($this->form_validation->run() == TRUE) {
-            // check if insert or update
-            $this->address_model->update_batch_address($tb_property_owner_id);         
-        
-        } else { // insert
-                echo "no<br>";
-                //$this->address_model->insert_address($address_data);
-        }
-        //var_dump($addr_id);   
+        $property_type = $this->commercial_types_model->get_commercial();   
+        var_dump($property_type->result_array());   
      
         //var_dump($query_addr->result());
 
@@ -305,7 +290,7 @@ class Unit_test extends CI_Controller {
         $this->db->update('property_owner', $data); 
     }
 
-     public function m_prop_owner_masterlist_for_delation(){      
+    public function m_prop_owner_masterlist_for_delation(){      
         $id = 14;
         $data = array('for_deletion' => 1);
 
@@ -313,5 +298,32 @@ class Unit_test extends CI_Controller {
         
         $this->db->where('tb_property_owner_id', $id);
         $this->db->update('property_owner_master_list', $data); 
+    }
+
+    public function c_build_drop_property_type(){
+        $category = 'commercial_type'; $this->input->post('property_category');
+        $property_type = null;
+        if(strtolower($category)=='commercial_type') {
+            $property_type = $this->commercial_types_model->get_commercial();   
+            echo 'commericial';
+        } elseif (strtolower($category)=='residential_type') {
+            echo 'residential';
+            $property_type = $this->residential_types_model->get_residential();                             
+        }
+        
+        $output = "";
+        if(count($property_type)>0){
+            foreach ($property_type->result() as $row)
+            {
+                echo 'inside foreach';
+                //here we build a dropdown item line for each query result
+                $output .= "<option value='".$row->type_name."' ".set_select('property_type').">".$row->type_name."</option>";
+            }
+            echo 'have value :';
+        } else {
+            echo 'no value: ';
+        }
+
+        echo  $output;
     }
 }

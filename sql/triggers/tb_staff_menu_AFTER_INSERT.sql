@@ -1,7 +1,12 @@
-CREATE DEFINER=`root`@`localhost` TRIGGER 
-`softlinecsdb`.`tb_staff_menu_AFTER_INSERT` 
+USE `softlinecsdb`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS softlinecsdb.tb_staff_menu_AFTER_INSERT$$
+USE `softlinecsdb`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `softlinecsdb`.`tb_staff_menu_AFTER_INSERT` 
 AFTER INSERT ON `tb_staff_menu` 
-FOR EACH ROW 
+FOR EACH ROW
 
 BEGIN
 DECLARE v_id int;
@@ -24,3 +29,5 @@ if length(NEW.parent) > 0 THEN
     values(v_id, NEW.menu);
 end if;
 END
+    $$
+DELIMITER ;

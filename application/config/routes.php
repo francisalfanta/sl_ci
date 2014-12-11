@@ -50,6 +50,7 @@ $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
 $route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';
 
+$route['property_owner/buildDropPropertyTypes'] = 'property_owner/buildDropPropertyTypes';
 $route['property_owner/create_property_owner'] = 'property_owner/create_property_owner';
 $route['property_owner/for_deletion_owner'] = 'property_owner/for_deletion_owner';
 $route['property_owner/del_addr/(:any)'] = 'property_owner/del_addr/$1';
@@ -113,6 +114,7 @@ $route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';
 $route['propertyfinder'] = 'propertyfinder';    
 
+$route['unit_test/c_build_drop_property_type'] = 'unit_test/c_build_drop_property_type';
 $route['unit_test/m_prop_owner_for_delation'] ='unit_test/m_prop_owner_for_delation';
 $route['unit_test'] = 'unit_test';
 $route['test'] = 'test';

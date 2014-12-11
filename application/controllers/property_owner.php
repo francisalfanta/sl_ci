@@ -271,7 +271,15 @@ class Property_owner extends CI_Controller {
 			// table email
 			$query_email = $this->email_model->get_email_info($property_owner_id);
 			$data['email_lists'] = $query_email->result();
-
+			// table residential
+			$query_residential_types = $this->residential_types_model->get_residential();
+			$data['residential_types'] = $query_residential_types->result();
+			// table commercial
+			$query_commercial_types = $this->commercial_types_model->get_commercial();
+			$data['commercial_types'] = $query_commercial_types->result();
+			// table country
+			$query_country = $this->country_model->get_country();
+			$data['country_nationality_list'] = $query_country->result(); 
 
 			$passport_no = null;
 			$first_name  = null;
@@ -341,6 +349,7 @@ class Property_owner extends CI_Controller {
 			$community = null;
 			$subcommunity = null;
 			$re_property = null;
+			$property_category = null;
 			$property_type = null;
 			$street = null;
 			$building_name = null;
@@ -349,6 +358,8 @@ class Property_owner extends CI_Controller {
 			$data['city'] = null;
 			$data['community'] = null;
 			$data['subcommunity'] = null;
+			$data['property_category'] = null;
+			$data['property_type'] = null;
 			$data['propertyfinder_id'] = $propertyfinder_id;
 			
 			$query_propertyfinder = $this->propertyfinder_model->get_propertyfinder_by_id($propertyfinder_id);
@@ -373,8 +384,17 @@ class Property_owner extends CI_Controller {
 					if(isset($propertyfinder['re_property'])) {
 						$re_property   = $propertyfinder['re_property'];	
 					}
+					if(isset($propertyfinder['property_category'])) {
+						$property_category = $propertyfinder['property_category'];	
+						$data['property_category'] = $property_category;
+					}
 					if(isset($propertyfinder['property_type'])) {
-						$property_type = $propertyfinder['property_type'];	
+						$property_type = $propertyfinder['property_type'];
+						if(strtolower($property_category)=='commericial_type') {
+							$data['property_type'] = $this->commercial_types_model->get_commercial();	
+						} elseif (strtolower($property_category)=='residential_type') {
+							$data['property_type'] = $this->residential_types_model->get_residential();								
+						}
 					}
 					if(isset($propertyfinder['building_name'])) {
 						$building_name = $propertyfinder['building_name'];	
@@ -424,6 +444,14 @@ class Property_owner extends CI_Controller {
 							              'class' 		=> 'form-control input-sm',
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'Property'
+							           );
+			$data['property_category_attributes'] = array(
+							              'name'        => 'property_category',
+							              'id'          => 'property_category',
+							              'value'       => $property_category,
+							              'class' 		=> 'form-control input-sm',
+							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+							              'placeholder' => 'Property Category'
 							           );
 			$data['property_type_attributes'] = array(
 							              'name'        => 'property_type',
@@ -481,6 +509,27 @@ class Property_owner extends CI_Controller {
 	public function insert_property_owner(){
 		pass;
 	}
+	//call to fill the property type dropdown with the property category
+    public function buildDropPropertyTypes() {
+        //set selected country id from POST
+        $category = $this->input->post('property_category');
+
+       	if(strtolower($category)=='commercial_type') {
+			$data['property_type'] = $this->commercial_types_model->get_commercial();				
+		} elseif (strtolower($category)=='residential_type') {			
+			$data['property_type'] = $this->residential_types_model->get_residential();								
+		}
+        
+        $output = "";
+
+        foreach ($data['property_type']->result() as $row)
+        {
+            //here we build a dropdown item line for each query result
+            $output .= "<option value='".$row->type_name."' ".set_select('property_type').">".$row->type_name."</option>";
+        }
+
+        echo  $output;
+    }
 	/*// for deletion 12/10/2014 verify first 
 	public function create_prop_owner() // insert lem form here
 	{	
@@ -992,24 +1041,34 @@ class Property_owner extends CI_Controller {
 	}
 	// tested Lem 12/10/2014
 	public function create_property_owner()
-	{
-		$this->load->helper(array('form', 'url'));
-		$this->load->library('form_validation');		
+	{		
+		$data['staffs'] 		= $this->slcs_staff_model->get_staff();
+		$data['depttasks']  	= $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections'] 		= $this->sections_model->get_sections();
+		$data['staff_menus']	= $this->staff_menu_model->get_staff_menu();
+		$data['children']    	= $this->staff_menu_model->get_child_staff_menu();
 		
-		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections'] = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
+		$data['city']        	= $this->city_model->get_city();
+		$data['community']   	= $this->community_model->get_community();
+		$data['subcommunity']	= $this->subcommunity_model->get_subcommunity();
+		$data['properties']  	= $this->propertyfinder_model->get_propertyfinder();
+		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
 		
-		$data['city']        = $this->city_model->get_city();
-		$data['community']   = $this->community_model->get_community();
-		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
-		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+		$username 			= $this->session->userdata('username'); 					
+		$data['username'] 	= ucfirst($username);	
+		$data['title'] 		= 'SoftLine | Create Property Owner';
+
+
+		// table residential 																	// added by FMA 12/11/2014
+		$query_residential_types 	= $this->residential_types_model->get_residential();
+		$data['residential_types'] 	= $query_residential_types->result();
+		// table commercial
+		$query_commercial_types 	= $this->commercial_types_model->get_commercial();
+		$data['commercial_types'] 	= $query_commercial_types->result();
+		// table country
+		$query_country 				= $this->country_model->get_country();
+		$data['country_nationality_list'] = $query_country->result();  									// end add by FMA 12/11/2014
 		
-		$username = $this->session->userdata('username'); 					
-		$data['username'] = ucfirst($username);	
-		$data['title'] = 'SoftLine | Create Property Owner';
 		
 		//$this->form_validation->set_rules('faname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
 		//$this->form_validation->set_rules('miname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
@@ -1041,175 +1100,10 @@ class Property_owner extends CI_Controller {
 				//echo $city_name;
 				//echo $community_name;
 				//echo $subcommunity_name;
-				$this->owner_addr_model->insert_addr();
-				//redirect('propertyfinder/propertyfinder', $data); //IBALIK				
-				
+				$new_property_owner_id = $this->owner_addr_model->insert_addr();
+				redirect('property_owner/view_property_owner/'.$new_property_owner_id);
 		}
 		else{
-				$data['staffs']      = $this->slcs_staff_model->get_staff();
-				$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
-				$data['sections']    = $this->sections_model->get_sections();
-
-				$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
-				$data['children']    = $this->staff_menu_model->get_child_staff_menu();
-
-				$data['city']        = $this->city_model->get_city();
-				$data['community']   = $this->community_model->get_community();
-				$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
-				$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
-				// title with word LIST will add optional JS
-				$data['title']       = 'SoftLine | Create Property Owner';	
-				$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
-
-				$username = $this->session->userdata('username'); 			
-				$data['username']    = ucfirst($username);	
-				
-				$query = $this->city_model->get_city();       
-			
-        	$city_options = array();
-        	$new = array();
-        	foreach($query as $row){
-            	$new[$row['city_name']] = $row['city_name'];
-            	$city_options = array_merge($city_options, $new);
-        	}
-
-        	// get owner address
-        	$address_list = $this->owner_addr_model->get_addr_info();
-        	$i = 1;
-        	foreach($address_list as $key => $value) {
-        		$addressname = $key.$i;
-        		$data[$addressname] = $value;
-        		$i.= 1;
-        	}
-
-        	$data['city_options'] = $city_options;       // <-- start here
-
-			$city = null;
-			$community = null;
-			$subcommunity = null;
-			$re_property = null;
-			$property_type = null;
-			$street = null;
-			$building_name = null;
-			$unit_number = null;
-			$developer_name = null;
-			$data['city'] = null;
-			$data['community'] = null;
-			$data['subcommunity'] = null;
-			$data['propertyfinder_id'] = null;
-			
-			$query_propertyfinder = null; 
-
-			if($query_propertyfinder) {
-				foreach($query_propertyfinder as $propertyfinder){
-					if(isset($propertyfinder['city'])) {
-						$city   = $propertyfinder['city'];
-						$data['city'] = $city;
-						$data['city_id'] = $this->city_model->get_city_name_only($city);						
-					}
-					if(isset($propertyfinder['community'])) {
-						$community   = $propertyfinder['community'];
-						$data['community'] = $community;
-						$data['community_id'] = $this->community_model-> get_community_name_only($community);	
-					}
-					if(isset($propertyfinder['subcommunity'])) {
-						$subcommunity   = $propertyfinder['subcommunity'];	
-						$data['subcommunity'] = $subcommunity;
-						$data['subcommunity_id'] = $this->subcommunity_model->get_subcommunity_name_only($subcommunity);
-					}
-					if(isset($propertyfinder['re_property'])) {
-						$re_property   = $propertyfinder['re_property'];	
-					}
-					if(isset($propertyfinder['property_type'])) {
-						$property_type   = $propertyfinder['property_type'];	
-					}
-					if(isset($propertyfinder['building_name'])) {
-						$building_name   = $propertyfinder['building_name'];	
-					}
-					if(isset($propertyfinder['unit_number'])) {
-						$unit_number   = $propertyfinder['unit_number'];	
-					}
-					if(isset($propertyfinder['developer_name'])) {
-						$developer_name   = $propertyfinder['developer_name'];	
-					}	
-				}
-			}
-
-			$data['city_attributes'] = array(
-							              'name'        => 'city_name',
-							              'id'          => 'city',
-							              'value'       => $city,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'City'
-							           );
-			$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
-			
-			$data['community_attributes'] = array(
-							              'name'        => 'community',
-							              'id'          => 'community',
-							              'value'       => $community,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Community'
-							           );
-			$data['subcommunity_attributes'] = array(
-							              'name'        => 'subcommunity',
-							              'id'          => 'subcommunity',
-							              'value'       => $subcommunity,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Sub-community'
-							           );
-			$data['reproperty_attributes'] = array(
-							              'name'        => 're_property',
-							              'id'          => 're_property',
-							              'value'       => $re_property,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Property'
-							           );
-			$data['property_type_attributes'] = array(
-							              'name'        => 'property_type',
-							              'id'          => 'property_type',
-							              'value'       => $property_type,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Property Type'
-							           );
-			$data['street_name_attributes'] = array(
-							              'name'        => 'street',
-							              'id'          => 'street',
-							              'value'       => $street,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Street'
-							           );
-			$data['building_name_attributes'] = array(
-							              'name'        => 'building_name',
-							              'id'          => 'building_name',
-							              'value'       => $building_name,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Building name'
-							           );
-			$data['unit_number_attributes'] = array(
-							              'name'        => 'unit_number',
-							              'id'          => 'unit_number',
-							              'value'       => $unit_number,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Unit No.'
-							           );
-			$data['developer_name_attributes'] = array(
-							              'name'        => 'developer_name',
-							              'id'          => 'developer_name',
-							              'value'       => $developer_name,
-							              'class' 		=> 'form-control',
-							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
-							              'placeholder' => 'Developers name'
-							           );
-				
 				$this->load->helper('url');
 				$this->load->view('layout/header', $data);
 				$this->load->view('layout/topbar');
@@ -1217,7 +1111,179 @@ class Property_owner extends CI_Controller {
 				$this->load->view('layout/right_sidemenu');
 				$this->load->view('property_owner/property_owner_personal_details'); //added by prime 12/07/2014			
 				$this->load->view('property_owner/property_owner_property_details'); //added by prime 12/07/2014
-				$this->load->view('layout/footer');	
+				$this->load->view('layout/footer');		
+				
+				$query = $this->city_model->get_city();       
+				/*
+	        	$city_options = array();
+	        	$new = array();
+	        	foreach($query as $row){
+	            	$new[$row['city_name']] = $row['city_name'];
+	            	$city_options = array_merge($city_options, $new);
+	        	}
+
+	        	// get owner address
+	        	$address_list = $this->owner_addr_model->get_addr_info();
+	        	$i = 1;
+	        	foreach($address_list as $key => $value) {
+	        		$addressname = $key.$i;
+	        		$data[$addressname] = $value;
+	        		$i.= 1;
+	        	}
+
+	        	$data['city_options'] = $city_options;   */    // <-- start here
+
+
+				$city = null;
+				$community = null;
+				$subcommunity = null;
+				$re_property = null;
+				$property_type = null;
+				$property_category = null;
+				$street = null;
+				$building_name = null;
+				$unit_number = null;
+				$developer_name = null;
+				$data['city'] = null;
+				$data['city_id'] = null;
+				$data['community'] = null;
+				$data['community_id'] = null;
+				$data['subcommunity'] = null;
+				$data['subcommunity_id'] = null;
+				$data['propertyfinder_id'] = null;
+				$data['property_category'] = null;
+				$data['property_type'] = null;
+				
+				$query_propertyfinder = null; 
+
+				if($query_propertyfinder) {
+					foreach($query_propertyfinder as $propertyfinder){
+						if(isset($propertyfinder['city'])) {
+							$city   = $propertyfinder['city'];
+							$data['city'] = $city;
+							$data['city_id'] = $this->city_model->get_city_name_only($city);						
+						}
+						if(isset($propertyfinder['community'])) {
+							$community   = $propertyfinder['community'];
+							$data['community'] = $community;
+							$data['community_id'] = $this->community_model-> get_community_name_only($community);	
+						}
+						if(isset($propertyfinder['subcommunity'])) {
+							$subcommunity   = $propertyfinder['subcommunity'];	
+							$data['subcommunity'] = $subcommunity;
+							$data['subcommunity_id'] = $this->subcommunity_model->get_subcommunity_name_only($subcommunity);
+						}
+						if(isset($propertyfinder['re_property'])) {
+							$re_property   = $propertyfinder['re_property'];	
+						}
+						if(isset($propertyfinder['property_category'])) {
+							$property_category = $propertyfinder['property_category'];	
+							$data['property_category'] = $property_category;
+						}
+						if(isset($propertyfinder['property_type'])) {
+							$property_type = $propertyfinder['property_type'];
+							if(strtolower($property_category)=='commericial_type') {
+								$data['property_type'] = $this->commercial_types_model->get_commercial();	
+							} elseif (strtolower($property_category)=='residential_type') {
+								$data['property_type'] = $this->residential_types_model->get_residential();								
+							}
+						}
+						if(isset($propertyfinder['building_name'])) {
+							$building_name   = $propertyfinder['building_name'];	
+						}
+						if(isset($propertyfinder['unit_number'])) {
+							$unit_number   = $propertyfinder['unit_number'];	
+						}
+						if(isset($propertyfinder['developer_name'])) {
+							$developer_name   = $propertyfinder['developer_name'];	
+						}	
+					}
+				}
+
+				$data['city_attributes'] = array(
+								              'name'        => 'city_name',
+								              'id'          => 'city',
+								              'value'       => $city,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'City'
+								           );
+				$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
+				
+				$data['community_attributes'] = array(
+								              'name'        => 'community',
+								              'id'          => 'community',
+								              'value'       => $community,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Community'
+								           );
+				$data['subcommunity_attributes'] = array(
+								              'name'        => 'subcommunity',
+								              'id'          => 'subcommunity',
+								              'value'       => $subcommunity,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Sub-community'
+								           );
+				$data['reproperty_attributes'] = array(
+								              'name'        => 're_property',
+								              'id'          => 're_property',
+								              'value'       => $re_property,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Property'
+								           );
+				$data['property_category_attributes'] = array(
+								              'name'        => 'property_category',
+								              'id'          => 'property_category',
+								              'value'       => $property_category,
+								              'class' 		=> 'form-control input-sm',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Property Category'
+								           );
+				$data['property_type_attributes'] = array(
+								              'name'        => 'property_type',
+								              'id'          => 'property_type',
+								              'value'       => $property_type,
+								              'class' 		=> 'form-control input-sm',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Property Type'
+								           );
+				$data['street_name_attributes'] = array(
+								              'name'        => 'street',
+								              'id'          => 'street',
+								              'value'       => $street,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Street'
+								           );
+				$data['building_name_attributes'] = array(
+								              'name'        => 'building_name',
+								              'id'          => 'building_name',
+								              'value'       => $building_name,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Building name'
+								           );
+				$data['unit_number_attributes'] = array(
+								              'name'        => 'unit_number',
+								              'id'          => 'unit_number',
+								              'value'       => $unit_number,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Unit No.'
+								           );
+				$data['developer_name_attributes'] = array(
+								              'name'        => 'developer_name',
+								              'id'          => 'developer_name',
+								              'value'       => $developer_name,
+								              'class' 		=> 'form-control',
+								              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
+								              'placeholder' => 'Developers name'
+								           );
+				
+				
 			}				
 	}
 }

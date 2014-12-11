@@ -17,7 +17,7 @@ class country_model extends CI_Model {
 	{
 		if($q == null) {
 			$query = $this->db->get('country');
-			return $query->result_array();
+			return $query;
 		}
 
 		$this->db->select('*');

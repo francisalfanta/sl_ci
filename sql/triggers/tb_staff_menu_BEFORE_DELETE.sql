@@ -1,5 +1,10 @@
-CREATE DEFINER=`root`@`localhost` TRIGGER 
-`softlinecsdb`.`tb_staff_menu_BEFORE_DELETE` 
+USE `softlinecsdb`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS softlinecsdb.tb_staff_menu_BEFORE_DELETE$$
+USE `softlinecsdb`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `softlinecsdb`.`tb_staff_menu_BEFORE_DELETE` 
 BEFORE DELETE ON `tb_staff_menu` 
 FOR EACH ROW
 
@@ -22,3 +27,5 @@ if length(OLD.parent) > 0 THEN
 end if;
   
 END
+    $$
+DELIMITER ;

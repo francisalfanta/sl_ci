@@ -177,18 +177,23 @@ class owner_addr_model extends CI_Model {
 		$addarray = array('tb_property_owner_id'=>$last_prop_data_id1);
 		$newoa1 = array_merge($new_prop_data_oa_11, $addarray);
 		
-		if (isset($new_pro_data_clist1) && $new_pro_data_clist1) {
+		if (isset($new_pro_data_clist1) && $new_pro_data_clist1) 
+		{
 			$this->db->insert('address', $newoa1);
-		}else if (isset($new_pro_data_city1) && $new_pro_data_city1){
-				$this->db->insert('address', $newoa1);
-			  } else if (isset($new_pro_data_add11) && $new_pro_data_add11){
-						$this->db->insert('address', $newoa1);
-					 } else if (isset($new_pro_data_add12) && $new_pro_data_add12){
-								$this->db->insert('address', $newoa1);
-							} else if (isset($new_pro_data_add13) && $new_pro_data_add13){
-										$this->db->insert('address', $newoa1);
-								   }
-		
+		} else if (isset($new_pro_data_city1) && $new_pro_data_city1)
+		{
+			$this->db->insert('address', $newoa1);
+		} else if (isset($new_pro_data_add11) && $new_pro_data_add11)
+		{
+			$this->db->insert('address', $newoa1);
+		} else if (isset($new_pro_data_add12) && $new_pro_data_add12)
+		{
+		$this->db->insert('address', $newoa1);
+		} else if (isset($new_pro_data_add13) && $new_pro_data_add13)
+		{
+			$this->db->insert('address', $newoa1);
+		}
+
 		//Owner Address 2
 		$new_pro_data_clist2 = $this->input->post('clist2');
 		$new_pro_data_city2 = $this->input->post('city2');
@@ -355,7 +360,7 @@ class owner_addr_model extends CI_Model {
 								  );
             if (isset($new_pro_data_mnum11) && $new_pro_data_mnum11) {
 			 
-				$this->db->insert('mobile', $new_prop_data_mnum1);
+				$this->db->insert('mobile_no', $new_prop_data_mnum1);
 			}
 		
 		$new_pro_data_mnum22 = $this->input->post('mnum2');		
@@ -364,7 +369,7 @@ class owner_addr_model extends CI_Model {
 								  );
             if (isset($new_pro_data_mnum22) && $new_pro_data_mnum22) {
 			 
-				$this->db->insert('mobile', $new_prop_data_mnum2);
+				$this->db->insert('mobile_no', $new_prop_data_mnum2);
 			}
 			
 		$new_pro_data_mnum33 = $this->input->post('mnum3');		
@@ -373,7 +378,7 @@ class owner_addr_model extends CI_Model {
 								  );
             if (isset($new_pro_data_mnum33) && $new_pro_data_mnum33) {
 			 
-				$this->db->insert('mobile', $new_prop_data_mnum3);
+				$this->db->insert('mobile_no', $new_prop_data_mnum3);
 			}
 			
 		$new_pro_data_mnum44 = $this->input->post('mnum4');		
@@ -382,7 +387,7 @@ class owner_addr_model extends CI_Model {
 								  );
             if (isset($new_pro_data_mnum44) && $new_pro_data_mnum44) {
 			 
-				$this->db->insert('mobile', $new_prop_data_mnum4);
+				$this->db->insert('mobile_no', $new_prop_data_mnum4);
 			}
 		
 		//Email
@@ -456,117 +461,23 @@ class owner_addr_model extends CI_Model {
 		if (isset($test) && $test) {
 			$this->db->insert('propertyfinder', $new_prop_data_details);
 		}else if (isset($test1) && $test1){
-				$this->db->insert('propertyfinder', $new_prop_data_details);
-			  } else if (isset($test2) && $test2){
-						$this->db->insert('propertyfinder', $new_prop_data_details);
-					 } else if (isset($test3) && $test3){
-								$this->db->insert('propertyfinder', $new_prop_data_details);
-							} else if (isset($test7) && $test7){
-									   $this->db->insert('propertyfinder', $new_prop_data_details);
-								   } else if (isset($test8) && $test8){
-											  $this->db->insert('propertyfinder', $new_prop_data_details);
-									      } else if (isset($test9) && $test9){
-													 $this->db->insert('propertyfinder', $new_prop_data_details);
-												 } else if (isset($test9) && $test9){
-															$this->db->insert('propertyfinder', $new_prop_data_details);
-														} else if (isset($test10) && $test10){
-																   $this->db->insert('propertyfinder', $new_prop_data_details);
-															   }
-		
-		/* $new_pro_owner_insert_data1 = array(	
-		
-			'addressCountry' => $this->input->post('clist1'),
-			'addressCity' => $this->input->post('city1'),
-			'addressCommunity' => $this->input->post('add11'),
-			'addressSubcommunity' => $this->input->post('add12'),
-			'address' => $this->input->post('add13')	
-		);
-		if(array_filter($new_pro_owner_insert_data1))
-		{
-			$this->db->insert('address', $new_pro_owner_insert_data1);
-			$last_pro_id1 = $this->db->insert_id();
-			//echo $last_pro_id1;
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test2) && $test2){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test3) && $test3){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test7) && $test7){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test8) && $test8){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test9) && $test9){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test9) && $test9){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
+		} else if (isset($test10) && $test10){
+			$this->db->insert('propertyfinder', $new_prop_data_details);
 		}
-		
-			$new_pro_owner_insert_data2 = array(			
-							
-				'addressCountry' => $this->input->post('clist2'),
-				'addressCity' => $this->input->post('city2'),
-				'addressCommunity' => $this->input->post('add21'),
-				'addressSubcommunity' => $this->input->post('add22'),
-				'address' => $this->input->post('add23')	
-			);
-			
-			if(array_filter($new_pro_owner_insert_data2))
-			{
-				$this->db->insert('address', $new_pro_owner_insert_data2);
-				$last_pro_id2 = $this->db->insert_id();
-				//echo $last_pro_id2;
-			}
-		
-				$new_pro_owner_insert_data3 = array(			
-							
-				'addressCountry' => $this->input->post('clist3'),
-				'addressCity' => $this->input->post('city3'),
-				'addressCommunity' => $this->input->post('add31'),
-				'addressSubcommunity' => $this->input->post('add32'),
-				'address' => $this->input->post('add33')	
-				);
-				if(array_filter($new_pro_owner_insert_data3))
-				{
-					$this->db->insert('address', $new_pro_owner_insert_data3);
-					$last_pro_id3 = $this->db->insert_id();
-					//echo $last_pro_id3;
-				}
-		
-					$new_pro_owner_insert_data4 = array(			
-								
-					'addressCountry' => $this->input->post('clist4'),
-					'addressCity' => $this->input->post('city4'),
-					'addressCommunity' => $this->input->post('add41'),
-					'addressSubcommunity' => $this->input->post('add42'),
-					'address' => $this->input->post('add43')	
-					);
-					if(array_filter($new_pro_owner_insert_data4))
-					{
-						$this->db->insert('address', $new_pro_owner_insert_data4);
-						$last_pro_id4 = $this->db->insert_id();
-						//echo $last_pro_id4;
-						//redirect ('propertyfinder/propertyfinder');
-						//$insert = $this->db->insert_id();
-						//return $insert;
-					}
-					
-						//$new_whole_prop_data = array(
-							  //'address_id' => $last_pro_id1,
-							 // 'telephone_no' => $this->input->post('tel1'),							
-							//'' => $this->input->post('tel2'),
-							//'' => $this->input->post('tel3'),
-							//'' => $this->input->post('tel4'), //OK
-							
-							 // 'fax_no' => $this->input->post('faxn1'),
-							//'' => $this->input->post('faxn2');
-							//'' => $this->input->post('faxn3');
-							//'' => $this->input->post('faxn4'); //OK
-							
-							//  'mobile_no' => $this->input->post('mnum1'),
-							//'' => $this->input->post('mnum2');
-							//'' => $this->input->post('mnum3');
-							//'' => $this->input->post('mnum4'); //OK
-							
-							//  'email' => $this->input->post('email1')
-							//'' => $this->input->post('email2');
-							//'' => $this->input->post('email3');
-							//'' => $this->input->post('email4');  //OK
-							
-							//$test1 = $this->input->post('na1');
-							//$test2 = $this->input->post('na2');
-							//$test3 = $this->input->post('na3');
-							//$test4 = $this->input->post('na4'); //OK						
-							
-						//);
-						
-						//$this->db->insert('nationality', $new_whole_prop_data); */
-		
+	
+		return $last_prop_data_id1;	
 	}
 }
