@@ -15,24 +15,24 @@ where tb_property_owner_id = new.tb_property_owner_id;
 
 
 if (v_telno1_id = 0) then
-update tb_property_owner_master_list
-set telephone_no1 = new.telephone_no
-where tb_property_owner_id = new.tb_property_owner_id;
+update tb_property_owner_master_list a
+set a.telephone_no1 = new.telephone_no
+where a.tb_property_owner_id = new.tb_property_owner_id;
 
 elseif (v_telno2_id=0) then
-update tb_property_owner_master_list
-set telephone_no2 = new.telephone_no
-where tb_property_owner_id = new.tb_property_owner_id;
+update tb_property_owner_master_list a
+set a.telephone_no2 = new.telephone_no
+where a.tb_property_owner_id = new.tb_property_owner_id;
 
 elseif (v_telno3_id=0) then
-update tb_property_owner_master_list
-set telephone_no3 = new.telephone_no
-where tb_property_owner_id = new.tb_property_owner_id;
+update tb_property_owner_master_list a
+set a.telephone_no3 = new.telephone_no
+where a.tb_property_owner_id = new.tb_property_owner_id;
 
 elseif (v_telno4_id=0) then
-update tb_property_owner_master_list
-set telephone_no4 = new.telephone_no
-where tb_property_owner_id = new.tb_property_owner_id;
+update tb_property_owner_master_list a
+set a.telephone_no4 = new.telephone_no
+where a.tb_property_owner_id = new.tb_property_owner_id;
 end if;
 end
 $$

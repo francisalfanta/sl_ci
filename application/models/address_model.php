@@ -36,7 +36,7 @@ class address_model extends CI_Model {
         for($x = 0; $x < sizeof($addr_id); $x++){
 	        $address_data = array(
 	            'tb_address_id' => $addr_id[$x],
-	            'address' => $address[$x], //
+	            'addressStreet' => $address[$x], //
 	            'addressSubcommunity'=> $subcommunity[$x], //
 	            'addressCommunity' => $community[$x], //
 	            'addressCity' => $city[$x],
@@ -46,7 +46,8 @@ class address_model extends CI_Model {
 	            'postofficeboxnumber' => ''
 	        );	
 	        // check if for update or insert	       
-	        if($addr_id[$x]){	       
+	        if($addr_id[$x]){	
+	        //echo '$addri_id[x]'.$addr_id[$x];       
 	        	$this->db->where('tb_address_id', $addr_id[$x]);
 	        	$status = $this->db->update('address', $address_data); // can update
 	        } else {	       

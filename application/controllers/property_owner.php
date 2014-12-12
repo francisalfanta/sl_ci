@@ -252,7 +252,7 @@ class Property_owner extends CI_Controller {
 
 			// table nationality
 			$query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
-			$data['nationality_lists'] = $query_nationality->result();
+			$data['nationality_lists'] = $query_nationality->result_array();
 			// table passport
 			$query_passport = $this->passport_model->get_passport_info($property_owner_id);
 			$data['passport_lists'] = $query_passport->result();
@@ -419,7 +419,7 @@ class Property_owner extends CI_Controller {
 							              //'style'       => 'width:100%; margin: 5px 0; padding: 5px 0;',
 							              'placeholder' => 'City'
 							           );
-			$data['city_select_attributes'] = 'name="city" id="city" class="form-control"';
+			$data['city_select_attributes'] = 'name="city" id="city" class="form-control input-sm"';
 			
 			$data['community_attributes'] = array(
 							              'name'        => 'community',
@@ -822,32 +822,46 @@ class Property_owner extends CI_Controller {
 			$this->email_model->insert_or_update_batch_email($property_owner_id);
 
 			// nationality table	
-			// nationality field 1		
+			// nationality field 1	
+			//echo 'strlen($na1_id): '.strlen($na1_id).'<br>';	
 			if(strlen($na1_id)==0) { 
+				//echo 'inside insert nat1<br>';
+				//echo '$na1: '.$na1.'<br>';
 				// insert
-                $this->nationality_model->create_prop_owner($property_owner_id, $na1);              									
+                $check = $this->nationality_model->create_prop_owner($property_owner_id, $na1); 
+                //echo '$check: '.$check.'<br>';
+              
 			} else if(strlen($na1)==0) {
+				//echo 'inside del nat1<br>';
 				// delete
 				$this->nationality_model->delete_nationality($na1_id);
-			} else if(isset($na1_id)  && $na1_id) {							
+			} else if(isset($na1_id)  && $na1_id) {
+				//echo 'inside update nat1';							
 				// update
 				$this->nationality_model->update_nationality($na1_id, $na1);	
 			}
 			// nationality field 2
+			//echo 'strlen($na2_id): '.strlen($na2_id).'<br>';
 			if(strlen($na2_id)==0) { 
+				//echo 'inside insert nat2<br>';
 				// insert
-                $this->nationality_model->create_prop_owner($property_owner_id, $na2);              									
+                $check = $this->nationality_model->create_prop_owner($property_owner_id, $na2); 
+                echo '$check: '.$check.'<br>';             									
 			} else if(strlen($na2)==0) {
 				// delete
 				$this->nationality_model->delete_nationality($na2_id);
-			} else if(isset($na2_id)  && $na2_id) {							
+			} else if(isset($na2_id)  && $na2_id) {
+				//echo 'inside update nat2<br>';							
 				// update
 				$this->nationality_model->update_nationality($na2_id, $na2);	
 			}
 			// nationality field 3
+			//echo 'strlen($na3_id): '.strlen($na3_id).'<br>';
 			if(strlen($na3_id)==0) { 
+				//echo 'inside insert nat3<br>';
 				// insert
-                $this->nationality_model->create_prop_owner($property_owner_id, $na3);              									
+                $check = $this->nationality_model->create_prop_owner($property_owner_id, $na3);   
+               	//echo '$check: '.$check.'<br>';           									
 			} else if(strlen($na3)==0) {
 				// delete
 				$this->nationality_model->delete_nationality($na3_id);
@@ -855,61 +869,81 @@ class Property_owner extends CI_Controller {
 				// update
 				$this->nationality_model->update_nationality($na3_id, $na3);	
 			}			
+			//echo 'strlen($na4_id): '.strlen($na4_id).'<br>';
 			// nationality field 4 
 			if(strlen($na4_id)==0) { 
+				//echo 'inside insert nat4<br>';
 				// insert
-                $this->nationality_model->create_prop_owner($property_owner_id, $na4);              									
+                $check = $this->nationality_model->create_prop_owner($property_owner_id, $na4);
+                //echo '$check: '.$check.'<br>';              									
 			} else if(strlen($na4)==0) {
 				// delete
 				$this->nationality_model->delete_nationality($na4_id);
-			} else if(isset($na4_id)  && $na4_id) {							
+			} else if(isset($na4_id)  && $na4_id) {	
+				//echo 'inside update na4_id<br>';						
 				// update
 				$this->nationality_model->update_nationality($na4_id, $na4);	
 			}				
-	
+			echo 'strlen($ppn1_id): '.strlen($ppn1_id).'<br>';
 			// passport table
 			if(strlen($ppn1_id)==0) { 
+				echo 'inside insert ppn1_id<br>';
 				// insert
-                $this->passport_model->create_passport($property_owner_id, $ppn1);              									
+                $check = $this->passport_model->create_passport($property_owner_id, $ppn1);   
+                echo '$check: '.$check.'<br>';              									
 			} else if(strlen($ppn1)==0) {
 				// delete
 				$this->passport_model->delete_passport($ppn1_id);
-			} else if(isset($ppn1_id)  && $ppn1_id) {							
+			} else if(isset($ppn1_id)  && $ppn1_id) {		
+				echo 'inside update ppn1_id<br>';					
 				// update
-				$this->passport_model->update_passport($ppn1_id, $ppn1);	
+				$check = $this->passport_model->update_passport($ppn1_id, $ppn1);
+				echo '$check: '.$check.'<br>';  	
 			}
-
+			echo 'strlen($ppn2_id): '.strlen($ppn2_id).'<br>';
 			if(strlen($ppn2_id)==0) { 
+				echo 'inside insert ppn2_id<br>';
 				// insert
-                $this->passport_model->create_passport($property_owner_id, $ppn2);              									
+                $check = $this->passport_model->create_passport($property_owner_id, $ppn2);  
+                echo '$check: '.$check.'<br>';               									
 			} else if(strlen($ppn2)==0) {
 				// delete
 				$this->passport_model->delete_passport($ppn2_id);
-			} else if(isset($ppn2_id)  && $ppn2_id) {							
+			} else if(isset($ppn2_id)  && $ppn2_id) {
+				echo 'inside update ppn2_id<br>';							
 				// update
-				$this->passport_model->update_passport($ppn2_id, $ppn2);	
+				$check = $this->passport_model->update_passport($ppn2_id, $ppn2);	
+				echo '$check: '.$check.'<br>';  
 			}
-
+			echo 'strlen($ppn3_id): '.strlen($ppn3_id).'<br>';
 			if(strlen($ppn3_id)==0) { 
+				echo 'inside insert ppn3_id<br>';
 				// insert
-                $this->passport_model->create_passport($property_owner_id, $ppn3);              									
+                $check = $this->passport_model->create_passport($property_owner_id, $ppn3); 
+                echo '$check: '.$check.'<br>';                									
 			} else if(strlen($ppn3)==0) {
 				// delete
 				$this->passport_model->delete_passport($ppn3_id);
-			} else if(isset($ppn3_id)  && $ppn3_id) {							
+			} else if(isset($ppn3_id)  && $ppn3_id) {	
+				echo 'inside update ppn3_id<br>';						
 				// update
-				$this->passport_model->update_passport($ppn3_id, $ppn3);	
+				$check = $this->passport_model->update_passport($ppn3_id, $ppn3);	
+				echo '$check: '.$check.'<br>';  
 			}
-
+			echo 'strlen($ppn4_id): '.strlen($ppn4_id).'<br>';
 			if(strlen($ppn4_id)==0) { 
+				echo 'inside insert ppn4_id<br>';
 				// insert
-                $this->passport_model->create_passport($property_owner_id, $ppn4);              									
+                $check = $this->passport_model->create_passport($property_owner_id, $ppn4);  
+                echo '$check: '.$check.'<br>';               									
 			} else if(strlen($ppn4)==0) {
 				// delete
 				$this->passport_model->delete_passport($ppn4_id);
 			} else if(isset($ppn4_id)  && $ppn4_id) {
+				echo 'inside update ppn4_id<br>';
 				// update
-				$this->passport_model->update_passport($ppn4_id, $ppn4);	
+				$check = $this->passport_model->update_passport($ppn4_id, $ppn4);	
+				echo '$check: '.$check.'<br>';  
 			}
 
 			$city = $this->input->post('city_name');
@@ -958,9 +992,12 @@ class Property_owner extends CI_Controller {
 
 
 			}
-			echo 'validation successful';	
+			$this->session->set_flashdata('db_msg', 'Update successful.');
+			//echo 'validation successful';				
+			redirect('property_owner/view_property_owner/'.$property_owner_id);		
 		} 	else { echo 'validation error'; }
-		//redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id);		
+		$this->session->set_flashdata('db_msg', 'Validation Error.');
+		redirect('property_owner/view_property_owner/'.$property_owner_id);		
 	}
 	
 	public function find_owner(){

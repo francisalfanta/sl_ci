@@ -16,8 +16,9 @@ class Unit_test extends CI_Controller {
 	}
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $property_type = $this->commercial_types_model->get_commercial();   
-        var_dump($property_type->result_array());   
+       $query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
+            $data['nationality_lists'] = $query_nationality; 
+        var_dump($query_nationality->result_array());   
      
         //var_dump($query_addr->result());
 

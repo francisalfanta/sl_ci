@@ -32,9 +32,16 @@ class passport_model extends CI_Model {
 			'passport_no'   		=> $passport,			
 			'tb_property_owner_id'  => $property_owner_id
 			);	
+			echo 'passport is set: ';
+			//var_dump($new_passport_insert_data);
 			$insert = $this->db->insert('passport', $new_passport_insert_data);
+			return $insert;
+			echo 'passport insert successful<br>';
+		} else {
+			echo 'passport insert not successful<br>';
+			return 0;
 		}
-		return true;						
+								
 	}
 
 	public function delete_passport($id) {

@@ -26,23 +26,31 @@ class nationality_model extends CI_Model {
 	}
 
 	public function create_prop_owner($property_owner_id, $nationality) {
-	
-		if(isset($nationality) && $nationality){
-			$new_nationality_insert_data = array(
+		
+		if(isset($nationality) && $nationality){			
+			$new_nat_insert_data = array(
 			'nationality'   		=> $nationality,			
 			'tb_property_owner_id'  => $property_owner_id
 			);	
-			$insert = $this->db->insert('nationality', $new_nationality_insert_data);
+			//var_dump($new_nat_insert_data);
+			$insert = $this->db->insert('nationality', $new_nat_insert_data);
+			//echo 'insert successful: <br>';
+			return true;
+		} else {
+			//echo 'not successful: <br>';
+			return 0;
 		}
-		return true;						
+								
 	}
 
 	public function delete_nationality($id) {
+		//echo 'delete nat';
 		$this->db->where('tb_nationality_id', $id);
 		$this->db->delete('nationality');
 	}
 
-	public function update_nationality($tb_nationality_id, $nationality) {	
+	public function update_nationality($tb_nationality_id, $nationality) {
+		//echo 'update nat';	
 		$new_nationality_update_data = array(		
 		'nationality'			=> $nationality,			
 		'tb_property_owner_id'  => $this->input->post('property_owner_id')
@@ -58,7 +66,7 @@ class nationality_model extends CI_Model {
 		if (is_null($tb_property_owner_id))
 		{
 			$query = $this->db->get('nationality');
-			return $query->result();
+			return $query;
 		}
 		$this->db->where('tb_property_owner_id', $tb_property_owner_id );
 		$query = $this->db->get('nationality');

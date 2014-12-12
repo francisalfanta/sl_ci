@@ -13,8 +13,8 @@
             	<!-- Page Heading End-->   
                 <?php if($this->uri->segment(3,0) > 0){
                         // For edit or view
-                        //$action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
-                        $action = 'unit_test/c_build_drop_property_type';
+                        $action = 'property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0);
+                        //$action = 'unit_test/c_build_drop_property_type';
                         echo form_open($action, $form_attributes);
                         echo '<input type="hidden" name="property_owner_id" value="'.$this->uri->segment(3,0).'" id="input-'.$this->uri->segment(3,0).'" >';                       
                       } else {
@@ -26,8 +26,9 @@
 					<div class="portlets">
                         <div class="widget">
                             <div class="widget-header">
-                                <h2>Personal Details</h2>
+                                <h2>Personal Details </h2>
                                 <div class="additional-btn">
+                                    <span class="db-msg"><?php if($this->session->flashdata('db_msg')){echo $this->session->flashdata('db_msg');}?></span>
                                     <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>                                 
                                     <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                     <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
@@ -39,34 +40,32 @@
                                         echo "<div id='errors'>" . validation_errors() . "</div>" ;
                                 }?>
 
-                                <div class="row" style="width:100%;">
-                                  
-                                    <div class="col-md-12 portlets container">
-                                        <div class="form-group col-lg-4"> <!-- First Name -->
-                                            <label class="sr-only" for="fn_name">First Name</label>
-                                            <?php echo form_input($fn_attributes); echo form_error('first_name'); ?>
-                                        </div><!-- form-group -->
+                                <div class="row">
+                                    <div class="form-group col-md-3 col-lg-3 input-sm"> <!-- First Name -->
+                                        <label class="sr-only input-sm" for="fn_name">First Name</label>
+                                        <?php echo form_input($fn_attributes); echo form_error('first_name'); ?>
+                                        <p class="help-block" >First Name</p>
+                                    </div><!-- form-group -->
 
-                                        <div class="form-group col-lg-4"> <!-- Middle Name -->
-                                            <label class="sr-only" for="mn_name">Middle Name</label>
-                                            <?php echo form_input($mn_attributes); echo form_error('middle_name'); ?>
-                                        </div><!-- form-group -->
+                                    <div class="form-group col-md-3 col-lg-3 input-sm"> <!-- Middle Name -->
+                                        <label class="sr-only input-sm" for="mn_name">Middle Name</label>
+                                        <?php echo form_input($mn_attributes); echo form_error('middle_name'); ?>
+                                        <p class="help-block" >Middle Name</p>
+                                    </div><!-- form-group -->
 
-                                        <div class="form-group col-lg-4"> <!-- Last Name -->
-                                            <label class="sr-only" for="mn_name">Last Name</label>
-                                            <?php echo form_input($ln_attributes); echo form_error('last_name'); ?>
-                                        </div><!-- form-group -->
-                                        <div class="form-group col-lg-4"> <!-- Status -->
-                                            <label class="sr-only" for="status">Status</label>
-                                            <select class="form-control input-sm" name="na4">
-                                                <option value="" <?php echo set_select('na4', '', TRUE); ?> >Select a Nationality</option>
-                                                <?php foreach($country_nationality_list as $nationality) { 
-                                                    echo '<option value="'.$nationality->nationality.'">'.$nationality->nationality.'</option>';
-                                                } ?>
-                                            </select>
-                                        </div><!-- form-group -->
-
-                                    </div><!-- col-md-12 col-lg-12 portlets -->
+                                    <div class="form-group col-md-3 col-lg-3 input-sm"> <!-- Last Name -->
+                                        <label class="sr-only input-sm" for="mn_name">Last Name</label>
+                                        <?php echo form_input($ln_attributes); echo form_error('last_name'); ?>
+                                        <p class="help-block" >Last Name</p>
+                                    </div><!-- form-group -->
+                                    <div class="form-group col-md-3 col-lg-3 input-sm"> <!-- Status -->                                            
+                                        <select class="form-control input-sm" name="status">
+                                            <option value="" <?php echo set_select('status', ''); ?>>Status</option>
+                                            <option value="1" <?php echo set_select('status', ''); ?>>Active</option>
+                                            <option value="0" <?php echo set_select('status', ''); ?>>Suspended</option>                                                
+                                        </select>
+                                        <p class="help-block" >Status</p>
+                                    </div><!-- form-group -->                                    
                                 </div><!-- row -->                               
                             </div><!-- widget-content padding -->
                                
@@ -79,65 +78,93 @@
                             </div>
                             <div class="widget-content padding">
                                 <div class="row">
-                                    <div class="col-md-12">   
-                                        
-                                        <div class="form-group">
+                                    <div class="col-md-12"> 
+                                        <div class="form-group" >
                                             <div class="row">                                            
-                                                <div class="col-md-3"><h6><?php echo form_error('na1'); ?></h6><input type="text" name="na1" value="<?php foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality->nationality; } echo set_value('na1'); ?>" class="form-control input-sm" placeholder="Nationality 1"></div>
-                                                <input type="hidden" name="na1_id" value="<?php foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality->tb_nationality_id; }?>"/>                                           
-                                                <div class="col-md-3"><h6><?php echo form_error('na2'); ?></h6><input type="text" name="na2" value="<?php foreach(array_slice($nationality_lists,1,1) as $nationality){ echo $nationality->nationality;} echo set_value('na2'); ?>" class="form-control input-sm" placeholder="Nationality (2)"></div>
-                                                <input type="hidden" name="na2_id" value="<?php foreach(array_slice($nationality_lists,1,1) as $nationality){ echo $nationality->tb_nationality_id;} ?>"/>                                            
-                                                <div class="col-md-3"><h6><?php echo form_error('na3'); ?></h6><input type="text" name="na3" value="<?php foreach(array_slice($nationality_lists,2,1) as $nationality){ echo $nationality->nationality; } echo set_value('na3'); ?>" class="form-control input-sm" placeholder="Nationality (3)"></div>
-                                                <input type="hidden" name="na3_id" value="<?php foreach(array_slice($nationality_lists,2,1) as $nationality){  echo $nationality->tb_nationality_id; }?>"/>                                            
-                                                <div class="col-md-3"><h6><?php echo form_error('na4'); ?></h6><input type="text" name="na4" value="<?php foreach(array_slice($nationality_lists,3,1) as $nationality){ echo $nationality->nationality; } echo set_value('na4'); ?>" class="form-control input-sm" placeholder="Nationality (4)"></div>
-                                                <input type="hidden" name="na4_id" value="<?php foreach(array_slice($nationality_lists,3,1) as $nationality){  echo $nationality->tb_nationality_id; } ?>"/>                                            
+                                                <div class="col-md-3"><h6><?php echo form_error('na1'); ?></h6>
+                                                    <input type="hidden" name="na1_id" value="<?php foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality['tb_nationality_id']; }?>"/>
+                                                    <select class="form-control input-sm" name="na1" title="select Remove Nationality to delete the item">                                                        
+                                                        <option value="<?php if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="">Remove Nationality</option> 
+                                                    <?php foreach($country_nationality_list as $nationality) { 
+                                                      echo '<option value="'.$nationality->nationality.'"'.set_select('na1', '').'>'.$nationality->nationality.'</option>';
+                                                     } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3"><h6><?php echo form_error('na2'); ?></h6>
+                                                    <input type="hidden" name="na2_id" value="<?php foreach(array_slice($nationality_lists,1,1) as $nationality){ echo $nationality['tb_nationality_id'];} ?>"/>     
+                                                    <select class="form-control input-sm" name="na2" title="select Remove Nationality to delete the item">
+                                                        <option value="<?php if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="">Remove Nationality</option> 
+                                                    <?php foreach($country_nationality_list as $nationality) { 
+                                                      echo '<option value="'.$nationality->nationality.'"'.set_select('na2', '').'>'.$nationality->nationality.'</option>';
+                                                     } ?>
+                                                    </select>
+                                                </div>                                        
+                                                <div class="col-md-3"><h6><?php echo form_error('na3'); ?></h6>
+                                                    <input type="hidden" name="na3_id" value="<?php foreach(array_slice($nationality_lists,2,1) as $nationality){  echo $nationality['tb_nationality_id']; }?>"/>            
+                                                    <select class="form-control input-sm" name="na3" title="select Remove Nationality to delete the item">
+                                                        <option value="<?php if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="">Remove Nationality</option>
+                                                    <?php foreach($country_nationality_list as $nationality) { 
+                                                      echo '<option value="'.$nationality->nationality.'"'.set_select('na3', '').'>'.$nationality->nationality.'</option>';
+                                                     } ?>
+                                                    </select>
+                                                </div>                                                                                              
+                                                <div class="col-md-3"><h6><?php echo form_error('na4'); ?></h6>
+                                                    <input type="hidden" name="na4_id" value="<?php foreach(array_slice($nationality_lists,3,1) as $nationality){  echo $nationality['tb_nationality_id']; } ?>"/>       
+                                                    <select class="form-control input-sm" name="na4" title="select Remove Nationality to delete the item">
+                                                        <option value="<?php if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="">Remove Nationality</option>                                                   
+                                                    <?php foreach($country_nationality_list as $nationality) { 
+                                                      echo '<option value="'.$nationality->nationality.'"'.set_select('na4', '').'>'.$nationality->nationality.'</option>';
+                                                     } ?>
+                                                    </select>
+
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" style="margin-top: -10px;">
                                             <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php if(count($passport_lists)>0) {foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn1'); ?>" class="form-control input-sm" placeholder="Passport No.(1)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php if(count($passport_lists)>0) {foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn1'); ?>" title="clear the box to remove" class="form-control input-sm" placeholder="Passport No.(1)"></div>
                                                 <input type="hidden" name="ppn1_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->tb_passport_id; }}?>"/>                                           
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn2'); ?>" class="form-control input-sm" placeholder="Passport No.(2)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn2'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(2)"></div>
                                                 <input type="hidden" name="ppn2_id" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn3'); ?>" class="form-control input-sm" placeholder="Passport No.(3)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn3'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(3)"></div>
                                                 <input type="hidden" name="ppn3_id" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn4'); ?>" class="form-control input-sm" placeholder="Passport No.(4)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn4'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(4)"></div>
                                                 <input type="hidden" name="ppn4_id" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
                                             </div>
                                         </div>
 
                                         <div id="addrDiv" class="widget">
                     <!-- Address -->    <?php $i=1; if(count($address_lists)==0) { ?>
-                                            <span> <input type="hidden" name="address_id[]" value=""/> 
-                                                                                  
-                                            <div class="widget-header transparent">
+                                            <span> <input type="hidden" name="address_id[]" value=""/>
+                                            <div class="widget-header" >
                                                 <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 1</h2>
                                                 <div class="additional-btn">                                
                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="widget-content padding">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">
-                                                                        <p class="help-block">required<?php echo form_error('country[]'); ?></p>
-                                                                    </div> 
-                                                                    <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo set_value('city'); ?>" class="form-control input-sm" placeholder="City"></div>
-                                                                    
-                                                                </div>
-                                                            </div>                                       
-                                                            
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
-                                                                    <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo set_value('subcom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
-                                                                    <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
-                                                                </div>
-                                                            </div>                                                                  
-                                                        </div>                          
-                                                    </div>                               
+                                            <div class="widget-content" style="margin-top: -80px;">
+                                                <div class="row">                                                  
+                                                    <div class="form-group" >
+                                                        <div class="row">
+                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">
+                                                                <p class="help-block">required<?php echo form_error('country[]'); ?></p>
+                                                            </div> 
+                                                            <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo set_value('city'); ?>" class="form-control input-sm" placeholder="City"></div>
+                                                            <p class="help-block" style="margin-top: -2px;">* required<?php echo form_error('country[]'); ?></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group"  style="margin-top: -30px;">
+                                                        <div class="row">
+                                                            <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo set_value('subcom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                                        </div>
+                                                    </div>           
+                                                </div>                               
                                             </div>
                                             </span>
                                             <?php } else { foreach($address_lists as $address){ ?> 
@@ -150,42 +177,42 @@
                                                 </div>
                                             </div>
                                             <div class="widget-content padding">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo $address->addressCountry; echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">
-                                                                        <p class="help-block">* required<?php echo form_error('country[]'); ?></p>
-                                                                    </div>
-                                                                    <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo $address->addressCity; echo set_value('city[]'); ?>" class="form-control input-sm" placeholder="City"></div>
-                                                                    
-                                                                </div>
-                                                            </div>                                       
-                                                            
-                                                            <div class="form-group">
-                                                                <div class="row">
-                                                                    <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo $address->addressCommunity; echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
-                                                                    <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo $address->addressSubcommunity; echo set_value('subocom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
-                                                                    <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo $address->address; echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
-                                                                    <div  class="btn btn-sm" style="margin-top: 11px; margin-left: -12px;" ><a href="<?php $url='property_owner/del_addr/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$address->tb_address_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Address <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </div>
-                                                                </div>
-                                                            </div>                                                                  
-                                                        </div>                          
-
-                                                    </div>                               
+                                                <div class="row">                                                
+                                                    <div class="form-group" style="margin-top: -20px; padding-top:-20px;">
+                                                        <div class="row">
+                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6>
+                                                                <!--<input type="text" name="country[]" value="<?php echo $address->addressCountry; echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">-->
+                                                                <select class="form-control input-sm" name="country[]">
+                                                                <option value="" <?php echo set_select('country[]', '', TRUE); ?> >Select a Country</option>
+                                                                <?php foreach($country_nationality_list as $nationality) { 
+                                                                    echo '<option value="'.$nationality->country_name.'">'.$nationality->country_name.'</option>';
+                                                                } ?>
+                                                                </select>
+                                                                <p class="help-block" style="margin-top: -2px;">* required<?php echo form_error('country[]'); ?></p>
+                                                            </div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo $address->addressCity; echo set_value('city[]'); ?>" class="form-control input-sm" placeholder="City"></div>                                                                    
+                                                        </div>
+                                                    </div>  
+                                                    <div class="form-group" style="margin-top: -30px;">
+                                                        <div class="row">
+                                                            <div class="col-md-3"><h6><?php echo form_error('comm[]'); ?></h6><input type="text" name="comm[]" value="<?php echo $address->addressCommunity; echo set_value('comm[]'); ?>" class="form-control input-sm" placeholder="Community"></div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('subcom[]'); ?></h6><input type="text" name="subcom[]" value="<?php echo $address->addressSubcommunity; echo set_value('subocom[]'); ?>" class="form-control input-sm" placeholder="Sub Community"></div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('addr_street[]'); ?></h6><input type="text" name="addr_street[]" value="<?php echo $address->addressStreet; echo set_value('addr_street[]'); ?>" class="form-control input-sm" placeholder="Street"></div>
+                                                            <div  class="btn btn-sm" style="margin-top: 11px; margin-left: -12px;" ><a href="<?php $url='property_owner/del_addr/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$address->tb_address_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Address <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>                               
                                             </div>
                                             </span>
                                             <?php ++$i;}} ?>                             
-                                        </div> 
-
-                                        
-                                            <div class="form-group"  style="margin-left: 12px;">
-                                                <div class="row">
-                                                    <div id="addaddrbtn">
-                                                        <button class="btn btn-green-1">Add Another Address</button>
-                                                    </div>
+                                        </div>                                         
+                                        <div class="form-group"  style="margin-left: 15px; margin-top:-35px; position: absolute;">
+                                            <div class="row">
+                                                <div id="addaddrbtn">
+                                                    <button class="btn btn-green-1 btn-xs">Add Another Address</button>
                                                 </div>
                                             </div>
+                                        </div>
                     <!-- / Address -->  
                     <!-- Telephone -->
                                         <div class="widget" id="Telephone">
@@ -216,7 +243,7 @@
                                                             <?php ++$i;} ?>                                               
                                                             </div>                                                                                        
                                                         </div>    
-                                                        <div id="addTelnoBtn"><a href=""  class="btn btn-green-1" >Add Another Telephone No</a></div>                                                          
+                                                        <div id="addTelnoBtn"><a href=""  class="btn btn-green-1 btn-xs" >Add Another Telephone No</a></div>                                                          
                                                     </div>                          
                                                 </div>
                                             </div>                          
@@ -249,7 +276,7 @@
                                                             <?php ++$i; } ?>
                                                             </div>
                                                         </div> 
-                                                        <div id="addFaxnoBtn"><a href=""  class="btn btn-green-1" >Add Another Fax No</a></div>                                                               
+                                                        <div id="addFaxnoBtn"><a href=""  class="btn btn-green-1 btn-xs" >Add Another Fax No</a></div>                                                               
                                                     </div>                          
                                                 </div>
                                             </div>                          
@@ -282,7 +309,7 @@
                                                             <?php  ++$i; } ?>
                                                             </div>
                                                         </div>
-                                                        <div id="addMobilenoBtn"><a href=""  class="btn btn-green-1" >Add Another Mobile No</a></div>                                                              
+                                                        <div id="addMobilenoBtn"><a href=""  class="btn btn-green-1 btn-xs" >Add Another Mobile No</a></div>                                                              
                                                     </div>                          
                                                 </div>
                                             </div>                          
@@ -315,7 +342,7 @@
                                                             
                                                             </div><!-- row -->
                                                         </div><!-- form-group -->
-                                                        <div id="addEmailBtn"><a href=""  class="btn btn-green-1" >Add Another Email</a></div>                                                                                                                             
+                                                        <div id="addEmailBtn"><a href=""  class="btn btn-green-1 btn-xs" >Add Another Email</a></div>                                                                                                                             
                                                     </div><!-- col-md-12 -->   
                                                 </div><!-- row -->
                                             </div><!-- widget-content padding -->          
@@ -328,7 +355,7 @@
                     </div>
 				</div><!-- row -->
                 <!-- Property Details Start here --> 
-                <div id="property_details_form" class="col-sm-6 portlets"> 
+                <div id="property_details_form" class="col-sm-6 portlets" width="100%"> 
                     <div class="widget">
                         <div class="widget-header">
                             <h2><strong>Property Details</strong> Form <?php echo $city; ?></h2>
@@ -342,7 +369,7 @@
                         <div class="widget-content padding"> 
                             <div class="form-group"> <!-- City -->
                                 <div class="row">
-                                    <label for="city" class="col-sm-3 col-md-3 control-label">Property Emirate :</label>
+                                    <label for="city" class="col-sm-3 col-md-3 control-label input-sm">Property Emirate:</label>
                                     <div class="col-sm-9">
                                         <select name="city_name" id="city" tabindex="1" class="form-control">
                                             
@@ -364,31 +391,31 @@
 
                             <div class="form-group"> <!-- Community -->
                                 <div class="row">
-                                    <label for="community" class="col-sm-3 col-md-3 control-label">Property Community :</label>
+                                    <label for="community" class="col-sm-3 col-md-3 control-label input-sm">Property Community :</label>
                                     <div class="col-sm-9">
                                         <select name="community" id="cityDrp" class="form-control">
-                                        <option value="<?php if($community){ echo $community_id; } ?>" > <?php if($community){ echo $community; }  else { echo 'Please select first City'; } ?></option> 
+                                        <option value="<?php if($community){ echo $community_id; echo set_select('community', $community_id); } ?>" > <?php if($community){ echo $community;  echo set_select('community', $community); }  else { echo 'Please select first City'; } ?></option> 
                                         </select>
-                                        <p class="help-block"><?php echo form_error('community'); ?></p>
+                                        <span class="help-block"><?php echo form_error('community'); ?></span>
                                     </div>
                                 </div><!-- row -->
                             </div><!-- form-group -->
 
                             <div class="form-group"> <!-- Sub-community -->
                                 <div class="row">
-                                    <label for="subcommunity" class="col-sm-3 col-md-3 control-label">Property Sub-community :</label>
+                                    <label for="subcommunity" class="col-sm-3 col-md-3 control-label input-sm">Property Sub-community :</label>
                                     <div class="col-sm-9">
                                         <select name="subcommunity" id="subcommunity" class="form-control">
-                                        <option value="<?php if($subcommunity){ echo $subcommunity_id; } ?>" > <?php if($subcommunity){ echo $subcommunity; }  else { echo 'Please select first Community'; } ?></option> 
+                                        <option value="<?php if($subcommunity){ echo $subcommunity_id;  echo set_select('subcommunity', $subcommunity_id); } ?>" > <?php if($subcommunity){ echo $subcommunity;  echo set_select('subcommunity', $subcommunity); }  else { echo 'Please select first Community'; } ?></option> 
                                         </select>
-                                        <p class="help-block"><?php echo form_error('subcommunity'); ?> </p>
+                                        <span class="help-block"><?php echo form_error('subcommunity'); ?> </span>
                                     </div>
                                 </div><!-- row -->
                             </div><!-- form-group -->
 
                             <div class="form-group"> <!-- Property -->
                                 <div class="row">
-                                    <label for="reproperty" class="col-sm-3 col-md-3 control-label">Property Name :</label>
+                                    <label for="reproperty" class="col-sm-3 col-md-3 control-label input-sm">Property Name :</label>
                                     <div class="col-sm-9">
                                     <?php echo form_input($reproperty_attributes); ?>
                                     <p class="help-block"><?php echo form_error('re_property'); ?> </p>
@@ -398,39 +425,42 @@
 
                             <div class="form-group"> <!-- Property Type -->
                                 <div class="row">
-                                    <label for="property_type" class="col-sm-3 col-md-3 control-label">Property Type :</label>
+                                    <label for="property_type" class="col-sm-3 col-md-3 control-label input-sm"  style="margin-top: -10px;">Property Type :</label>
                                     <!--<div class="col-sm-9">
                                     <?php echo form_input($property_type_attributes); ?>
                                     <p class="help-block"> </p>
                                     </div>-->
-                                    <div class="form-group col-sm-9 col-md-9">
+                                    <div class="form-group col-sm-9 col-md-9" style="margin-top: -20px;">
                                         <div class="row">                                      
                                             <div class="col-sm-6 col-md-6"><h6><?php echo form_error('ptype1'); ?></h6>
                                                 <!--<input type="text" name="ptype1" value="<?php echo set_value('ptype1'); ?>" class="form-control input-sm">-->
                                                 <select name="property_category" id="property_category" class="form-control input-sm">
-                                                    <option value="<?php if($property_category){echo $property_category;} echo set_select('property_category'); ?>"><?php echo $property_category; ?></option>
+                                                    <option value="<?php if($property_category){echo $property_category;} echo set_select('property_category', $property_category); ?>"><?php echo $property_category; ?></option>
                                                     <option value="commercial_type">Commercial</option>
                                                     <option value="residential_type">Residential</option>
                                                 </select>
+                                                <span class="help-block">Property Category</span>
                                             </div>
                                             <div class=" col-sm-6 col-md-6"><h6><?php echo form_error('ptype2'); ?></h6>
                                                 <!--<input type="text" name="property_type" value="<?php echo set_value('ptype2'); ?>" class="form-control input-sm">-->
-                                                <select name="property_type" id="property_type" class="form-control">
+                                                <select name="property_type" id="property_type" class="form-control input-sm">
+                                                    <option value="<?php if($property_type){echo $property_type;} echo set_select('property_type', $property_type); ?>"><?php echo $property_category; ?></option>
                                                     <option value="<?php echo $property_type; echo set_select('property_type'); ?>"><?php echo $property_type; ?></option>
                                                     <?php foreach($property_type as $key => $value) { ?>
                                                     <option value="<?php echo $value; ?>"><?php echo $value; ?></option>
                                                     <?php } ?>
                                                 </select>
+                                                <span class="help-block">Property Type</span>
                                             </div><!-- col-sm-6 col-md-6 -->
                                         </div><!-- row -->
                                     </div><!-- form group -->
                                 </div><!-- row -->
                             </div><!-- form-group -->
 
-                            <div class="form-group"> <!-- Street -->
+                            <div class="form-group" style="margin-top: -40px;"> <!-- Street -->
                                 <div class="row">
-                                    <label for="street" class="col-sm-3 col-md-3 control-label">Street :</label>
-                                    <div class="col-sm-9">
+                                    <label for="street" class="col-sm-3 col-md-3 control-label input-sm">Street :</label>
+                                    <div class="col-sm-9 input-sm">
                                     <?php echo form_input($street_name_attributes); ?>
                                     <p class="help-block"> </p>
                                     </div>
@@ -439,8 +469,8 @@
 
                             <div class="form-group"> <!-- Building name -->
                                 <div class="row">
-                                    <label for="building_name" class="col-sm-3 col-md-3 control-label">Building name :</label>
-                                    <div class="col-sm-9">
+                                    <label for="building_name" class="col-sm-3 col-md-3 control-label input-sm">Building name :</label>
+                                    <div class="col-sm-9 input-sm">
                                     <?php echo form_input($building_name_attributes); ?>
                                     <p class="help-block"> </p>
                                     </div>
@@ -449,8 +479,8 @@
 
                             <div class="form-group"> <!-- Unit no -->
                                 <div class="row">
-                                    <label for="unit_number" class="col-sm-3 col-md-3 control-label">Unit no :</label>
-                                    <div class="col-sm-9">
+                                    <label for="unit_number" class="col-sm-3 col-md-3 control-label input-sm">Unit no :</label>
+                                    <div class="col-sm-9 input-sm">
                                     <?php echo form_input($unit_number_attributes); ?>
                                     <p class="help-block"> </p>
                                     </div>
@@ -459,8 +489,8 @@
 
                             <div class="form-group"> <!-- Developer name -->
                                 <div class="row">
-                                    <label for="developer_name" class="col-sm-3 col-md-3 control-label">Developer name :</label>
-                                    <div class="col-sm-9">
+                                    <label for="developer_name" class="col-sm-3 col-md-3 control-label input-sm">Developer name :</label>
+                                    <div class="col-sm-9 input-sm">
                                     <?php echo form_input($developer_name_attributes); ?>
                                     <p class="help-block"> </p>
                                     </div>
@@ -507,7 +537,7 @@
                             <div class="form-group">
                                 <div class="row">                               
                                     <div class="col-md-6">
-                                      <textarea name="note" style="resize:none; height:200px; width:330px"></textarea>
+                                      <textarea name="note" style="resize:none; height:230px; width:330px"></textarea>
                                     </div>
                                 </div><!-- row -->
                             </div><!-- form-group -->
@@ -515,8 +545,8 @@
                     </div><!-- widget -->
                 </div><!-- portlet -->
                 
-                <div class="col-sm-6 portlets"> 
-                    <div class="widget">                                      
+                <div class="col-sm-6 portlets"  style="margin-top: -100px;"> 
+                    <div class="widget" >                                      
                     <div class="widget-content padding ">                                                              
                         <div class="form-group">
                             <div id="formsubmit" style="text-align:right;">
@@ -552,9 +582,14 @@
                     var m = $('#mobilenoDiv span').size() + 1;
                     var e = $('#emailDiv span').size() + 1;
 
+                    // db_msg
+                    $('.db_msg').on('load',function(){
+                        $(this).fadeOut(60000);
+                    })                   
+
                     // Add Address Button
                     $('#addaddrbtn').on('click', function() {
-                            $('<span><input type="hidden" name="address_id[]" value=""/> <div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding"><div class="row"><div class="col-md-12"><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("country[]"); ?></h6><input type="text" name="country[]" value="" class="form-control input-sm" placeholder="Country"></div><div class="col-md-3"><h6><?php echo form_error("city[]"); ?></h6><input type="text" name="city[]" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("comm[]"); ?></h6><input type="text" name="comm[]" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("subcom[]"); ?></h6><input type="text" name="subcom[]" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("addr_street[]"); ?></h6><input type="text" name="addr_street[]" value="" class="form-control input-sm" placeholder="Street"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1">Remove</a></div></div></div></div></div></div></span>').appendTo(addrDiv);
+                            $('<span><input type="hidden" name="address_id[]" value=""/> <div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding"><div class="row"><div class="col-md-12"><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("country[]"); ?></h6><input type="text" name="country[]" value="" class="form-control input-sm" placeholder="Country"></div><div class="col-md-3"><h6><?php echo form_error("city[]"); ?></h6><input type="text" name="city[]" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("comm[]"); ?></h6><input type="text" name="comm[]" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("subcom[]"); ?></h6><input type="text" name="subcom[]" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("addr_street[]"); ?></h6><input type="text" name="addr_street[]" value="" class="form-control input-sm" placeholder="Street"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs">Remove</a></div></div></div></div></div></div></span>').appendTo(addrDiv);
                             i++;
                         return false;
                     });
@@ -567,7 +602,7 @@
                     });
                     // Add Telephone Button
                     $('#addTelnoBtn').on('click', function() {
-                            $('<span><input type="hidden" name="telno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("telephone_no[]"); ?></h6><input type="text" name="telephone_no[]" value="<?php echo set_value("telephone_no[]"); ?>" class="form-control input-sm" placeholder="'+t+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remTelno">Remove</a></div></div></div></div></div></div></span>').appendTo(telnoDiv);                        
+                            $('<span><input type="hidden" name="telno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("telephone_no[]"); ?></h6><input type="text" name="telephone_no[]" value="<?php echo set_value("telephone_no[]"); ?>" class="form-control input-sm" placeholder="'+t+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs" id="remTelno">Remove</a></div></div></div></div></div></div></span>').appendTo(telnoDiv);                        
                             t++;
                         return false;
                     });
@@ -581,7 +616,7 @@
                     });
                     // Add Fax Button
                     $('#addFaxnoBtn').on('click', function() {
-                            $('<span><input type="hidden" name="faxno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("fax_no[]"); ?></h6><input type="text" name="fax_no[]" value="" class="form-control input-sm" placeholder="'+f+'."></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remFaxno">Remove</a></div></div></div></div></div></div></span>').appendTo(faxnoDiv);                        
+                            $('<span><input type="hidden" name="faxno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("fax_no[]"); ?></h6><input type="text" name="fax_no[]" value="" class="form-control input-sm" placeholder="'+f+'."></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs" id="remFaxno">Remove</a></div></div></div></div></div></div></span>').appendTo(faxnoDiv);                        
                             f++;
                         return false;
                     });
@@ -595,7 +630,7 @@
                     });
                     // Add Mobile Button
                     $('#addMobilenoBtn').on('click', function() {
-                            $('<span><input type="hidden" name="mobileno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("mobno[]"); ?></h6><input type="text" name="mobno[]" value="" class="form-control input-sm" placeholder="'+m+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remMobileno">Remove</a></div></div></div></div></div></div></span>').appendTo(mobilenoDiv);                        
+                            $('<span><input type="hidden" name="mobileno_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("mobno[]"); ?></h6><input type="text" name="mobno[]" value="" class="form-control input-sm" placeholder="'+m+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs" id="remMobileno">Remove</a></div></div></div></div></div></div></span>').appendTo(mobilenoDiv);                        
                             m++;
                         return false;
                     });
@@ -609,7 +644,7 @@
                     });
                     // Add Email Button
                     $('#addEmailBtn').on('click', function() { 
-                            $('<span><input type="hidden" name="email_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("email_array[]"); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="'+e+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1" id="remEmailno">Remove</a></div></div></div></div></div></div></span>').appendTo(emailDiv);                        
+                            $('<span><input type="hidden" name="email_id[]" value=""/><div class="col-md-3"><h6><?php echo form_error("email_array[]"); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="'+e+'"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs" id="remEmailno">Remove</a></div></div></div></div></div></div></span>').appendTo(emailDiv);                        
                             e++;
                         return false;
                     });
