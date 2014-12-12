@@ -33,7 +33,7 @@ class address_model extends CI_Model {
 
        	$address_data = array();
        	      
-        for($x = 0; $x < sizeof($addr_id); $x++){
+        for($x = 0; $x < sizeof($country); $x++){
 	        $address_data = array(
 	            'tb_address_id' => $addr_id[$x],
 	            'addressStreet' => $address[$x], //

@@ -12,10 +12,16 @@ class Unit_test extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('propertyfinder_model');
+        $this->load->library('unit_test');
         //$this->load->helpers('sql_sql_helper');
 	}
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
+        //$this->unit->run(funtion(paramter),expected result, name of specific test);
+        //$this->load->view('tests');
+        // in view
+        // echo $this->unit->report();
+
        $query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
             $data['nationality_lists'] = $query_nationality; 
         var_dump($query_nationality->result_array());   

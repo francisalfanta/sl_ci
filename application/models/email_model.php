@@ -31,7 +31,7 @@ class email_model extends CI_Model {
 
         $email_data = array();
               
-        for($x = 0; $x < sizeof($email_id); $x++){
+        for($x = 0; $x < sizeof($email); $x++){
             $email_data = array(
                 'tb_email_id'           => $email_id[$x], 
                 'email'                 => $email[$x],                  

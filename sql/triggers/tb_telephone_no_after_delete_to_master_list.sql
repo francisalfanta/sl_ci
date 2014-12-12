@@ -10,25 +10,25 @@ FOR EACH ROW
 begin
 update tb_property_owner_master_list a
 set a.telephone_no1 = null,
-    a.tb_telephone_no_id1 = null
+    a.tb_telephone_no_id1 = 0
 where a.tb_property_owner_id = old.tb_property_owner_id
 and a.tb_telephone_no_id1 = old.tb_telephone_no_id;
 
 update tb_property_owner_master_list a
 set a.telephone_no2 = null,
-    a.tb_telephone_no_id2 = null
+    a.tb_telephone_no_id2 = 0
 where a.tb_property_owner_id = old.tb_property_owner_id
 and a.tb_telephone_no_id2 = old.tb_telephone_no_id;
 
 update tb_property_owner_master_list a
 set a.telephone_no3 = null,
-    a.tb_telephone_no_id3 = null
+    a.tb_telephone_no_id3 = 0
 where a.tb_property_owner_id = old.tb_property_owner_id
 and a.tb_telephone_no_id3 = old.tb_telephone_no_id;
 
 update tb_property_owner_master_list a
 set a.telephone_no4 = null,
-    a.tb_telephone_no_id4 = null
+    a.tb_telephone_no_id4 = 0
 where a.tb_property_owner_id = old.tb_property_owner_id
 and a.tb_telephone_no_id4 = old.tb_telephone_no_id;
 

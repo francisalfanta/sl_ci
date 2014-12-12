@@ -31,7 +31,7 @@ class mobile_no_model extends CI_Model {
 
         $mobno_data = array();
               
-        for($x = 0; $x < sizeof($mobno_id); $x++){
+        for($x = 0; $x < sizeof($mob_no); $x++){
             $mobileno_data = array(
                 'tb_mobile_id'   => $mobno_id[$x], 
                 'mobile_no'         => $mob_no[$x],                  

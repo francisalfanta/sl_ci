@@ -375,7 +375,7 @@
 
                                 <div class="additional-btn">                                    
                                   <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                  <a href="<?php echo base_url('property_owner/create_property_owner');?>"><i class="icon-user-add"></i></a>  
+                                  <a href="<?php echo base_url('property_owner/view_property_owner');?>"><i class="icon-user-add"></i></a>  
                                   <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                   <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>

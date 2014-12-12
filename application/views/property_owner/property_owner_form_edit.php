@@ -82,9 +82,9 @@
                                         <div class="form-group" >
                                             <div class="row">                                            
                                                 <div class="col-md-3"><h6><?php echo form_error('na1'); ?></h6>
-                                                    <input type="hidden" name="na1_id" value="<?php foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality['tb_nationality_id']; }?>"/>
+                                                    <input type="hidden" name="na1_id" value="<?php if($nationality_lists) {foreach(array_slice($nationality_lists,0,1) as $nationality){ echo $nationality['tb_nationality_id']; }}?>"/>
                                                     <select class="form-control input-sm" name="na1" title="select Remove Nationality to delete the item">                                                        
-                                                        <option value="<?php if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="<?php if($nationality_lists){ if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }}} ?>" > <?php if($nationality_lists) { if(array_slice($nationality_lists,0,1)){ foreach(array_slice($nationality_lists,0,1) as $nat) { echo $nat['nationality']; }}} else { echo 'Select a Nationality'; }?></option>                                                   
                                                         <option value="">Remove Nationality</option> 
                                                     <?php foreach($country_nationality_list as $nationality) { 
                                                       echo '<option value="'.$nationality->nationality.'"'.set_select('na1', '').'>'.$nationality->nationality.'</option>';
@@ -92,9 +92,9 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3"><h6><?php echo form_error('na2'); ?></h6>
-                                                    <input type="hidden" name="na2_id" value="<?php foreach(array_slice($nationality_lists,1,1) as $nationality){ echo $nationality['tb_nationality_id'];} ?>"/>     
+                                                    <input type="hidden" name="na2_id" value="<?php if($nationality_lists){ foreach(array_slice($nationality_lists,1,1) as $nationality){ echo $nationality['tb_nationality_id'];}} ?>"/>     
                                                     <select class="form-control input-sm" name="na2" title="select Remove Nationality to delete the item">
-                                                        <option value="<?php if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="<?php if($nationality_lists){ if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }}} ?>" > <?php if($nationality_lists){ if(array_slice($nationality_lists,1,1)){ foreach(array_slice($nationality_lists,1,1) as $nat) { echo $nat['nationality']; }}} else { echo 'Select a Nationality'; }?></option>                                                   
                                                         <option value="">Remove Nationality</option> 
                                                     <?php foreach($country_nationality_list as $nationality) { 
                                                       echo '<option value="'.$nationality->nationality.'"'.set_select('na2', '').'>'.$nationality->nationality.'</option>';
@@ -102,9 +102,9 @@
                                                     </select>
                                                 </div>                                        
                                                 <div class="col-md-3"><h6><?php echo form_error('na3'); ?></h6>
-                                                    <input type="hidden" name="na3_id" value="<?php foreach(array_slice($nationality_lists,2,1) as $nationality){  echo $nationality['tb_nationality_id']; }?>"/>            
+                                                    <input type="hidden" name="na3_id" value="<?php if($nationality_lists){ foreach(array_slice($nationality_lists,2,1) as $nationality){  echo $nationality['tb_nationality_id']; }}?>"/>            
                                                     <select class="form-control input-sm" name="na3" title="select Remove Nationality to delete the item">
-                                                        <option value="<?php if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="<?php if($nationality_lists){ if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }}} ?>" > <?php if($nationality_lists){ if(array_slice($nationality_lists,2,1)){ foreach(array_slice($nationality_lists,2,1) as $nat) { echo $nat['nationality']; }}} else { echo 'Select a Nationality'; }?></option>                                                   
                                                         <option value="">Remove Nationality</option>
                                                     <?php foreach($country_nationality_list as $nationality) { 
                                                       echo '<option value="'.$nationality->nationality.'"'.set_select('na3', '').'>'.$nationality->nationality.'</option>';
@@ -112,9 +112,9 @@
                                                     </select>
                                                 </div>                                                                                              
                                                 <div class="col-md-3"><h6><?php echo form_error('na4'); ?></h6>
-                                                    <input type="hidden" name="na4_id" value="<?php foreach(array_slice($nationality_lists,3,1) as $nationality){  echo $nationality['tb_nationality_id']; } ?>"/>       
+                                                    <input type="hidden" name="na4_id" value="<?php if($nationality_lists){ foreach(array_slice($nationality_lists,3,1) as $nationality){  echo $nationality['tb_nationality_id']; }} ?>"/>       
                                                     <select class="form-control input-sm" name="na4" title="select Remove Nationality to delete the item">
-                                                        <option value="<?php if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }} ?>" > <?php if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }} else { echo 'Select a Nationality'; }?></option>                                                   
+                                                        <option value="<?php if($nationality_lists){ if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }}} ?>" > <?php if($nationality_lists){ if(array_slice($nationality_lists,3,1)){ foreach(array_slice($nationality_lists,3,1) as $nat) { echo $nat['nationality']; }}} else { echo 'Select a Nationality'; }?></option>                                                   
                                                         <option value="">Remove Nationality</option>                                                   
                                                     <?php foreach($country_nationality_list as $nationality) { 
                                                       echo '<option value="'.$nationality->nationality.'"'.set_select('na4', '').'>'.$nationality->nationality.'</option>';
@@ -126,35 +126,40 @@
                                         </div>
                                         <div class="form-group" style="margin-top: -10px;">
                                             <div class="row">
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php if(count($passport_lists)>0) {foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn1'); ?>" title="clear the box to remove" class="form-control input-sm" placeholder="Passport No.(1)"></div>
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn1'); ?></h6><input type="text" name="ppn1" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn1'); ?>" title="clear the box to remove" class="form-control input-sm" placeholder="Passport No.(1)"></div>
                                                 <input type="hidden" name="ppn1_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,0,1) as $passport){ echo $passport->tb_passport_id; }}?>"/>                                           
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn2'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(2)"></div>
-                                                <input type="hidden" name="ppn2_id" value="<?php foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn3'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(3)"></div>
-                                                <input type="hidden" name="ppn3_id" value="<?php foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
-                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->passport_no; }echo set_value('ppn4'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(4)"></div>
-                                                <input type="hidden" name="ppn4_id" value="<?php foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->tb_passport_id; }?>"/> 
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn2'); ?></h6><input type="text" name="ppn2" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn2'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(2)"></div>
+                                                <input type="hidden" name="ppn2_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,1,1) as $passport){ echo $passport->tb_passport_id; }}?>"/> 
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn3'); ?></h6><input type="text" name="ppn3" value="<?php if($passport_lists){foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn3'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(3)"></div>
+                                                <input type="hidden" name="ppn3_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,2,1) as $passport){ echo $passport->tb_passport_id; }}?>"/> 
+                                                <div class="col-md-3"><h6><?php echo form_error('ppn4'); ?></h6><input type="text" name="ppn4" value="<?php if($passport_lists){foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->passport_no; }} echo set_value('ppn4'); ?>" class="form-control input-sm" title="clear the box to remove" placeholder="Passport No.(4)"></div>
+                                                <input type="hidden" name="ppn4_id" value="<?php if($passport_lists){ foreach(array_slice($passport_lists,3,1) as $passport){ echo $passport->tb_passport_id; }}?>"/> 
                                             </div>
                                         </div>
 
-                                        <div id="addrDiv" class="widget">
+                                        <div id="addrDiv" class="widget" style="margin-top:-10px !important; padding-top: -10px !important;">
                     <!-- Address -->    <?php $i=1; if(count($address_lists)==0) { ?>
                                             <span> <input type="hidden" name="address_id[]" value=""/>
-                                            <div class="widget-header" >
+                                            <div class="widget-header  transparent" >
                                                 <h2><i class="fa fa-home"></i><strong> Owner</strong> Address 1</h2>
                                                 <div class="additional-btn">                                
                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="widget-content" style="margin-top: -80px;">
+                                            <div class="widget-content padding" style="margin-top:-10px !important; padding-top: -10px !important;">
                                                 <div class="row">                                                  
-                                                    <div class="form-group" >
+                                                    <div class="form-group"  style="margin-top: -15px; padding-top:-15px;">
                                                         <div class="row">
-                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6><input type="text" name="country[]" value="<?php echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">
-                                                                <p class="help-block">required<?php echo form_error('country[]'); ?></p>
-                                                            </div> 
-                                                            <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo set_value('city'); ?>" class="form-control input-sm" placeholder="City"></div>
-                                                            <p class="help-block" style="margin-top: -2px;">* required<?php echo form_error('country[]'); ?></p>
+                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6>
+                                                                <select class="form-control input-sm" name="country[]">
+                                                                    <option value="<?php set_select('country[]', '');?>" >Select a Country</option> 
+                                                                    <?php foreach($country_nationality_list as $nationality) { 
+                                                                        echo '<option value="'.$nationality->country_name.'">'.$nationality->country_name.'</option>';
+                                                                    } ?>
+                                                                </select>
+                                                                <p class="help-block" style="margin-top: -2px;">* required<?php echo form_error('country[]'); ?></p> 
+                                                            </div>
+                                                            <div class="col-md-3"><h6><?php echo form_error('city[]'); ?></h6><input type="text" name="city[]" value="<?php echo set_value('city'); ?>" class="form-control input-sm" placeholder="City"></div>        
                                                         </div>
                                                     </div>
                                                     <div class="form-group"  style="margin-top: -30px;">
@@ -176,14 +181,13 @@
                                                    <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="widget-content padding">
+                                            <div class="widget-content padding"  style="margin-top:-10px !important; padding-top: -10px !important;">
                                                 <div class="row">                                                
                                                     <div class="form-group" style="margin-top: -20px; padding-top:-20px;">
                                                         <div class="row">
-                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6>
-                                                                <!--<input type="text" name="country[]" value="<?php echo $address->addressCountry; echo set_value('country[]'); ?>" class="form-control input-sm" placeholder="Country">-->
+                                                            <div class="col-md-3"><h6><?php echo form_error('country[]'); ?></h6>                                                               
                                                                 <select class="form-control input-sm" name="country[]">
-                                                                <option value="" <?php echo set_select('country[]', '', TRUE); ?> >Select a Country</option>
+                                                                    <option value="<?php echo $address->addressCountry; set_select('country[]', '', TRUE);?>" > <?php if($address->addressCountry){ echo $address->addressCountry; } else { echo 'Select a Country'; }?></option> 
                                                                 <?php foreach($country_nationality_list as $nationality) { 
                                                                     echo '<option value="'.$nationality->country_name.'">'.$nationality->country_name.'</option>';
                                                                 } ?>
@@ -325,24 +329,25 @@
                                             <div class="widget-content">
                                                 <div class="row">
                                                     <div class="col-md-12">
-                                                        <div id="emailDiv" class="form-group">
-                                                            <div class="row">
-                                                            <?php $i=1; if(count($email_lists)>0) { foreach($email_lists as $email){ ?>
-                                                            <span><input type="hidden" name="email_id[]" value="<?php echo $email->tb_email_id; ?>"/>
-                                                                <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="<?php echo $email->email; echo set_value('email_array[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
-                                                                <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_email/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$email->tb_email_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Email <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>                                                               
-                                                            </span>
-                                                            
-                                                            <?php ++$i;}} else { ?>  
-                                                            
-                                                            <span>
-                                                                <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
-                                                            </span>
-                                                            <?php ++$i;} ?>                                               
-                                                            
-                                                            </div><!-- row -->
-                                                        </div><!-- form-group -->
-                                                        <div id="addEmailBtn"><a href=""  class="btn btn-green-1 btn-xs" >Add Another Email</a></div>                                                                                                                             
+                                                        <div class="form-group">
+                                                            <div id="emailDiv" class="row">
+                                                                <?php $i=1; if(count($email_lists)>0) { foreach($email_lists as $email){ ?>
+                                                                <span><input type="hidden" name="email_id[]" value="<?php echo $email->tb_email_id; ?>"/>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="<?php echo $email->email; echo set_value('email_array[]'); ?>" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                    <span  class="btn btn-sm col-md-1" style="margin-top: 11px; margin-left: -50px;float: left !important;" ><a href="<?php $url='property_owner/del_email/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0).'/'.$email->tb_email_id; echo base_url($url); ?>"  data-toggle="tooltip" title="Delete Email <?php echo $i;?>"><i class="glyphicon glyphicon-remove"></i></a> </span>                                                               
+                                                                </span>
+                                                                
+                                                                <?php ++$i;}} else { ?>  
+                                                                
+                                                                <span>
+                                                                    <div class="col-md-3"><h6><?php echo form_error('email_array[]'); ?></h6><input type="text" name="email_array[]" value="" class="form-control input-sm" placeholder="<?php echo $i; ?>."></div>
+                                                                </span>
+                                                                <?php ++$i;} ?>                                               
+                                                                
+                                                                </div><!-- row -->
+                                                            </div><!-- form-group -->
+                                                        </div>
+                                                        <div id="addEmailBtn" style="margin-left:8px; padding-left:8px; "><a href=""  class="btn btn-green-1 btn-xs" >Add Another Email</a></div>                                                                                                                             
                                                     </div><!-- col-md-12 -->   
                                                 </div><!-- row -->
                                             </div><!-- widget-content padding -->          
@@ -425,7 +430,7 @@
 
                             <div class="form-group"> <!-- Property Type -->
                                 <div class="row">
-                                    <label for="property_type" class="col-sm-3 col-md-3 control-label input-sm"  style="margin-top: -10px;">Property Type :</label>
+                                    <label for="property_type" class="col-sm-3 col-md-3 control-label input-sm"  style="margin-top: -10px;">Classification :</label>
                                     <!--<div class="col-sm-9">
                                     <?php echo form_input($property_type_attributes); ?>
                                     <p class="help-block"> </p>
@@ -589,7 +594,8 @@
 
                     // Add Address Button
                     $('#addaddrbtn').on('click', function() {
-                            $('<span><input type="hidden" name="address_id[]" value=""/> <div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding"><div class="row"><div class="col-md-12"><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("country[]"); ?></h6><input type="text" name="country[]" value="" class="form-control input-sm" placeholder="Country"></div><div class="col-md-3"><h6><?php echo form_error("city[]"); ?></h6><input type="text" name="city[]" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group"><div class="row"><div class="col-md-3"><h6><?php echo form_error("comm[]"); ?></h6><input type="text" name="comm[]" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("subcom[]"); ?></h6><input type="text" name="subcom[]" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("addr_street[]"); ?></h6><input type="text" name="addr_street[]" value="" class="form-control input-sm" placeholder="Street"></div> <div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs">Remove</a></div></div></div></div></div></div></span>').appendTo(addrDiv);
+                        var php_script = "<?php foreach($country_nationality_list as $nationality){ echo "<option value='".$nationality->country_name."'>".$nationality->country_name."</option>"; } ?>"; 
+                            $('<span><input type="hidden" name="address_id[]" value=""/><div class="widget-header transparent"><h2><i class="fa fa-home"></i><strong> Owner</strong> Address '+i+'</h2><div class="additional-btn"><a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a></div></div><div class="widget-content padding" style="margin-top:-10px !important; padding-top: -10px !important;"><div class="row"><div class="form-group" style="margin-top: -15px; padding-top:-15px;"><div class="row"><div class="col-md-3"><h6><?php echo form_error("country[]"); ?></h6><select class="form-control input-sm" name="country[]"><option value="<?php set_select("country[]", "");?>" >Select a Country</option>' + php_script + '</select><p class="help-block" style="margin-top: -2px;">* required<?php echo form_error("country[]"); ?></p></div><div class="col-md-3"><h6><?php echo form_error("city[]"); ?></h6><input type="text" name="city[]" value="" class="form-control input-sm" placeholder="City"></div></div></div><div class="form-group" style="margin-top: -30px;"><div class="row"><div class="col-md-3"><h6><?php echo form_error("comm[]"); ?></h6><input type="text" name="comm[]" value="" class="form-control input-sm" placeholder="Community"></div><div class="col-md-3"><h6><?php echo form_error("subcom[]"); ?></h6><input type="text" name="subcom[]" value="" class="form-control input-sm" placeholder="Sub Community"></div><div class="col-md-3"><h6><?php echo form_error("addr_street[]"); ?></h6><input type="text" name="addr_street[]" value="" class="form-control input-sm" placeholder="Street"></div><div class="widget-content padding"> <a href="" class="btn btn-green-1 btn-xs">Remove</a></div></div></div></div></div></span>').appendTo(addrDiv);                               
                             i++;
                         return false;
                     });

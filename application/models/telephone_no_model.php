@@ -31,7 +31,7 @@ class telephone_no_model extends CI_Model {
 
         $telno_data = array();
               
-        for($x = 0; $x < sizeof($telno_id); $x++){
+        for($x = 0; $x < sizeof($tel_no); $x++){
             $telno_data = array(
                 'tb_telephone_no_id'   => $telno_id[$x], 
                 'telephone_no'         => $tel_no[$x],                  

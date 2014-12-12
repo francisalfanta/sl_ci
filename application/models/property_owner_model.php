@@ -69,7 +69,8 @@ class property_owner_model extends CI_Model
 	public function update_owner_personal($id, $data) 
 	{		
 		$this->db->where('tb_property_owner_id', $id);
-		$this->db->update('property_owner', $data); 		
+		$update = $this->db->update('property_owner', $data);
+		return $update; 		
 	}
 
 	public function update_owner_for_deletation($id) 

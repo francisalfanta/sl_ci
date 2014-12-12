@@ -31,7 +31,7 @@ class fax_no_model extends CI_Model {
         
         $telno_data = array();
               
-        for($x = 0; $x < sizeof($faxno_id); $x++){
+        for($x = 0; $x < sizeof($fax_no); $x++){
             $faxno_data = array(
                 'tb_fax_no_id'   => $faxno_id[$x], 
                 'fax_no'         => $fax_no[$x],                  

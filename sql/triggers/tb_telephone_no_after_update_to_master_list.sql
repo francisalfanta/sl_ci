@@ -15,17 +15,17 @@ where tb_property_owner_id = new.tb_property_owner_id
 and tb_telephone_no_id1 = new.tb_telephone_no_id;
 
 update tb_property_owner_master_list
-set telephone_no1 = new.telephone_no
+set telephone_no2 = new.telephone_no
 where tb_property_owner_id = new.tb_property_owner_id
 and tb_telephone_no_id2 = new.tb_telephone_no_id;
 
 update tb_property_owner_master_list
-set telephone_no1 = new.telephone_no
+set telephone_no3 = new.telephone_no
 where tb_property_owner_id = new.tb_property_owner_id
 and tb_telephone_no_id3 = new.tb_telephone_no_id;
 
 update tb_property_owner_master_list
-set telephone_no1 = new.telephone_no
+set telephone_no4 = new.telephone_no
 where tb_property_owner_id = new.tb_property_owner_id
 and tb_telephone_no_id4 = new.tb_telephone_no_id;
 end$$
