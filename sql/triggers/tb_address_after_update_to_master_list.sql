@@ -1,4 +1,5 @@
 delimiter $$
+DROP TRIGGER IF EXISTS softlinecsdb.tb_address_AFTER_UPDATE$$
 CREATE DEFINER=`root`@`localhost` TRIGGER `softlinecsdb`.`tb_address_AFTER_UPDATE` 
 AFTER UPDATE ON `tb_address`
 FOR EACH ROW

@@ -68,6 +68,8 @@ class Propertyfinder_model extends CI_Model {
 	}		
 	// tested
 	public function create_propertyfinder_by_id() {	
+		//echo 'create_propertyfinder_by_id<br>';
+
 		$city_id         = $this->input->post('city_name');
 		$community_id    = $this->input->post('community_name');
 		$subcommunity_id = $this->input->post('subcommunity_name');
@@ -89,19 +91,8 @@ class Propertyfinder_model extends CI_Model {
 		return $insert_id;
 	}	
 
-	public function create_propertyfinder() {	
+	public function create_propertyfinder($new_propertyfinder_insert_data) {	
 
-		$new_propertyfinder_insert_data = array(
-			'city' 	       => $this->input->post('city)name'),
-			'community'    => $this->input->post('community_name'),
-			'subcommunity' => $this->input->post('subcommunity_name'),
-			're_property'  => $this->input->post('re_property_name'),
-			'property_type'=> $this->input->post('property_type'),
-			'building_name'=> $this->input->post('building_name'),
-			'unit_number'  => $this->input->post('unit_number'),
-			'developer_name'=> $this->input->post('developer_name')
-		);	
-		
 		$this->db->insert('propertyfinder', $new_propertyfinder_insert_data);
 		$insert_id = $this->db->insert_id(); 
 		return $insert_id;

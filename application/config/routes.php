@@ -56,7 +56,8 @@ $route['property_owner/for_deletion_owner'] = 'property_owner/for_deletion_owner
 $route['property_owner/del_addr/(:any)'] = 'property_owner/del_addr/$1';
 $route['property_owner/datatable'] = 'property_owner/datatable';
 $route['property_owner/q_prop_owner'] = 'property_owner/q_prop_owner';
-$route['property_owner/view_property_owner/(:any)'] = 'property_owner/view_property_owner/$1';
+$route['property_owner/create_edit/(:any)'] = 'property_owner/create_edit/$1';
+//$route['property_owner/view_property_owner/(:any)'] = 'property_owner/view_property_owner/$1';
 $route['property_owner/update_owner_personal_details'] = 'property_owner/update_owner_personal_details';
 $route['property_owner'] = 'property_owner';
 

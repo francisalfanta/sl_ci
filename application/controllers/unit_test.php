@@ -21,11 +21,9 @@ class Unit_test extends CI_Controller {
         //$this->load->view('tests');
         // in view
         // echo $this->unit->report();
+        $description       = $this->input->post('description');
+        echo '$description'.$description.'<br>';
 
-       $query_nationality = $this->nationality_model->get_nationality_info($property_owner_id);
-            $data['nationality_lists'] = $query_nationality; 
-        var_dump($query_nationality->result_array());   
-     
         //var_dump($query_addr->result());
 
         $test_unit = '';
@@ -54,6 +52,7 @@ class Unit_test extends CI_Controller {
         else if (is_nan($test_unit)){
         	echo '$query is a NAN';
         }
+        $this->load->view('layout/test_layout.php'); 
 	}
 
     public function m_create_prop_owner(){
@@ -333,4 +332,6 @@ class Unit_test extends CI_Controller {
 
         echo  $output;
     }
+
+
 }

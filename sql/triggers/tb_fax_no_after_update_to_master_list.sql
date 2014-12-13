@@ -9,25 +9,25 @@ AFTER UPDATE ON `tb_fax_no`
 FOR EACH ROW
 begin
 
-update tb_property_owner_master_list
-set fax_no1 = new.fax_no
-where tb_property_owner_id = new.tb_property_owner_id
-and tb_fax_no_id1 = new.tb_fax_no_id;
+update tb_property_owner_master_list a
+set a.fax_no1 = new.fax_no
+where a.tb_property_owner_id = new.tb_property_owner_id
+and a.tb_fax_no_id1 = new.tb_fax_no_id;
 
-update tb_property_owner_master_list
-set fax_no2 = new.fax_no
-where tb_property_owner_id = new.tb_property_owner_id
-and tb_fax_no_id2 = new.tb_fax_no_id;
+update tb_property_owner_master_list a
+set a.fax_no2 = new.fax_no
+where a.tb_property_owner_id = new.tb_property_owner_id
+and a.tb_fax_no_id2 = new.tb_fax_no_id;
 
-update tb_property_owner_master_list
-set fax_no3 = new.fax_no
-where tb_property_owner_id = new.tb_property_owner_id
-and tb_fax_no_id3 = new.tb_fax_no_id;
+update tb_property_owner_master_list a
+set a.fax_no3 = new.fax_no
+where a.tb_property_owner_id = new.tb_property_owner_id
+and a.tb_fax_no_id3 = new.tb_fax_no_id;
 
-update tb_property_owner_master_list
-set fax_no4 = new.fax_no
-where tb_property_owner_id = new.tb_property_owner_id
-and tb_fax_no_id4 = new.tb_fax_no_id;
+update tb_property_owner_master_list a
+set a.fax_no4 = new.fax_no
+where a.tb_property_owner_id = new.tb_property_owner_id
+and a.tb_fax_no_id4 = new.tb_fax_no_id;
 end;
     $$
 DELIMITER ;

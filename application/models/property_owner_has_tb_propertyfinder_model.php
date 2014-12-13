@@ -18,14 +18,21 @@ class Property_owner_has_tb_propertyfinder_model extends CI_Model{
 		return $query->result_array();
 	}
 
+	public function get_m2m_property_owner($property_owner_id){
+		$this->db->where('tb_property_owner_id', $property_owner_id);
+		$query = $this->db->get('property_owner_has_tb_propertyfinder');
+		return $query;
+	}
+	
 	public function del_record($property_owner_id, $propertyfinder_id ){
 		$this->db->where('tb_propertyfinder_id', $propertyfinder_id);
 		$this->db->where('tb_property_owner_id', $property_owner_id);
 		$this->db->delete('property_owner_has_tb_propertyfinder');
-		var_dump('success delete');
+		//var_dump('success delete');
 	}
 	
 	public function add_record($tb_property_owner_id, $tb_propertyfinder_id){
+		//echo 'inside add_record m2m<br>';
 		$data = array(
 				'tb_property_owner_id' 	=> $tb_property_owner_id,
 				'tb_propertyfinder_id' 	=> $tb_propertyfinder_id

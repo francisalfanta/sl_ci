@@ -56,8 +56,8 @@ class property_owner_model extends CI_Model
 		$new_pro_owner_insert_data = array(
 			'first_name'  => $this->input->post('first_name'),
 			'middle_name' => $this->input->post('middle_name'),
-			'last_name'   => $this->input->post('last_name'),
-			'passport_no' => $this->input->post('passport_no')
+			'last_name'   => $this->input->post('last_name')
+			
 		);
 
 		$insert = $this->db->insert('property_owner', $new_pro_owner_insert_data);
@@ -80,7 +80,7 @@ class property_owner_model extends CI_Model
         $this->db->where('tb_property_owner_id', $id);
         $status = $this->db->update('property_owner', $data); 
 
-        echo 'inside update owner id: '.$id.'status: '.$status.'<br>';
+        //echo 'inside update owner id: '.$id.'status: '.$status.'<br>';
         return $status;
 	}
 }

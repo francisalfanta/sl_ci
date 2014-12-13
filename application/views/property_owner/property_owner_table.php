@@ -21,7 +21,7 @@
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
                             <div class="widget-content padding" id="property_filter">   
-                             <?php echo form_open('unit_test', $form_attributes); ?> 
+                             <?php echo form_open('property_owner/find_owner', $form_attributes); ?> 
                                 <div id="horizontal-form">        
                                 <?php echo validation_errors(); ?>
                                     <div class="row" style="width:100%;">                                      
@@ -46,7 +46,14 @@
                                     <div class="row">
                                       <div class="container">
                                         <div class="form-group col-md-6 col-lg-6"> <!-- Nationality -->
-                                            <label class="sr-only" for="fn_name">Nationality</label>
+                                            <label class="sr-only" for="nationality">Nationality</label>
+                                            <select class="form-control input-sm" name="nationality" id="nationality">
+                                              <option value="">Select Nationality</option>                                                                                       
+                                              <?php foreach($country_nationality_list as $nationality) { 
+                                              echo '<option value="'.$nationality->nationality.'"'.set_select('nationality', '').'>'.$nationality->nationality.'</option>';
+                                              } ?>
+                                            </select>
+                                              <!--
                                             <select class="form-control col-md-6 col-lg-6" name="nationality" id="nationality" tabindex="5">
                                                       <option value="" <?php echo set_select('nationality', '', TRUE); ?> >Nationality</option>
                                                       <option value="afghan" <?php echo set_select('nationality', 'afghan'); ?> >Afghan</option>
@@ -242,6 +249,7 @@
                                                       <option value="zambian" <?php echo set_select('nationality', 'zambian'); ?> >Zambian</option>
                                                       <option value="zimbabwean" <?php echo set_select('nationality', 'zimbabwean'); ?>>Zimbabwean</option>
                                             </select>
+                                            -->
                                         </div><!-- form-group -->
                                       </div>
                                     </div>
@@ -251,9 +259,10 @@
                                               <label class="sr-only" for="mn_name">Country</label>
                                               <select name="country_name" id="country_name" tabindex="6" class="form-control input-sm">
                                                   <option value="">Select Country</option>
-                                                  <?php foreach($country_list as $row) { 
-                                                      echo '<option value="'.$row['country_name'].'">'.$row['country_name'].'</option>';
+                                                  <?php foreach($country_nationality_list as $nationality) { 
+                                                  echo '<option value="'.$nationality->country_name.'"'.set_select('country_name', '').'>'.$nationality->country_name.'</option>';
                                                   } ?>
+                                            </select>
                                               </select>
                                           </div><!-- form-group -->
                                         </div>
@@ -261,7 +270,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6"> <!-- Telephone no. -->
                                           <div class="container">
-                                            <label class="sr-only" for="mn_name">Telephone No.</label>
+                                            <label class="sr-only" for="telephone_no">Telephone No.</label>
                                             <input type="text" id="telephone_no" class="form-control input-sm" name="telephone_no" value="<?php set_value('telephone_no'); ?>" placeholder="Telephone No." tabindex="7"/>
                                               
                                           </div><!-- form-group -->
@@ -270,7 +279,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6"> <!-- Mobile No. -->
                                           <div class="container">
-                                            <label class="sr-only" for="mn_name">Mobile No.</label>
+                                            <label class="sr-only" for="mobile_no">Mobile No.</label>
                                             <input type="text" id="mobile_no" class="form-control input-sm" name="mobile_no" value="<?php set_value('moible_no'); ?>" placeholder="Mobile No." tabindex="8"/>                                        
                                           </div><!-- form-group -->
                                         </div>
@@ -278,7 +287,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6"> <!-- Fax No. -->
                                           <div class="container">
-                                            <label class="sr-only" for="mn_name">Fax No.</label>
+                                            <label class="sr-only" for="fax_no">Fax No.</label>
                                             <input type="text" id="fax_no" class="form-control input-sm" name="fax_no" value="<?php set_value('fax_no'); ?>" placeholder="Fax No." tabindex="9"/>                                        
                                           </div><!-- form-group -->
                                         </div>
@@ -286,13 +295,13 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6"> <!-- Email -->
                                           <div class="container">
-                                            <label class="sr-only" for="mn_name">Email.</label>
+                                            <label class="sr-only" for="email">Email.</label>
                                             <input type="text" id="email" class="form-control input-sm" name="email" value="<?php set_value('email'); ?>" placeholder="Email" tabindex="10"/>                                        
                                           </div><!-- form-group -->
                                         </div>
                                     <div class="form-group">                                      
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
-                                          <button type="submit" class="btn btn-default" >Save</button>
+                                          <a  id="find_filter" filterclass="btn btn-default">Find</a>
                                         </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
                                     </div><!-- form-group -->
                                     </div>
@@ -375,7 +384,7 @@
 
                                 <div class="additional-btn">                                    
                                   <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                  <a href="<?php echo base_url('property_owner/view_property_owner');?>"><i class="icon-user-add"></i></a>  
+                                  <a href="<?php echo base_url('property_owner/create_edit');?>"><i class="icon-user-add"></i></a>  
                                   <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                   <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                                 </div>
@@ -563,7 +572,7 @@
                                     
                                     <td class="option" style="text-align: center;width:80px;">
                                       <div class="btn-group btn-group-xs">                                                                                                                                                                
-                                          <a href="<?php $url='property_owner/view_property_owner/'.$row->tb_property_owner_id; echo base_url($url); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
+                                          <a href="<?php $url='property_owner/create_edit/'.$row->tb_property_owner_id; echo base_url($url); ?>" data-toggle="tooltip" title="Edit Contact Details" ><i class="fa fa-edit"></i></a>                                                                                                   
                                           <?php if($row->no_property_owned==0) { ?>
                                           <a href="#delete-record-modal" data-id="<?php echo $row->tb_property_owner_id; ?>" id="delete-record" title="Delete"  class="md-trigger open-delete-dialog" data-modal="delete-record-modal"><i class="glyphicon glyphicon-remove"></i></a>                                          
                                           <?php } else { ?>
@@ -597,41 +606,7 @@
           
           
           <script type="text/javascript">
-            var editor; // use a global for the submit and return data rendering in the examples
-
-            function row_check_owner(tb_property_owner_id, fullname, address, mobile_no, telephone_no, re_property, property_type, building_name, status){
-                 
-                  var row_html = '<tr>';                        
-
-                  if($('table .city').is(':visible')){
-                      row_html += '<td class="fullname">' + fullname + '</td>';                        
-                  }
-                  if($('table .community').is(':visible')){
-                      row_html += '<td class="addresss">' + address + '</td>';                        
-                  }
-                  if($('table .subcommunity').is(':visible')){
-                      row_html += '<td class="mobile_no">' + mobile_no + '</td>';                        
-                  }
-                  if($('table .re_property').is(':visible')){
-                      row_html += '<td class="telephone_no">' + telephone_no + '</td>';                        
-                  } 
-                  if($('table .property_type').is(':visible')){
-                      row_html += '<td class="re_property">' + re_property + '</td>';                        
-                  }  
-                  if($('table .description').is(':visible')){
-                      row_html += '<td class="property_type">' + property_type + '</td>';                        
-                  }
-                  if($('table .building_name').is(':visible')){
-                      row_html += '<td class="building_name">' + building_name + '</td>';                        
-                  }  
-                  if($('table .unit_number').is(':visible')){
-                      row_html += '<td class="status">' + status + '</td>';                        
-                  }
-
-                  row_html  += '<td><div class="btn-group btn-group-xs"><a href="" data-toggle="tooltip" title="Edit" class="btn"><i class="fa fa-edit"></i></a><a href="" onClick="delete_record()" data-toggle="tooltip" title="Off" class="btn"><i class="glyphicon glyphicon-remove"></i></a></div></td></tr>';
-                  
-                  return row_html;    
-            };
+            var editor; // use a global for the submit and return data rendering in the examples            
 
             function render_filtered_owner_table(first_name, middle_name, last_name, nationality, country, telephone_no, mobile_no, fax_no, email){
                   //city_name           = typeof city_name !== 'undefined' ? city_name : null;
@@ -937,7 +912,62 @@
                           $(column).hide();
                         }
                     }                          
-              }); 
+              });
+
+              $("#find_filter").click(function(){    
+                var first_name    = $('#first_name').val(),
+                    middle_name   = $('#middle_name').val(),
+                    last_name     = $('#last_name').val(),
+                    nationality   = $('#nationality').val(),
+                    country_name  = $('#country_name').val(),
+                    telephone_no  = $('#telephone_no').val(),
+                    mobile_no     = $('#mobile_no').val(),
+                    fax_no        = $('#fax_no').val(),
+                    email         = $('#email').val();
+
+                $.ajax({
+                    url: "<?php echo base_url('property_owner/find_owner'); ?>",
+                    type: 'POST',
+                    dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
+                    data:{  'first_name' : first_name,
+                            'middle_name' : middle_name,
+                            'last_name' : last_name,
+                            'nationality' : nationality,
+                            'country_name' : country_name,
+                            'telephone_no' : telephone_no,
+                            'mobile_no' : mobile_no,
+                            'fax_no' : fax_no,
+                            'email' : email
+                         },                              
+                    error:  function(xhr, status, error) {
+                                var err = JSON.parse(xhr.responseText);
+                                //alert(err.Message);
+                            },
+                    statusCode: {
+                             404: function() {
+                                    alert( "page not found" );
+                                }
+                    },
+                    success: function (response) { 
+                        var property_count = '';
+                        $.each(response, function (i, item) {
+                            property_count = item;
+                            console.log('item :'+ item);
+                            console.log('i :'+ i);
+                        });                                                                 
+                        // inter-active table    
+                        render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
+                        console.log('ajax within a function successful');
+                        });
+                        // end inter-active table 
+                    },
+                    complete: function(xhr, status){
+                        var xhr = JSON.parse(xhr.responseText);
+                        //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                    }
+                });// end inter-active count response
+                
+              });  
             });
 
           </script>

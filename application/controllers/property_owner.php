@@ -36,6 +36,9 @@ class Property_owner extends CI_Controller {
 	
 		$data['table_fieldname'] = $this->get_field_name_property_owner_master_list();
 		$data['country_list'] = $this->country_model->get_country();
+		// table country
+		$query_country = $this->country_model->get_country();
+		$data['country_nationality_list'] = $query_country->result(); 
 
 		$tb_property_owner_id = $this->input->post('property_owner_id');
 		$data['property_owned'] = $this->property_owner_has_tb_propertyfinder_model->count_property($tb_property_owner_id);
@@ -234,7 +237,7 @@ class Property_owner extends CI_Controller {
 		return $fields;
 	}
 
-	public function view_property_owner($property_owner_id = null, $propertyfinder_id = null) //<--- check here
+	public function create_edit($property_owner_id = null, $propertyfinder_id = null) // formerly view_property_owner
 	{	
 		$passport_no  		= null;
 		$first_name   		= null;
@@ -279,6 +282,8 @@ class Property_owner extends CI_Controller {
 		$data['username']  = ucfirst($username);
 		$data['hide_contact_details'] = false;	
 
+		$data['owner_property_list'] =null;
+
 		//if $id is null redirect to index
 		if($property_owner_id){			
 			// table nationality
@@ -302,7 +307,14 @@ class Property_owner extends CI_Controller {
 			// table email
 			$query_email = $this->email_model->get_email_info($property_owner_id);
 			$data['email_lists'] = $query_email->result();
-						
+			// table m2m property & owner
+			$query_m2m = $this->property_owner_has_tb_propertyfinder_model->get_m2m_property_owner($property_owner_id);	
+
+	        foreach($query_m2m->result_array() as $property){
+            	//echo $property['tb_propertyfinder_id'];
+            	$data['owner_property_list'] = $this->propertyfinder_model->get_propertyfinder_by_id($property['tb_propertyfinder_id']);
+            	//var_dump($owner_property);       
+        	}
 
 			$parents       	   = $this->property_owner_model->get_prop_owner($property_owner_id);
 			if(isset($parents['first_name'])) {
@@ -777,7 +789,7 @@ class Property_owner extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'First Name');
 		$this->form_validation->set_rules('middle_name', 'Middle Name');
 		$this->form_validation->set_rules('last_name', 'Last Name');
-		
+		// property
 		$this->form_validation->set_rules('city_name', 'City');
         $this->form_validation->set_rules('community', 'Community');
         $this->form_validation->set_rules('subcommunity', 'Sub-community');
@@ -785,7 +797,12 @@ class Property_owner extends CI_Controller {
         $this->form_validation->set_rules('street', 'Street');
         $this->form_validation->set_rules('re_property', 'Property Name');
         $this->form_validation->set_rules('building_name', 'Building Name');
-
+        $this->form_validation->set_rules('property_category', 'Property Category');
+        $this->form_validation->set_rules('property_type', 'Property Type');
+        $this->form_validation->set_rules('unit_number', 'Unit No');
+        $this->form_validation->set_rules('developer_name', 'Developer Name');
+        $this->form_validation->set_rules('note', 'Property Notes');
+        // address
         //$this->form_validation->set_rules('country[]', 'Country Name', 'required');
         $this->form_validation->set_rules('city[]', 'City');
         $this->form_validation->set_rules('comm[]', 'Community');
@@ -820,6 +837,23 @@ class Property_owner extends CI_Controller {
 	
 		if ($this->form_validation->run() == TRUE)
 		{
+			$property_owner_id = $this->input->post('property_owner_id');		
+			// property owner table
+			$data = array(			
+				'first_name' 	=> $this->input->post('first_name'),
+				'middle_name' 	=> $this->input->post('middle_name'),
+				'last_name'    	=> $this->input->post('last_name')			
+			);	
+			// check if property_owner_id 
+			if($property_owner_id) {
+				//echo 'prop owner id exists<br>';
+				$check = $this->property_owner_model->update_owner_personal($property_owner_id, $data);
+				//echo 'update status: '.$check.'<br>';
+			} else {
+				//echo 'prop owner id did not exist<br>';
+				$property_owner_id = $this->property_owner_model->create_prop_owner();
+				//echo 'insert status: '.$property_owner_id.'<br>';
+			}
 			// address table
 			$this->address_model->insert_or_update_batch_address($property_owner_id);
 			// telephone table
@@ -957,67 +991,74 @@ class Property_owner extends CI_Controller {
 			}
 
 			$city = $this->input->post('city_name');
-			$city_name = $this->city_model->get_city_by_id($city);
+			// check if its string or numeric
+			if(is_string($city)){
+				$city_name = $city;
+			} elseif (is_numeric($city)) {
+				$city_name = $this->city_model->get_city_by_id($city);
+			}			
 
 			$community = $this->input->post('community');
-			$community_name = $this->community_model->get_community_by_id($community);
+			// check if its string or numeric
+			if(is_string($community)){
+				$community_name = $community;
+			} elseif (is_numeric($community)) {
+				$community_name = $this->community_model->get_community_by_id($community);
+			}						
 
 			$subcommunity = $this->input->post('subcommunity');
-			$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity);
+			// check if its string or numeric
+			if(is_string($subcommunity)){
+				$subcommunity_name = $subcommunity;
+			} elseif (is_numeric($subcommunity)) {
+				$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity);			
+			}	
 
-			$property_owner_id = $this->input->post('property_owner_id');		
-			// property owner table
-			$data = array(			
-				'first_name' 	=> $this->input->post('first_name'),
-				'middle_name' 	=> $this->input->post('middle_name'),
-				'last_name'    	=> $this->input->post('last_name')			
-			);	
-			// check if property_owner_id 
-			if($property_owner_id) {
-				//echo 'prop owner id exists<br>';
-				$check = $this->property_owner_model->update_owner_personal($property_owner_id, $data);
-				//echo 'update status: '.$check.'<br>';
+			$prop_category = $this->input->post('property_category');
+			// check if its string or numeric
+			if($prop_category=strtolower('commercial')){
+				$property_category = 'commercial_type';
+			} elseif ($prop_category=strtolower('residential')) {
+				$property_category = 'residential_type';
 			} else {
-				//echo 'prop owner id did not exist<br>';
-				$property_owner_id = $this->property_owner_model->create_prop_owner();
-				//echo 'insert status: '.$property_owner_id.'<br>';
-			}
+				$property_category = $prop_category;
+			}						
 			
 			// property finder table
 			$data_propertyfinder = array(
-				'city'           => $city_name,//$this->input->post('city_name'),
-				'community'      => $community_name,//$this->input->post('community'),
-				'subcommunity'   => $subcommunity_name,// $this->input->post('subcommunity'),
-				're_property'    => $this->input->post('re_property'),
-				'property_type'  => $this->input->post('property_type'),
-				'building_name'  => $this->input->post('building_name'),
-				'unit_number'    => $this->input->post('unit_number'),
-				'developer_name' => $this->input->post('developer_name'),
-				'street'         => $this->input->post('street')				
+				'city'           	=> $city_name,//$this->input->post('city_name'),
+				'community'      	=> $community_name,//$this->input->post('community'),
+				'subcommunity'   	=> $subcommunity_name,// $this->input->post('subcommunity'),
+				're_property'    	=> $this->input->post('re_property'),
+				'property_category' => $property_category,
+				'property_type'  	=> $this->input->post('property_type'),
+				'building_name'  	=> $this->input->post('building_name'),
+				'unit_number'    	=> $this->input->post('unit_number'),
+				'developer_name' 	=> $this->input->post('developer_name'),
+				'street'         	=> $this->input->post('street'),
+				'description'   	=> $this->input->post('description')				
 			);
 			//check if property owner have the property already
 			$check = $this->property_owner_has_tb_propertyfinder_model->count_rows($property_owner_id, $propertyfinder_id);
 			
 			if($check>0){
-				//print_r('check: '.$check);
+				// print_r('check: '.$check);
 				$this->propertyfinder_model->update_propertyfinder($propertyfinder_id, $data_propertyfinder);	
 			} else {
-				//print_r('no data ');
+				// print_r('no data <br>');
 				// create new property
-				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();
-				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder();	
+				$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder($data_propertyfinder);
+				//print_r('check: '.$propertyfinder_id.'<br>');			
 				// create m2m record link
 				$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);
-
-
 			}
 			$this->session->set_flashdata('db_msg', 'Update successful.');
-			echo 'validation successful<br>';				
-			//redirect('property_owner/view_property_owner/'.$property_owner_id);		
-		} 	else { echo 'validation error'; }
+			// echo 'validation successful<br>';				
+			redirect('property_owner/create_edit/'.$property_owner_id);		
+		} 	// else { echo 'validation error'; }
 		$this->session->set_flashdata('db_msg', 'Validation Error.');
-		echo 'validation not successful<br>';
-		//redirect('property_owner/view_property_owner/'.$property_owner_id);		
+		// echo 'validation not successful<br>';
+		redirect('property_owner/create_edit/'.$property_owner_id);		
 	}
 	
 	public function find_owner(){
@@ -1063,27 +1104,27 @@ class Property_owner extends CI_Controller {
 	// tested 12/09/2014
 	public function del_addr($property_owner_id, $propertyfinder_id, $tb_address_id){
 		$this->address_model->delete_address($tb_address_id);
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#addrDiv');	
+		redirect('property_owner/create_edit/'.$property_owner_id.'/'.$propertyfinder_id.'/#addrDiv');	
 	}
 	// tested 12/09/2014
 	public function del_telno($property_owner_id, $propertyfinder_id, $tb_telephone_no_id){
 		$this->telephone_no_model->delete_telephone_no($tb_telephone_no_id);
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Telephone');	
+		redirect('property_owner/create_edit/'.$property_owner_id.'/'.$propertyfinder_id.'/#Telephone');	
 	}
 	// tested 12/09/2014
 	public function del_faxno($property_owner_id, $propertyfinder_id, $tb_telephone_no_id){
 		$this->fax_no_model->delete_fax_no($tb_telephone_no_id);
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Fax');	
+		redirect('property_owner/create_edit/'.$property_owner_id.'/'.$propertyfinder_id.'/#Fax');	
 	}
 	// tested 12/09/2014
 	public function del_mobileno($property_owner_id, $propertyfinder_id, $tb_mobile_id){
 		$this->mobile_no_model->delete_mobileno($tb_mobile_id);
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Mobile');	
+		redirect('property_owner/create_edit/'.$property_owner_id.'/'.$propertyfinder_id.'/#Mobile');	
 	}
 	// tested 12/09/2014
 	public function del_email($property_owner_id, $propertyfinder_id, $tb_email_id){
 		$this->email_model->delete_email($tb_email_id);
-		redirect('property_owner/view_property_owner/'.$property_owner_id.'/'.$propertyfinder_id.'/#Email');	
+		redirect('property_owner/create_edit/'.$property_owner_id.'/'.$propertyfinder_id.'/#Email');	
 	}
 	// tested 12/07/2014
 	public function get_field_name_property_owner_master_list(){
@@ -1158,7 +1199,7 @@ class Property_owner extends CI_Controller {
 				//echo $community_name;
 				//echo $subcommunity_name;
 				$new_property_owner_id = $this->owner_addr_model->insert_addr();
-				redirect('property_owner/view_property_owner/'.$new_property_owner_id);
+				redirect('property_owner/create_edit/'.$new_property_owner_id);
 		}
 		else{
 				$this->load->helper('url');
