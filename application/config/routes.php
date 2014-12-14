@@ -45,6 +45,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 */
 // controller = url
 
+$route['dt_test/list_all'] = 'dt_test/list_all';
 
 $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
