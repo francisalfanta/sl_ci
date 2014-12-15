@@ -315,7 +315,7 @@
                         return row_html;    
                     }
 
-                    function render_filtered_table(city_name, community_name, subcommunity_name){
+                    function render_filtered_table(city_name, community_name, subcommunity_name){ 
                         city_name           = typeof city_name !== 'undefined' ? city_name : null;
                         community_name      = typeof community_name !== 'undefined' ? community_name : null;
                         subcommunity_name   = typeof subcommunity_name !== 'undefined' ? subcommunity_name : null;
@@ -402,7 +402,7 @@
                         }                          
                     });
                     
-                    function delete_record(tb_propertyfinder_id){                        
+                    function delete_record(tb_propertyfinder_id){  
                         return $.ajax({
                                     url: "<?php echo base_url('propertyfinder/del'); ?>", //to be adjusted
                                     type: 'POST',

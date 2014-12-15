@@ -547,6 +547,104 @@ class propertyfinder extends CI_Controller {
 		}		
 	}
 
+	public function create_property_full_details($property_owner_id){
+		$data['staffs']     = $this->slcs_staff_model->get_staff();
+		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		$data['sections']   = $this->sections_model->get_sections();
+
+		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
+
+		$data['city']        = $this->city_model->get_city();
+		$data['community']   = $this->community_model->get_community();
+		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
+		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+
+		$username           = $this->session->userdata('username'); 					
+		$data['username']   = ucfirst($username);	
+		$data['title']      = 'SoftLine | Add Real Estate Property';
+		
+		$this->form_validation->set_rules('city_name', 'City', 'required');
+		$this->form_validation->set_rules('community', 'Community', 'required');
+		$this->form_validation->set_rules('subcommunity', 'Sub-Community');
+		$this->form_validation->set_rules('re_property', 'Property');
+		$this->form_validation->set_rules('property_category', 'Property Category');
+		$this->form_validation->set_rules('property_type', 'Property Type');
+		$this->form_validation->set_rules('street', 'Street');
+		$this->form_validation->set_rules('building_name', 'Building name');
+		$this->form_validation->set_rules('unit_number', 'Unit no');
+		$this->form_validation->set_rules('developer_name', 'Developer Name');
+		$this->form_validation->set_rules('description', 'Notes');
+
+		if ($this->form_validation->run() == FALSE)
+		{		
+			$this->session->set_flashdata('db_msg', 'Validation Error.');
+			redirect('property_owner/create_edit/'.$property_owner_id);	
+		}
+		else
+		{	
+			// property finder table
+			$data_propertyfinder = $this->_post_property_full_details();
+			// create new property
+			$propertyfinder_id = $this->propertyfinder_model->create_propertyfinder($data_propertyfinder);
+			// create m2m record link
+			$this->property_owner_has_tb_propertyfinder_model->add_record($property_owner_id, $propertyfinder_id);
+			
+		}		
+	}
+
+	public function _post_property_full_details(){
+		$city = $this->input->post('city_name');
+		// check if its string or numeric
+		if(is_string($city)){
+			$city_name = $city;
+		} elseif (is_numeric($city)) {
+			$city_name = $this->city_model->get_city_by_id($city);
+		}			
+
+		$community = $this->input->post('community');
+		// check if its string or numeric
+		if(is_string($community)){
+			$community_name = $community;
+		} elseif (is_numeric($community)) {
+			$community_name = $this->community_model->get_community_by_id($community);
+		}						
+
+		$subcommunity = $this->input->post('subcommunity');
+		// check if its string or numeric
+		if(is_string($subcommunity)){
+			$subcommunity_name = $subcommunity;
+		} elseif (is_numeric($subcommunity)) {
+			$subcommunity_name = $this->subcommunity_model->get_subcommunity_by_id($subcommunity);			
+		}	
+
+		$prop_category = $this->input->post('property_category');
+		// check if its string or numeric
+		if($prop_category=strtolower('commercial')){
+			$property_category = 'commercial_type';
+		} elseif ($prop_category=strtolower('residential')) {
+			$property_category = 'residential_type';
+		} else {
+			$property_category = $prop_category;
+		}
+
+		// property finder table
+		$data_propertyfinder = array(
+			'city'           	=> $city_name,//$this->input->post('city_name'),
+			'community'      	=> $community_name,//$this->input->post('community'),
+			'subcommunity'   	=> $subcommunity_name,// $this->input->post('subcommunity'),
+			're_property'    	=> $this->input->post('re_property'),
+			'property_category' => $property_category,
+			'property_type'  	=> $this->input->post('property_type'),
+			'building_name'  	=> $this->input->post('building_name'),
+			'unit_number'    	=> $this->input->post('unit_number'),
+			'developer_name' 	=> $this->input->post('developer_name'),
+			'street'         	=> $this->input->post('street'),
+			'description'   	=> $this->input->post('description')				
+		);
+
+		return $data_propertyfinder;
+	}
 	public function del($q){
 		$this->propertyfinder_model->delete_propertyfinder($q);
 		$this->index();

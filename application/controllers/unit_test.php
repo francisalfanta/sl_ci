@@ -14,17 +14,30 @@ class Unit_test extends CI_Controller {
 		$this->load->model('propertyfinder_model');
         $this->load->library('unit_test');
         //$this->load->helpers('sql_sql_helper');
+      
 	}
 
+    function _header_data(){   
+        $data['staffs']    = $this->slcs_staff_model->get_staff();
+        $data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
+        $data['sections']  = $this->sections_model->get_sections();
+        $data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+
+        return $data;
+    }
+
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        //$this->unit->run(funtion(paramter),expected result, name of specific test);
+        //$query = $this->unit->run( $this->_header_data(),'', '_header_data test');
         //$this->load->view('tests');
         // in view
-        // echo $this->unit->report();
-        $description       = $this->input->post('description');
-        echo '$description'.$description.'<br>';
+        //echo $this->unit->report();
+        //$query  = $this->propertyfinder_model->get_propertyfinder();
+        //$description       = $this->input->post('description');
+        //echo '$description'.$description.'<br>';
+        //$test = $this->_header_data();
+        $query = array_merge($data_sl_header, $test);
 
-        //var_dump($query_addr->result());
+        var_dump($query);
 
         $test_unit = '';
 		if (is_null($test_unit)) 

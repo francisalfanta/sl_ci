@@ -35,7 +35,7 @@ class Slcs_staff extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/slcs_staff_table', $data);
+		$this->load->view('slcs_staff/slcs_staff_table', $data);			
 		$this->load->view('layout/footer');	
 	}
 

@@ -12,7 +12,7 @@
         <meta name="description" content="">
         <meta name="keywords" content="coco bootstrap template, coco admin, bootstrap,admin template, bootstrap admin,">
         <meta name="author" content="Huban Creative">
-        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
+        
         <!-- Base Css Files -->
         <link href="<?php echo base_url(); ?>assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
         <link href="<?php echo base_url(); ?>assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -35,20 +35,14 @@
                 <link href="<?php echo base_url(); ?>assets/libs/morrischart/morris.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-jvectormap/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-clock/clock.css" rel="stylesheet" type="text/css" />
-                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-calendar/css/bic_calendar.css" rel="stylesheet" type="text/css" />                
+                <link href="<?php echo base_url(); ?>assets/libs/bootstrap-calendar/css/bic_calendar.css" rel="stylesheet" type="text/css" />                   
+                <link href="<?php echo base_url(); ?>assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/jquery-weather/simpleweather.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/libs/bootstrap-xeditable/css/bootstrap-editable.css" rel="stylesheet" type="text/css" />
                 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
 
-                <?php if(strstr(strtolower($title), 'list')) { ?>
-                    <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
-                    <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
-                
-                <?php } ?>
-                <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />
                 <!-- Extra CSS Libraries End -->
-                <link href="<?php echo base_url(); ?>assets/css/style-responsive.css" rel="stylesheet" />
-
+        <link href="<?php echo base_url(); ?>assets/css/style-responsive.css" rel="stylesheet" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,34 +60,25 @@
         <link rel="apple-touch-icon" sizes="120x120" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-120x120.png" />
         <link rel="apple-touch-icon" sizes="144x144" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-144x144.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
-        <?php if($title =='SoftLine | Property Finder' || $title == 'SoftLine | Property Owner'){
-            echo '<link href="'.base_url('assets/libs/select2-3.5.2/select2.css').'" type="text/css" rel="stylesheet"/>';
-                       
-        }?>
-
-        <style>
-          .select-editable { position:relative; background-color:white; border:solid grey 1px;  width:120px; height:18px; }
-          .select-editable select { position:absolute; top:0px; left:0px; font-size:14px; border:none; width:120px; margin:0; }
-          .select-editable input { position:absolute; top:0px; left:0px; width:100px; padding:1px; font-size:12px; border:none; }
-          .select-editable select:focus, .select-editable input:focus { outline:none; }
-        </style>
-
+        
+        <!-- custom added by FMA -->    
         <!-- FMA added 12/02/2014-->
         <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" />
+        <!-- DataTables CSS -->
+        <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
+        <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
+        <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />        
+        <link href="<?php echo base_url(); ?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+
         <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.colVis.js'); ?>"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        
-        <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
-        <link href="<?php echo base_url(); ?>assets/css/added/jquery-ui.css" type="text/css" rel="stylesheet"/>
-       
 
-        <link href="<?php echo base_url(); ?>assets/css/dataTables.colVis.css" rel="stylesheet" />
-        <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />        
-        <link href="<?php echo base_url(); ?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css" rel="stylesheet" />
-        <!-- added 12/10/2014 -->
-        <link href="<?php echo base_url(); ?>assets/css/center_radar.css" rel="stylesheet" />
+        <!-- added 12/10/2014 -->     
+        <!-- modified 12/15/2014-->
+        <link href="<?php echo base_url(); ?>assets/css/center_simple.css" rel="stylesheet" />
         <script>
             paceOptions = {
                 target: 'div.loader'
@@ -102,14 +87,14 @@
         </script>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="<?php echo base_url(); ?>assets/js/pace.min.js"></script>
-      
+        <script src="<?php echo base_url(); ?>assets/js/pace.min.js"></script>      
     
         <script type="text/javascript">
             $(window).load(function() {
                 $(".loader").fadeOut("slow");                
             });
-        </script>       
+        </script> 
+        <!-- end custom added -->      
     </head>
     <body class="fixed-left">
     <div class="loader"></div>

@@ -83,4 +83,12 @@ class property_owner_model extends CI_Model
         //echo 'inside update owner id: '.$id.'status: '.$status.'<br>';
         return $status;
 	}
+
+	// created by Lem 12/14/2014
+	public function get_owner_personal_property_details($id)
+	{
+		$this->db->where('tb_property_owner_id',$id);
+		$query = $this->db->get('property_owner_master_list');
+		return $query->row();
+	}
 }

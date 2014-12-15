@@ -44,13 +44,15 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
-
-$route['dt_test/list_all'] = 'dt_test/list_all';
+$route['sl_emailer'] = 'sl_emailer';
+$route['property_owner/list_all'] = 'property_owner/list_all';  // for deletion
+$route['dt_test/list_all'] = 'dt_test/list_all';                // for deletion 
 
 $route['nationality/view_details']  = 'nationality/view_details';
 $route['nationality/del_nat/(:any)']  = 'nationality/del_nat/$1';
 $route['nationality/create_owner_contact_details']  = 'nationality/create_owner_contact_details';
 
+$route['property_owner/print_form'] = 'property_owner/print_form';
 $route['property_owner/buildDropPropertyTypes'] = 'property_owner/buildDropPropertyTypes';
 $route['property_owner/create_property_owner'] = 'property_owner/create_property_owner';
 $route['property_owner/for_deletion_owner'] = 'property_owner/for_deletion_owner';
@@ -100,7 +102,9 @@ $route['nationality']  = 'nationality';
 $route['login'] = 'login';
 $route['tables'] = 'tables';
 
-$route['default_controller'] = 'login';
+//$route['default_controller'] = 'login';
+
+$route['default_controller'] = "subscriber";  //for deletion
 
 $route['propertyfinder/add_propertyfinder'] = 'propertyfinder/add_propertyfinder';
 $route['propertyfinder/count_record_by_subcommunity'] = 'propertyfinder/count_record_by_subcommunity';
@@ -108,18 +112,22 @@ $route['propertyfinder/count_record_by_community'] = 'propertyfinder/count_recor
 $route['propertyfinder/count_record_by_city'] = 'propertyfinder/count_record_by_city';
 $route['propertyfinder/buildDropSubCom'] = 'propertyfinder/buildDropSubCom';
 $route['propertyfinder/buildDropCities'] = 'propertyfinder/buildDropCities';
-$route['propertyfinder/extract_data_per_area'] = 'propertyfinder/extract_data_per_area';
 $route['propertyfinder/view_propertyfinder/(:any)'] = 'propertyfinder/view_propertyfinder/$1';
-$route['propertyfinder/extract_data'] = 'propertyfinder/extract_data';
 $route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
 $route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';
 $route['propertyfinder'] = 'propertyfinder';    
 
+
+// for deletion
+$route['propertyfinder/extract_data_per_area'] = 'propertyfinder/extract_data_per_area';
+$route['propertyfinder/extract_data'] = 'propertyfinder/extract_data';
 $route['unit_test/c_build_drop_property_type'] = 'unit_test/c_build_drop_property_type';
 $route['unit_test/m_prop_owner_for_delation'] ='unit_test/m_prop_owner_for_delation';
 $route['unit_test'] = 'unit_test';
+
 $route['test'] = 'test';
+
 $route['formigniter'] = 'formigniter';                          // Form Generator
 $route['form'] = 'form';
 //$route['404_override'] = 'errors/page_missing';

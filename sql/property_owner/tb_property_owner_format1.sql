@@ -4405,6 +4405,3 @@ INSERT INTO `tb_property_owner_format1` (`Property.Customer`, `Residence Country
 ('Sandip Kishor Devani', 'United Arab Emirates', 'Dubai', 'sandip888@gmail.com', '971-50-5536527', '971-4-3617878', 'Ranches', 'Rsav-V-98', 'United Kingdom'),
 ('Andreas Gerhard Domeyer', 'Germany', 'Hermsdorfer Damm    13467 Berlin', 'andreas@domeyer.info', '971-50-7035890', '49-30-85786201', 'Ranches', 'Rsav-V-99', 'Germany');
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

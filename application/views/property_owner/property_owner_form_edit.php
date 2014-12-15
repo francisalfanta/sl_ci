@@ -360,7 +360,8 @@
                             <h2><strong>Property Details</strong> Form</h2>
                             <div class="additional-btn">
                                 <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                <a href="<?php echo base_url('nationality/create_page/'.$this->uri->segment(3,0)); ?>"><i class="glyphicon glyphicon-plus"></i></a>
+                                <!--<a href="<?php echo base_url('property_owner/add_another_create_edit');?>" target="_blank"><i class="glyphicon glyphicon-plus"></i></a> <!-- added by Lem 12/15/2014 -->
+                                <a href="#" data-toggle="modal" data-target="#add-property" data-href="<?php echo base_url('property_owner/add_another_create_edit');?>" ><i class="glyphicon glyphicon-plus"></i></a> <!-- added by Lem 12/15/2014 -->
                                 <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                 <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                             </div>
@@ -551,7 +552,8 @@
                             <h2><strong>Property Details</strong> Form</h2>
                             <div class="additional-btn">
                                 <a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
-                                <a href="<?php echo base_url('nationality/create_page/'.$this->uri->segment(3,0)); ?>"><i class="glyphicon glyphicon-plus"></i></a>
+                                <!--<a href="<?php echo base_url('property_owner/add_another_create_edit');?>" target="_blank"><i class="glyphicon glyphicon-plus"></i></a> <!-- added by Lem 12/15/2014 -->
+                                 <a href="#" data-toggle="modal" data-target="#add-property" data-href="<?php echo base_url('property_owner/add_another_create_edit');?>" ><i class="glyphicon glyphicon-plus"></i></a> <!-- added by Lem 12/15/2014 -->
                                 <a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
                                 <a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
                             </div>
@@ -582,7 +584,7 @@
                                     <label for="community" class="col-sm-3 col-md-3 control-label input-sm">Property Community :</label>
                                     <div class="col-sm-9">
                                         <select name="community" id="cityDrp" class="form-control">
-                                        <option value="" >'Please select first City'</option>                                                                                           
+                                        <option value="" >Please select first City</option>                                                                                           
                                         </select>
                                         <span class="help-block"><?php echo form_error('community'); ?></span>
                                     </div>
@@ -697,7 +699,7 @@
                             <div class="form-group">
                                 <div class="row">                               
                                     <div class="col-md-6">
-                                      <textarea type="text" name="description" id="description" style="resize:none; height:200px; width:330px" class="form-control input-sm" value="<?php  echo $m2m['description']; set_value('note'); ?>"/><?php echo $m2m['description']; ?></textarea>
+                                      <textarea type="text" name="description" id="description" style="resize:none; height:200px; width:330px" class="form-control input-sm" value=""/></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -851,11 +853,11 @@
                             }                    
                         });
                     });
-
+                    /*
                     $("#formsubmit").click(function(){  
                         var passportno = $('#passport_no').val();   
                         console.log('passportno: '+ passportno);                                         
-                        /*dropdown post */
+                        // dropdown post 
                         $.ajax({
                             url:"<?php echo base_url(); ?>property_owner/update_owner_personal_details/'.$this->uri->segment(3,0).'/'.$this->uri->segment(4,0)",    
                             data: {passport_no: passportno} ,
@@ -864,7 +866,8 @@
                                 console.log('successfull');
                             }
                         }); 
-                    });
+                    });*/
+
                     $("#cityDrp").change(function(){  
                         /*dropdown post */
                         $.ajax({
@@ -876,6 +879,7 @@
                         }                    
                         });
                     }); 
+
                     $("#property_category").change(function(){ 
                             console.log($(this).val()); 
                             /*dropdown post */

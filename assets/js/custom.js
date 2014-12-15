@@ -1,59 +1,6 @@
 (function($){
 
-	<td class="fullname"><small><?php echo $row->first_name.' '.$row->middle_name.' '.$row->last_name; ?></small></td>
-    <td class="no_property_owned"><small><?php echo $row->no_property_owned; ?></small></td>
-    <td class="nationality1"><small><?php echo $row->nationality1; ?></small></td>
-    <td class="nationality2"><small><?php echo $row->nationality2; ?></small></td>
-    <td class="nationality3"><small><?php echo $row->nationality3; ?></small></td>
-    <td class="nationality4"><small><?php echo $row->nationality4; ?></small></td>
-    <td class="passport_no1"><small><?php echo $row->passport_no1; ?></small></td>
-    <td class="passport_no2"><small><?php echo $row->passport_no2; ?></small></td>
-    <td class="passport_no3"><small><?php echo $row->passport_no3; ?></small></td>
-    <td class="passport_no4"><small><?php echo $row->passport_no4; ?></small></td>
-    <td class="address1"><small><?php echo $row->address1; ?></small></td>
-    <td class="subcommunity1"><small><?php echo $row->subcommunity1; ?></small></td>
-    <td class="community1"><small><?php echo $row->community1; ?></small></td>
-    <td class="city1"><small><?php echo $row->city1; ?></small></td>
-    <td class="country1"><small><?php echo $row->country1; ?></small></td>
-
-    <td class="address2"><small><?php echo $row->address2; ?></small></td>
-    <td class="subcommunity2"><small><?php echo $row->subcommunity2; ?></small></td>
-    <td class="community2"><small><?php echo $row->community2; ?></small></td>
-    <td class="city2"><small><?php echo $row->city2; ?></small></td>
-    <td class="country2"><small><?php echo $row->country2; ?></small></td>
-
-    <td class="address3"><small><?php echo $row->address3; ?></small></td>
-    <td class="subcommunity3"><small><?php echo $row->subcommunity3; ?></small></td>
-    <td class="community3"><small><?php echo $row->community3; ?></small></td>
-    <td class="city3"><small><?php echo $row->city3; ?></small></td>
-    <td class="country3"><small><?php echo $row->country3; ?></small></td>
-
-    <td class="address4"><small><?php echo $row->address4; ?></small></td>
-    <td class="subcommunity4"><small><?php echo $row->subcommunity4; ?></small></td>
-    <td class="community4"><small><?php echo $row->community4; ?></small></td>
-    <td class="city4"><small><?php echo $row->city4; ?></small></td>
-    <td class="country4"><small><?php echo $row->country4; ?></small></td>
-
-    <td class="telephone_no1"><small><?php echo $row->telephone_no1; ?></small></td>
-    <td class="telephone_no2"><small><?php echo $row->telephone_no2; ?></small></td>
-    <td class="telephone_no3"><small><?php echo $row->telephone_no3; ?></small></td>
-    <td class="telephone_no4"><small><?php echo $row->telephone_no4; ?></small></td>
-
-    <td class="fax_no1"><small><?php echo $row->fax_no1; ?></small></td>
-    <td class="fax_no2"><small><?php echo $row->fax_no2; ?></small></td>
-    <td class="fax_no3"><small><?php echo $row->fax_no3; ?></small></td>
-    <td class="fax_no4"><small><?php echo $row->fax_no4; ?></small></td>
-
-    <td class="mobile_no1"><small><?php echo $row->mobile_no1; ?></small></td>
-    <td class="mobile_no2"><small><?php echo $row->mobile_no2; ?></small></td>
-    <td class="mobile_no3"><small><?php echo $row->mobile_no3; ?></small></td>
-    <td class="mobile_no4"><small><?php echo $row->mobile_no4; ?></small></td>
-
-    <td class="email1"><small><?php echo $row->email1; ?></small></td>
-    <td class="email2"><small><?php echo $row->email2; ?></small></td>
-    <td class="email3"><small><?php echo $row->email3; ?></small></td>
-    <td class="email4"><small><?php echo $row->email4; ?></small></td> 
-    <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Suspended</span>'; } ?></small></td>
+ var str = "    <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Suspended</span>'; } ?></small></td>
     
     <td class="option" style="text-align: center;width:80px;">
       <div class="btn-group btn-group-xs">                                                                                                                                                                
@@ -66,7 +13,7 @@
       </div>
     </td>
 
-    <?php } ?>  
+    <?php } ?>  ";
 
     function check_td_display(field_name){    	
     	var selector = 'table .'+field_name,

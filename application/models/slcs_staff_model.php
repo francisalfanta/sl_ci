@@ -25,6 +25,7 @@ class Slcs_staff_model extends CI_Model {
 		return $query->row_array();
 	}
 	
+	// Created by Lem
 	public function create_staff($filename) {
 
 		//$this->load->helper('url');
@@ -138,6 +139,7 @@ class Slcs_staff_model extends CI_Model {
 		$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
 		return $insert;
 	}
+
 
 	public function check_if_username_exists($username) {
 
@@ -268,6 +270,4 @@ class Slcs_staff_model extends CI_Model {
 		$this->db->update('slcs_staff',$data);
 		redirect("slcs_staff/index");
 	}
-	//update
-	//delete
 }?>

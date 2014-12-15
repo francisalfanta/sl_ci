@@ -48,7 +48,7 @@
                                             <label for="community_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Community</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->
                                                  <!--city dropdown-->
-                                                <select name="community_name" id="cityDrp" class="form-control col-sm-11 col-md-12">
+                                                <select name="community_name" id="cityDrp" class="form-control col-sm-11 col-md-12" tabindex="2">
                                                     <option value="">Please select first City</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                            
@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <label for="subcommunity_name" class="col-xs-2 col-sm-2 col-md-3 col-lg-3 control-label">Sub Community</label>
                                             <div class="col-xs-9 col-sm-4 col-md-6 col-lg-5"> <!--select-editable">-->                              
-                                                <select name="subcommunity_name" id="cityDrp2" class="form-control col-sm-11 col-md-12">
+                                                <select name="subcommunity_name" id="cityDrp2" class="form-control col-sm-11 col-md-12" tabindex="3">
                                                     <option value="">Please select first Community</option>
                                                 </select>
                                             </div><!-- col-sm-10 -->                                           
@@ -70,7 +70,7 @@
 
                                       <div class="form-group">                                      
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
-                                          <button type="submit" class="btn btn-default" >Save</button>
+                                          <button type="submit" class="btn btn-default" tabindex="5" >Save</button>
                                         </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
                                       </div><!-- form-group -->
                                     </form>

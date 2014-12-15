@@ -8,7 +8,7 @@
 			<!-- ============================================================== -->
 			<!-- Start Content here -->
 			<!-- ============================================================== -->
-            <div class="content">
+            <div class="content">			
 				<!-- Page Heading Start 
 				<div class="page-heading">
             		<h1><i class='fa fa-table'></i> Tables</h1>
@@ -32,6 +32,7 @@
 							</div>
 							<div class="widget-content">					
 								<div class="table-responsive">
+                
 									<table id="slcs_staff_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
 										<thead>
 											<tr>
@@ -75,13 +76,13 @@
 												<td><?php echo $staff['mnumber']; ?></td>
 												<td style="text-align: center; width:60px;">
 													<div class="btn-group btn-group-xs">
-														<a href="<?php echo base_url('slcs_staff/print_form/'.$staff['id']); ?>" target="_blank" data-toggle="tooltip" title="Print" class="btn btn-default"><i class="icon-print-2"></i></a>
+														<a href="<?php echo base_url('slcs_staff/print_form/'.$staff['id']); ?>" target="_blank" data-toggle="tooltip" title="Print"><i class="icon-print-2"></i></a>
 													</div>
 												</td>
 												<td  style="text-align: center;width:80px;">
-													<div class="btn-group btn-group-xs">														
+													<div class="btn-group btn-group-xs">
 														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
-                            <a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-toggle="tooltip" title="Remove" ><i class="glyphicon glyphicon-remove"></i></a>
+														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-confirm="Are you sure you want to delete?,<br> <?php echo '<br><b>'.$staff['fullname'].'</b>'; ?>"><i class="glyphicon glyphicon-remove"></i></a>
 													</div>
 												</td>
 											</tr>
@@ -104,9 +105,21 @@
                   <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
                 </span>
                 </footer>
-                <!-- Footer End -->	
-                <script type="text/javascript">                    
-                    $(document).ready(function() {                      
+                <!-- Footer End -->             
+                <script type="text/javascript">                                     
+                    $(document).ready(function() { 
+                      
+                      // added by Prime 12/15/2014
+                      $('a[data-confirm]').click(function(ev) {
+                        var href = $(this).attr('href');
+                        if (!$('#dataConfirmModal').length) {
+                          $('body').append('<div class="modal fade" id="dataConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Confirmation</div><div class="modal-body"></div>            <div class="modal-footer">                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                <a class="btn btn-danger danger" id="dataConfirmOK">Delete</a>   </div></div></div></div>');
+                        } 
+                        $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                        $('#dataConfirmOK').attr('href', href);
+                        $('#dataConfirmModal').modal({show:true});
+                        return false;
+                      });                     
                       // Setup - add a text input to each footer cell
                       if ($("table#slcs_staff_table tbody tr").length > 0) {
                         //$(this).tablesorter({ sortList: [[0,0]]});

@@ -3,7 +3,7 @@
 	<!-- commented line 10, & 28 : Lemuel -->
 	<div class="container">
 		<div class="full-content-center">
-			<p class="text-center"><a href="#"><img src="<?php echo base_url (); ?>assets/img/login-logo.png" alt="Logo"></a></p>
+			<p class="text-center"><a href="#"><img src="<?php echo base_url (); ?>assets/img/sl_re_logo.png" alt="Logo"></a></p>
 			<div class="login-wrap animated flipInX">
 				<div class="login-block">
 					<img src="<?php echo base_url (); ?>images/users/default-user.png" class="img-circle not-logged-avatar">

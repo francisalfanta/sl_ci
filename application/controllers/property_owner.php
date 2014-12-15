@@ -53,7 +53,7 @@ class Property_owner extends CI_Controller {
 		$middle_name = null;
 		$last_name   = null;
 		$nationality = null;
-		
+		$data['tbody'] = null;
 		//$data['nationalities'] = $this->nationality_model->get_nationality();		
 		//$data['nationalities'] = $this->owner_addr_model->get_owner_addr($property_owner_id);
 		
@@ -61,7 +61,7 @@ class Property_owner extends CI_Controller {
 						         
 		$data['fn_attributes']   = array(
 						              'name'        => 'first_name',
-						              'id'          => 'fn_name',
+						              'id'          => 'first_name',
 						              'value'       => $first_name,						              
 						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
 						              //'style'       => 'width:100%;',
@@ -69,7 +69,7 @@ class Property_owner extends CI_Controller {
 						           );
 		$data['mn_attributes']   = array(
 						              'name'        => 'middle_name',
-						              'id'          => 'fn_name',
+						              'id'          => 'middle_name',
 						              'value'       => $middle_name,
 						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
 						              //'style'       => 'width:100%;',
@@ -77,7 +77,7 @@ class Property_owner extends CI_Controller {
 						           );
 		$data['ln_attributes']   = array(
 						              'name'        => 'last_name',
-						              'id'          => 'ln_name',
+						              'id'          => 'last_name',
 						              'value'       => $last_name,
 						              'class' 		=> 'form-control input-sm col-md-4 col-lg-4',
 						              //'style'       => 'width:100%;',
@@ -525,6 +525,7 @@ class Property_owner extends CI_Controller {
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('property_owner/property_owner_form_edit', $data);		
+		$this->load->view('property_owner/add_another_property_owner_table_modal', $data);
 		$this->load->view('layout/footer');			
 	}
 	
@@ -1063,25 +1064,25 @@ class Property_owner extends CI_Controller {
 	
 	public function find_owner(){
 
-		$first_name  =null;
-		$middle_name = null;
-		$last_name   = null;
-		$nationality = null;
-		$country_name = null;
-		$telephone_no = null;
-		$mobile_no = null;
-		$fax_no = null;
-		$email = null;
+		$first_name  	= null;
+		$middle_name 	= null;
+		$last_name   	= null;
+		$nationality 	= null;
+		$country_name 	= null;
+		$telephone_no 	= null;
+		$mobile_no 		= null;
+		$fax_no 		= null;
+		$email 			= null;
 
-		$first_name  = $this->input->post('first_name');
-		$middle_name = $this->input->post('middle_name');
-		$last_name   = $this->input->post('last_name');
-		$nationality = $this->input->post('nationality');
+		$first_name   = $this->input->post('first_name');
+		$middle_name  = $this->input->post('middle_name');
+		$last_name    = $this->input->post('last_name');
+		$nationality  = $this->input->post('nationality');
 		$country_name = $this->input->post('country_name');
 		$telephone_no = $this->input->post('telephone_no');
-		$mobile_no = $this->input->post('mobile_no');
-		$fax_no = $this->input->post('fax_no');
-		$email = $this->input->post('email');		
+		$mobile_no 	  = $this->input->post('mobile_no');
+		$fax_no 	  = $this->input->post('fax_no');
+		$email 		  = $this->input->post('email');		
 
 		if(strlen($first_name)>0){
 			//echo 'first not null';
@@ -1098,7 +1099,7 @@ class Property_owner extends CI_Controller {
 		//$sql = sl_sql_left_join_like();		
 		$sql = "Select * FROM tb_property_owner_master_list";
 		$query = $this->db->query($sql,array($first_name, $middle_name));
-		echo json_encode($query->result_array());
+		echo json_encode($query->result());
 
 	}
 	// tested 12/09/2014
@@ -1384,4 +1385,40 @@ class Property_owner extends CI_Controller {
 				
 			}				
 	}
+
+	public function list_all()
+	{
+	  $this->datatables
+	    ->select('first_name, nationality1')
+	    ->from('property_owner_master_list');
+	    //->join('tbl_local', 'tbl_profile.local_id = tbl_local.id')
+	    //->select('country')
+	    //->join('tbl_states', 'tbl_profile.state_id = tbl_states.id')
+	    //->select('state')
+	    //->add_column('view', '<a href="' . base_url() . 'admin/profiles/view/$1"><img src="' . base_url() . 'assets/images/admin/vcard.png" alt="View" title="View" /></a>', 'id')
+	    //->add_column('edit', '<a href="' . base_url() . 'admin/profiles/edit/$1"><img src="' . base_url() . 'assets/images/admin/vcard_edit.png" alt="Edit" title="Edit" /></a>', 'id')
+	    //->add_column('delete', '<a href="' . base_url() . 'admin/profiles/delete/$1"><img src="' . base_url() . 'assets/images/admin/vcard_delete.png" alt="Delete" title="Delete" /></a>', 'id');
+
+	  $data['result'] = $this->datatables->generate();
+	  $this->load->view('ajax', $data);	 
+	}
+	// created by Lem 12/14/2014
+	public function print_form($id)
+	{
+		$row = $this->property_owner_model->get_owner_personal_property_details($id);
+		$data['r'] = $row;
+	
+		$username = $this->session->userdata('username'); 					
+		$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Edit staff';				
+		
+		$this->load->view('property_owner/print_form',$data);
+	}
+	// tested and created by Lem 12/15/2014	
+	public function add_another_create_edit()
+	{	
+		echo base_url('property_owner/add_another_create_edit/');		
+	}
+	
+
 }

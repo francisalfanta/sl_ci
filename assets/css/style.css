@@ -756,7 +756,7 @@
   color: #333;
 }
 body {
-  background: #E4EAE6;
+  background: #D0EAD7; //#E4EAE6;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;

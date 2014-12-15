@@ -4,10 +4,7 @@
 			<!-- Start Content here -->
 			<!-- ============================================================== -->
         <div class="content">
-            	<!-- Page Heading Start -->   
-              <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
-              <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.fixedHeader.js'); ?>"></script>
-
+            	<!-- Page Heading Start -->
             	<!-- Page Heading End-->  
               <div class="row">
                     <div class="col-sm-10 col-md-8 col-lg-6 portlets"> 
@@ -21,7 +18,7 @@
                                 </div><!-- additional-btn -->
                             </div><!-- widget-header transparent -->
                             <div class="widget-content padding" id="property_filter">   
-                             <?php echo form_open('property_owner/find_owner', $form_attributes); ?> 
+                             <?php echo form_open('', $form_attributes); ?> 
                                 <div id="horizontal-form">        
                                 <?php echo validation_errors(); ?>
                                     <div class="row" style="width:100%;">                                      
@@ -52,204 +49,7 @@
                                               <?php foreach($country_nationality_list as $nationality) { 
                                               echo '<option value="'.$nationality->nationality.'"'.set_select('nationality', '').'>'.$nationality->nationality.'</option>';
                                               } ?>
-                                            </select>
-                                              <!--
-                                            <select class="form-control col-md-6 col-lg-6" name="nationality" id="nationality" tabindex="5">
-                                                      <option value="" <?php echo set_select('nationality', '', TRUE); ?> >Nationality</option>
-                                                      <option value="afghan" <?php echo set_select('nationality', 'afghan'); ?> >Afghan</option>
-                                                      <option value="albanian" <?php echo set_select('nationality', 'albanian'); ?> >Albanian</option>
-                                                      <option value="algerian" <?php echo set_select('nationality', 'algerian'); ?> >Algerian</option>
-                                                      <option value="american" <?php echo set_select('nationality', 'american'); ?> >American</option>
-                                                      <option value="andorran" <?php echo set_select('nationality', 'andorran'); ?> >Andorran</option>
-                                                      <option value="angolan" <?php echo set_select('nationality', 'angolan'); ?> >Angolan</option>
-                                                      <option value="antiguans" <?php echo set_select('nationality', 'antiguans'); ?> >Antiguans</option>
-                                                      <option value="argentinean" <?php echo set_select('nationality', 'argentinean'); ?> >Argentinean</option>
-                                                      <option value="armenian" <?php echo set_select('nationality', 'armenian'); ?> >Armenian</option>
-                                                      <option value="australian" <?php echo set_select('nationality', 'australian'); ?> >Australian</option>
-                                                      <option value="austrian" <?php echo set_select('nationality', 'austrian'); ?> >Austrian</option>
-                                                      <option value="azerbaijani" <?php echo set_select('nationality', 'azerbaijani'); ?> >Azerbaijani</option>
-                                                      <option value="bahamian" <?php echo set_select('nationality', 'bahamian'); ?> >Bahamian</option>
-                                                      <option value="bahraini" <?php echo set_select('nationality', 'bahraini'); ?> >Bahraini</option>
-                                                      <option value="bangladeshi" <?php echo set_select('nationality', 'bangladeshi'); ?> >Bangladeshi</option>
-                                                      <option value="barbadian" <?php echo set_select('nationality', 'barbadian'); ?> >Barbadian</option>
-                                                      <option value="barbudans" <?php echo set_select('nationality', 'barbudans'); ?> >Barbudans</option>
-                                                      <option value="batswana" <?php echo set_select('nationality', 'batswana'); ?> >Batswana</option>
-                                                      <option value="belarusian" <?php echo set_select('nationality', 'belarusian'); ?> >Belarusian</option>
-                                                      <option value="belgian" <?php echo set_select('nationality', 'belgian'); ?> >Belgian</option>
-                                                      <option value="belizean" <?php echo set_select('nationality', 'belizean'); ?> >Belizean</option>
-                                                      <option value="beninese" <?php echo set_select('nationality', 'beninese'); ?> >Beninese</option>
-                                                      <option value="bhutanese" <?php echo set_select('nationality', 'bhutanese'); ?> >Bhutanese</option>
-                                                      <option value="bolivian" <?php echo set_select('nationality', 'bolivian'); ?> >Bolivian</option>
-                                                      <option value="bosnian" <?php echo set_select('nationality', 'bosnian'); ?> >Bosnian</option>
-                                                      <option value="brazilian" <?php echo set_select('nationality', 'brazilian'); ?> >Brazilian</option>
-                                                      <option value="british" <?php echo set_select('nationality', 'british'); ?> >British</option>
-                                                      <option value="bruneian" <?php echo set_select('nationality', 'bruneian'); ?> >Bruneian</option>
-                                                      <option value="bulgarian" <?php echo set_select('nationality', 'bulgarian'); ?> >Bulgarian</option>
-                                                      <option value="burkinabe" <?php echo set_select('nationality', 'burkinabe'); ?> >Burkinabe</option>
-                                                      <option value="burmese" <?php echo set_select('nationality', 'burmese'); ?> >Burmese</option>
-                                                      <option value="burundian" <?php echo set_select('nationality', 'burundian'); ?> >Burundian</option>
-                                                      <option value="cambodian" <?php echo set_select('nationality', 'cambodian'); ?> >Cambodian</option>
-                                                      <option value="cameroonian" <?php echo set_select('nationality', 'cameroonian'); ?> >Cameroonian</option>
-                                                      <option value="canadian" <?php echo set_select('nationality', 'canadian'); ?> >Canadian</option>
-                                                      <option value="cape verdean" <?php echo set_select('nationality', 'cape verdean'); ?> >Cape Verdean</option>
-                                                      <option value="central african" <?php echo set_select('nationality', 'central african'); ?> >Central African</option>
-                                                      <option value="chadian" <?php echo set_select('nationality', 'chadian'); ?> >Chadian</option>
-                                                      <option value="chilean" <?php echo set_select('nationality', 'chilean'); ?> >Chilean</option>
-                                                      <option value="chinese" <?php echo set_select('nationality', 'chinese'); ?> >Chinese</option>
-                                                      <option value="colombian" <?php echo set_select('nationality', 'colombian'); ?> >Colombian</option>
-                                                      <option value="comoran" <?php echo set_select('nationality', 'comoran'); ?> >Comoran</option>
-                                                      <option value="congolese" <?php echo set_select('nationality', 'congolese'); ?> >Congolese</option>
-                                                      <option value="costa rican" <?php echo set_select('nationality', 'costa rican'); ?> >Costa Rican</option>
-                                                      <option value="croatian" <?php echo set_select('nationality', 'croatian'); ?> >Croatian</option>
-                                                      <option value="cuban" <?php echo set_select('nationality', 'cuban'); ?> >Cuban</option>
-                                                      <option value="cypriot" <?php echo set_select('nationality', 'cypriot'); ?> >Cypriot</option>
-                                                      <option value="czech" <?php echo set_select('nationality', 'czech'); ?> >Czech</option>
-                                                      <option value="danish" <?php echo set_select('nationality', 'danish'); ?> >Danish</option>
-                                                      <option value="djibouti" <?php echo set_select('nationality', 'djibouti'); ?> >Djibouti</option>
-                                                      <option value="dominican" <?php echo set_select('nationality', 'dominican'); ?> >Dominican</option>
-                                                      <option value="dutch" <?php echo set_select('nationality', 'dutch'); ?> >Dutch</option>
-                                                      <option value="east timorese" <?php echo set_select('nationality', 'east timorese'); ?> >East Timorese</option>
-                                                      <option value="ecuadorean" <?php echo set_select('nationality', 'ecuadorean'); ?> >Ecuadorean</option>
-                                                      <option value="egyptian" <?php echo set_select('nationality', 'egyptian'); ?> >Egyptian</option>
-                                                      <option value="emirian" <?php echo set_select('nationality', 'emirian'); ?> >Emirian</option>
-                                                      <option value="equatorial guinean" <?php echo set_select('nationality', 'equatorial guinean'); ?> >Equatorial Guinean</option>
-                                                      <option value="eritrean" <?php echo set_select('nationality', 'eritrean'); ?> >Eritrean</option>
-                                                      <option value="estonian" <?php echo set_select('nationality', 'estonian'); ?> >Estonian</option>
-                                                      <option value="ethiopian" <?php echo set_select('nationality', 'ethiopian'); ?> >Ethiopian</option>
-                                                      <option value="fijian" <?php echo set_select('nationality', 'fijian'); ?> >Fijian</option>
-                                                      <option value="filipino" <?php echo set_select('nationality', 'filipino'); ?> >Filipino</option>
-                                                      <option value="finnish" <?php echo set_select('nationality', 'finnish'); ?> >Finnish</option>
-                                                      <option value="french" <?php echo set_select('nationality', 'french'); ?> >French</option>
-                                                      <option value="gabonese" <?php echo set_select('nationality', 'gabonese'); ?> >Gabonese</option>
-                                                      <option value="gambian" <?php echo set_select('nationality', 'gambian'); ?> >Gambian</option>
-                                                      <option value="georgian" <?php echo set_select('nationality', 'georgian'); ?> >Georgian</option>
-                                                      <option value="german" <?php echo set_select('nationality', 'german'); ?> >German</option>
-                                                      <option value="ghanaian" <?php echo set_select('nationality', 'ghanaian'); ?> >Ghanaian</option>
-                                                      <option value="greek" <?php echo set_select('nationality', 'greek'); ?> >Greek</option>
-                                                      <option value="grenadian" <?php echo set_select('nationality', 'grenadian'); ?> >Grenadian</option>
-                                                      <option value="guatemalan" <?php echo set_select('nationality', 'guatemalan'); ?> >Guatemalan</option>
-                                                      <option value="guinea-bissauan" <?php echo set_select('nationality', 'guinea-bissauan'); ?> >Guinea-Bissauan</option>
-                                                      <option value="guinean" <?php echo set_select('nationality', 'guinean'); ?> >Guinean</option>
-                                                      <option value="guyanese" <?php echo set_select('nationality', 'guyanese'); ?> >Guyanese</option>
-                                                      <option value="haitian" <?php echo set_select('nationality', 'haitian'); ?> >Haitian</option>
-                                                      <option value="herzegovinian" <?php echo set_select('nationality', 'herzegovinian'); ?> >Herzegovinian</option>
-                                                      <option value="honduran" <?php echo set_select('nationality', 'honduran'); ?> >Honduran</option>
-                                                      <option value="hungarian" <?php echo set_select('nationality', 'hungarian'); ?> >Hungarian</option>
-                                                      <option value="icelander" <?php echo set_select('nationality', 'icelander'); ?> >Icelander</option>
-                                                      <option value="indian" <?php echo set_select('nationality', 'indian'); ?> >Indian</option>
-                                                      <option value="indonesian" <?php echo set_select('nationality', 'indonesian'); ?> >Indonesian</option>
-                                                      <option value="iranian" <?php echo set_select('nationality', 'iranian'); ?> >Iranian</option>
-                                                      <option value="iraqi" <?php echo set_select('nationality', 'iraqi'); ?> >Iraqi</option>
-                                                      <option value="irish" <?php echo set_select('nationality', 'irish'); ?> >Irish</option>
-                                                      <option value="israeli" <?php echo set_select('nationality', 'israeli'); ?> >Israeli</option>
-                                                      <option value="italian" <?php echo set_select('nationality', 'italian'); ?> >Italian</option>
-                                                      <option value="ivorian" <?php echo set_select('nationality', 'ivorian'); ?> >Ivorian</option>
-                                                      <option value="jamaican" <?php echo set_select('nationality', 'jamaican'); ?> >Jamaican</option>
-                                                      <option value="japanese" <?php echo set_select('nationality', 'japanese'); ?> >Japanese</option>
-                                                      <option value="jordanian" <?php echo set_select('nationality', 'jordanian'); ?> >Jordanian</option>
-                                                      <option value="kazakhstani" <?php echo set_select('nationality', 'kazakhstani'); ?> >Kazakhstani</option>
-                                                      <option value="kenyan" <?php echo set_select('nationality', 'kenyan'); ?> >Kenyan</option>
-                                                      <option value="kuwaiti" <?php echo set_select('nationality', 'kuwaiti'); ?> >Kuwaiti</option>
-                                                      <option value="kyrgyz" <?php echo set_select('nationality', 'kyrgyz'); ?> >Kyrgyz</option>
-                                                      <option value="laotian" <?php echo set_select('nationality', 'laotian'); ?> >Laotian</option>
-                                                      <option value="latvian" <?php echo set_select('nationality', 'latvian'); ?> >Latvian</option>
-                                                      <option value="lebanese" <?php echo set_select('nationality', 'lebanese'); ?> >Lebanese</option>
-                                                      <option value="liberian" <?php echo set_select('nationality', 'liberian'); ?> >Liberian</option>
-                                                      <option value="libyan" <?php echo set_select('nationality', 'libyan'); ?> >Libyan</option>
-                                                      <option value="liechtensteiner" <?php echo set_select('nationality', 'liechtensteiner'); ?> >Liechtensteiner</option>
-                                                      <option value="lithuanian" <?php echo set_select('nationality', 'lithuanian'); ?> >Lithuanian</option>
-                                                      <option value="luxembourger" <?php echo set_select('nationality', 'luxembourger'); ?> >Luxembourger</option>
-                                                      <option value="macedonian" <?php echo set_select('nationality', 'macedonian'); ?> >Macedonian</option>
-                                                      <option value="malagasy" <?php echo set_select('nationality', 'malagasy'); ?> >Malagasy</option>
-                                                      <option value="malawian" <?php echo set_select('nationality', 'malawian'); ?> >Malawian</option>
-                                                      <option value="malaysian" <?php echo set_select('nationality', 'malaysian'); ?> >Malaysian</option>
-                                                      <option value="maldivan" <?php echo set_select('nationality', 'maldivan'); ?> >Maldivan</option>
-                                                      <option value="malian" <?php echo set_select('nationality', 'malian'); ?> >Malian</option>
-                                                      <option value="maltese" <?php echo set_select('nationality', 'maltese'); ?> >Maltese</option>
-                                                      <option value="marshallese" <?php echo set_select('nationality', 'marshallese'); ?> >Marshallese</option>
-                                                      <option value="mauritanian" <?php echo set_select('nationality', 'mauritanian'); ?> >Mauritanian</option>
-                                                      <option value="mauritian" <?php echo set_select('nationality', 'mauritian'); ?> >Mauritian</option>
-                                                      <option value="mexican" <?php echo set_select('nationality', 'mexican'); ?> >Mexican</option>
-                                                      <option value="micronesian" <?php echo set_select('nationality', 'micronesian'); ?> >Micronesian</option>
-                                                      <option value="moldovan" <?php echo set_select('nationality', 'moldovan'); ?> >Moldovan</option>
-                                                      <option value="monacan" <?php echo set_select('nationality', 'monacan'); ?> >Monacan</option>
-                                                      <option value="mongolian" <?php echo set_select('nationality', 'mongolian'); ?> >Mongolian</option>
-                                                      <option value="moroccan" <?php echo set_select('nationality', 'moroccan'); ?> >Moroccan</option>
-                                                      <option value="mosotho" <?php echo set_select('nationality', 'mosotho'); ?> >Mosotho</option>
-                                                      <option value="motswana" <?php echo set_select('nationality', 'motswana'); ?> >Motswana</option>
-                                                      <option value="mozambican" <?php echo set_select('nationality', 'mozambican'); ?> >Mozambican</option>
-                                                      <option value="namibian" <?php echo set_select('nationality', 'namibian'); ?> >Namibian</option>
-                                                      <option value="nauruan" <?php echo set_select('nationality', 'nauruan'); ?> >Nauruan</option>
-                                                      <option value="nepalese" <?php echo set_select('nationality', 'nepalese'); ?> >Nepalese</option>
-                                                      <option value="new zealander" <?php echo set_select('nationality', 'new zealander'); ?> >New Zealander</option>
-                                                      <option value="ni-vanuatu" <?php echo set_select('nationality', 'ni-vanuatu'); ?> >Ni-Vanuatu</option>
-                                                      <option value="nicaraguan" <?php echo set_select('nationality', 'nicaraguan'); ?> >Nicaraguan</option>
-                                                      <option value="nigerien" <?php echo set_select('nationality', 'nigerien'); ?> >Nigerien</option>
-                                                      <option value="north korean" <?php echo set_select('nationality', 'north korean'); ?> >North Korean</option>
-                                                      <option value="northern irish" <?php echo set_select('nationality', 'northern irish'); ?> >Northern Irish</option>
-                                                      <option value="norwegian" <?php echo set_select('nationality', 'norwegian'); ?> >Norwegian</option>
-                                                      <option value="omani" <?php echo set_select('nationality', 'omani'); ?> >Omani</option>
-                                                      <option value="pakistani" <?php echo set_select('nationality', 'pakistani'); ?> >Pakistani</option>
-                                                      <option value="palauan" <?php echo set_select('nationality', 'palauan'); ?> >Palauan</option>
-                                                      <option value="panamanian" <?php echo set_select('nationality', 'panamanian'); ?> >Panamanian</option>
-                                                      <option value="papua new guinean" <?php echo set_select('nationality', 'papua new guinean'); ?> >Papua New Guinean</option>
-                                                      <option value="paraguayan" <?php echo set_select('nationality', 'paraguayan'); ?> >Paraguayan</option>
-                                                      <option value="peruvian" <?php echo set_select('nationality', 'peruvian'); ?> >Peruvian</option>
-                                                      <option value="polish" <?php echo set_select('nationality', 'polish'); ?> >Polish</option>
-                                                      <option value="portuguese" <?php echo set_select('nationality', 'portuguese'); ?> >Portuguese</option>
-                                                      <option value="qatari" <?php echo set_select('nationality', 'qatari'); ?> >Qatari</option>
-                                                      <option value="romanian" <?php echo set_select('nationality', 'romanian'); ?> >Romanian</option>
-                                                      <option value="russian" <?php echo set_select('nationality', 'russian'); ?> >Russian</option>
-                                                      <option value="rwandan" <?php echo set_select('nationality', 'rwandan'); ?> >Rwandan</option>
-                                                      <option value="saint lucian" <?php echo set_select('nationality', 'saint lucian'); ?> >Saint Lucian</option>
-                                                      <option value="salvadoran" <?php echo set_select('nationality', 'salvadoran'); ?> >Salvadoran</option>
-                                                      <option value="samoan" <?php echo set_select('nationality', 'samoan'); ?> >Samoan</option>
-                                                      <option value="san marinese" <?php echo set_select('nationality', 'san marinese'); ?> >San Marinese</option>
-                                                      <option value="sao tomean" <?php echo set_select('nationality', 'sao tomean'); ?> >Sao Tomean</option>
-                                                      <option value="saudi" <?php echo set_select('nationality', 'saudi'); ?> >Saudi</option>
-                                                      <option value="scottish" <?php echo set_select('nationality', 'scottish'); ?> >Scottish</option>
-                                                      <option value="senegalese" <?php echo set_select('nationality', 'senegalese'); ?> >Senegalese</option>
-                                                      <option value="serbian" <?php echo set_select('nationality', 'serbian'); ?> >Serbian</option>
-                                                      <option value="seychellois" <?php echo set_select('nationality', 'seychellois'); ?> >Seychellois</option>
-                                                      <option value="sierra leonean" <?php echo set_select('nationality', 'sierra leonean'); ?> >Sierra Leonean</option>
-                                                      <option value="singaporean" <?php echo set_select('nationality', 'singaporean'); ?> >Singaporean</option>
-                                                      <option value="slovakian" <?php echo set_select('nationality', 'slovakian'); ?> >Slovakian</option>
-                                                      <option value="slovenian" <?php echo set_select('nationality', 'slovenian'); ?> >Slovenian</option>
-                                                      <option value="solomon islander" <?php echo set_select('nationality', 'solomon islander'); ?> >Solomon Islander</option>
-                                                      <option value="somali" <?php echo set_select('nationality', 'somali'); ?> >Somali</option>
-                                                      <option value="south african" <?php echo set_select('nationality', 'south african'); ?> >South African</option>
-                                                      <option value="south korean" <?php echo set_select('nationality', 'south korean'); ?> >South Korean</option>
-                                                      <option value="spanish" <?php echo set_select('nationality', 'spanish'); ?> >Spanish</option>
-                                                      <option value="sri lankan" <?php echo set_select('nationality', 'sri lankan'); ?> >Sri Lankan</option>
-                                                      <option value="sudanese" <?php echo set_select('nationality', 'sudanese'); ?> >Sudanese</option>
-                                                      <option value="surinamer" <?php echo set_select('nationality', 'surinamer'); ?> >Surinamer</option>
-                                                      <option value="swazi" <?php echo set_select('nationality', 'swazi'); ?> >Swazi</option>
-                                                      <option value="swedish" <?php echo set_select('nationality', 'swedish'); ?> >Swedish</option>
-                                                      <option value="swiss" <?php echo set_select('nationality', 'swiss'); ?> >Swiss</option>
-                                                      <option value="syrian" <?php echo set_select('nationality', 'syrian'); ?> >Syrian</option>
-                                                      <option value="taiwanese" <?php echo set_select('nationality', 'taiwanese'); ?> >Taiwanese</option>
-                                                      <option value="tajik" <?php echo set_select('nationality', 'tajik'); ?> >Tajik</option>
-                                                      <option value="tanzanian" <?php echo set_select('nationality', 'tanzanian'); ?> >Tanzanian</option>
-                                                      <option value="thai" <?php echo set_select('nationality', 'thai'); ?> >Thai</option>
-                                                      <option value="togolese" <?php echo set_select('nationality', 'togolese'); ?> >Togolese</option>
-                                                      <option value="tongan" <?php echo set_select('nationality', 'tongan'); ?> >Tongan</option>
-                                                      <option value="trinidadian" <?php echo set_select('nationality', 'trinidadian'); ?> >Trinidadian</option>
-                                                      <option value="tobagonian" <?php echo set_select('nationality', 'tobagonian'); ?> >Tobagonian</option>
-                                                      <option value="tunisian" <?php echo set_select('nationality', 'tunisian'); ?> >Tunisian</option>
-                                                      <option value="turkish" <?php echo set_select('nationality', 'turkish'); ?> >Turkish</option>
-                                                      <option value="tuvaluan" <?php echo set_select('nationality', 'tuvaluan'); ?> >Tuvaluan</option>
-                                                      <option value="ugandan" <?php echo set_select('nationality', 'ugandan'); ?> >Ugandan</option>
-                                                      <option value="ukrainian" <?php echo set_select('nationality', 'ukrainian'); ?> >Ukrainian</option>
-                                                      <option value="uruguayan" <?php echo set_select('nationality', 'uruguayan'); ?> >Uruguayan</option>
-                                                      <option value="uzbekistani" <?php echo set_select('nationality', 'uzbekistani'); ?> >Uzbekistani</option>
-                                                      <option value="venezuelan" <?php echo set_select('nationality', 'venezuelan'); ?> >Venezuelan</option>
-                                                      <option value="vietnamese" <?php echo set_select('nationality', 'vietnamese'); ?> >Vietnamese</option>
-                                                      <option value="welsh" <?php echo set_select('nationality', 'welsh'); ?> >Welsh</option>
-                                                      <option value="yemenite" <?php echo set_select('nationality', 'yemenite'); ?> >Yemenite</option>
-                                                      <option value="zambian" <?php echo set_select('nationality', 'zambian'); ?> >Zambian</option>
-                                                      <option value="zimbabwean" <?php echo set_select('nationality', 'zimbabwean'); ?>>Zimbabwean</option>
-                                            </select>
-                                            -->
+                                            </select>                                            
                                         </div><!-- form-group -->
                                       </div>
                                     </div>
@@ -301,7 +101,8 @@
                                         </div>
                                     <div class="form-group">                                      
                                         <div class="col-sm-offset-2 col-sm-10 text-right">
-                                          <a  id="find_filter" filterclass="btn btn-default">Find</a>
+                                         <a id="find_filter" class="btn btn-default" >Find</a>
+                                          <!--<a   filterclass="btn btn-default">Find</a>-->
                                         </div><!-- col-sm-offset-2 col-sm-10 text-right -->                                        
                                     </div><!-- form-group -->
                                     </div>
@@ -448,6 +249,7 @@
                                         <th class="email2"><small>Email 2</small></th>
                                         <th class="email3"><small>Email 3</small></th>
                                         <th class="email4"><small>Email 4</small></th>   
+                                        <th class="print" style="width:10px;"><small>Print</small></th>              <!-- added by Lem 12/14/2014 -->
                                         <th class="status" style="width:10px;"><small>Status</small></th>                                                                                  
                                         <th class="option" style="width:80px;" data-sortable="false">Option</th>
                                   </tr>
@@ -507,11 +309,17 @@
                                         <th class="email2"><small>Email 2</small></th>              <!-- 42-->
                                         <th class="email3"><small>Email 3</small></th>              <!-- 43-->
                                         <th class="email4"><small>Email 4</small></th>              <!-- 44-->
+                                        <th class="print" style="width:10px;"><small>Print</small></th>                 <!-- added by Lem 12/14/2014 -->
                                         <th class="status" style="width:80px;"><small>Status</small></th>               <!-- 45-->                                        
                                       <th class="option" style="width:80px;" data-sortable="false">Option</th>
                                     </tr>
                               </tfoot> 
-                                <tbody >
+                              <?php if($tbody){ 
+                                echo '<tbody>';
+                              } else {
+                                echo '<tbody class="hidden">';                                
+                              }?>
+                                  <tbody class="hidden">
                                <?php  $mobile_no = null;  
                                         foreach($records as $row) {  
                                 ?><tr> 
@@ -567,7 +375,14 @@
                                     <td class="email1"><small><?php echo $row->email1; ?></small></td>
                                     <td class="email2"><small><?php echo $row->email2; ?></small></td>
                                     <td class="email3"><small><?php echo $row->email3; ?></small></td>
-                                    <td class="email4"><small><?php echo $row->email4; ?></small></td> 
+                                    <td class="email4"><small><?php echo $row->email4; ?></small></td>
+
+                                    <td class="option" style="text-align: center;width:80px;">    <!-- added by Lem 12/14/2014 -->
+                                        <div class="btn-group btn-group-xs"> 
+                                          <a href="<?php $url='property_owner/print_form/'.$row->tb_property_owner_id; echo base_url($url); ?>" target="_blank" data-toggle="tooltip" title="Print" ><i class="icon-print-2"></i></a>
+                                        </div>
+                                    </td>
+
                                     <td class="status" style="text-align: center;width:80px;"><small><?php if($row->status){ echo '<span id="record-status" value="'.$row->tb_property_owner_id.'" class="label label-success btn">Active</span>'; } else { echo '<span class="label label-danger btn">Suspended</span>'; } ?></small></td>
                                     
                                     <td class="option" style="text-align: center;width:80px;">
@@ -580,7 +395,7 @@
                                           <?php } ?>                            
                                       </div>
                                     </td>
-                                       <?php } ?>  
+                                    <?php } ?>  
                              
                                 </tbody>
                               </table>
@@ -589,12 +404,7 @@
                             </div><!-- widget-content -->
                         </div>
                   </div>
-
-              </div><!-- row -->
-
-					</jQuery(document).ready(function(){
-
-          </form> 
+              </div><!-- row -->				
     			<!-- Footer Start -->
           <footer >
               Soft Line Cleaning Services &copy; 2014
@@ -602,16 +412,162 @@
               	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
               </span>
           </footer>
+          
           <!-- Footer End -->
-          
-          
-          <script type="text/javascript">
-            var editor; // use a global for the submit and return data rendering in the examples            
+          <script type="text/javascript">            
+            // initial table set
+            function td_fullname(first_name, middle_name, last_name){
+              var row_html = '';
+              row_html = '<td class="fullname"><small>'+first_name+' '+middle_name+' '+last_name+'</small></td>';
+              return row_html;
+            }
+
+            function check_td_display(field_name, value){      
+              var selector = 'table .'+field_name,
+                row_html = '';
+
+              if($(selector).is(':visible')){
+                  row_html += '<td class="'+field_name+'">' + field_name + '</td>';                        
+                }
+                return row_html;
+            }  
+            
+            function row_check_owner(first_name, middle_name, last_name, country1, country2, country3, country4, address1, address2, address3, address4, email1, email2, email3, email4, mobile_no1, mobile_no2, mobile_no3, mobile_no4, telephone_no1, telephone_no2, telephone_no3, telephone_no4, passport_no1, passport_no2, passport_no3, passport_no4, nationality1, nationality2, nationality3, nationality4, city1, city2, city3, city4, fax_no1, fax_no2, fax_no3, fax_no4, status, tb_property_owner_id, subcommunity1, subcommunity2, subcommunity3, subcommunity4, community1, community2, community3, community4, no_property_owned){                   
+                var row_html = '<tr>';                  
+                var url  = 'property_owner/print_form/'+tb_property_owner_id;
+                var href = '<?php echo base_url('+url+'); ?>';                   // ??
+                row_html += td_fullname(first_name, middle_name, last_name);
+
+                if($('table .country1').is(':visible')){
+                    row_html += '<td class="country1">' + country1 + '</td>';                        
+                }
+                if($('table .country2').is(':visible')){
+                    row_html += '<td class="country2">' + country2 + '</td>';                        
+                }
+                if($('table .country3').is(':visible')){
+                    row_html += '<td class="country3">' + country3 + '</td>';                        
+                }
+                if($('table .country4').is(':visible')){
+                    row_html += '<td class="country4">' + country4 + '</td>';                        
+                }
+
+                if($('table .address1').is(':visible')){
+                    row_html += '<td class="address1">' + address1 + '</td>';                        
+                }
+                if($('table .address2').is(':visible')){
+                    row_html += '<td class="address2">' + address2 + '</td>';                        
+                }
+                if($('table .address3').is(':visible')){
+                    row_html += '<td class="address3">' + address3 + '</td>';                        
+                }
+                if($('table .address4').is(':visible')){
+                    row_html += '<td class="address4">' + address4 + '</td>';                        
+                }
+
+                if($('table .email1').is(':visible')){
+                    row_html += '<td class="email1">' + email1 + '</td>';                        
+                }
+                if($('table .email2').is(':visible')){
+                    row_html += '<td class="email2">' + email2 + '</td>';                        
+                }
+                if($('table .email3').is(':visible')){
+                    row_html += '<td class="email3">' + email3 + '</td>';                        
+                }
+                if($('table .email4').is(':visible')){
+                    row_html += '<td class="email4">' + email4 + '</td>';                        
+                }
+
+                if($('table .mobile_no1').is(':visible')){
+                    row_html += '<td class="mobile_no1">' + mobile_no1 + '</td>';                        
+                }
+                if($('table .mobile_no2').is(':visible')){
+                    row_html += '<td class="mobile_no2">' + mobile_no2 + '</td>';                        
+                }
+                if($('table .mobile_no3').is(':visible')){
+                    row_html += '<td class="mobile_no3">' + mobile_no3 + '</td>';                        
+                }
+                if($('table .mobile_no4').is(':visible')){
+                    row_html += '<td class="mobile_no4">' + mobile_no4 + '</td>';                        
+                }
+
+                if($('table .telephone_no1').is(':visible')){
+                    row_html += '<td class="telephone_no1">' + telephone_no1 + '</td>';                        
+                }
+                if($('table .telephone_no2').is(':visible')){
+                    row_html += '<td class="telephone_no2">' + telephone_no2 + '</td>';                        
+                }
+                if($('table .telephone_no3').is(':visible')){
+                    row_html += '<td class="telephone_no3">' + telephone_no3 + '</td>';                        
+                }
+                if($('table .telephone_no4').is(':visible')){
+                    row_html += '<td class="telephone_no4">' + telephone_no4 + '</td>';                        
+                }
+
+                if($('table .passport_no1').is(':visible')){
+                    row_html += '<td class="passport_no1">' + passport_no1 + '</td>';                        
+                }
+                if($('table .passport_no2').is(':visible')){
+                    row_html += '<td class="passport_no2">' + passport_no2 + '</td>';                        
+                }
+                if($('table .passport_no3').is(':visible')){
+                    row_html += '<td class="passport_no3">' + passport_no3 + '</td>';                        
+                }
+                if($('table .passport_no4').is(':visible')){
+                    row_html += '<td class="passport_no4">' + passport_no4 + '</td>';                        
+                }
+
+                if($('table .nationality1').is(':visible')){
+                    row_html += '<td class="nationality1">' + nationality1 + '</td>';                        
+                }
+                if($('table .nationality2').is(':visible')){
+                    row_html += '<td class="nationality2">' + nationality2 + '</td>';                        
+                }
+                if($('table .nationality3').is(':visible')){
+                    row_html += '<td class="nationality3">' + nationality3 + '</td>';                        
+                }
+                if($('table .nationality4').is(':visible')){
+                    row_html += '<td class="nationality4">' + nationality4 + '</td>';                        
+                }
+
+                if($('table .city1').is(':visible')){
+                    row_html += '<td class="city1">' + city1 + '</td>';                        
+                }
+                if($('table .city2').is(':visible')){
+                    row_html += '<td class="city2">' + city2 + '</td>';                        
+                }
+                if($('table .city3').is(':visible')){
+                    row_html += '<td class="city3">' + city3 + '</td>';                        
+                }
+                if($('table .city4').is(':visible')){
+                    row_html += '<td class="city4">' + city4 + '</td>';                        
+                }
+
+                if($('table .fax_no1').is(':visible')){
+                    row_html += '<td class="fax_no1">' + fax_no1 + '</td>';                        
+                }
+                if($('table .fax_no2').is(':visible')){
+                    row_html += '<td class="fax_no2">' + fax_no2 + '</td>';                        
+                }
+                if($('table .fax_no3').is(':visible')){
+                    row_html += '<td class="fax_no3">' + fax_no3 + '</td>';                        
+                }
+                if($('table .fax_no4').is(':visible')){
+                    row_html += '<td class="fax_no4">' + fax_no4 + '</td>';                        
+                }
+
+                if($('table .status').is(':visible')){
+                    row_html += '<td class="status">' + status + '</td>';                        
+                }
+
+                row_html += '<td class="option" style="text-align: center;width:80px;"><div class="btn-group btn-group-xs"><a href="'+url+'" target="_blank" data-toggle="tooltip" title="Print" ><i class="icon-print-2"></i></a></div></td>';
+                
+
+                row_html  += '<td> edit / delete</td></tr>';
+                
+                return row_html;    
+            }       
 
             function render_filtered_owner_table(first_name, middle_name, last_name, nationality, country, telephone_no, mobile_no, fax_no, email){
-                  //city_name           = typeof city_name !== 'undefined' ? city_name : null;
-                  //community_name      = typeof community_name !== 'undefined' ? community_name : null;
-                  //subcommunity_name   = typeof subcommunity_name !== 'undefined' ? subcommunity_name : null;
                   first_name   = typeof first_name !== 'undefined' ? first_name : null;
                   middle_name  = typeof middle_name !== 'undefined' ? middle_name : null;
                   last_name    = typeof last_name !== 'undefined' ? last_name : null;
@@ -656,7 +612,8 @@
                                   $.each(response, function (i, item) {
                                       //console.log('i :'+ i);
                                       //console.log('item :'+ item);                                           
-                                      trHTML += row_check_owner(item.tb_property_owner_id, item.first_name+' '+item.last_name, item.address, item.mobile_no, item.telephone_no, item.re_property, item.property_type, item.building_name, item.status);
+                                      trHTML += row_check_owner(item.first_name, item.middle_name, item.last_name, item.country1, item.country2, item.country3, item.country4, item.address1, item.address2, item.address3, item.address4, item.email1, item.email2, item.email3, item.email4, item.mobile_no1, item.mobile_no2, item.mobile_no3, item.mobile_no4, item.telephone_no1, item.telephone_no2, item.telephone_no3, item.telephone_no4, item.passport_no1, item.passport_no2, item.passport_no3, item.passport_no4, item.nationality1, item.nationality2, item.nationality3, item.nationality4, item.city1, item.city2, item.city3, item.city4, item.fax_no1, item.fax_no2, item.fax_no3, item.fax_no4, item.status, item.tb_property_owner_id, item.subcommunity1, item.subcommunity2, item.subcommunity3, item.subcommunity4, item.community1, item.community2, item.community3, item.community4, item.no_property_owned);
+                                      //trHTML += row_check_owner(item.tb_property_owner_id, item.first_name+' '+item.last_name, item.address, item.mobile_no, item.telephone_no, item.re_property, item.property_type, item.building_name, item.status);
                                   });
 
                                   $('tbody').removeClass('hidden').show().empty().append(trHTML);
@@ -670,7 +627,7 @@
                           });// end inter-active table 
             };
 
-            $(document).on("click", ".open-delete-dialog", function () {              
+            $(document).on("click", ".open-delete-dialog", function () {   
                 var record_id = $(this).data('id');                  
                 //var search_dash = todelete.search('-');
                 //var rec_id_only = todelete.slice(0,search_dash);
@@ -681,7 +638,14 @@
             });
 
             $(document).ready(function() {
-              //$('.slcs_modal').slcs_modal_box(); 
+              var delay = (function(){
+                              var timer = 0;
+                              return function(callback, ms){
+                                clearTimeout (timer);
+                                timer = setTimeout(callback, ms);
+                              };
+                           })();
+
               $('#del-record').on('click',function(){
                 var todelete = $('#todelete').val();
             
@@ -700,33 +664,29 @@
                                 });
                   }                 
                 });// delete record
-              });           
-
-              $('table .address2, table .address3, table .address4, table .telephone_no2, table .telephone_no3, table .telephone_no4').hide();
-              $('table .mobile_no2, table .mobile_no3, table .mobile_no4, table .fax_no2, table .fax_no3, table .fax_no4').hide();
-              $('table .email2, table .email3, table .email4, table .passport_no2, table .passport_no3, table .passport_no4').hide();
-              $('table .subcommunity2, table .subcommunity3, table .subcommunity4, table .community2, table .community3, table .community4').hide();
-              $('table .city2, table .city3, table .city4, table .country2, table .country3, table .country4').hide();
-              $('table .nationality2, table .nationality3, table .nationality4').hide();
-
-              //$('#delete-record-modal').on('show.bs.modal', function(e) {
-              //    alert('click');
-              //  var ownerId = $(e.relatedTarget).data('id');
-              //  $(e.currentTarget).find('input[name="todelete"]').val(ownerId);
-              //});
+              });  
+              //$('table .address2, table .address3, table .address4, table .telephone_no2, table .telephone_no3, table .telephone_no4').hide();
+              //$('table .mobile_no2, table .mobile_no3, table .mobile_no4, table .fax_no2, table .fax_no3, table .fax_no4').hide();
+              //$('table .email2, table .email3, table .email4, table .passport_no2, table .passport_no3, table .passport_no4').hide();
+              //$('table .subcommunity2, table .subcommunity3, table .subcommunity4, table .community2, table .community3, table .community4').hide();
+              //$('table .city2, table .city3, table .city4, table .country2, table .country3, table .country4').hide();
+              //$('table .nationality2, table .nationality3, table .nationality4').hide();
               
               // Setup - add a text input to each footer cell
               if ($("table#owner_table tbody tr").length > 0) {
                 //$(this).tablesorter({ sortList: [[0,0]]});
                 $('#owner_table tfoot th').each( function () {
                   var title = $('#owner_table thead th').eq( $(this).index() ).text();
-                  if(title!='Option' && title!='Status'){
+                  if(title!='Option' && title!='Status' && title!='Print'){
                     $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;width:100%;" />' );
                   }
                 });
               }
 
               var table = $('#owner_table').DataTable({ 
+                     // "processing": true,
+                     // "serverSide": true,
+                     // "ajax"      : "<?php echo base_url('property_owner/list_all'); ?>"
                       /*
                       dom: 'T<"clear">lfrtip',
                       tableTools: {
@@ -825,96 +785,92 @@
 
               // toggle class off associated to default checkbox                                                  
               $('.field_name').click(function(){
-                    // jquery flow guide on this action
-                    // re-render filtered table then
-                    // parent node class field_name is looking for a class iswitch in children node
-                    //var child_switch = $(this).find('.iswitch');
-                    // if the children node contain a class name on
-                    //var iswitch = child_switch.hasClass('on');
-                    // find the input tag
-                    //var input_check = iswitch.siblings('input');
-                    // get the sibling attribute name
-                    //var input_attr = input_check.attr('name');
-                    var city_name         = $('#city_name').val();
-                    var community_name    = $('#cityDrp').val();
-                    var subcommunity_name = $('#cityDrp2').val();
-
-                    // inter-active table    
-                    console.log('inside field_name click');
-                    //render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
-                    //    console.log('ajax within a function successful');
-                    //});
-                    console.log('after rendered inside field_name click');
-                    // end inter-active table
-                    
-                    var check_switch = $(this).find('.iswitch').hasClass('on');
-                    var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
-                    var column = "table ." + field_name_checkbox;
-                   
-                    if(check_switch){ 
-                        // to show the table column name mention
-                          
-                        if(field_name_checkbox == 'address1'){                              
-                          $('table .address1').toggle();
-                          $('table .subcommunity1').toggle();
-                          $('table .community1').toggle();
-                          $('table .city1').toggle();
-                          $('table .country1').toggle();                             
-                        } else if(field_name_checkbox == 'address2'){                              
-                          $('table .address2').toggle();
-                          $('table .subcommunity2').toggle();
-                          $('table .community2').toggle();
-                          $('table .city2').toggle();
-                          $('table .country2').toggle();  
-                        } else if(field_name_checkbox == 'address3'){                              
-                          $('table .address3').toggle();
-                          $('table .subcommunity3').toggle();
-                          $('table .community3').toggle();
-                          $('table .city3').toggle();
-                          $('table .country3').toggle();  
-                        } else if(field_name_checkbox == 'address4'){                              
-                          $('table .address4').toggle();
-                          $('table .subcommunity4').toggle();
-                          $('table .community4').toggle();
-                          $('table .city4').toggle();
-                          $('table .country4').toggle();  
-                        } else {
-                          $(column).toggle();
-                        }
-                                                  
-                    } else {   
-                        // to hide the table column name mention 
-                        if(field_name_checkbox=='address1'){
-                          $('table .address1').hide();
-                          $('table .subcommunity1').hide();
-                          $('table .community1').hide();
-                          $('table .city1').hide();
-                          $('table .country1').hide();                             
-                        } else if(field_name_checkbox=='address2'){
-                          $('table .address2').hide();
-                          $('table .subcommunity2').hide();
-                          $('table .community2').hide();
-                          $('table .city2').hide();
-                          $('table .country2').hide();                             
-                        } else if(field_name_checkbox=='address3'){
-                          $('table .address3').hide();
-                          $('table .subcommunity3').hide();
-                          $('table .community3').hide();
-                          $('table .city3').hide();
-                          $('table .country3').hide();                             
-                        } else if(field_name_checkbox=='address4'){
-                          $('table .address4').hide();
-                          $('table .subcommunity4').hide();
-                          $('table .community4').hide();
-                          $('table .city4').hide();
-                          $('table .country4').hide();                             
-                        } else {
-                          $(column).hide();
-                        }
-                    }                          
+                var first_name    = $('#first_name').val();
+                var middle_name   = $('#middle_name').val();
+                var last_name     = $('#last_name').val();
+                var nationality   = $('#nationality').val();
+                var country       = $('#country_name').val();
+                var telephone_no  = $('#telephone_no').val();
+                var mobile_no     = $('#mobile_no').val();
+                var fax_no        = $('#fax_no').val();
+                var email         = $('#email').val();
+                // inter-active table    
+                console.log('inside field_name click');
+                //render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
+                render_filtered_owner_table(first_name, middle_name, last_name, nationality, country, telephone_no, mobile_no, fax_no, email).complete(function(){
+                    console.log('ajax within a function successful');
+                });                
+                console.log('after rendered inside field_name click');
+                // end inter-active table
+                
+                var check_switch = $(this).find('.iswitch').hasClass('on');
+                var field_name_checkbox = $(this).find('.iswitch').siblings('input').attr('name');
+                var column = "table ." + field_name_checkbox;
+               
+                if(check_switch){ 
+                    // to show the table column name mention                      
+                    if(field_name_checkbox == 'address1'){                              
+                      $('table .address1').toggle();
+                      $('table .subcommunity1').toggle();
+                      $('table .community1').toggle();
+                      $('table .city1').toggle();
+                      $('table .country1').toggle();                             
+                    } else if(field_name_checkbox == 'address2'){                              
+                      $('table .address2').toggle();
+                      $('table .subcommunity2').toggle();
+                      $('table .community2').toggle();
+                      $('table .city2').toggle();
+                      $('table .country2').toggle();  
+                    } else if(field_name_checkbox == 'address3'){                              
+                      $('table .address3').toggle();
+                      $('table .subcommunity3').toggle();
+                      $('table .community3').toggle();
+                      $('table .city3').toggle();
+                      $('table .country3').toggle();  
+                    } else if(field_name_checkbox == 'address4'){                              
+                      $('table .address4').toggle();
+                      $('table .subcommunity4').toggle();
+                      $('table .community4').toggle();
+                      $('table .city4').toggle();
+                      $('table .country4').toggle();  
+                    } else {
+                      $(column).toggle();
+                    }
+                                              
+                } else {   
+                    // to hide the table column name mention 
+                    if(field_name_checkbox=='address1'){
+                      $('table .address1').hide();
+                      $('table .subcommunity1').hide();
+                      $('table .community1').hide();
+                      $('table .city1').hide();
+                      $('table .country1').hide();                             
+                    } else if(field_name_checkbox=='address2'){
+                      $('table .address2').hide();
+                      $('table .subcommunity2').hide();
+                      $('table .community2').hide();
+                      $('table .city2').hide();
+                      $('table .country2').hide();                             
+                    } else if(field_name_checkbox=='address3'){
+                      $('table .address3').hide();
+                      $('table .subcommunity3').hide();
+                      $('table .community3').hide();
+                      $('table .city3').hide();
+                      $('table .country3').hide();                             
+                    } else if(field_name_checkbox=='address4'){
+                      $('table .address4').hide();
+                      $('table .subcommunity4').hide();
+                      $('table .community4').hide();
+                      $('table .city4').hide();
+                      $('table .country4').hide();                             
+                    } else {
+                      $(column).hide();
+                    }
+                }                          
               });
 
-              $("#find_filter").click(function(){    
+              $("#find_filter").click(function(){  
+              //$("#first_name").keyup(function() {
                 var first_name    = $('#first_name').val(),
                     middle_name   = $('#middle_name').val(),
                     last_name     = $('#last_name').val(),
@@ -925,23 +881,25 @@
                     fax_no        = $('#fax_no').val(),
                     email         = $('#email').val();
 
-                $.ajax({
+                //delay(function(){
+                  //alert('Time elapsed!');
+                  $.ajax({
                     url: "<?php echo base_url('property_owner/find_owner'); ?>",
                     type: 'POST',
                     dataType: 'json',   // The available data types are text, html, xml, json, jsonp, and script.
-                    data:{  'first_name' : first_name,
+                    data:{  'first_name'  : first_name,
                             'middle_name' : middle_name,
-                            'last_name' : last_name,
+                            'last_name'   : last_name,
                             'nationality' : nationality,
-                            'country_name' : country_name,
-                            'telephone_no' : telephone_no,
-                            'mobile_no' : mobile_no,
-                            'fax_no' : fax_no,
-                            'email' : email
+                            'country_name': country_name,
+                            'telephone_no': telephone_no,
+                            'mobile_no'   : mobile_no,
+                            'fax_no'      : fax_no,
+                            'email'       : email
                          },                              
                     error:  function(xhr, status, error) {
-                                var err = JSON.parse(xhr.responseText);
-                                //alert(err.Message);
+                              var err = JSON.parse(xhr.responseText);
+                              //alert(err.Message);
                             },
                     statusCode: {
                              404: function() {
@@ -949,29 +907,26 @@
                                 }
                     },
                     success: function (response) { 
-                        var property_count = '';
-                        $.each(response, function (i, item) {
-                            property_count = item;
-                            console.log('item :'+ item);
-                            console.log('i :'+ i);
-                        });                                                                 
-                        // inter-active table    
-                        render_filtered_table(city_name, community_name, subcommunity_name).complete(function(){
-                        console.log('ajax within a function successful');
+                        var trHTML = '';
+                        $.each(response, function (i, item) {                              
+                            //console.log('item :'+ item);
+                            //console.log('i :'+ i);                            
+                            trHTML += row_check_owner(item.first_name, item.middle_name, item.last_name, item.country1, item.country2, item.country3, item.country4, item.address1, item.address2, item.address3, item.address4, item.email1, item.email2, item.email3, item.email4, item.mobile_no1, item.mobile_no2, item.mobile_no3, item.mobile_no4, item.telephone_no1, item.telephone_no2, item.telephone_no3, item.telephone_no4, item.passport_no1, item.passport_no2, item.passport_no3, item.passport_no4, item.nationality1, item.nationality2, item.nationality3, item.nationality4, item.city1, item.city2, item.city3, item.city4, item.fax_no1, item.fax_no2, item.fax_no3, item.fax_no4, item.status, item.tb_property_owner_id, item.subcommunity1, item.subcommunity2, item.subcommunity3, item.subcommunity4, item.community1, item.community2, item.community3, item.community4, item.no_property_owned);                            
                         });
-                        // end inter-active table 
+
+                        $('tbody').removeClass('hidden').show().empty().append(trHTML);                        
+                        console.log('ajax within a function successful');                                                
                     },
                     complete: function(xhr, status){
                         var xhr = JSON.parse(xhr.responseText);
                         //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
                     }
-                });// end inter-active count response
-                
+                  });// end inter-active count response
+
+                //}, 1000);
               });  
             });
-
-          </script>
-         
+          </script>         
       </div>
 			<!-- ============================================================== -->
 			<!-- End content here -->
