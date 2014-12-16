@@ -12,7 +12,11 @@ class Sl_emailer extends CI_Controller {
  		$this->load->library('parser');
 		$this->load->library('email');
 		$this->load->helper('url'); //You should autoload this one ;)
-		$this->load->helper('ckeditor'); 		
+		$this->load->helper('ckeditor'); 
+
+		$config['mailtype'] = 'html';
+		$config['bcc_batch_mode'] = 
+		$this->email->initialize($config);
  	}
 
 	function _header_data(){   
@@ -33,7 +37,7 @@ class Sl_emailer extends CI_Controller {
 		$this->load->helper('ckeditor');
 		$data_sl_header = $this->_header_data();
 		$data = $data_sl_header;
-		$data['title'] = 'SoftLine | E-Mailer ';
+		$data['title'] = 'SoftLine | E-Mailer';
 
 		//Ckeditor's configuration
 		$ck_data['ckeditor'] = array(
@@ -139,6 +143,9 @@ class Sl_emailer extends CI_Controller {
 		$data['slfooter']   = $slfooter;
 		$data['msg_editor'] = $msg_editor;
 
+		// get e-mail database
+		$data['email_lists'] = $this->email_model->get_valid_email();
+
 			 
 
 		$this->parser->parse('layout/header', $data);
@@ -151,17 +158,47 @@ class Sl_emailer extends CI_Controller {
 	}
 
 	public function slsend_mail(){
-		$this->email->from('francisalfanta@gmail.com', 'Your Name');
-		$this->email->to('francisalfanta@gmail.com'); 
-		$this->email->cc('another@another-example.com'); 
-		$this->email->bcc('them@their-example.com'); 
+		$this->email->clear();
 
-		$this->email->subject('Email Test');
-		$this->email->message('Testing the email class.');	
+		$toggle_bcc_batch_mode = $this->input->post('bcc_batch_mode');
+		// check mail option bcc		
+		if((int) $toggle_bcc_batch_mode == 1){
+			$config['bcc_batch_mode'] = TRUE;
+		} else {
+			$config['bcc_batch_mode'] = FALSE;
+		}
+		
+		$this->email->initialize($config);
+
+		$from = $this->input->post('from');
+
+		$to   = $this->input->post('receiver');
+		$subj = $this->input->post('subject');
+		$cc   = null;
+		$bcc   = null;
+		$msg  = $this->input->post('message');
+
+		//$this->email->from('francisalfanta@gmail.com', 'Your Name');
+		//$this->email->to('francisalfanta@gmail.com'); 
+		//$this->email->cc('another@another-example.com'); 
+		$this->email->bcc('them@their-example.com'); 
+		//$this->email->subject('Subject');
+		//$this->email->message('no cc bcc Debugging Testing the email class.');	
+		
+		
+		$this->email->to($to); 
+		$this->email->from($from, 'Your Name');
+		//$this->email->cc($cc); 
+		//$this->email->bcc($bcc); 
+		$this->email->subject($subj);	
+		$this->email->message($msg);		
+		$this->email->set_alt_message($msg);   // create alternate msg by removing html tag
 
 		$check = $this->email->send();
 
-		//echo $this->email->print_debugger();
-		return $check;
+		echo $this->email->print_debugger();
+		//echo $check;
+		//$this->session->set_flashdata('db_msg', 'Update successful.');
+		//redirect('/sl_emailer');
 	}
 }

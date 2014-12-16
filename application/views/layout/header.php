@@ -94,6 +94,15 @@
                 $(".loader").fadeOut("slow");                
             });
         </script> 
+        <!-- FMA added 12/16/2014 -->
+        
+        <?php if($title='SoftLine | E-Mailer'){ ?>
+        <link href="assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url(); ?>assets/css/e_mailer_style.css" type="text/css" rel="stylesheet">
+        <?php } ?>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.css">
         <!-- end custom added -->      
     </head>
     <body class="fixed-left">

@@ -53,4 +53,17 @@ class email_model extends CI_Model {
 
 		return $status;
 	}
+
+	public function get_valid_email(){		
+		$this->db->distinct()
+				 ->select('tb_property_owner.first_name, tb_email.email')
+				 ->from('email')
+				 ->join('property_owner', 'property_owner.tb_property_owner_id=email.tb_property_owner_id', 'left')
+				 ->where('locate("@", tb_email.email) >', 0)
+				 ->where('length(tb_email.email) >', 0)
+				 ->limit(100);			
+		$query = $this->db->get();		
+		
+		return $query->result();
+	} 
 }

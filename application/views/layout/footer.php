@@ -7,6 +7,8 @@
 	<!-- End of eoverlay modal -->
 	<script>
 		var resizefunc = [];
+
+		
 	</script>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="<?php echo base_url(); ?>assets/libs/jquery/jquery-1.11.1.min.js"></script>
@@ -49,5 +51,35 @@
     
     <!-- FMA custom added 12-10-2014 -->
     <script src="<?php echo base_url(); ?>assets/js/slcs_modal_box.js"></script>
+    <!-- FMA custom added 12/16-2014 -->
+    <?php if($title='SoftLine | E-Mailer'){ ?>
+    <script src="<?php echo base_url();?>assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
+	<script src="<?php echo base_url();?>assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
+	<script src="<?php echo base_url();?>assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/pages/datatables.js"></script>	
+	<?php } ?>
+	<script src="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.min.js"></script>
 	</body>
+	<?php if($title='SoftLine | E-Mailer'){ ?>
+	<script type="text/javascript"> 
+        $(document).ready(function() {            	 
+        	var selectall = $('#selectAll').find('.iCheck-helper');        				
+			
+			selectall.click(function(e){                
+                var table= $(e.target).closest('table');                
+                var x = $('td input:checkbox',table).prop('checked',this.checked);
+				
+				alert('inside ')
+			    var checked = $(this).is(':checked');
+			    var el = $('table input[type=checkbox]');
+			    
+			    if(checked) {
+			        el.attr('checked', 'checked');
+			    } else {
+			        el.removeAttr('checked');
+			    } 
+    		});        
+		});
+    </script>
+    <?php } ?>
 </html>

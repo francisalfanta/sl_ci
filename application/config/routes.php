@@ -44,7 +44,9 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+$route['sl_emailer/slsend_mail'] = 'sl_emailer/slsend_mail';
 $route['sl_emailer'] = 'sl_emailer';
+
 $route['property_owner/list_all'] = 'property_owner/list_all';  // for deletion
 $route['dt_test/list_all'] = 'dt_test/list_all';                // for deletion 
 

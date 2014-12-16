@@ -35,9 +35,11 @@ class Unit_test extends CI_Controller {
         //$description       = $this->input->post('description');
         //echo '$description'.$description.'<br>';
         //$test = $this->_header_data();
-        $query = array_merge($data_sl_header, $test);
+        $email_list = $this->email_model->get_valid_email();
 
-        var_dump($query);
+        //$query = array_merge($data_sl_header, $test);
+
+        var_dump($email_list);
 
         $test_unit = '';
 		if (is_null($test_unit)) 
