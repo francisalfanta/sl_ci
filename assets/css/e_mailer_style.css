@@ -1,8 +1,5 @@
-//div.icheckbox_square-aero {
-//	width: 50% !important;
-//	height: 50% !important;
-//}
 div#to_emailer_filter {
+	margin-top: 10px !important;
 	margin-left: 100px !important;
 	float: left !important;	
 }
@@ -13,10 +10,13 @@ div#to_emailer_filter input {
 	width: 80%;	
 }
 div#to_emailer_paginate {
-	margin-right: -80px !important;
+	text-align: center;
+//	margin-right: -80px !important;
 //	margin-top: -6px !important;	
 //	height: 38px !important;
 }
+
 div.pagination {
 	height: 38px !important;
+
 }

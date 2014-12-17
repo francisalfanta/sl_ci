@@ -59,26 +59,78 @@
 	<script src="<?php echo base_url();?>assets/js/pages/datatables.js"></script>	
 	<?php } ?>
 	<script src="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.min.js"></script>
+	
 	</body>
 	<?php if($title='SoftLine | E-Mailer'){ ?>
 	<script type="text/javascript"> 
-        $(document).ready(function() {            	 
+        $(document).ready(function() {
+         
         	var selectall = $('#selectAll').find('.iCheck-helper');        				
+        	var select_record = $('.select_record').find('.iCheck-helper');        	
 			
-			selectall.click(function(e){                
-                var table= $(e.target).closest('table');                
-                var x = $('td input:checkbox',table).prop('checked',this.checked);
-				
-				alert('inside ')
-			    var checked = $(this).is(':checked');
-			    var el = $('table input[type=checkbox]');
-			    
-			    if(checked) {
-			        el.attr('checked', 'checked');
-			    } else {
-			        el.removeAttr('checked');
+			selectall.click(function(e){                              
+				//alert('inside selectall');			    
+			    if($(this).parent().hasClass('checked')) {
+			    	//alert('already checked');			        
+			        $('div.icheckbox_square-aero')
+			        	.addClass('checked')
+					  	.parent() // small tag
+					  	.parent() // td.select_record
+					  	.siblings('td.fullname')
+					  	.find('small')
+					  	.each(function(){		
+					  		var receiver = $("#input-text-to").val();	  
+							var email = $(this).html().slice($(this).html().search(' - ')+3, $(this).html().length); // extract email only
+							//alert('email: '+email);
+				        	if(receiver.length > 0){
+	    						receiver = receiver+', ';
+	    					}
+				        	$('input[name=receiver]').val(receiver+email.toLowerCase());
+					  	});			        
+			    } else {			        
+			        $('div.icheckbox_square-aero').removeClass('checked');
+			        $('input[name=receiver]').val('');
 			    } 
-    		});        
+    		});   
+
+    		select_record.click(function(e){ 
+    			var find_email = $(this).parent() // div.icheckbox_square-aero
+    			                   .parent() // small
+    			                   .parent() // td
+    			                   .siblings('td.fullname')  // fullname/email
+    			                   .find('small'); // small
+
+    			var fullname_email = find_email.html();
+    			var email = fullname_email.slice(fullname_email.search(' - ')+3, fullname_email.length); // extract email only
+    			var receiver = $("#input-text-to").val();
+
+    			if(receiver.length>0){
+    				receiver = receiver+', ';//receiver.slice(2,receiver.length); // remove extra ', '
+    			} 
+    			//alert(receiver);         
+                if($(this).parent().hasClass('checked')){
+                	//alert('the item is checked');	
+                	$('input[name=receiver]').val(receiver+email.toLowerCase());
+
+                } else {
+                	//alert('the item is not checked');	
+                	// find email from receiver list
+                	receiver = receiver.replace(', '+email.toLowerCase(),"").replace(email.toLowerCase(),""); 
+                	// remove duplicate comma
+                	receiver = receiver.replace(', , ',', ');
+                	// remove extra ', ' in front
+                	if(receiver.slice(0,2)==', '){
+    					receiver = receiver.slice(2, receiver.length); 	
+    				}
+    				// remove extra ', ' in last
+    				if(receiver.slice(receiver.length-2,receiver.length)==', '){
+    					receiver = receiver.slice(0, receiver.length-2); 	
+    				}
+                	// remove from the list                	
+                	$('input[name=receiver]').val(receiver);
+                }
+                
+            });     
 		});
     </script>
     <?php } ?>

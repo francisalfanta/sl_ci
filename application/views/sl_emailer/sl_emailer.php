@@ -94,15 +94,15 @@
                                 </div>
                             </div><!-- form-group -->
                             <div class="form-group">                                
-                                <div class="col-sm-10">
+                                <div style="padding:10px;">                                    
                                     <!-- Start to E-mail table -->
                                     <table id="to_emailer" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th id="selectAll" style="width: 8px !important; height: 10px !important; text-align:center !important;"><small><input  type="checkbox" class="input-sm"></small></th>
+                                                <th align="center" id="selectAll" style=" padding: 0 !important; height: 10px !important; text-align:right !important;"><small><input  type="checkbox" class="input-sm"></small></th>
                                                 <th class="fullname" style="width:40px !important;"><small>Full Name / Email</small></th>
                                                 <!--<th class="email"><small>Email</small></th>-->
-                                                <th class="status"  style="text-align:center; width:18px;"></th>                                                   
+                                                <th class="status"  style="text-align:center; width:5px;"></th>                                                   
                                             </tr>
                                         </thead>
                                         <!--<tfoot>
@@ -117,15 +117,66 @@
                                         <tbody>
                                            {email_lists}
                                             <tr>   
-                                                <td style="width: 8px !important; height: 10px !important; text-align:center !important"><small><input  type="checkbox" class="rows-check"></small></td>
-                                                <td class="fullname" style="width:40px !important;" data-sortable="true"><small>{first_name} - {email}</small></td>
+                                                <td class="select_record" style="padding: 0 !important; height: 10px !important; text-align:center !important"><small><input  type="checkbox" class="rows-check"></small></td>
+                                                <td class="fullname" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
                                                 <!--<td class="email"><small>Email</small></td>-->
-                                                <td class="status" style="text-align:center; width:18px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
+                                                <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
                                             </tr>
                                             {/email_lists}
                                         </tbody>
                                     </table>
-                                  <!-- End to E-mail table-->
+                                    <!-- End to E-mail table-->
+                                    <!-- Search Table -->
+                                    <table cellpadding="3" cellspacing="0" border="0" style="width: 80%; margin: 0 auto 2em auto;">
+                                        <thead>
+                                            <tr>
+                                                <th>Search by</th>
+                                                <th>Search text</th>
+                                                <!--<th>Treat as regex</th>
+                                                <th>Use smart search</th>-->
+                                            </tr>
+                                        </thead>
+                                 
+                                        <tbody>                                            
+                                            <tr id="filter_col1" data-column="0">
+                                                <td>Name</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col0_filter"></td>
+                                                <!--td align="center"><input type="checkbox" class="column_filter" id="col0_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col0_smart" checked="checked"></td>-->
+                                            </tr>
+                                            <tr id="filter_col2" data-column="1">
+                                                <td>City</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col1_filter"></td>
+                                                <!--<td align="center"><input type="checkbox" class="column_filter" id="col1_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col1_smart" checked="checked"></td>-->
+                                            </tr>
+                                            <tr id="filter_col3" data-column="2">
+                                                <td>Community</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col2_filter"></td>
+                                                <!--<td align="center"><input type="checkbox" class="column_filter" id="col2_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col2_smart" checked="checked"></td>-->
+                                            </tr>
+                                            <tr id="filter_col4" data-column="3">
+                                                <td>Subcommunity</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col3_filter"></td>
+                                                <!--<td align="center"><input type="checkbox" class="column_filter" id="col3_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col3_smart" checked="checked"></td>-->
+                                            </tr>
+                                            <tr id="filter_col5" data-column="4">
+                                                <td>Property Type</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col4_filter"></td>
+                                                <!--<td align="center"><input type="checkbox" class="column_filter" id="col4_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col4_smart" checked="checked"></td>-->
+                                            </tr>
+                                            <tr id="filter_col6" data-column="5">
+                                                <td>Nationality</td>
+                                                <td align="center"><input type="text" class="column_filter" id="col5_filter"></td>
+                                                <!--<td align="center"><input type="checkbox" class="column_filter" id="col5_regex"></td>
+                                                <td align="center"><input type="checkbox" class="column_filter" id="col5_smart" checked="checked"></td>-->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- End Search Table -->
                                 </div>
                             </div><!-- form-group -->
                         </div><!-- portlets -->
@@ -140,11 +191,22 @@
 			<!-- End content here -->
 			<!-- ============================================================== -->
             <script type="text/javascript"> 
-            $(document).ready(function() {
+            $(document).ready(function() {                
                 $("#to_emailer").dataTable({
                     // remove length and show at bottom
-                    "sDom": '<"top">rt<"bottom"fp><"clear">'                
-                });  
+                    "aoColumnDefs": [
+                        { "bSortable": false, "aTargets": [ 0 ] },
+                        { "sWidth": "1%", "aTargets": [ 0 ] },
+                        { "sWidth": "1%", "aTargets": [ 2 ] }
+                    ],
+                    "bAutoWidth": false,
+                    //"autoWidth": false,
+                    //"scrollX"     : 400,
+                    //"scrollY"     : 325,
+                    //"scrollCollapse": true,
+                    "jQueryUI":       true,              
+                    "sDom": '<"top">rt<"bottom"fp><"clear">'                    
+                });                  
 
                 $("#send_email").click(function(){ 
                     $.ajax({
@@ -165,6 +227,32 @@
                         }
                     });                   
                 });
+                function filterGlobal () {
+                    $('#example').DataTable().search(
+                        $('#global_filter').val(),
+                        $('#global_regex').prop('checked'),
+                        $('#global_smart').prop('checked')
+                    ).draw();
+                }
+                // testing js               
+                function filterColumn ( i ) {
+                    $('#to_emailer').DataTable().column( i ).search(
+                        $('#col'+i+'_filter').val()
+                        //$('#col'+i+'_regex').prop('checked'),
+                        //$('#col'+i+'_smart').prop('checked')
+                    ).draw();
+                }
+                 
+                $(document).ready(function() {
+                    $('#to_emailer').dataTable();                 
+                    //$('input.global_filter').on( 'keyup click', function () {
+                    //    filterGlobal();
+                    //});                 
+                    $('input.column_filter').on( 'keyup click', function () {
+                        filterColumn( $(this).parents('tr').attr('data-column') );
+                    } );
+                });
+                // end testing js
             });
             </script>
         </div><!-- content-page -->
