@@ -63,12 +63,11 @@
 	</body>
 	<?php if($title='SoftLine | E-Mailer'){ ?>
 	<script type="text/javascript"> 
-        $(document).ready(function() {
-         
+        $(document).ready(function() {         
         	var selectall = $('#selectAll').find('.iCheck-helper');        				
         	var select_record = $('.select_record').find('.iCheck-helper');        	
 			
-			selectall.click(function(e){                              
+			selectall.click(function(e){ 
 				//alert('inside selectall');			    
 			    if($(this).parent().hasClass('checked')) {
 			    	//alert('already checked');			        
@@ -128,8 +127,7 @@
     				}
                 	// remove from the list                	
                 	$('input[name=receiver]').val(receiver);
-                }
-                
+                }                
             });     
 		});
     </script>

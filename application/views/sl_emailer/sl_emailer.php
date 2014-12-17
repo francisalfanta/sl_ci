@@ -99,7 +99,7 @@
                                     <table id="to_emailer" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th align="center" id="selectAll" style=" padding: 0 !important; height: 10px !important; text-align:right !important;"><small><input  type="checkbox" class="input-sm"></small></th>
+                                                <th  id="selectAll" style="padding: 0 !important;"><small><input  type="checkbox" class="input-sm"></small></th>
                                                 <th class="fullname" style="width:40px !important;"><small>Full Name / Email</small></th>
                                                 <!--<th class="email"><small>Email</small></th>-->
                                                 <th class="status"  style="text-align:center; width:5px;"></th>                                                   
@@ -117,7 +117,7 @@
                                         <tbody>
                                            {email_lists}
                                             <tr>   
-                                                <td class="select_record" style="padding: 0 !important; height: 10px !important; text-align:center !important"><small><input  type="checkbox" class="rows-check"></small></td>
+                                                <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
                                                 <td class="fullname" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
                                                 <!--<td class="email"><small>Email</small></td>-->
                                                 <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
@@ -137,7 +137,7 @@
                                             </tr>
                                         </thead>
                                  
-                                        <tbody>                                            
+                                        <tbody>  
                                             <tr id="filter_col1" data-column="0">
                                                 <td>Name</td>
                                                 <td align="center"><input type="text" class="column_filter" id="col0_filter"></td>
@@ -192,14 +192,16 @@
 			<!-- ============================================================== -->
             <script type="text/javascript"> 
             $(document).ready(function() {                
-                $("#to_emailer").dataTable({
+                var table = $("#to_emailer").dataTable({
                     // remove length and show at bottom
-                    "aoColumnDefs": [
-                        { "bSortable": false, "aTargets": [ 0 ] },
+                    "order": [[1, 'desc']],
+                    "columnDefs": [
+                        { "orderable": false, "targets": 0 },   
+                        //{ "bSortable": false, "aTargets": [ 0 ] },
                         { "sWidth": "1%", "aTargets": [ 0 ] },
-                        { "sWidth": "1%", "aTargets": [ 2 ] }
+                        { "sWidth": "1%", "aTargets": [ 2 ] }                       
                     ],
-                    "bAutoWidth": false,
+                    "autoWidth": false,
                     //"autoWidth": false,
                     //"scrollX"     : 400,
                     //"scrollY"     : 325,
