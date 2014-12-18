@@ -87,20 +87,36 @@
     					</div><!-- portlets -->
 
                         <div class="col-md-4 portlets">
-                            <div class="form-group">
+                            <div class="form-group">                                                                                              
                                 <label for="receiver" class="col-sm-2 control-label text-left" >To</label>
-                                <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="input-text-to" name="receiver" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3" >
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3" >
                                 </div>
+                                <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-to" class="col-sm-1"></span>
                             </div><!-- form-group -->
-                            <div class="form-group">                                
-                                <div style="padding:10px;">                                    
+                            <div class="form-group">
+                                <label for="carbon_copy" class="col-sm-2 control-label text-left" >Cc</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control to-radio" id="input-text-cc" name="input-text-cc" value="<?php echo set_value('carbon_copy'); ?>" placeholder="Carbon Copy" tabindex="4" >
+                                </div>
+                                <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-cc" class="col-sm-1"></span>
+                            </div><!-- form-group -->
+                             <div class="form-group">
+                                <label for="blind_carbon_copy" class="col-sm-2 control-label text-left" >Bcc</label>
+                                <div class="col-sm-9">
+                                  <input type="text" class="form-control to-radio" id="input-text-bcc" name="input-text-bcc" value="<?php echo set_value('blind_carbon_copy'); ?>" placeholder="Blind Carbon Copy" tabindex="5" >
+                                </div>
+                                <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-bcc" class="col-sm-1"></span>
+                            </div><!-- form-group -->
+                            <div class="form-group">  
+
+                                <div id="table_container"> 
                                     <!-- Start to E-mail table -->
                                     <table id="to_emailer" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
                                                 <th  id="selectAll" style="padding: 0 !important;"><small><input  type="checkbox" class="input-sm"></small></th>
-                                                <th class="fullname" style="width:40px !important;"><small>Full Name / Email</small></th>
+                                                <th class="email" style="width:40px !important;"><small>Email</small></th>
                                                 <!--<th class="email"><small>Email</small></th>-->
                                                 <th class="status"  style="text-align:center; width:5px;"></th>                                                   
                                             </tr>
@@ -118,7 +134,7 @@
                                            {email_lists}
                                             <tr>   
                                                 <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
-                                                <td class="fullname" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
+                                                <td class="email" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
                                                 <!--<td class="email"><small>Email</small></td>-->
                                                 <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
                                             </tr>

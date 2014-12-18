@@ -20,3 +20,15 @@ div.pagination {
 	height: 38px !important;
 
 }
+.form-group {
+	margin-bottom: 5px !important;
+}
+#table_container {
+	padding: 0 10px 10px 10px !important;
+}
+
+input:focus { 
+    outline:none !important;
+    border-color:#9ecaed !important;
+    box-shadow:0 0 10px #9ecaed !important;
+}
