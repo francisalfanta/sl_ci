@@ -1,0 +1,66 @@
+ function filterGlobal () {
+                    $('#example').DataTable().search(
+                        $('#global_filter').val(),
+                        $('#global_regex').prop('checked'),
+                        $('#global_smart').prop('checked')
+                    ).draw();
+                }
+                // testing js               
+                function filterColumn ( i ) {
+                    $('#to_emailer').DataTable().column( i ).search(
+                        $('#col'+i+'_filter').val()
+                        //$('#col'+i+'_regex').prop('checked'),
+                        //$('#col'+i+'_smart').prop('checked')
+                    ).draw();
+                }
+                 
+                $(document).ready(function() {
+                    $('#to_emailer').dataTable();                 
+                    //$('input.global_filter').on( 'keyup click', function () {
+                    //    filterGlobal();
+                    //});                 
+                    $('input.column_filter').on( 'keyup click', function () {
+                        filterColumn( $(this).parents('tr').attr('data-column') );
+                    } );
+                });
+
+
+                 // added for search by column
+                    initComplete: function () {
+                        var api = this.api();
+
+                       
+                        api.columns().indexes().flatten().each( function ( i ) {
+                            //console.log(api.columns());
+                            var column = api.column( i );
+                            
+                            //console.log(column);
+                            var select = $('<select><option value=""></option></select>')
+                                .appendTo( $(column.footer()).empty() )
+                                //.appendTo( $('td.column-search-city').empty() )
+                                .on( 'change', function () {
+                                    var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+
+                                    );
+                                    //console.log($(this).val());
+                                    column
+                                        .search( val ? '^'+val+'$' : '', true, false )
+                                        .draw();
+                                } );
+             
+                            column.data().unique().sort().each( function ( d, j ) {
+                                select.append( '<option value="'+d+'">'+d+'</option>' )
+                            } );
+                        } );                      
+                            
+                    }   
+
+                     {email_lists}
+                                            <tr>   
+                                                <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
+                                                <td class="email" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
+                                                <td class="country"><small>{addressCountry}</small></td>
+                                                <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
+                                            </tr>
+                                            {/email_lists}

@@ -35,7 +35,7 @@ class Unit_test extends CI_Controller {
         //$description       = $this->input->post('description');
         //echo '$description'.$description.'<br>';
         //$test = $this->_header_data();
-        $email_list = $this->email_model->get_valid_email();
+        $email_list = $this->email_model->find_valid_email_by_addresss('x',null);//get_valid_email();
 
         //$query = array_merge($data_sl_header, $test);
 

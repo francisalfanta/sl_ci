@@ -144,9 +144,7 @@ class Sl_emailer extends CI_Controller {
 		$data['msg_editor'] = $msg_editor;
 
 		// get e-mail database
-		$data['email_lists'] = $this->email_model->get_valid_email();
-
-			 
+		$data['email_lists'] = $this->email_model->get_valid_email();			 
 
 		$this->parser->parse('layout/header', $data);
 		$this->parser->parse('layout/topbar',array());
@@ -154,7 +152,6 @@ class Sl_emailer extends CI_Controller {
 		$this->parser->parse('layout/right_sidemenu',array());
 		$this->parser->parse('sl_emailer/sl_emailer', $data);		
 		$this->parser->parse('layout/footer',array());
-
 	}
 
 	public function slsend_mail(){
@@ -200,5 +197,12 @@ class Sl_emailer extends CI_Controller {
 		//echo $check;
 		//$this->session->set_flashdata('db_msg', 'Update successful.');
 		//redirect('/sl_emailer');
+	}
+
+	public function filtered_email_lists(){
+		$city = $this->input->post('city');
+		$country = $this->input->post('country');
+		$query = $this->email_model->find_valid_email_by_addresss($city, $country);
+		echo json_encode($query);
 	}
 }

@@ -83,11 +83,10 @@
                                     </div>
                                 </div>
                             </div><!-- row -->
-
     					</div><!-- portlets -->
 
                         <div class="col-md-4 portlets">
-                            <div class="form-group">                                                                                              
+                            <div class="form-group"> 
                                 <label for="receiver" class="col-sm-2 control-label text-left" >To</label>
                                 <div class="col-sm-9">
                                   <input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3" >
@@ -117,28 +116,28 @@
                                             <tr>
                                                 <th  id="selectAll" style="padding: 0 !important;"><small><input  type="checkbox" class="input-sm"></small></th>
                                                 <th class="email" style="width:40px !important;"><small>Email</small></th>
-                                                <!--<th class="email"><small>Email</small></th>-->
+                                                <!--<th class="country"><small>xCountry</small></th>-->
                                                 <th class="status"  style="text-align:center; width:5px;"></th>                                                   
                                             </tr>
                                         </thead>
                                         <!--<tfoot>
                                             <tr>                                                                                           
                                                 <th style="width: 10px !important; height: 10px !important;" data-sortable="false"><small><input  type="checkbox" class="rows-check"></small></th>
-                                                <th class="fullname" style="width:40px !important;"><small>Full Name / Email</small></th>
-                                                <th class="email"><small>Email</small></th>
+                                                <th class="fullname" style="width:40px !important;"><small>Email</small></th>
+                                                <th class="country" style="width:40px !important;"><small>Country</small></th>
                                                 <th class="status"><small>Status</small></th>     
                                             </tr>
                                         </tfoot>-->
                                         
-                                        <tbody>
-                                           {email_lists}
+                                        <tbody> 
+                                            {email_lists}
                                             <tr>   
                                                 <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
                                                 <td class="email" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
-                                                <!--<td class="email"><small>Email</small></td>-->
+                                                <!--<td class="country"><small>{addressCountry}</small></td>-->
                                                 <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
                                             </tr>
-                                            {/email_lists}
+                                            {/email_lists}                                         
                                         </tbody>
                                     </table>
                                     <!-- End to E-mail table-->
@@ -156,37 +155,37 @@
                                         <tbody>  
                                             <tr id="filter_col1" data-column="0">
                                                 <td>Name</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col0_filter"></td>
+                                                <td class="column-search" align="center"><input type="text" class="column_filter" id="col0_filter"></td>
                                                 <!--td align="center"><input type="checkbox" class="column_filter" id="col0_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col0_smart" checked="checked"></td>-->
                                             </tr>
                                             <tr id="filter_col2" data-column="1">
                                                 <td>City</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col1_filter"></td>
+                                                <td class="column-search-city" align="center"><input type="text" class="column_filter" id="col1_filter"></td>
                                                 <!--<td align="center"><input type="checkbox" class="column_filter" id="col1_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col1_smart" checked="checked"></td>-->
                                             </tr>
                                             <tr id="filter_col3" data-column="2">
                                                 <td>Community</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col2_filter"></td>
+                                                <td class="column-search" align="center"><input type="text" class="column_filter" id="col2_filter"></td>
                                                 <!--<td align="center"><input type="checkbox" class="column_filter" id="col2_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col2_smart" checked="checked"></td>-->
                                             </tr>
                                             <tr id="filter_col4" data-column="3">
                                                 <td>Subcommunity</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col3_filter"></td>
+                                                <td class="column-search" align="center"><input type="text" class="column_filter" id="col3_filter"></td>
                                                 <!--<td align="center"><input type="checkbox" class="column_filter" id="col3_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col3_smart" checked="checked"></td>-->
                                             </tr>
                                             <tr id="filter_col5" data-column="4">
                                                 <td>Property Type</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col4_filter"></td>
+                                                <td class="column-search" align="center"><input type="text" class="column_filter" id="col4_filter"></td>
                                                 <!--<td align="center"><input type="checkbox" class="column_filter" id="col4_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col4_smart" checked="checked"></td>-->
                                             </tr>
                                             <tr id="filter_col6" data-column="5">
                                                 <td>Nationality</td>
-                                                <td align="center"><input type="text" class="column_filter" id="col5_filter"></td>
+                                                <td class="column-search" align="center"><input type="text" class="column_filter" id="col5_filter"></td>
                                                 <!--<td align="center"><input type="checkbox" class="column_filter" id="col5_regex"></td>
                                                 <td align="center"><input type="checkbox" class="column_filter" id="col5_smart" checked="checked"></td>-->
                                             </tr>
@@ -207,8 +206,8 @@
 			<!-- End content here -->
 			<!-- ============================================================== -->
             <script type="text/javascript"> 
-            $(document).ready(function() {                
-                var table = $("#to_emailer").dataTable({
+            $(document).ready(function() { 
+                var table = $("#to_emailer").DataTable({
                     // remove length and show at bottom
                     "order": [[1, 'desc']],
                     "columnDefs": [
@@ -223,9 +222,28 @@
                     //"scrollY"     : 325,
                     //"scrollCollapse": true,
                     "jQueryUI":       true,              
-                    "sDom": '<"top">rt<"bottom"fp><"clear">'                    
-                });                  
+                    "sDom": '<"top">rt<"bottom"fp><"clear">',                   
+                                   
+                });      
+                //table.column( 1 ).visible( false );
+                //table.columns.adjust().draw( false ); // adjust column sizing and redraw
+                
+                $('td.column-search-city input').on( 'keyup change', function () {
+                    table.column(1).search(this.value).draw();
+                });
 
+                //table.ajax.url( "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>" ).load();
+                $("#to_emailer").dataTable({
+                    "ajax": {
+                    "url": "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
+                    "data": {
+                        "city": 'x'
+                            }
+                    }
+                });
+                           
+                //var idx = table.columns( 1 ).indexes();
+                //alert(idx);
                 $("#send_email").click(function(){ 
                     $.ajax({
                         url: '<?php echo base_url();?>sl_emailer/slsend_mail',
@@ -245,31 +263,7 @@
                         }
                     });                   
                 });
-                function filterGlobal () {
-                    $('#example').DataTable().search(
-                        $('#global_filter').val(),
-                        $('#global_regex').prop('checked'),
-                        $('#global_smart').prop('checked')
-                    ).draw();
-                }
-                // testing js               
-                function filterColumn ( i ) {
-                    $('#to_emailer').DataTable().column( i ).search(
-                        $('#col'+i+'_filter').val()
-                        //$('#col'+i+'_regex').prop('checked'),
-                        //$('#col'+i+'_smart').prop('checked')
-                    ).draw();
-                }
-                 
-                $(document).ready(function() {
-                    $('#to_emailer').dataTable();                 
-                    //$('input.global_filter').on( 'keyup click', function () {
-                    //    filterGlobal();
-                    //});                 
-                    $('input.column_filter').on( 'keyup click', function () {
-                        filterColumn( $(this).parents('tr').attr('data-column') );
-                    } );
-                });
+               
                 // end testing js
             });
             </script>

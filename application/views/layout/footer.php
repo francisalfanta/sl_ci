@@ -63,134 +63,110 @@
 	</body>
 	<?php if($title='SoftLine | E-Mailer'){ ?>
 	<script type="text/javascript">	
-		// initialize checkbox
-		
-        
-        $(document).ready(function() {
-        	$("input[type='checkbox']").attr("disabled", true);	
-        	//enable_cb();
+		// initialize checkbox	
+		$(document).ready(function() {
+        	$("input[type='checkbox']").attr("disabled", true);
+        	$("input[type='radio']").attr("disabled", true);		
+
         	var selectall = $('#selectAll').find('.iCheck-helper');        				
-        	var select_record = $('.select_record').find('.iCheck-helper');
- 
-        	//var selected = $('.radio_to').find('.iCheck-helper');//$("input[type='radio'][name='optionsRadios']:checked");
-        	//var selected = $('div.iradio_square-aero');
-        	//selected.click(function(){
-        		//alert('radio box check');
-        	//	active_input = $(this).siblings('input').val();
-        		//alert(x);
-        	//});
-        	
-			//if (selected.length > 0) {
-			//	selectedVal = selected.val();
-				//alert(selectedVal);
-			//}   
+        	var select_record = $('.select_record').find('.iCheck-helper'); 
+   
 			$( ".to-radio" ).focus(function() {
-				$("input[type='checkbox']").removeAttr("disabled");
-  				alert( "Handler for .focus() called." );
+				$("input[type='checkbox']").removeAttr("disabled");  
   				var chk_btn = $(this).parent().siblings('.radio_to').find('.iradio_square-aero');
-  				//alert(chk_btn.hasClass('checked'));
   				if(!chk_btn.hasClass('checked')){
-  					//alert('has no checked');
   				    chk_btn.addClass('checked');  				    
   				}
   				// recheck email checkbox procedure //
-  				// get input value
-  					//alert('current value: '+$(this).val());  				
+  				// get input value			
   				var current_email = $(this).val();
   				// split according to comma
-  				var current_email_lists = current_email.split(',');
-  				//alert('lists: '+current_email_lists);
+  				var current_email_lists = current_email.split(',');  	
   				// loop thru the list
-  				//alert(current_email_lists.length);
-  				for (i = 0; i < current_email_lists.length; ++i) { 
-  					//alert('i: '+i);
+  				for (i = 0; i < current_email_lists.length; ++i) {   					
   					// find in td email
 	  				$('td.email').each(function(){  					
-	  					var content = $(this).find('small').html();	  					
-	  					alert(content.toLowerCase());
+	  					var content = $(this).find('small').html();	 
 	  					if(content.toLowerCase()==current_email_lists[i]){
-	  						//alert(content.toLowerCase()+'=='+current_email_lists[i]);
-	  						//alert(current_email_lists[i]);
-	  						//alert($(this).find('small').html());
-	  						// tree transverse to check box and add check
-	  						$(this).siblings('.select_record').find('.icheckbox_square-aero').addClass('checked');
-	  						// aria-checked set to true
-	  						$(this).siblings('.select_record').find('.icheckbox_square-aero').attr('aria-checked', 'true');
+	  						alert(content.toLowerCase()+'-'+current_email_lists[i]);
+	  						$(this).siblings('.select_record').find('.icheckbox_square-aero').addClass('checked');	  							
 	  					}
 	  				});
-  				}
-  				  				
+  				} 				  				
 			});   		
         	$( ".to-radio" ).blur(function() { 
-        		alert( "Handler for .blur() called." ); 				
+        		//alert( "Handler for .blur() called." ); 				
   				var chk_btn = $(this).parent().siblings('.radio_to').find('.iradio_square-aero');
   				if(chk_btn.hasClass('checked')){  					
   				    chk_btn.removeClass('checked');  				
-  				    $('div.icheckbox_square-aero').removeClass('checked');  				
-  				    $(this).siblings('.select_record').find('.icheckbox_square-aero').attr('aria-checked', 'false');
+  				    $('div.icheckbox_square-aero').removeClass('checked'); 
+  				    $('td.email').siblings('.select_record').find('.icheckbox_square-aero').attr('aria-checked', 'false');
+  				    $('#selectAll').attr('aria-checked', 'false');
+  				    $('input[type="checkbox"]').prop('checked', 'false');
   				}
 			}); 
         	
-			selectall.click(function(e){ 					  
-				//var receiver = $(active_input).val();
-				//console.log(receiver);	
-				//alert('inside selectall');			    
-			    if($(this).parent().hasClass('checked')) {
-			    	//alert('already checked');			        
+			selectall.click(function(e){ 
+				var selected_receiver = '';
+    			$('.radio_to .iradio_square-aero').each(function(){
+    				if($(this).hasClass('checked')){    					
+    					selected_receiver = $(this).find('input').val();    			
+    				}
+    			}) 			    
+			    if($(this).parent().hasClass('checked')) {			    	
+			     	$('input[type="checkbox"]').prop('checked', 'true');	
+			     	$('div.icheckbox_square-aero').attr('aria-checked', 'true');		    		        
 			        $('div.icheckbox_square-aero')
-			        	.addClass('checked')
+			        	.addClass('checked')			        	
 					  	.parent() // small tag
 					  	.parent() // td.select_record
 					  	.siblings('td.email')
 					  	.find('small')
-					  	.each(function(){ 
-					  		//check_input_selector = $(document.activeElement).attr('id');				
-							//alert(check_input_selector);
-					  		var receiver = $("#input-text-to").val();
-
-							var email 	 = $(this).html().slice($(this).html().search(' - ')+3, $(this).html().length); // extract email only
-							//alert('email: '+email);
-				        	if(receiver.length > 0){
-	    						receiver = receiver+', ';
-	    					}
-				        	$('input[name=receiver]').val(receiver+email.toLowerCase());
+					  	.each(function(){ 					  		
+					  		var receiver = $("#"+selected_receiver).val();					  	
+							var email 	 = $(this).html();		
+							
+							if(typeof receiver !== "undefined"){
+								if(receiver.length > 0){				        				
+	    							receiver = receiver +', ';	    							
+	    						}	    						
+	    						$('input[name='+selected_receiver+']').val(receiver+email.toLowerCase());
+	    					}				        	
 					  	});			        
-			    } else {			        
+			    } else {				    	        
 			        $('div.icheckbox_square-aero').removeClass('checked');
-			        $('input[name=receiver]').val('');
+			        //$('div.icheckbox_square-aero').attr('aria-checked', 'false');
+			        //$('input[type="checkbox"]').prop('checked', 'false'); 
+			        $('input[name='+selected_receiver+']').val('');
 			    } 
     		});   
 
     		select_record.click(function(e){ 
+    			var selectall = $('#selectAll').find('.iCheck-helper');  
+    			alert(selectall.html());
     			var selected_receiver = '';
+    			selectall.parent('icheckbox_square-aero').removeClass('checked');
+    			selectall.parent('icheckbox_square-aero').attr('aria-checked', 'false');	
+
     			$('.radio_to .iradio_square-aero').each(function(){
-    				if($(this).hasClass('checked')){
-    					//alert($(this).find('input').val());
-    					selected_receiver = $(this).find('input').val();
-    					//alert(selected_receiver);
+    				if($(this).hasClass('checked')){    					
+    					selected_receiver = $(this).find('input').val();    			
     				}
-    			})   			
-    			
+    			}) 
     			var find_email = $(this).parent() // div.icheckbox_square-aero
     			                   .parent() // small
     			                   .parent() // td
     			                   .siblings('td.email')  // fullname/email
-    			                   .find('small'); // small
-    			
-    			var email = find_email.html();
-    			//var receiver = $("#input-text-to").val();    			
-    			
+    			                   .find('small'); // small    			
+    			var email = find_email.html();  
     			var receiver = $("#"+ selected_receiver).val();
-    			//alert(receiver);
+  
     			if(typeof receiver !== "undefined"){    				
     				if(receiver.length){
     					receiver = receiver+', ';
-    				} 
-    				//alert(receiver);         
-	                if($(this).parent().hasClass('checked')){
-	                	//alert('the item is checked');	
+    				}     				       
+	                if($(this).parent().hasClass('checked')){	                	
 	                	$('input[name='+selected_receiver+']').val(receiver+email.toLowerCase());
-
 	                } else {
 	                	//alert('the item is not checked');	
 	                	// find email from receiver list
