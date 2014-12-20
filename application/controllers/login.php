@@ -13,23 +13,15 @@ class Login extends CI_Controller {
 
 	public function index() {		
 
-		$data['title'] = "SoftLine | Login";     							// Modified by: Lemuel		
+		$data['title'] = "SoftLine | Login";
 
 		$this->load->view('layout/header', $data);
 		$this->load->view('layout/modal');
 		$this->load->view('login_form');
 		$this->load->view('layout/footer');
-	}	
-	// Created by: Lemuel
-	public function forgotpass(){
-		$data['title'] = "SoftLine | Forgot Password";
-
-		$this->load->view('layout/header', $data);
-		$this->load->view('layout/modal');
-		$this->load->view('forgot_pass');
-		$this->load->view('layout/footer');
 	}
-	// Created by: Lemuel
+	
+	// Created by: Prime
 	public function adminpanel(){
 		if ($this->session->userdata('is_logged_in')){
 
@@ -40,8 +32,7 @@ class Login extends CI_Controller {
 			
 			$data['title'] = "SoftLine | Admin Panel"; 
 			
-			$username = $this->session->userdata('username'); 	// get username from db
-			//$data['username'] = $this->session->userdata('username'); 
+			$username = $this->session->userdata('username');
 			$data['username'] = $username;			
 
 			$this->load->helper('url');
@@ -55,13 +46,13 @@ class Login extends CI_Controller {
 			show_404();
 		}		
 	}
-	// Created by: Lemuel
+	
+	// Created by: Prime
 	public function login_validation(){ 
 
 		$this->load->library('form_validation');
 		
 		$this->form_validation->set_rules('username', 'Username', 'required|trim|xss-clean|callback_validate_credentials');
-		//$this->form_validation->set_rules('email', 'Email', 'required|trim|xss-clean|callback_validate_credentials');
 		$this->form_validation->set_rules('password', 'Password', 'required|md5|trim');
 		
 		if($this->form_validation->run()){
@@ -81,7 +72,7 @@ class Login extends CI_Controller {
 			$this->load->view('layout/footer');
 		}
 	}
-	// Created by: Lemuel
+	// Created by: Prime
 	//added function validate_credentials for users
 	public function validate_credentials(){
 	 	$this->load->model('model_users');
@@ -94,7 +85,92 @@ class Login extends CI_Controller {
 			
 		}	
 	}
+	
+	// Created by: Prime
+	public function forgotpass(){
+		$data['title'] = "SoftLine | Forgot Password";
 
+		$this->load->view('layout/header', $data);
+		$this->load->view('layout/modal');
+		$this->load->view('forgot_pass');
+		$this->load->view('layout/footer');
+	}
+	// Created by: Prime 12/15/2014
+	public function forgot_pass_validation(){ 
+				
+		$this->load->library('form_validation');		
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|xss-clean|callback_fp_validate_credentials');
+	
+		if($this->form_validation->run()){			
+			
+			$uname = $this->input->post('username');
+			$this->slcs_staff_model->fp_get_staff($uname);
+			
+			$data['title'] = "SoftLine | Forgot Password";
+			$this->load->helper('url');
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/modal');
+			$this->load->view('fprandomgen');
+			$this->load->view('layout/footer');
+			
+		} else {
+			$data['title'] = "SoftLine | Forgot Password";
+			$this->load->helper('url');
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/modal');
+			$this->load->view('forgot_pass');
+			$this->load->view('layout/footer');
+		}
+	}	
+	// Created by: Prime 12/15/2014
+	public function fp_validate_credentials(){
+	 	$this->load->model('model_users');
+	 
+		if ($this->model_users->fp_can_log_in()){
+			return true;
+		} else {
+			$this->form_validation->set_message('fp_validate_credentials', 'Incorrect Username, Please try again.');
+			return false;
+			
+		}	
+	}
+	//Created by: Prime 12/17/2014
+	public function fp_random_gen(){ 
+				
+		$this->load->library('form_validation');		
+		$this->form_validation->set_rules('randomgen', 'Random Generated Code', 'required|trim|xss-clean|callback_fp_rangen_validate_credentials');
+		$this->form_validation->set_rules('pword', 'Password', 'min_length[8]|trim|required|matches[repword]|md5');
+		$this->form_validation->set_rules('repword', 'Re-type Password', 'trim|required');
+	
+		if($this->form_validation->run()){			
+			
+			$rangen = $this->input->post('randomgen');
+			$this->slcs_staff_model->fp_get_staff_ran_gen($rangen);
+			redirect("login/index");
+			
+			
+		} else {
+			$data['title'] = "SoftLine | Forgot Password";
+			$this->load->helper('url');
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/modal');
+			$this->load->view('fprandomgen');
+			$this->load->view('layout/footer');
+		}
+	}
+	//Created by: Prime 12/17/2014
+	public function fp_rangen_validate_credentials(){
+	 	$this->load->model('model_users');
+	 
+		if ($this->model_users->fp_rand_gen()){
+			return true;
+		} else {
+			$this->form_validation->set_message('fp_rangen_validate_credentials', 'Incorrect Code, Please try again.');
+			return false;
+			
+		}	
+	}
+		
 	public function logout(){
 	    $this->session->sess_destroy();
 	    $this->index();

@@ -34,24 +34,22 @@ class Sl_emailer extends CI_Controller {
 
 	public function index(){
 		//You should autoload this one ;)
-		$this->load->helper('ckeditor');
-		$data_sl_header = $this->_header_data();
-		$data = $data_sl_header;
+		//$this->load->helper('ckeditor');
+		$data = $this->_header_data();
 		$data['title'] = 'SoftLine | E-Mailer';
 
 		//Ckeditor's configuration
 		$ck_data['ckeditor'] = array(
  
 			//ID of the textarea that will be replaced
-			'id' 	=> 	'content',
+			'id' 	=> 	'message-id',
 			'path'	=>	'assets/js/ckeditor',
  
 			//Optionnal values
 			'config' => array(
 				'toolbar' 	=> 	"Full", 	//Using the Full toolbar
-				'width' 	=> 	"550px",	//Setting a custom width
-				'height' 	=> 	'100px',	//Setting a custom height
- 
+				'width' 	=> 	"850px",	//Setting a custom width
+				'height' 	=> 	'530px',	//Setting a custom height 
 			),
  
 			//Replacing styles from the "Styles tool"
@@ -100,7 +98,8 @@ class Sl_emailer extends CI_Controller {
 						'text-decoration'	=> 	'underline'
 					)
 				)				
-			)
+			),
+			'extraPlugins' => 'simplebox'
 		);
  
 		$ck_data['ckeditor_2'] = array(
@@ -144,7 +143,14 @@ class Sl_emailer extends CI_Controller {
 		$data['msg_editor'] = $msg_editor;
 
 		// get e-mail database
-		$data['email_lists'] = $this->email_model->get_valid_email();			 
+		$data['email_lists'] = $this->email_model->get_valid_email();		 
+		
+		// added 12/20/2014
+		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
+
+        $data['templates_name_lists'] = $templates_name_lists->result_array();
+
+		// end added 12/20/2014
 
 		$this->parser->parse('layout/header', $data);
 		$this->parser->parse('layout/topbar',array());
@@ -205,4 +211,23 @@ class Sl_emailer extends CI_Controller {
 		$query = $this->email_model->find_valid_email_by_addresss($city, $country);
 		echo json_encode($query);
 	}
+	// on testing 12/20/2014
+	public function template_lists(){
+		// added 12/20/2014
+		//$referral_request = $this->parser->parse('sl_emailer/template/referral_request', array(), TRUE);
+		//$checking_in_letter = $this->parser->parse('sl_emailer/template/checking_in_letter', array(), TRUE);
+
+		//$re_bussiness_ltr_template_lists = array($referral_request, $checking_in_letter);
+		//$data['template_lists'] = $re_bussiness_ltr_template_lists;
+		// another idea
+		$selected_id = $this->input->post('selected');
+		$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
+
+		echo htmlspecialchars_decode(htmlspecialchars_decode($templates_name['message']));
+	}
+	// on testing 12/20/2014
+	public function test(){
+		$this->parser->parse('test', array());
+	}
+
 }

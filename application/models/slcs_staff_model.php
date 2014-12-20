@@ -24,12 +24,54 @@ class Slcs_staff_model extends CI_Model {
 		$query = $this->db->get_where('slcs_staff', array('username' => $username));
 		return $query->row_array();
 	}
+	// Created by : Prime 12/15/2014
+	public function fp_get_staff($uname)
+	{
+		
+		$this->db->where('username',$uname);
+		$q = $this->db->get('slcs_staff')->row();
+		$random = substr( md5(rand()), 0, 10);
+		
+		$username = "goldexvoip";
+		$password = "123123";
+		$from = "SoftlineGroup";
+		$id = $q->id;
+		$tomnumber = $q->mnumber;
+		$msg = "Greetings, your random generated code is";
+		$code = $random;
+		$msg2 = ". Please enter this code to reset your password , thank you. Powered by: Softline Group.";
+		
+		$data = array('random_gen' => $random);
+		$this->db->where('id',$id);
+		$this->db->update('slcs_staff',$data);
+		
+		$vars = 'username='.$username.'&password='.$password.'&from='.$from.'&to='.$tomnumber.'&text='.$msg.'';
+		if ($_POST['submitted']=="true"){
+		
+			$construct_url='https://www.voicetrading.com/myaccount/sendsms.php?username='.$username.'&password='.$password.'&from='.$from.'&to='.$tomnumber.'&text='.$msg.' '.$code.''.$msg2.'';
+			file_get_contents($construct_url); 
+			
+		}		
+	}
 	
-	// Created by Lem
+	public function fp_get_staff_ran_gen($rangen)
+	{
+		
+		//$pass = $this->input->post('pword');
+		//$newpassword = md5(md5("kjfiufj".$pass."Fj56fj")); //Double md5 hash for security reasons
+		
+		$data = array(
+			'random_gen' => NULL,
+			'password' => $this->input->post('pword')
+		);
+		
+		$this->db->where('random_gen',$rangen);
+		$this->db->update('slcs_staff',$data);
+		
+	}
+	
+	// Created by : Prime
 	public function create_staff($filename) {
-
-		//$this->load->helper('url');
-		//$slug = url_title($this->input->post('title'), 'dash', TRUE);
 		
 		$username = $this->input->post('username');
 		$fname 	  =	$this->input->post('fname');
@@ -133,9 +175,20 @@ class Slcs_staff_model extends CI_Model {
 			'others_others' => $this->input->post('othersothers'),
 			
 			'acctype' => (1),
-			'file_name' => $filename
+			'file_name' => $filename,
+			'username' => 'Softline'
 		);
-
+		
+		
+		$tomnumber = $this->input->post('mn');
+		$random = substr( md5(rand()), 0, 10);
+		$msg = 'Greetings, '.$fullname.' Here are the details of your new account. USERNAME: Softline PASSWORD:';
+		
+		
+		$construct_url='https://www.voicetrading.com/myaccount/sendsms.php?username=goldexvoip&password=123123&from=prime&to='.$tomnumber.'&text='.$msg.'';
+		file_get_contents($construct_url); 
+		
+		
 		$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
 		return $insert;
 	}

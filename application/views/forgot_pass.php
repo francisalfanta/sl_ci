@@ -5,14 +5,14 @@
 	<!-- Begin page -->
 	<div class="container">
 		<div class="full-content-center">
-			<p class="text-center"><a href="#"><img src="<?php echo base_url ('assets/img/login-logo.png'); ?>" alt="Logo"></a></p>
 			<div class="login-wrap animated flipInX">
 				<div class="login-block">
-					<img src="<?php echo base_url ('images/users/default-user.png'); ?>" class="img-circle not-logged-avatar">
-					<form role="form" action="<?php echo base_url(); ?>login">
+					<center><img src="<?php echo base_url (); ?>assets/img/slrelogo.png"></center>
+					<?php echo form_open('login/forgot_pass_validation');?>
+						<h6><?php echo form_error('username');?></h6>
 						<div class="form-group login-input">
 						<i class="fa fa-user overlay"></i>
-						<input type="text" class="form-control text-input" placeholder="Username">
+						<input type="text" class="form-control text-input" placeholder="Username" name="username" value="<?php echo set_value('username'); ?>">
 						</div>
 						
 						<div class="row">
@@ -20,7 +20,8 @@
 							<a href="index" class="btn btn-default btn-block">BACK</a>
 							</div>
 							<div class="col-sm-6">
-							<button type="submit" class="btn btn-success btn-block">SUBMIT</button>
+							<input type="hidden" name="submitted" value="true">
+							<button type="submit" class="btn btn-success btn-block" value="Submit">SUBMIT</button>
 							</div>
 						</div>
 					</form>

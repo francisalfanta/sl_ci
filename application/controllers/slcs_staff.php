@@ -35,7 +35,7 @@ class Slcs_staff extends CI_Controller {
 		$this->load->view('layout/topbar');
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
-		$this->load->view('slcs_staff/slcs_staff_table', $data);			
+		$this->load->view('slcs_staff/slcs_staff_table', $data);
 		$this->load->view('layout/footer');	
 	}
 
@@ -102,7 +102,7 @@ class Slcs_staff extends CI_Controller {
 		$this->form_validation->set_rules('csp', 'City/State/Province', 'alpha_space_hypen');
 		$this->form_validation->set_rules('ca', 'Complete address');
 		$this->form_validation->set_rules('ea', 'Email address', 'valid_emails|is_unique[slcs_staff.email]');
-		$this->form_validation->set_rules('mn', 'Mobile no.', 'num_space_hypen');
+		$this->form_validation->set_rules('mn', 'Mobile no.', 'required');
 		$this->form_validation->set_rules('hn', 'Home Phone no.', 'num_space_hypen');
 		//Emergency
 		$this->form_validation->set_rules('n1', 'Name', 'alpha_space_hypen');
@@ -304,7 +304,7 @@ class Slcs_staff extends CI_Controller {
 		 $this->form_validation->set_rules('csp', 'City/State/Province', 'alpha_space_hypen');
 		 $this->form_validation->set_rules('ca', 'Complete address');
 		 $this->form_validation->set_rules('ea', 'Email address', 'valid_emails');
-		 $this->form_validation->set_rules('mn', 'Mobile no.', 'num_space_hypen');
+		 $this->form_validation->set_rules('mn', 'Mobile no.', 'required');
 		 $this->form_validation->set_rules('hn', 'Home Phone no.', 'num_space_hypen');
 		 //Emergency
 		 $this->form_validation->set_rules('n1', 'Name', 'alpha_space_hypen');

@@ -136,7 +136,8 @@ $autoload['model'] = array('slcs_staff_model',
 						   'passport_model',
 						   'address_model',
 						   'residential_types_model',
-						   'commercial_types_model');
+						   'commercial_types_model',
+						   'letter_templates_model');
 
 /* End of file autoload.php */
 /* Location: ./application/config/autoload.php */
