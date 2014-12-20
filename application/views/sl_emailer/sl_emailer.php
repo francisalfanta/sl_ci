@@ -53,9 +53,9 @@
                                 
                                 <div class="col-md-10">
                                     <div class="form-group">
-                                        <label for="save_msg" class="col-sm-3 control-label text-left">Save Current Letter:</label>
+                                        <label for="msg_name" class="col-sm-3 control-label text-left">Save Current Letter:</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="input-text-from" name="save_msg" value="<?php echo set_value('save_msg'); ?>" placeholder="Save current letter (above) to 'My Letters Template' by giving it a name (optional)." tabindex="7">
+                                            <input type="text" class="form-control" id="msg_name" name="msg_name" value="<?php echo set_value('msg_name'); ?>" placeholder="Save current letter (above) to 'My Letters Template' by giving it a name (optional)." tabindex="7">
                                         </div>
                                     </div><!-- form-group -->
                                 </div><!-- col-md-10 -->
@@ -217,7 +217,7 @@
             <script src="<?php echo base_url();?>assets/libs/ckeditor/adapters/jquery.js"></script>
             <script type="text/javascript"> 
             $(document).ready(function() { 
-                $( 'textarea#message-id' ).ckeditor();
+                
                 var table = $("#to_emailer").DataTable({
                     // remove length and show at bottom
                     "order": [[1, 'desc']],
@@ -272,7 +272,6 @@
                 */
 
                 //table.ajax.url( "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>" ).load();
-                
                            
                 //var idx = table.columns( 1 ).indexes();
                 //alert(idx);
@@ -294,34 +293,58 @@
                             swal("Mail sent", "Successfuly send mail", "success" );             
                         }
                     });                   
-                });               
-
-                // 12/20/2014 js testing
-                $('#msg_template').change(function(){
-                    //alert('changing msg: '+$(this).val());                    
-                    var selected_id = $(this).val();                            
+                }); 
+                // tested 12/20/2014
+                $('#msg_template').change(function(){ 
+                    var selected_id = $(this).val();  
                     // post letter according to selected template
                     $.ajax({
-                      type: "GET",
+                      type: "POST",
                       url: "<?php echo base_url('sl_emailer/template_lists'); ?>",
                       dataType: "text",
                       data: {"selected": selected_id},
                       success: function(msg){
-                        //alert(msg);
-                        var editor = $('#message-id').ckeditorGet();
-                        var element = CKEDITOR.dom.element.createFromHtml( '<p>I am a new paragraph</p>' );
-                        editor.insertElement( element );            
+                        CKEDITOR.instances.email_message.setData( msg, {
+                            callback: function() {
+                                this.checkDirty(); // true
+                            }
+                        });          
                       } 
                     });     
                 });
-
-                // clicking save will send  data to database 
-                $('#save_template').click(function() {
+                // clicking save will send  data to database // tested 12/20/2014
+                $('#save_template').click(function() { 
                     //saves the content of the  editor 
-                    var data = CKEDITOR.instances.Textarea.getData();
-                    alert(data);    
+                    var data = CKEDITOR.instances.email_message.getData();
+                    var msg_name = $('#msg_name').val();
+                   
+                    if(data.length>0 && msg_name.length>0)
+                    {
+                        $.ajax({
+                          type: "POST",
+                          url: "<?php echo base_url('sl_emailer/save_template'); ?>",
+                          dataType: "json",
+                          data: { "msg_name": msg_name, 
+                                  "message": data
+                                },
+                          complete: function(e){
+                            swal('Letter Template', 'successfully saved', 'success'); 
+                            $('#msg_name').val("");  
+                          }
+
+                        });  
+                    } else if(data.length==0) {
+                        swal('Error','No Message found', 'error');
+                    } else if(msg_name.length==0){
+                        swal('Error','Please specify name', 'error');
+                    }  
                     return false;   
-                }); //end click
+                });
+
+                // to do ckeditor 
+                // refresh Letter Template List             
+                // autosaving
+                // WindowEventHandlers.onbeforeunload // when user close browser
                 // end testing js
             });
             </script>

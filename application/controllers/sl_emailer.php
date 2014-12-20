@@ -43,7 +43,8 @@ class Sl_emailer extends CI_Controller {
  
 			//ID of the textarea that will be replaced
 			'id' 	=> 	'message-id',
-			'path'	=>	'assets/js/ckeditor',
+			'path'	=>	'assets/libs/ckeditor',
+			//'path'	=>	'assets/js/ckeditor',
  
 			//Optionnal values
 			'config' => array(
@@ -211,23 +212,23 @@ class Sl_emailer extends CI_Controller {
 		$query = $this->email_model->find_valid_email_by_addresss($city, $country);
 		echo json_encode($query);
 	}
-	// on testing 12/20/2014
+	// tested 12/20/2014
 	public function template_lists(){
-		// added 12/20/2014
-		//$referral_request = $this->parser->parse('sl_emailer/template/referral_request', array(), TRUE);
-		//$checking_in_letter = $this->parser->parse('sl_emailer/template/checking_in_letter', array(), TRUE);
-
-		//$re_bussiness_ltr_template_lists = array($referral_request, $checking_in_letter);
-		//$data['template_lists'] = $re_bussiness_ltr_template_lists;
-		// another idea
 		$selected_id = $this->input->post('selected');
 		$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
-
-		echo htmlspecialchars_decode(htmlspecialchars_decode($templates_name['message']));
+		$msg = $templates_name->message;
+		echo $msg;		
 	}
-	// on testing 12/20/2014
-	public function test(){
-		$this->parser->parse('test', array());
+	// tested 12/20/2014
+	public function save_template(){
+		$this->form_validation->set_rules('msg_name', 'Template Name', 'required|is_unique[letter_templates.name]');
+		$this->form_validation->set_rules('message', 'Message', 'required');
+		// validate
+		if ($this->form_validation->run() == FALSE) {
+			echo 'Validation Error';
+		} else {
+			$this->letter_templates_model->insert_letter_template();
+			echo 'success';
+		}		
 	}
-
 }

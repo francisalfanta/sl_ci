@@ -40,4 +40,5 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'lineutils';
 	config.extraPlugins = 'clipboard';
 	config.extraPlugins = 'simplebox';
+	config.extraPlugins = 'placeholder';
 };

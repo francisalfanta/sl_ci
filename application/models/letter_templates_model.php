@@ -23,6 +23,7 @@ class letter_templates_model extends CI_Model {
 		$this->db->update('address', $data); 		
 	}	
 	*/
+	// tested 12/20/2014
 	public function get_letter_templates($selected_id = null){
 		if(!$selected_id){
 			$query = $this->db->get('letter_templates');
@@ -35,4 +36,12 @@ class letter_templates_model extends CI_Model {
 		
 	}
 
+	public function insert_letter_template($data){
+		$data = array(
+			'name' => $this->input->post('msg_name'),
+			'message'=> $this->input->post('message'));
+			//'tb_slcs_staff_id' => )
+		$insert = $this->db->insert('letter_templates', $data);
+		return $insert;
+	}
 }	
