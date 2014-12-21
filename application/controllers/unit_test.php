@@ -14,6 +14,7 @@ class Unit_test extends CI_Controller {
 		$this->load->model('propertyfinder_model');
         $this->load->library('unit_test');
         //$this->load->helpers('sql_sql_helper');
+        
       
 	}
 
@@ -27,25 +28,8 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        //$query = $this->unit->run( $this->_header_data(),'', '_header_data test');
-        //$this->load->view('tests');
-        // in view
-        //echo $this->unit->report();
-        //$query  = $this->propertyfinder_model->get_propertyfinder();
-        //$description       = $this->input->post('description');
-        //echo '$description'.$description.'<br>';
-        //$test = $this->_header_data();
-        //$email_list = $this->email_model->find_valid_email_by_addresss('x',null);//get_valid_email();
-        //$selected_id = 1;
-        //$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
-        $city = null;
-        $country = null;
-        if($city || $country){
-            echo 'content founbd';
-        } else {
-            $query = $this->email_model->get_valid_email(); 
-            echo json_encode($query);
-        }
+        $query = $this->email_model->get_valid_email(); 
+        print_r($query);
         $test_unit = '';
 		if (is_null($test_unit)) 
         {

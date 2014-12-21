@@ -54,7 +54,7 @@ class email_model extends CI_Model {
 		return $status;
 	}
 
-	public function get_valid_email(){		
+	public function get_valid_email(){ 
 		$this->db->distinct()
 				 ->select('tb_property_owner.first_name, tb_email.email')
 				 ->from('email')
@@ -68,9 +68,9 @@ class email_model extends CI_Model {
 		return $query->result();
 	} 
 
-	public function find_valid_email_by_addresss($city, $country){		
+	public function find_valid_email_by_addresss($city, $country){ 
 		$query = $this->db->distinct()
-						 ->select('tb_email.email, tb_address.*')
+						 ->select('tb_email.email')//, tb_address.*')
 						 ->from('email')
 						 ->join('property_owner', 'property_owner.tb_property_owner_id=email.tb_property_owner_id', 'left')
 						 ->join('address', 'property_owner.tb_property_owner_id=address.tb_property_owner_id', 'left')

@@ -31,8 +31,7 @@ class Sl_emailer extends CI_Controller {
         return $data;
     }
 
-
-	public function index(){
+	public function index(){ 
 		//You should autoload this one ;)
 		//$this->load->helper('ckeditor');
 		$data = $this->_header_data();
@@ -162,7 +161,7 @@ class Sl_emailer extends CI_Controller {
 		$this->parser->parse('layout/footer',array());
 	}
 
-	public function slsend_mail(){
+	public function slsend_mail(){ 
 		$this->email->clear();
 
 		$toggle_bcc_batch_mode = $this->input->post('bcc_batch_mode');
@@ -206,26 +205,28 @@ class Sl_emailer extends CI_Controller {
 		//$this->session->set_flashdata('db_msg', 'Update successful.');
 		//redirect('/sl_emailer');
 	}
-
-	public function filtered_email_lists(){
+	// on testing 12/21/2014
+	public function filtered_email_lists(){ 
 		$city = $this->input->post('city');
 		$country = $this->input->post('country');
 		if($city || $country){
 			$query = $this->email_model->find_valid_email_by_addresss($city, $country);	
 		} else {
 			$query = $this->email_model->get_valid_email();	
-		}		
-		echo json_encode($query);
+		}	
+		$data['data'] = $query;		
+		echo json_encode($data);			
 	}
+
 	// tested 12/20/2014
-	public function template_lists(){
+	public function template_lists(){ 
 		$selected_id = $this->input->post('selected');
 		$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
 		$msg = $templates_name->message;
 		echo $msg;		
 	}
 	// tested 12/20/2014
-	public function save_template(){
+	public function save_template(){ 
 		$this->form_validation->set_rules('msg_name', 'Template Name', 'required|is_unique[letter_templates.name]');
 		$this->form_validation->set_rules('message', 'Message', 'required');
 		// validate
@@ -236,16 +237,15 @@ class Sl_emailer extends CI_Controller {
 			$templates_name_lists = $this->letter_templates_model->get_letter_templates();			
         	echo json_encode($templates_name_lists->result_array());
 		}		
-	}
-	// tested 12/20/2014
-	public function del_template(){
+	} 
+	public function del_template(){ 
 		$check = $this->letter_templates_model->delete_letter_template();
 		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
 		
 		echo json_encode($templates_name_lists->result_array());
 	}
 	// on testing 12/21/2014
-	public function update_template_name(){
+	public function update_template_name(){ 
 		$this->form_validation->set_rules('letter_template_name', 'Template Name', 'required|is_unique[letter_templates.name]');
 
 		if($this->form_validation->run() == FALSE) {
