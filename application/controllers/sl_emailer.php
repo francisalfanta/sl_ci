@@ -48,9 +48,9 @@ class Sl_emailer extends CI_Controller {
  
 			//Optionnal values
 			'config' => array(
-				'toolbar' 	=> 	"Full", 	//Using the Full toolbar
+				//'toolbar' 	=> 	"Full", 	//Using the Full toolbar
 				'width' 	=> 	"850px",	//Setting a custom width
-				'height' 	=> 	'530px',	//Setting a custom height 
+				'height' 	=> 	'630px',	//Setting a custom height 
 			),
  
 			//Replacing styles from the "Styles tool"
@@ -158,6 +158,7 @@ class Sl_emailer extends CI_Controller {
 		$this->parser->parse('layout/admin_left_sidemenu', $data);
 		$this->parser->parse('layout/right_sidemenu',array());
 		$this->parser->parse('sl_emailer/sl_emailer', $data);		
+		$this->parser->parse('sl_emailer/sl_emailer_modal', $data);
 		$this->parser->parse('layout/footer',array());
 	}
 
@@ -209,7 +210,11 @@ class Sl_emailer extends CI_Controller {
 	public function filtered_email_lists(){
 		$city = $this->input->post('city');
 		$country = $this->input->post('country');
-		$query = $this->email_model->find_valid_email_by_addresss($city, $country);
+		if($city || $country){
+			$query = $this->email_model->find_valid_email_by_addresss($city, $country);	
+		} else {
+			$query = $this->email_model->get_valid_email();	
+		}		
 		echo json_encode($query);
 	}
 	// tested 12/20/2014
@@ -228,7 +233,27 @@ class Sl_emailer extends CI_Controller {
 			echo 'Validation Error';
 		} else {
 			$this->letter_templates_model->insert_letter_template();
-			echo 'success';
+			$templates_name_lists = $this->letter_templates_model->get_letter_templates();			
+        	echo json_encode($templates_name_lists->result_array());
+		}		
+	}
+	// tested 12/20/2014
+	public function del_template(){
+		$check = $this->letter_templates_model->delete_letter_template();
+		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
+		
+		echo json_encode($templates_name_lists->result_array());
+	}
+	// on testing 12/21/2014
+	public function update_template_name(){
+		$this->form_validation->set_rules('letter_template_name', 'Template Name', 'required|is_unique[letter_templates.name]');
+
+		if($this->form_validation->run() == FALSE) {
+			echo 'Validation Error';
+		} else {
+			$templates_name_lists = $this->letter_templates_model->update_letter_template_name();
+			$templates_name_lists = $this->letter_templates_model->get_letter_templates();			
+        	echo json_encode($templates_name_lists->result_array());				
 		}		
 	}
 }

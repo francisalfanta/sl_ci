@@ -36,12 +36,28 @@ class letter_templates_model extends CI_Model {
 		
 	}
 
-	public function insert_letter_template($data){
+	public function insert_letter_template(){
 		$data = array(
 			'name' => $this->input->post('msg_name'),
 			'message'=> $this->input->post('message'));
 			//'tb_slcs_staff_id' => )
 		$insert = $this->db->insert('letter_templates', $data);
 		return $insert;
+	}
+	// tested 12/21/2014
+	public function delete_letter_template(){
+		$letter_template_id = $this->input->post('msg_id');
+		$this->db->where('tb_letter_templates_id', $letter_template_id);
+		$delete = $this->db->delete('letter_templates');
+		return $delete;
+	}
+	// on testing 12/21/2014
+	public function update_letter_template_name(){
+		$letter_template_id = $this->input->post('letter_template_id');
+		$name = $this->input->post('letter_template_name');
+
+		$this->db->where('tb_letter_templates_id', $letter_template_id);
+		$update = $this->db->update('letter_templates', array('name' => $name));
+		return $update;
 	}
 }	

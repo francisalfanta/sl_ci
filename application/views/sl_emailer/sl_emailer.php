@@ -30,16 +30,17 @@
                             </div><!-- form-group -->                            
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Letter Template</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="msg_template" tabindex="6">  
-                                    <?php foreach($templates_name_lists as $row){                                           
-                                      echo '<option value="'.$row["tb_letter_templates_id"].'">'.str_replace('_',' ', ucfirst($row['name'])).'</option>';
-                                    } ?>
-                                      
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="msg_template" tabindex="6"> 
+                                    <option value=""></option>                                    
+                                        <?php foreach($templates_name_lists as $row){                                           
+                                          echo '<option value="'.$row["tb_letter_templates_id"].'">'.str_replace('_',' ', ucfirst($row['name'])).'</option>';
+                                        } ?>                       
                                     </select>                                    
                                 </div><!-- form-group -->                            
-                                <div class="col-sm-2" style="padding:0;">                                                                        
-                                    <a href="#" type="submit" id="send_email" class="btn btn-default" tabindex="5" style="width:130px;">Send Email</a>                                                                                                                                       
+                                <div class="col-sm-1" style="padding:0;vertical-align: middle;">                                                                                                            
+                                    <a href="#" id="edit_template_name" data-toggle="modal" data-target="#update_name_letter" tabindex="5" style="text-align:center;" title="Edit Template Name"><i class="fa fa-edit"></i></a>
+                                    <a href="#" id="del_template"  tabindex="5" style="text-align:center;" title="Delete Template"><i class="glyphicon glyphicon-remove"></i></a>                                                                                                                                       
                                 </div>
                             </div><!-- form-group -->
                             
@@ -51,20 +52,21 @@
 
                             <div class="row"> 
                                 
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="msg_name" class="col-sm-3 control-label text-left">Save Current Letter:</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="msg_name" name="msg_name" value="<?php echo set_value('msg_name'); ?>" placeholder="Save current letter (above) to 'My Letters Template' by giving it a name (optional)." tabindex="7">
+                                            <input type="text" class="form-control" id="msg_name" name="msg_name" value="<?php echo set_value('msg_name'); ?>" placeholder="Save current letter (above) by giving it a name (optional)." tabindex="7">
                                         </div>
                                     </div><!-- form-group -->
                                 </div><!-- col-md-10 -->
-                                <div class="col-md-2 pull-left">
-                                <div class="form-group">                                                                        
-                                    <a href="#" type="submit" id="save_template" class="btn btn-default" tabindex="5" style="width:130px;">Save Template</a>                                                                                                       
-                                </div><!-- form-group -->
+                                <div class="col-md-3 pull-left">
+                                    <div class="form-group">                                                                        
+                                        <a href="#" id="save_template" tabindex="5" title="Save Template" ><i class="glyphicon glyphicon-floppy-save"></i></a> 
+                                        <a href="#" type="submit" id="send_email" class="btn btn-default" tabindex="5" style="width:150px;float:right;">Send Email</a>
+                                    </div><!-- form-group -->
                                 </div><!-- col-md-2 portlets -->
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Message Option</label>
                                         <div class="col-sm-9">
@@ -77,39 +79,39 @@
                                             <div class="checkbox">
                                               <label>
                                                 <input type="checkbox" value="">
-                                                Option one is this and that&mdash;be sure to include why it's great
+                                                Option one is this and that&mdash;
                                               </label>
                                             </div>
                                             <div class="checkbox">
                                               <label>
                                                 <input type="checkbox" value="">
-                                                Option one is this and that&mdash;be sure to include why it's great
+                                                Option one is this and that&mdash;
                                               </label>
                                             </div>
-                                        </div>
+                                        </div>                
                                     </div>
                                 </div>
                             </div><!-- row -->
     					</div><!-- portlets -->
 
-                        <div class="col-md-4 portlets">
+                        <div class="col-md-4 portlets" >
                             <div class="form-group"> 
                                 <label for="receiver" class="col-sm-2 control-label text-left" >To</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3" >
+                                <div class="col-sm-9" style="padding-right:5px;">
+                                  <input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3"  >
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-to" class="col-sm-1"></span>
                             </div><!-- form-group -->
-                            <div class="form-group">
+                            <div class="form-group" >
                                 <label for="carbon_copy" class="col-sm-2 control-label text-left" >Cc</label>
-                                <div class="col-sm-9">
+                                <div class="col-sm-9" style="padding-right:5px;">
                                   <input type="text" class="form-control to-radio" id="input-text-cc" name="input-text-cc" value="<?php echo set_value('carbon_copy'); ?>" placeholder="Carbon Copy" tabindex="4" >
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-cc" class="col-sm-1"></span>
                             </div><!-- form-group -->
                              <div class="form-group">
                                 <label for="blind_carbon_copy" class="col-sm-2 control-label text-left" >Bcc</label>
-                                <div class="col-sm-9">
+                                <div class="col-sm-9" style="padding-right:5px;">
                                   <input type="text" class="form-control to-radio" id="input-text-bcc" name="input-text-bcc" value="<?php echo set_value('blind_carbon_copy'); ?>" placeholder="Blind Carbon Copy" tabindex="5" >
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-bcc" class="col-sm-1"></span>
@@ -219,8 +221,9 @@
             $(document).ready(function() { 
                 
                 var table = $("#to_emailer").DataTable({
+                    "ajax"  : "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
                     // remove length and show at bottom
-                    "order": [[1, 'desc']],
+                    "order" : [[1, 'desc']],
                     "columnDefs": [
                         { "orderable": false, "targets": 0 },   
                         //{ "bSortable": false, "aTargets": [ 0 ] },
@@ -233,14 +236,13 @@
                     //"scrollY"     : 325,
                     //"scrollCollapse": true,
                     "jQueryUI":       true,              
-                    "sDom": '<"top">rt<"bottom"fp><"clear">',                   
-                                   
+                    "sDom": '<"top">rt<"bottom"fp><"clear">',                                                      
                 });      
         
                 //table.column( 1 ).visible( false );
                 //table.columns.adjust().draw( false ); // adjust column sizing and redraw
                     /*
-                $('td.column-search-city input').on( 'keyup change', function () {                    
+                $('td.column-search-city input').on( 'keyup change', function () { 
                     //table.column(1).search(this.value).draw();
                     var city = this.value;
                     var country = this.value;                    
@@ -308,7 +310,8 @@
                             callback: function() {
                                 this.checkDirty(); // true
                             }
-                        });          
+                        });
+                        $('#letter_template_id_modal').val(selected_id);        
                       } 
                     });     
                 });
@@ -320,19 +323,34 @@
                    
                     if(data.length>0 && msg_name.length>0)
                     {
-                        $.ajax({
-                          type: "POST",
-                          url: "<?php echo base_url('sl_emailer/save_template'); ?>",
-                          dataType: "json",
-                          data: { "msg_name": msg_name, 
-                                  "message": data
-                                },
-                          complete: function(e){
-                            swal('Letter Template', 'successfully saved', 'success'); 
-                            $('#msg_name').val("");  
-                          }
-
-                        });  
+                        var sl_action = $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url('sl_emailer/save_template'); ?>",
+                            dataType: "json",
+                            data: { "msg_name": msg_name, 
+                                      "message": data
+                                    },
+                            success: function(data) {
+                                var options, index, select, option;
+                                // Get the raw DOM object for the select box
+                                select = document.getElementById('msg_template');
+                                // Clear the old options
+                                select.options.length = 0;
+                                // Load the new options
+                                options = data;//.options; // Or whatever source information you're working with
+                                for (index = 0; index < options.length; ++index) {
+                                  option = options[index];
+                                  select.options.add(new Option(option.name, option.tb_letter_templates_id));
+                                }
+                                // select the newly created item
+                                $("select option").filter(function() {                                    
+                                    return $(this).text() == msg_name; 
+                                }).prop('selected', true);
+                            },                          
+                            complete: function(e){
+                                swal('Letter Template', 'successfully saved', 'success'); 
+                            }
+                        });                                     
                     } else if(data.length==0) {
                         swal('Error','No Message found', 'error');
                     } else if(msg_name.length==0){
@@ -340,12 +358,81 @@
                     }  
                     return false;   
                 });
+                // tested 12/21/2014
+                $('#del_template').click(function(){
+                    //var msg_name = $('#msg_name').val();
+                    var msg_template_id = $('#msg_template').val();
+                    //swal('del click', msg_template_id);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url('sl_emailer/del_template'); ?>",
+                        //dataType: "json",
+                        data: { "msg_id": msg_template_id                                 
+                            },
+                        dataType: "json",
+                        success: function(data) {
+                            swal('check success');
+                            var options, index, select, option;
 
-                // to do ckeditor 
-                // refresh Letter Template List             
+                            // Get the raw DOM object for the select box
+                            select = document.getElementById('msg_template');
+
+                            // Clear the old options
+                            select.options.length = 0;
+
+                            // Load the new options
+                            options = data;//.options; // Or whatever source information you're working with
+                            for (index = 0; index < options.length; ++index) {
+                              option = options[index];
+                              select.options.add(new Option(option.name, option.tb_letter_templates_id));
+                            }
+                        },                          
+                        complete: function(e){
+                            swal('Letter Template', 'successfully removed', 'success'); 
+                        }
+                    });                    
+                });
+                // tested 12/21/2014
+                $('#update_letter_temp_name').click(function(){
+                    //alert('update_letter_temp_name click');
+                    var msg_template_id = $('#msg_template').val(),
+                        letter_template_name = $('#letter_template_name_modal').val();
+
+                    $.ajax({
+                        url:    "<?php echo base_url('sl_emailer/update_template_name');?>",
+                        type:   "POST",
+                        data: {
+                                "letter_template_name": letter_template_name,
+                                "letter_template_id":   msg_template_id   
+                        },
+                        dataType: "json",
+                        error:  function(xhr, status, error) {
+                                //var err = JSON.parse(xhr.responseText);
+                                alert('status: '+ status);
+                        },
+                        success: function(data) {
+                            var options, index, select, option;
+                            // Get the raw DOM object for the select box
+                            select = document.getElementById('msg_template');
+                            // Clear the old options
+                            select.options.length = 0;
+                            // Load the new options
+                            options = data;//.options; // Or whatever source information you're working with
+                            for (index = 0; index < options.length; ++index) {
+                              option = options[index];
+                              select.options.add(new Option(option.name, option.tb_letter_templates_id));
+                            }
+                        },                        
+                        complete: function(e){
+                            swal('Letter Template', 'successfully renamed', 'success'); 
+                        }
+                    });                    
+                });
+                // to do ckeditor                 
                 // autosaving
                 // WindowEventHandlers.onbeforeunload // when user close browser
-                // end testing js
+                // end testing js               
             });
             </script>
         </div><!-- content-page -->

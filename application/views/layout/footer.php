@@ -65,7 +65,8 @@
 	<script type="text/javascript">	
 		// initialize checkbox	
 		$(document).ready(function() {
-        	$("input[type='checkbox']").attr("disabled", true);
+			$('.select_record').find("input[type='checkbox']").attr("disabled", true);
+        	//$("input[type='checkbox']").attr("disabled", true);
         	$("input[type='radio']").attr("disabled", true);		
 
         	var selectall = $('#selectAll').find('.iCheck-helper');        				
@@ -185,7 +186,12 @@
 	                	$('input[name='+selected_receiver+']').val(receiver);
 	                } 
     			}              
-            });     
+            });  
+			// tested 12/21/2014
+            CKEDITOR.instances['email_message'].on('focus', function()
+			{
+				var msg_name = $('#msg_name').val("");				
+			}); 
 		});
     </script>
     <?php } ?>

@@ -1,5 +1,5 @@
 <?php echo display_ckeditor($ckeditor); ?>
-<textarea cols="80" id="email_message" name="message" rows="10" class="ckeditor">
+<textarea id="email_message" name="message" class="ckeditor">
 </textarea>
 <script>
     CKEDITOR.replace( 'email_message', {

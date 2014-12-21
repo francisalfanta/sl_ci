@@ -36,11 +36,16 @@ class Unit_test extends CI_Controller {
         //echo '$description'.$description.'<br>';
         //$test = $this->_header_data();
         //$email_list = $this->email_model->find_valid_email_by_addresss('x',null);//get_valid_email();
-        $selected_id = 1;
-        $templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
-      
-        //$templates_name_lists = $this->letter_templates_model->get_letter_templates(1);        
-        echo $templates_name->message;
+        //$selected_id = 1;
+        //$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
+        $city = null;
+        $country = null;
+        if($city || $country){
+            echo 'content founbd';
+        } else {
+            $query = $this->email_model->get_valid_email(); 
+            echo json_encode($query);
+        }
         $test_unit = '';
 		if (is_null($test_unit)) 
         {
