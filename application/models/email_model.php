@@ -61,11 +61,11 @@ class email_model extends CI_Model {
 				 ->join('property_owner', 'property_owner.tb_property_owner_id=email.tb_property_owner_id', 'left')				
 				 ->where('locate("@", tb_email.email) >', 0)
 				 ->where('length(tb_email.email) >', 0)
-				 ->order_by("email", "asc")
-				 ->limit(100);			
+				 ->order_by("email", "asc");
+				 //->limit(100);			
 		$query = $this->db->get();		
 		
-		return $query->result();
+		return $query;//->result();
 	} 
 
 	public function find_valid_email_by_addresss($city, $country){ 

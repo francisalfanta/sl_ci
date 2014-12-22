@@ -15,7 +15,7 @@ class Sl_emailer extends CI_Controller {
 		$this->load->helper('ckeditor'); 
 
 		$config['mailtype'] = 'html';
-		$config['bcc_batch_mode'] = 
+		$config['bcc_batch_mode'] = false;
 		$this->email->initialize($config);
  	}
 
@@ -143,7 +143,8 @@ class Sl_emailer extends CI_Controller {
 		$data['msg_editor'] = $msg_editor;
 
 		// get e-mail database
-		$data['email_lists'] = $this->email_model->get_valid_email();		 
+		$query = $this->email_model->get_valid_email();		 
+		$data['email_lists'] = $query->result();
 		
 		// added 12/20/2014
 		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
@@ -178,14 +179,15 @@ class Sl_emailer extends CI_Controller {
 
 		$to   = $this->input->post('receiver');
 		$subj = $this->input->post('subject');
-		$cc   = null;
-		$bcc   = null;
+		$cc   = $this->input->post('cc');
+		$bcc  = $this->input->post('bcc');
 		$msg  = $this->input->post('message');
+
 
 		//$this->email->from('francisalfanta@gmail.com', 'Your Name');
 		//$this->email->to('francisalfanta@gmail.com'); 
 		//$this->email->cc('another@another-example.com'); 
-		$this->email->bcc('them@their-example.com'); 
+		//$this->email->bcc('francisalfanta@gmail.com'); 
 		//$this->email->subject('Subject');
 		//$this->email->message('no cc bcc Debugging Testing the email class.');	
 		
@@ -193,14 +195,16 @@ class Sl_emailer extends CI_Controller {
 		$this->email->to($to); 
 		$this->email->from($from, 'Your Name');
 		//$this->email->cc($cc); 
-		//$this->email->bcc($bcc); 
+		$this->email->bcc($bcc); 
 		$this->email->subject($subj);	
 		$this->email->message($msg);		
 		$this->email->set_alt_message($msg);   // create alternate msg by removing html tag
 
 		$check = $this->email->send();
 
-		echo $this->email->print_debugger();
+		//echo $this->email->print_debugger();
+		print_r($cc);
+
 		//echo $check;
 		//$this->session->set_flashdata('db_msg', 'Update successful.');
 		//redirect('/sl_emailer');
@@ -209,13 +213,20 @@ class Sl_emailer extends CI_Controller {
 	public function filtered_email_lists(){ 
 		$city = $this->input->post('city');
 		$country = $this->input->post('country');
-		if($city || $country){
-			$query = $this->email_model->find_valid_email_by_addresss($city, $country);	
-		} else {
-			$query = $this->email_model->get_valid_email();	
-		}	
-		$data['data'] = $query;		
-		echo json_encode($data);			
+
+		//$data['draw'] = (int)1;   
+		$query = $this->email_model->get_valid_email();
+        //$data['recordsTotal']    = $query->num_rows();
+        //$data['recordsFiltered'] = (int)10;//$query->num_rows();
+        //$data['iTotalDisplayRecords'] = 10;
+
+        if($city || $country){
+            $query = $this->email_model->find_valid_email_by_addresss($city, $country); 
+            //$data['recordsFiltered'] = $query->num_rows();
+        }          
+       
+        $data['data'] = $query->result();     
+        echo json_encode($data);		
 	}
 
 	// tested 12/20/2014

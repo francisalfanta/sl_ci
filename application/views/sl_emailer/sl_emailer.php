@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <label for="subject" class="col-sm-2 control-label text-left">Subject</label>
                                 <div class="col-sm-10">
-                                  <input type="text" class="form-control" id="input-text-from" name="subject" value="<?php echo set_value('subject'); ?>" placeholder="Subject" tabindex="2">
+                                  <input type="text" class="form-control" id="input-text-subject" name="subject" value="<?php echo set_value('subject'); ?>" placeholder="Subject" tabindex="2">
                                 </div>
                             </div><!-- form-group -->                            
                             <div class="form-group">
@@ -221,13 +221,15 @@
                 var table = $("#to_emailer").dataTable({
                     "processing": true,
                     "serverSide": true,
-                    "ajax": {
-                        "url": "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
-                        "data": {
-                            "city": city,
-                            "country": country
-                                }
-                    },
+                    //"lengthMenu": [ 25, 50, 75, 100, 200, 250, 300, 350, 400, 450, 500 ],
+                    //"iTotalDisplayRecords": 15,
+                    //"info": false,
+                    "ajax":  "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
+                        //"data": {
+                        //    "city": city,
+                        //    "country": country
+                        //        }
+                    //},
                     "columns": [                        
                         { "data": null },
                         { "data": "email" },
@@ -259,12 +261,12 @@
                     //"scrollY"     : 325,
                     "scrollCollapse": true,
                     //"jQueryUI":       true,              
-                    "sDom": '<"top">rt<"bottom"fp><"clear">',  
+                    //"sDom": '<"top">frt<"bottom"p><"clear">'
                 });      
                 
                 //table.column( 1 ).visible( false );
                 //table.columns.adjust().draw( false ); // adjust column sizing and redraw
-
+                /*
                 $('td.column-search-city input').on( 'keyup change', function () { 
                     //table.column(1).search(this.value).draw();
 
@@ -312,19 +314,30 @@
                         //"scrollY"     : 325,
                         "scrollCollapse": true,
                         //"jQueryUI":       true,              
-                        "sDom": '<"top">rt<"bottom"fp><"clear">',      
+                        //"sDom": '<"top">rt<"bottom"fp><"clear">',      
                     });
                 });
-               
+                */
 
                 //table.ajax.url( "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>" ).load();
                            
                 //var idx = table.columns( 1 ).indexes();
                 //alert(idx);
                 $("#send_email").click(function(){ 
+                    var msg = CKEDITOR.instances.email_message.getData(),
+                        subject = $('#input-text-subject').val();
+                        cc      = $('#input-text-cc').val();
+                        bcc     = $('#input-text-bcc').val();
+
                     $.ajax({
                         url: '<?php echo base_url();?>sl_emailer/slsend_mail',
                         type: 'POST',
+                        data: {
+                            "message": msg,
+                            "subject": subject,
+                            "cc"     : cc,
+                            "bcc"    : bcc
+                        },
                         error:  function(xhr, status, error) {
                                 var err = JSON.parse(xhr.responseText);
                                 swal({ title: "Mail not sent",   

@@ -114,8 +114,9 @@
     					selected_receiver = $(this).find('input').val();    			
     				}
     			}) 			    
-			    if($(this).parent().hasClass('checked')) {			    	
-			     	$('input[type="checkbox"]').prop('checked', 'true');	
+			    if($(this).parent().hasClass('checked')) {			  
+			    	//$('input[type="checkbox"]').prop('checked', 'true');	  	
+			     	$('.select_record').find("input[type='checkbox']").prop('checked', 'true');	
 			     	$('div.icheckbox_square-aero').attr('aria-checked', 'true');		    		        
 			        $('div.icheckbox_square-aero')
 			        	.addClass('checked')			        	
