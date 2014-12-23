@@ -30,16 +30,17 @@
                             </div><!-- form-group -->                            
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Letter Template</label>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="msg_template" tabindex="6">  
-                                    <?php foreach($templates_name_lists as $row){                                           
-                                      echo '<option value="'.$row["tb_letter_templates_id"].'">'.str_replace('_',' ', ucfirst($row['name'])).'</option>';
-                                    } ?>
-                                      
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="msg_template" tabindex="6"> 
+                                    <option value=""></option>                                    
+                                        <?php foreach($templates_name_lists as $row){                                           
+                                          echo '<option value="'.$row["tb_letter_templates_id"].'">'.str_replace('_',' ', ucfirst($row['name'])).'</option>';
+                                        } ?>
                                     </select>                                    
                                 </div><!-- form-group -->                            
-                                <div class="col-sm-2" style="padding:0;">                                                                        
-                                    <a href="#" type="submit" id="send_email" class="btn btn-default" tabindex="5" style="width:130px;">Send Email</a>                                                                                                                                       
+                                <div class="col-sm-1" style="padding:0;vertical-align: middle;">                                                                                                            
+                                    <a href="#" id="edit_template_name" data-toggle="modal" data-target="#update_name_letter" tabindex="5" style="text-align:center;" title="Edit Template Name"><i class="fa fa-edit"></i></a>
+                                    <a href="#" id="del_template"  tabindex="5" style="text-align:center;" title="Delete Template"><i class="glyphicon glyphicon-remove"></i></a>                                                                                                                                    
                                 </div>
                             </div><!-- form-group -->
                             
@@ -51,20 +52,21 @@
 
                             <div class="row"> 
                                 
-                                <div class="col-md-10">
+                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label for="msg_name" class="col-sm-3 control-label text-left">Save Current Letter:</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="msg_name" name="msg_name" value="<?php echo set_value('msg_name'); ?>" placeholder="Save current letter (above) to 'My Letters Template' by giving it a name (optional)." tabindex="7">
+                                            <input type="text" class="form-control" id="msg_name" name="msg_name" value="<?php echo set_value('msg_name'); ?>" placeholder="Save current letter (above) by giving it a name (optional)." tabindex="7">
                                         </div>
                                     </div><!-- form-group -->
                                 </div><!-- col-md-10 -->
-                                <div class="col-md-2 pull-left">
-                                <div class="form-group">                                                                        
-                                    <a href="#" type="submit" id="save_template" class="btn btn-default" tabindex="5" style="width:130px;">Save Template</a>                                                                                                       
-                                </div><!-- form-group -->
+                                <div class="col-md-3 pull-left">
+                                    <div class="form-group">                                                                        
+                                        <a href="#" id="save_template" tabindex="5" title="Save Template" ><i class="glyphicon glyphicon-floppy-save"></i></a> 
+                                        <a href="#" type="submit" id="send_email" class="btn btn-default" tabindex="5" style="width:150px;float:right;">Send Email</a>
+                                    </div><!-- form-group -->
                                 </div><!-- col-md-2 portlets -->
-                                <div class="col-md-10">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Message Option</label>
                                         <div class="col-sm-9">
@@ -77,13 +79,13 @@
                                             <div class="checkbox">
                                               <label>
                                                 <input type="checkbox" value="">
-                                                Option one is this and that&mdash;be sure to include why it's great
+                                                Option one is this and that&mdash;
                                               </label>
                                             </div>
                                             <div class="checkbox">
                                               <label>
                                                 <input type="checkbox" value="">
-                                                Option one is this and that&mdash;be sure to include why it's great
+                                                Option one is this and that&mdash;
                                               </label>
                                             </div>
                                         </div>
@@ -94,23 +96,30 @@
 
                         <div class="col-md-4 portlets">
                             <div class="form-group"> 
-                                <label for="receiver" class="col-sm-2 control-label text-left" >To</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('receiver'); ?>" placeholder="E-mail Reciever" tabindex="3" >
+                                <label for="input-text-sender-name" class="col-sm-2 control-label text-left" >Name</label>
+                                <div class="col-sm-9" style="padding-right:5px;">
+                                  <input type="text" class="form-control to-radio" id="input-text-sender-name" name="input-text-sender-name" value="<?php echo set_value('input-text-sender-name'); ?>" placeholder="Sender Name" tabindex="3"  >
+                                </div>                                
+                            </div><!-- form-group -->
+                            <div class="form-group"> 
+                                <label for="input-text-to" class="col-sm-2 control-label text-left" >To</label>
+                                <div class="col-sm-9" style="padding-right:5px;">
+                                  <!--<input type="text" class="form-control to-radio" id="input-text-to" name="input-text-to" value="<?php echo set_value('input-text-to'); ?>" placeholder="E-mail Reciever" tabindex="4"  >-->
+                                  <textarea rows="4" cols="50" class="form-control to-radio" placeholder="List of Emails separated by new line or comma" title="List of Emails separated by new or comma" id="input-text-to" name="input-text-to" value="<?php echo set_value('input-text-to'); ?>"  tabindex="4"></textarea>
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-to" class="col-sm-1"></span>
                             </div><!-- form-group -->
                             <div class="form-group">
                                 <label for="carbon_copy" class="col-sm-2 control-label text-left" >Cc</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control to-radio" id="input-text-cc" name="input-text-cc" value="<?php echo set_value('carbon_copy'); ?>" placeholder="Carbon Copy" tabindex="4" >
+                                <div class="col-sm-9" style="padding-right:5px;">
+                                  <input type="text" class="form-control to-radio" id="input-text-cc" name="input-text-cc" value="<?php echo set_value('carbon_copy'); ?>" placeholder="Carbon Copy" tabindex="5" >
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-cc" class="col-sm-1"></span>
                             </div><!-- form-group -->
                              <div class="form-group">
                                 <label for="blind_carbon_copy" class="col-sm-2 control-label text-left" >Bcc</label>
-                                <div class="col-sm-9">
-                                  <input type="text" class="form-control to-radio" id="input-text-bcc" name="input-text-bcc" value="<?php echo set_value('blind_carbon_copy'); ?>" placeholder="Blind Carbon Copy" tabindex="5" >
+                                <div class="col-sm-9" style="padding-right:5px;">
+                                  <input type="text" class="form-control to-radio" id="input-text-bcc" name="input-text-bcc" value="<?php echo set_value('blind_carbon_copy'); ?>" placeholder="Blind Carbon Copy" tabindex="6" >
                                 </div>
                                 <span class="radio_to"><input type="radio" name="optionsRadios"  value="input-text-bcc" class="col-sm-1"></span>
                             </div><!-- form-group -->
@@ -120,7 +129,7 @@
                                     <table id="to_emailer" data-sortable class="table table-striped table-bordered display compact" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th  id="selectAll" style="padding: 0 !important;"><small><input  type="checkbox" class="input-sm"></small></th>
+                                                <th align="center" id="selectAll" style="padding: 0 !important;"><small><input  type="checkbox" class="input-sm"></small></th>
                                                 <th class="email" style="width:40px !important;"><small>Email</small></th>
                                                 <!--<th class="country"><small>xCountry</small></th>--> 
                                                 <th class="status"  style="text-align:center; width:5px;"></th>                                                  
@@ -133,17 +142,7 @@
                                                 <th class="status"  style="text-align:center; width:5px;"></th>    
                                             </tr>
                                         </tfoot>
-                                        <!--
-                                        <tbody> 
-                                            {email_lists}
-                                            <tr>   
-                                                <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
-                                                <td class="email" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
-                                                <!--<td class="country"><small>{addressCountry}</small></td>
-                                                <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
-                                            </tr>
-                                            {/email_lists}                                         
-                                        </tbody>-->
+                                       
                                     </table>
                                     <!-- End to E-mail table-->
                                     <!-- Search Table -->
@@ -217,10 +216,10 @@
             $(document).ready(function() { 
                 var city    = $('td.column-search-city input').val();
                 var country = $('td.column-search-city input').val();             
-               
+
                 var table = $("#to_emailer").dataTable({
                     "processing": true,
-                    "serverSide": true,
+                    //"serverSide": true,
                     //"lengthMenu": [ 25, 50, 75, 100, 200, 250, 300, 350, 400, 450, 500 ],
                     //"iTotalDisplayRecords": 15,
                     //"info": false,
@@ -231,24 +230,40 @@
                         //        }
                     //},
                     "columns": [                        
-                        { "data": null },
+                        { "data":   null,
+                            render: function ( data, type, row ) {
+                                if ( type === 'display' ) {
+                                    return '<small><input  type="checkbox" id="email-check" class="rows-check email-check"></small>';//'<input type="checkbox" class="editor-active">';
+                                }
+                                return data;
+                            },
+                            className: "select_record dt-body-center"
+                        },
                         { "data": "email" },
                         { "data": null }                                 
+                       
                     ],
                     "columnDefs": [ {
                         "targets": 2, 
                         "orderable": false, 
-                        "sWidth": "0%",                    
+                        "sWidth": "1%",   
+                        "sClass": "sl_align",                 
                         "defaultContent": "<small><img src='<?php echo base_url();?>assets/img/active.png' alt='active email' height='16' width='16'> </span></small>"
                         },
                         {
+                        "targets": 1,
+                        "sWidth": "40px",
+                        //"sTitle": 
+                        },
+                        {
                         "targets": 0,
-                        "sWidth": "0%",                        
-                        "defaultContent":   '<small><input  type="checkbox" class="rows-check"></small>'
+                        "sWidth": "1%", 
+                        "sClass": "select_record sl_align",                         
+                        //"defaultContent":   '<small><div class="icheckbox_square-aero" aria-checked="false" aria-disabled="false" style="position: relative;"><input type="checkbox" class="rows-check" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"><ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div></small>'
                         }                
                     ],
                     // remove length and show at bottom
-                    "order": [[1, 'desc']],
+                    "order": [[1, 'asc']],
                     //"columnDefs": [
                     //    { "orderable": false, "targets": 0 },   
                         //{ "bSortable": false, "aTargets": [ 0 ] },
@@ -261,9 +276,8 @@
                     //"scrollY"     : 325,
                     "scrollCollapse": true,
                     //"jQueryUI":       true,              
-                    //"sDom": '<"top">frt<"bottom"p><"clear">'
-                });      
-                
+                    "sDom": '<"top">frt<"bottom"p><"clear">'
+                }); 
                 //table.column( 1 ).visible( false );
                 //table.columns.adjust().draw( false ); // adjust column sizing and redraw
                 /*
@@ -317,26 +331,28 @@
                         //"sDom": '<"top">rt<"bottom"fp><"clear">',      
                     });
                 });
-                */
-
-                //table.ajax.url( "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>" ).load();
-                           
-                //var idx = table.columns( 1 ).indexes();
-                //alert(idx);
+                */    
                 $("#send_email").click(function(){ 
-                    var msg = CKEDITOR.instances.email_message.getData(),
-                        subject = $('#input-text-subject').val();
-                        cc      = $('#input-text-cc').val();
-                        bcc     = $('#input-text-bcc').val();
-
+                    var msg         = CKEDITOR.instances.email_message.getData(),
+                        from        = $('#input-text-from').val(),
+                        sender_name = $('#input-text-sender-name').val(),
+                        subject     = $('#input-text-subject').val(),
+                        receiver    = $('#input-text-to').val(),                        
+                        cc          = $('#input-text-cc').val(),
+                        bcc         = $('#input-text-bcc').val();
+                       
                     $.ajax({
                         url: '<?php echo base_url();?>sl_emailer/slsend_mail',
                         type: 'POST',
                         data: {
-                            "message": msg,
-                            "subject": subject,
-                            "cc"     : cc,
-                            "bcc"    : bcc
+                            "from"      : from,
+                            "name"      : sender_name,
+                            "subject"   : subject,
+                            "receiver"  : receiver,
+                            "cc"        : cc,
+                            "bcc"       : bcc,
+                            "message"   : msg
+                            
                         },
                         error:  function(xhr, status, error) {
                                 var err = JSON.parse(xhr.responseText);
@@ -400,8 +416,7 @@
                     return false;   
                 });
 
-                // to do ckeditor 
-                // refresh Letter Template List             
+                // to do ckeditor                 
                 // autosaving
                 // WindowEventHandlers.onbeforeunload // when user close browser
                 // end testing js

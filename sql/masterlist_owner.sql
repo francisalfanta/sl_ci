@@ -81,6 +81,15 @@ CREATE TABLE IF NOT EXISTS `tb_property_owner_master_list` (
   PRIMARY KEY (`property_owner_master_list_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4396 ;
 
+alter table tb_property_owner_master_list add column(`project_name` varchar(250)); 
+alter table tb_property_owner_master_list add column(`company_name` varchar(250)); 
+alter table tb_property_owner_master_list add column(`amount` bigint(50)); 
+alter table tb_property_owner_master_list add column(`date_purchased` date); 
+alter table tb_property_owner_master_list add column(`po_box` varchar(25)); 
+alter table tb_property_owner_master_list add column(`size` int(50), `total_area` int(50), `tower_no` varchar(50), `postal_code` varchar(50));
+alter table tb_property_owner_master_list add column(`location_code` varchar(50)); 
+
+
 --
 -- Dumping data for table `tb_property_owner_master_list`
 --

@@ -32,3 +32,6 @@ input:focus {
     border-color:#9ecaed !important;
     box-shadow:0 0 10px #9ecaed !important;
 }
+.sl_align {
+	text-align: center !important;
+}

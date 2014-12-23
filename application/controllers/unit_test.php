@@ -28,22 +28,13 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $city = null;
-        $country = null;
-
-        $data['draw'] = (int)1;         
-
-        $query = $this->email_model->get_valid_email();
-        $data['recordsTotal']    = $query->num_rows();
-        $data['recordsFiltered'] = $query->num_rows();
-
-        if($city || $country){
-            $query = $this->email_model->find_valid_email_by_addresss($city, $country); 
-            $data['recordsFiltered'] = $query->num_rows();
-        }          
-       
-        $data['data'] = $query->result();     
-        echo json_encode($data);        
+        $to = 'te@test_unitdsf@dfdf';
+        if(strpos($to, PHP_EOL) !== FALSE) {
+          echo 'New line break found';
+        }
+        else {
+          echo 'not found';
+        }
         //print_r($query);
         $test_unit = '';
 		if (is_null($test_unit)) 

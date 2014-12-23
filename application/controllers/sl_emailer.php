@@ -176,8 +176,18 @@ class Sl_emailer extends CI_Controller {
 		$this->email->initialize($config);
 
 		$from = $this->input->post('from');
+		$name = $this->input->post('name');
+		$to_lists = $this->input->post('receiver');		
+		// check for break line
 
-		$to   = $this->input->post('receiver');
+		$to_lists = str_replace("\n",', ',$to_lists);
+		//if(strpos($to, PHP_EOL) !== FALSE) {
+		//  echo 'New line break found';
+		//}
+		//else {
+		//  echo 'not found';
+		//}
+
 		$subj = $this->input->post('subject');
 		$cc   = $this->input->post('cc');
 		$bcc  = $this->input->post('bcc');
@@ -192,10 +202,11 @@ class Sl_emailer extends CI_Controller {
 		//$this->email->message('no cc bcc Debugging Testing the email class.');	
 		
 		
-		$this->email->to($to); 
-		$this->email->from($from, 'Your Name');
+		$this->email->to($to_lists); 
+		$this->email->from($from, $name);
 		//$this->email->cc($cc); 
-		$this->email->bcc($bcc); 
+		//$this->email->bcc($bcc); 
+		$this->email->bcc('technical@slg.ae'); 
 		$this->email->subject($subj);	
 		$this->email->message($msg);		
 		$this->email->set_alt_message($msg);   // create alternate msg by removing html tag
@@ -203,7 +214,7 @@ class Sl_emailer extends CI_Controller {
 		$check = $this->email->send();
 
 		//echo $this->email->print_debugger();
-		print_r($cc);
+		print_r($to_lists);
 
 		//echo $check;
 		//$this->session->set_flashdata('db_msg', 'Update successful.');

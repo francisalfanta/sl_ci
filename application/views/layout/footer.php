@@ -55,25 +55,26 @@
     <?php if($title='SoftLine | E-Mailer'){ ?>
     <script src="<?php echo base_url();?>assets/libs/jquery-datatables/js/jquery.dataTables.min.js"></script>
 	<script src="<?php echo base_url();?>assets/libs/jquery-datatables/js/dataTables.bootstrap.js"></script>
-	<script src="<?php echo base_url();?>assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/pages/datatables.js"></script>	
+	<script src="<?php echo base_url();?>assets/libs/jquery-datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>	
+	<script src="<?php echo base_url();?>assets/js/pages/datatables.js"></script>		
 	<?php } ?>
 	<script src="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.min.js"></script>
+
 	
 	</body>
 	<?php if($title='SoftLine | E-Mailer'){ ?>
 	<script type="text/javascript">	
 		// initialize checkbox	
 		$(document).ready(function() {
-			$('.select_record').find("input[type='checkbox']").attr("disabled", true);
-        	//$("input[type='checkbox']").attr("disabled", true);
-        	$("input[type='radio']").attr("disabled", true);		
+        	var selectall = $('#selectAll').find('.iCheck-helper');          	
+        	//var select_record = $('.select_record').find('.iCheck-helper');
+        	var select_record = $('#email-check');         	       	
 
-        	var selectall = $('#selectAll').find('.iCheck-helper');        				
-        	var select_record = $('.select_record').find('.iCheck-helper'); 
-   
-			$( ".to-radio" ).focus(function() {
-				$("input[type='checkbox']").removeAttr("disabled");  
+        	$( ".to-radio" ).focus(function() { 
+				//$("input[type='checkbox']").removeAttr("disabled");  
+				//$('.select_record').find("input[type='checkbox']").removeAttr("disabled"); 
+				$('#selectAll').find("input[type='checkbox']").removeAttr("disabled");  
+
   				var chk_btn = $(this).parent().siblings('.radio_to').find('.iradio_square-aero');
   				if(!chk_btn.hasClass('checked')){
   				    chk_btn.addClass('checked');  				    
@@ -89,32 +90,37 @@
 	  				$('td.email').each(function(){  					
 	  					var content = $(this).find('small').html();	 
 	  					if(content.toLowerCase()==current_email_lists[i]){
-	  						alert(content.toLowerCase()+'-'+current_email_lists[i]);
+	  						//alert(content.toLowerCase()+'-'+current_email_lists[i]);
 	  						$(this).siblings('.select_record').find('.icheckbox_square-aero').addClass('checked');	  							
 	  					}
 	  				});
   				} 				  				
 			});   		
+        	
         	$( ".to-radio" ).blur(function() { 
         		//alert( "Handler for .blur() called." ); 				
   				var chk_btn = $(this).parent().siblings('.radio_to').find('.iradio_square-aero');
-  				if(chk_btn.hasClass('checked')){  					
-  				    chk_btn.removeClass('checked');  				
-  				    $('div.icheckbox_square-aero').removeClass('checked'); 
-  				    $('td.email').siblings('.select_record').find('.icheckbox_square-aero').attr('aria-checked', 'false');
+  				if(chk_btn.hasClass('checked')){
+  					// remove check for other radio button  					
+  				    //chk_btn.removeClass('checked');  	
+  				    // remove check for all check boxes			
+  				    $('div.icheckbox_square-aero').removeClass('checked');   				    
+  				    //$('td.email').siblings('.select_record').find('.icheckbox_square-aero').attr('aria-checked', 'false');
   				    $('#selectAll').attr('aria-checked', 'false');
-  				    $('input[type="checkbox"]').prop('checked', 'false');
+  				    //$('input[type="checkbox"]').prop('checked', 'false');
+  				    //$('.select_record').find('input[type="checkbox"]').prop('checked', 'false');
   				}
-			}); 
-        	
+			});
+        	/*// Original layout
 			selectall.click(function(e){ 
 				var selected_receiver = '';
+				$('.select_record').find("input[type='checkbox']").removeProp("disabled");
     			$('.radio_to .iradio_square-aero').each(function(){
     				if($(this).hasClass('checked')){    					
     					selected_receiver = $(this).find('input').val();    			
     				}
     			}) 			    
-			    if($(this).parent().hasClass('checked')) {			  
+			    if($(this).parent().hasClass('checked')) { 
 			    	//$('input[type="checkbox"]').prop('checked', 'true');	  	
 			     	$('.select_record').find("input[type='checkbox']").prop('checked', 'true');	
 			     	$('div.icheckbox_square-aero').attr('aria-checked', 'true');		    		        
@@ -141,12 +147,14 @@
 			        //$('input[type="checkbox"]').prop('checked', 'false'); 
 			        $('input[name='+selected_receiver+']').val('');
 			    } 
-    		});   
+    		});  
 
     		select_record.click(function(e){ 
-    			var selectall = $('#selectAll').find('.iCheck-helper');  
-    			alert(selectall.html());
+    			var selectall = $('#selectAll').find('.iCheck-helper');
     			var selected_receiver = '';
+
+    			$('.select_record').find("input[type='checkbox']").removeProp("disabled");
+
     			selectall.parent('icheckbox_square-aero').removeClass('checked');
     			selectall.parent('icheckbox_square-aero').attr('aria-checked', 'false');	
 
@@ -162,6 +170,7 @@
     			                   .find('small'); // small    			
     			var email = find_email.html();  
     			var receiver = $("#"+ selected_receiver).val();
+    			alert(receiver);
   
     			if(typeof receiver !== "undefined"){    				
     				if(receiver.length){
@@ -187,12 +196,61 @@
 	                	$('input[name='+selected_receiver+']').val(receiver);
 	                } 
     			}              
-            });  
+            }); 
+   			*/
 			// tested 12/21/2014
             CKEDITOR.instances['email_message'].on('focus', function()
 			{
 				var msg_name = $('#msg_name').val("");				
 			}); 
+			// on testing 12/23/2014
+			select_record.click(function(e){ 
+				alert('click select record');
+    			var selectall = $('#selectAll').find('.iCheck-helper');
+    			var selected_receiver = '';
+
+    			//$('.select_record').find("input[type='checkbox']").removeProp("disabled");
+
+    			//selectall.parent('icheckbox_square-aero').removeClass('checked');
+    			//selectall.parent('icheckbox_square-aero').attr('aria-checked', 'false');	
+
+    			$('.radio_to .iradio_square-aero').each(function(){
+    				if($(this).hasClass('checked')){    					
+    					selected_receiver = $(this).find('input').val();   
+    					alert('selected: '+selected_receiver); 			
+    				}
+    			})     					
+    			var email = $(this).html();  
+    			alert('email: '+ email);
+    			var receiver = $("#"+ selected_receiver).val();
+    			//alert('receiver: '+receiver);
+  				/*
+    			if(typeof receiver !== "undefined"){ 
+    				if(receiver.length){
+    					receiver = receiver+', ';
+    				}     				       
+	                if($(this).parent().hasClass('checked')){	                	
+	                	$('input[name='+selected_receiver+']').val(receiver+email.toLowerCase());
+	                } else {
+	                	//alert('the item is not checked');	
+	                	// find email from receiver list
+	                	receiver = receiver.replace(', '+email.toLowerCase(),"").replace(email.toLowerCase(),""); 
+	                	// remove duplicate comma
+	                	receiver = receiver.replace(', , ',', ');
+	                	// remove extra ', ' in front
+	                	if(receiver.slice(0,2)==', '){
+	    					receiver = receiver.slice(2, receiver.length); 	
+	    				}
+	    				// remove extra ', ' in last
+	    				if(receiver.slice(receiver.length-2,receiver.length)==', '){
+	    					receiver = receiver.slice(0, receiver.length-2); 	
+	    				}
+	                	// remove from the list                	
+	                	$('input[name='+selected_receiver+']').val(receiver);
+	                } 
+    			} 
+    			*/             
+            }); 
 		});
     </script>
     <?php } ?>

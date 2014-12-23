@@ -6,6 +6,7 @@
         // Load the Simple Box plugin.
         extraPlugins: 'simplebox',
         extraPlugins: 'placeholder',
+        extraPlugins: 'strinsert'
 		//toolbar: [ [ 'Source', 'Bold' ], ['CreatePlaceholder'] ]
     } );
 </script>

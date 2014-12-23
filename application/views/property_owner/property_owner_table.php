@@ -132,7 +132,7 @@
                                     <div class="col-xs-8">Address 2</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address2" value="address2" checked  /></span></div> 
                                     <div class="col-xs-8">Address 3</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address3" value="address3" checked  /></span></div> 
                                     <div class="col-xs-8">Address 4</div><div class="col-xs-4"><span class="field_name"><input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="address4" value="address4" checked  /></span></div> 
-                                    <?php foreach(array_slice($table_fieldname,4, 20) as $label => $value){
+                                    <?php foreach(array_slice($table_fieldname,4, 25) as $label => $value){
                                           if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false and strpos(strtolower($label),'no_property_owned') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 
@@ -154,7 +154,7 @@
 
                                 <div class="row col-sm-6 col-md-6 col-lg-6">
                                     <!-- foreach here -->
-                                    <?php foreach(array_slice($table_fieldname,20,count($table_fieldname)) as $label => $value){
+                                    <?php foreach(array_slice($table_fieldname,25,count($table_fieldname)) as $label => $value){
                                           if(strpos(strtolower($label),'address') === false and strpos(strtolower($label),'subcommunity') === false and strpos(strtolower($label),'community') === false and strpos(strtolower($label),'city') === false and strpos(strtolower($label),'country') === false and strpos(strtolower($label),'for_deletion') === false and strpos(strtolower($label),'status') === false and strpos(strtolower($label),'no_property_owned') === false){
                                             if(strpos(strtolower($label), '_id') === false){                                     
                                                 $field_name = ucfirst(str_replace('re ','', strtolower(str_replace('_', ' ', $label)))); 

@@ -66,5 +66,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins  = 'placeholder';
 	config.extraPlugins  = 'font';
 	config.removePlugins = 'elementspath';
+	config.extraPlugins  = 'panel';
+	config.extraPlugins  = 'listblock';
+	config.extraPlugins  = 'button';
+	config.extraPlugins  = 'floatpanel';
+	config.extraPlugins  = 'richcombo';
+	config.extraPlugins  = 'strinsert';
 	config.toolbarCanCollapse = true;
 };
