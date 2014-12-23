@@ -78,8 +78,8 @@
                                             </div>
                                             <div class="checkbox">
                                               <label>
-                                                <input type="checkbox" value="">
-                                                Option one is this and that&mdash;
+                                                <input type="checkbox" value="" checked>
+                                                Enable Custom Signature 
                                               </label>
                                             </div>
                                             <div class="checkbox">

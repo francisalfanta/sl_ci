@@ -49,5 +49,12 @@ class Model_users extends CI_Model{
 			return false;
 		}
 	}
+	// on testing 12/23/2014
+	public function update_user_signature($data){
+		$this->db->where('username', $this->session->userdata('username'));
+		$update = $this->db->update('slcs_staff', $data);
+		return $update;
+	}
+
 }
 ?>

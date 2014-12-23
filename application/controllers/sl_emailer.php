@@ -19,7 +19,7 @@ class Sl_emailer extends CI_Controller {
 		$this->email->initialize($config);
  	}
 
-	function _header_data(){   
+	function _header_data(){ 
         $data['staffs']    = $this->slcs_staff_model->get_staff();
         $data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
         $data['sections']  = $this->sections_model->get_sections();
@@ -100,13 +100,31 @@ class Sl_emailer extends CI_Controller {
 				)				
 			),
 			'extraPlugins' => 'simplebox'
-		);
- 
+		);	
+				
+
+		$slfooter   = $this->parser->parse('layout/sl_footer', $data, TRUE);
+		$msg_editor = $this->parser->parse('ckeditor', $ck_data, TRUE);
+		
+		
+		$data['slfooter']   = $slfooter;
+		$data['msg_editor'] = $msg_editor;
+		
+		// get e-mail database
+		$query = $this->email_model->get_valid_email();		 
+		$data['email_lists'] = $query->result();
+		
+		// added 12/20/2014
+		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
+
+        $data['templates_name_lists'] = $templates_name_lists->result_array();
+		// end added 12/20/2014
+		// added 12/23/2014
 		$ck_data['ckeditor_2'] = array(
  
 			//ID of the textarea that will be replaced
-			'id' 	=> 	'content_2',
-			'path'	=>	'assets/jsckeditor',
+			'id' 	=> 	'signature_message',
+			'path'	=>	'assets/libs/ckeditor',
  
 			//Optionnal values
 			'config' => array(
@@ -134,30 +152,16 @@ class Sl_emailer extends CI_Controller {
 				)
  
 			)
-		);			
-
-		$slfooter   = $this->parser->parse('layout/sl_footer', $data, TRUE);
-		$msg_editor = $this->parser->parse('ckeditor', $ck_data, TRUE);
-		
-		$data['slfooter']   = $slfooter;
-		$data['msg_editor'] = $msg_editor;
-
-		// get e-mail database
-		$query = $this->email_model->get_valid_email();		 
-		$data['email_lists'] = $query->result();
-		
-		// added 12/20/2014
-		$templates_name_lists = $this->letter_templates_model->get_letter_templates();
-
-        $data['templates_name_lists'] = $templates_name_lists->result_array();
-
-		// end added 12/20/2014
-
+		);	
+		$signature_editor = $this->parser->parse('sl_emailer/signature_ckeditor', $ck_data, TRUE);
+		$data['signature_editor'] = $signature_editor;
+		// end added 12/23/2014
 		$this->parser->parse('layout/header', $data);
 		$this->parser->parse('layout/topbar',array());
 		$this->parser->parse('layout/admin_left_sidemenu', $data);
 		$this->parser->parse('layout/right_sidemenu',array());
-		$this->parser->parse('sl_emailer/sl_emailer', $data);		
+		$this->parser->parse('sl_emailer/sl_emailer', $data);	
+		$this->parser->parse('sl_emailer/signature_form_modal', $data);
 		$this->parser->parse('sl_emailer/sl_emailer_modal', $data);
 		$this->parser->parse('layout/footer',array());
 	}
@@ -239,7 +243,6 @@ class Sl_emailer extends CI_Controller {
         $data['data'] = $query->result();     
         echo json_encode($data);		
 	}
-
 	// tested 12/20/2014
 	public function template_lists(){ 
 		$selected_id = $this->input->post('selected');
@@ -277,5 +280,14 @@ class Sl_emailer extends CI_Controller {
 			$templates_name_lists = $this->letter_templates_model->get_letter_templates();			
         	echo json_encode($templates_name_lists->result_array());				
 		}		
+	}
+	// on testing 12/23/2014
+	public function crud_signature(){				
+		$signature_msg = $this->input->post('signature_msg');
+		// add replacement placeholder here
+		// end add
+		$data = array('signature' => $signature_msg);
+		$query = $this->model_users->update_user_signature($data);
+		echo $query;
 	}
 }

@@ -44,6 +44,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
      Script Lines   : All unless noted otherwise
 */
 // controller = url
+
 $route['sl_emailer/filtered_email_lists'] = 'sl_emailer/filtered_email_lists';
 $route['sl_emailer/template_lists'] = 'sl_emailer/template_lists';
 $route['sl_emailer/slsend_mail'] = 'sl_emailer/slsend_mail';
