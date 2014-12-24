@@ -100,8 +100,7 @@ class Sl_emailer extends CI_Controller {
 				)				
 			),
 			'extraPlugins' => 'simplebox'
-		);	
-				
+		);					
 
 		$slfooter   = $this->parser->parse('layout/sl_footer', $data, TRUE);
 		$msg_editor = $this->parser->parse('ckeditor', $ck_data, TRUE);

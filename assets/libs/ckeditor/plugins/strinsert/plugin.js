@@ -22,6 +22,7 @@ CKEDITOR.plugins.add('strinsert',
 		strings.push(['[[sMobile No]]', 'Mobile No', 'Mobile No']);
 		strings.push(['[[sFax No]]', 'Fax No', 'Fax No']);
 		strings.push(['[[sTelephone No]]', 'Telephone No', 'Telephone No']);
+		strings.push(['<img src="<?php base_url();?>assets/img/slrelogo.png" alt="SL Logo" style="float:none !important; height:1em !important; width:1em !important">', 'Softline Logo', 'Softline Logo']);
 
 		var strings2 = [];
 		strings2.push(['[[rCompany Name]]', 'Company Name', 'Company Name']);
