@@ -87,4 +87,19 @@ class email_model extends CI_Model {
 		
 		return $query->result();
 	}
+	// on testing 12/24/2014
+	public function set_is_blacklist($email,$toggle){
+		$this->db->where('email', $email);
+		$query = $this->db->get('email');
+
+		if($query->num_rows()>0){
+			$this->db->where('email', $email);
+			$update = $this->db->update('email', array('is_blacklist'=> $toggle));	
+		} else {
+			// create the email first before block list
+			$this->db->insert('email', array('email'=>$email, 'is_blacklist'=>1));
+		}
+
+		echo $update;
+	}
 }

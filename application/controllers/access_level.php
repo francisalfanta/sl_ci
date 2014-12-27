@@ -10,9 +10,10 @@ class Access_level extends CI_Controller {
 	public function index()
 	{		
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']   = $this->sections_model->get_sections();
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		//$data['sections']   = $this->sections_model->get_sections();
 		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
+		$data['parents']     = $this->staff_menu_model->get_parent_staff_menu();
 		$data['children']   = $this->staff_menu_model->get_child_staff_menu();
 
 		$data['title']      = 'SoftLine | Staff Permission';	

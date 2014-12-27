@@ -76,9 +76,9 @@
                                                 Enable Blind Carbon Copy (BCC)
                                               </label>
                                             </div>
-                                            <div class="checkbox">
-                                              <label>
-                                                <input type="checkbox" value="" checked>
+                                            <!--<div class="checkbox">
+                                              <label id="sl_signature">
+                                                <input name="sl_signature" type="checkbox" value="" checked>
                                                 Enable Custom Signature 
                                               </label>
                                             </div>
@@ -87,7 +87,7 @@
                                                 <input type="checkbox" value="">
                                                 Option one is this and that&mdash;
                                               </label>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +142,16 @@
                                                 <th class="status"  style="text-align:center; width:5px;"></th>    
                                             </tr>
                                         </tfoot>
+                                         <tbody> 
+                                            {email_lists}
+                                            <tr>   
+                                                <td class="select_record"><small><input  type="checkbox" class="rows-check"></small></td>
+                                                <td class="email" style="width:40px !important;" data-sortable="true" title="{first_name}"><small>{email}</small></td>
+                                                <!--<td class="country"><small>{addressCountry}</small></td>-->
+                                                <td class="status" style="text-align:center; width:5px;"><small><img src="<?php echo base_url();?>assets/img/active.png" alt="active email" height="16" width="16"> </span></small></td>     
+                                            </tr>
+                                            {/email_lists}                                         
+                                        </tbody>
                                        
                                     </table>
                                     <!-- End to E-mail table-->
@@ -209,11 +219,24 @@
 			<!-- ============================================================== -->
 			<!-- End content here -->
 			<!-- ============================================================== -->
-            
-            <script src="<?php echo base_url();?>assets/libs/ckeditor/ckeditor.js"></script>
-            <script src="<?php echo base_url();?>assets/libs/ckeditor/adapters/jquery.js"></script>
             <script type="text/javascript"> 
             $(document).ready(function() { 
+                // on testing 12/24/2014
+                // toggle sl signature within ckeditor
+                //var sl_sign = $('#sl_signature').children();//.find('.iCheck-helper');
+                //sl_sign.click(function(){
+                //    alert('click');                    
+                //});
+                // tested 12/24/2014
+                // load default user signature                
+                var raw_signature ={user_info},
+                    user_signature = '<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>'+raw_signature.join('');
+                CKEDITOR.instances.email_message.setData( user_signature, {
+                   callback: function() {
+                        this.checkDirty(); // true
+                    }
+                });
+                
                 var city    = $('td.column-search-city input').val();
                 var country = $('td.column-search-city input').val();             
 
@@ -223,7 +246,7 @@
                     //"lengthMenu": [ 25, 50, 75, 100, 200, 250, 300, 350, 400, 450, 500 ],
                     //"iTotalDisplayRecords": 15,
                     //"info": false,
-                    "ajax":  "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
+                    //"ajax":  "<?php echo base_url('sl_emailer/filtered_email_lists'); ?>",
                         //"data": {
                         //    "city": city,
                         //    "country": country
@@ -379,7 +402,7 @@
                       dataType: "text",
                       data: {"selected": selected_id},
                       success: function(msg){
-                        CKEDITOR.instances.email_message.setData( msg, {
+                        var new_msg = CKEDITOR.instances.email_message.setData( msg, {
                             callback: function() {
                                 this.checkDirty(); // true
                             }
@@ -414,8 +437,8 @@
                         swal('Error','Please specify name', 'error');
                     }  
                     return false;   
-                });
-
+                });          
+              
                 // to do ckeditor                 
                 // autosaving
                 // WindowEventHandlers.onbeforeunload // when user close browser

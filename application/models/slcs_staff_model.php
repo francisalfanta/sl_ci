@@ -323,4 +323,11 @@ class Slcs_staff_model extends CI_Model {
 		$this->db->update('slcs_staff',$data);
 		redirect("slcs_staff/index");
 	}
+	// on testing 12/24/2014
+	public function get_slcs_staff_by_username($username)
+	{
+		$this->db->where('username',$username);
+		$query = $this->db->get('slcs_staff');
+		return $query->result();
+	}
 }?>

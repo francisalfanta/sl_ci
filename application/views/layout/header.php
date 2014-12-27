@@ -103,7 +103,9 @@
         <link href="<?php echo base_url(); ?>assets/css/e_mailer_style.css" type="text/css" rel="stylesheet">
         <?php } ?>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.css">
-        
+        <!-- CKEditor jss -->
+        <script src="<?php echo base_url();?>assets/libs/ckeditor/ckeditor.js"></script>
+        <script src="<?php echo base_url();?>assets/libs/ckeditor/adapters/jquery.js"></script>        
         <!-- end custom added -->      
     </head>
     <body class="fixed-left">

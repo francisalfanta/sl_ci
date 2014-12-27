@@ -24,7 +24,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'styles', 	   groups: ['font','fontsize']},
 		{ name: 'colors' },
-		{ name: 'about' }
+		//{ name: 'about' }
 	];
 	/*
 	config.toolbar = 'Full';
@@ -54,7 +54,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
-	config.format_tags   = 'p;h1;h2;h3;pre';
+	config.format_tags   = 'p;h1;h2;h3;pre;div';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
@@ -73,4 +73,12 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins  = 'richcombo';
 	config.extraPlugins  = 'strinsert';
 	config.toolbarCanCollapse = true;
+	// added 12/24/2014
+	//config.EnterMode = 'br';
+	config.height = '600px';
+	config.extraPlugins = 'textsignature';
+	// to use Word font styles, including font size, font family, and font foreground/background color,
+	config.pasteFromWordRemoveFontStyles = false;
+	config.extraPlugins = 'abbr';
+	
 };

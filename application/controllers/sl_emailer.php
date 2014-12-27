@@ -35,76 +35,10 @@ class Sl_emailer extends CI_Controller {
 		//You should autoload this one ;)
 		//$this->load->helper('ckeditor');
 		$data = $this->_header_data();
-		$data['title'] = 'SoftLine | E-Mailer';
-
-		//Ckeditor's configuration
-		$ck_data['ckeditor'] = array(
- 
-			//ID of the textarea that will be replaced
-			'id' 	=> 	'message-id',
-			'path'	=>	'assets/libs/ckeditor',
-			//'path'	=>	'assets/js/ckeditor',
- 
-			//Optionnal values
-			'config' => array(
-				//'toolbar' 	=> 	"Full", 	//Using the Full toolbar
-				'width' 	=> 	"850px",	//Setting a custom width
-				'height' 	=> 	'630px',	//Setting a custom height 
-			),
- 
-			//Replacing styles from the "Styles tool"
-			'styles' => array(
- 
-				//Creating a new style named "style 1"
-				'style 1' => array (
-					'name' 		=> 	'Blue Title',
-					'element' 	=> 	'h2',
-					'styles' => array(
-						'color' 	=> 	'Blue',
-						'font-weight' 	=> 	'bold'
-					)
-				),
- 
-				//Creating a new style named "style 2"
-				'style 2' => array (
-					'name' 	=> 	'Red Title',
-					'element' 	=> 	'h2',
-					'styles' => array(
-						'color' 		=> 	'Red',
-						'font-weight' 		=> 	'bold',
-						'text-decoration'	=> 	'underline'
-					)
-				)				
-			),
-			'fields' => array(
- 
-				//Creating a new style named "style 1"
-				'style 1' => array (
-					'name' 		=> 	'Blue Title',
-					'element' 	=> 	'h2',
-					'styles' => array(
-						'color' 	=> 	'Blue',
-						'font-weight' 	=> 	'bold'
-					)
-				),
- 
-				//Creating a new style named "style 2"
-				'style 2' => array (
-					'name' 	=> 	'Red Title',
-					'element' 	=> 	'h2',
-					'styles' => array(
-						'color' 		=> 	'Red',
-						'font-weight' 		=> 	'bold',
-						'text-decoration'	=> 	'underline'
-					)
-				)				
-			),
-			'extraPlugins' => 'simplebox'
-		);					
+		$data['title'] = 'SoftLine | E-Mailer';			
 
 		$slfooter   = $this->parser->parse('layout/sl_footer', $data, TRUE);
-		$msg_editor = $this->parser->parse('ckeditor', $ck_data, TRUE);
-		
+		$msg_editor = $this->parser->parse('ckeditor', array(), TRUE);		
 		
 		$data['slfooter']   = $slfooter;
 		$data['msg_editor'] = $msg_editor;
@@ -118,43 +52,20 @@ class Sl_emailer extends CI_Controller {
 
         $data['templates_name_lists'] = $templates_name_lists->result_array();
 		// end added 12/20/2014
-		// added 12/23/2014
-		$ck_data['ckeditor_2'] = array(
- 
-			//ID of the textarea that will be replaced
-			'id' 	=> 	'signature_message',
-			'path'	=>	'assets/libs/ckeditor',
- 
-			//Optionnal values
-			'config' => array(
-				'width' 	=> 	"550px",	//Setting a custom width
-				'height' 	=> 	'100px',	//Setting a custom height
-				'toolbar' 	=> 	array(	//Setting a custom toolbar
-					array('Bold', 'Italic'),
-					array('Underline', 'Strike', 'FontSize'),
-					array('Smiley'),
-					'/'
-				)
-			),
- 
-			//Replacing styles from the "Styles tool"
-			'styles' => array(
- 
-				//Creating a new style named "style 1"
-				'style 3' => array (
-					'name' 		=> 	'Green Title',
-					'element' 	=> 	'h3',
-					'styles' => array(
-						'color' 	=> 	'Green',
-						'font-weight' 	=> 	'bold'
-					)
-				)
- 
-			)
-		);	
-		$signature_editor = $this->parser->parse('sl_emailer/signature_ckeditor', $ck_data, TRUE);
+
+		// added 12/23/2014 // to be used in signature modal	
+		$signature_editor = $this->parser->parse('sl_emailer/signature_ckeditor', array(), TRUE);
 		$data['signature_editor'] = $signature_editor;
 		// end added 12/23/2014
+		
+		// on testing added 12/24/2014
+		$username          = $this->session->userdata('username'); 
+		$query  =  $this->slcs_staff_model->get_slcs_staff_by_username($username);
+		foreach($query as $row) {
+			// split string on every new line 
+            $data['user_info'] = json_encode(explode("\n", $row->email_signature));
+        }
+		// end added 12/24/2014
 		$this->parser->parse('layout/header', $data);
 		$this->parser->parse('layout/topbar',array());
 		$this->parser->parse('layout/admin_left_sidemenu', $data);
@@ -166,6 +77,7 @@ class Sl_emailer extends CI_Controller {
 	}
 
 	public function slsend_mail(){ 
+		$data = $this->_header_data();
 		$this->email->clear();
 
 		$toggle_bcc_batch_mode = $this->input->post('bcc_batch_mode');
@@ -195,33 +107,40 @@ class Sl_emailer extends CI_Controller {
 		$cc   = $this->input->post('cc');
 		$bcc  = $this->input->post('bcc');
 		$msg  = $this->input->post('message');
+		// on testing 12/24/2014
+		foreach(explode(',', $to_lists) as $per_letter){
+			$this->email->to($per_letter);
+			// to be assign to unsubscribe link 
+			$data['per_letter'] = $per_letter;
+			$email_template['msg'] = $msg;
+			$email_template['unsubscribe'] = $this->parser->parse('sl_emailer/unsubscribe', $data, TRUE);
 
 
-		//$this->email->from('francisalfanta@gmail.com', 'Your Name');
-		//$this->email->to('francisalfanta@gmail.com'); 
-		//$this->email->cc('another@another-example.com'); 
-		//$this->email->bcc('francisalfanta@gmail.com'); 
-		//$this->email->subject('Subject');
-		//$this->email->message('no cc bcc Debugging Testing the email class.');	
-		
-		
-		$this->email->to($to_lists); 
-		$this->email->from($from, $name);
-		//$this->email->cc($cc); 
-		//$this->email->bcc($bcc); 
-		$this->email->bcc('technical@slg.ae'); 
-		$this->email->subject($subj);	
-		$this->email->message($msg);		
-		$this->email->set_alt_message($msg);   // create alternate msg by removing html tag
+			$complete_msg = $this->parser->parse('sl_emailer/email_template',$email_template, TRUE);
 
-		$check = $this->email->send();
+			$this->email->message($complete_msg);
+			
+			// end add 12/24/2014
 
+			//$this->email->from('francisalfanta@gmail.com', 'Your Name');
+			//$this->email->to('francisalfanta@gmail.com'); 
+			//$this->email->cc('another@another-example.com'); 
+			//$this->email->bcc('francisalfanta@gmail.com'); 
+			//$this->email->subject('Subject');
+			//$this->email->message('no cc bcc Debugging Testing the email class.');			
+			
+			$this->email->from($from, $name);
+			//$this->email->cc($cc); 
+			//$this->email->bcc($bcc); 
+			$this->email->bcc('technical@slg.ae'); 
+			$this->email->subject($subj);	
+			//$this->email->message($msg);		
+			$this->email->set_alt_message($msg);   // create alternate msg by removing html tag
+
+			$check = $this->email->send();	
+		}
 		//echo $this->email->print_debugger();
 		print_r($to_lists);
-
-		//echo $check;
-		//$this->session->set_flashdata('db_msg', 'Update successful.');
-		//redirect('/sl_emailer');
 	}
 	// on testing 12/21/2014
 	public function filtered_email_lists(){ 
@@ -245,9 +164,26 @@ class Sl_emailer extends CI_Controller {
 	// tested 12/20/2014
 	public function template_lists(){ 
 		$selected_id = $this->input->post('selected');
-		$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
-		$msg = $templates_name->message;
-		echo $msg;		
+		
+		// on testing 12/24/2014 add default signature
+		if($selected_id){
+			$templates_name = $this->letter_templates_model->get_letter_templates($selected_id);
+			$email_template['msg'] = $templates_name->message;	
+		} else {
+			$email_template['msg'] = '<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>';	
+		}							
+
+		$username = $this->session->userdata('username'); 
+		$query    =  $this->slcs_staff_model->get_slcs_staff_by_username($username);
+		foreach($query as $row) {
+			// remove new line 
+            $email_template['signature'] = str_replace("\n",'', $row->email_signature);
+        }
+		
+		$complete_msg = $this->parser->parse('sl_emailer/receiver_email_template', $email_template, TRUE);
+		// end add 12/24/2014
+		// echo $msg;
+		echo $complete_msg;		
 	}
 	// tested 12/20/2014
 	public function save_template(){ 
@@ -281,12 +217,17 @@ class Sl_emailer extends CI_Controller {
 		}		
 	}
 	// on testing 12/23/2014
-	public function crud_signature(){				
+	public function crud_signature(){
 		$signature_msg = $this->input->post('signature_msg');
 		// add replacement placeholder here
 		// end add
 		$data = array('signature' => $signature_msg);
 		$query = $this->model_users->update_user_signature($data);
 		echo $query;
+	}
+	// on testing 12/24/2014
+	public function unsubscribe($email){
+		$toggle = 1;
+		$this->email_model->set_is_blacklist($email, $toggle);
 	}
 }

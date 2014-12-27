@@ -28,14 +28,17 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $to = 'te@test_unitdsf@dfdf';
-        if(strpos($to, PHP_EOL) !== FALSE) {
-          echo 'New line break found';
+        $username          = $this->session->userdata('username'); 
+        $query  =  $this->slcs_staff_model->get_slcs_staff_by_username($username);
+        //var_dump($query);
+
+        foreach($query as $row) {
+            // split
+            //$user_info = json_encode(explode("\n", $row->email_signature));
+            $user_info = str_replace("\n",'',$row->email_signature);
+
         }
-        else {
-          echo 'not found';
-        }
-        //print_r($query);
+        var_dump($user_info);
         $test_unit = '';
 		if (is_null($test_unit)) 
         {
