@@ -13,13 +13,16 @@ class Access_level extends CI_Controller {
 		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
 		//$data['sections']   = $this->sections_model->get_sections();
 		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
-		$data['parents']     = $this->staff_menu_model->get_parent_staff_menu();
+		$data['parents']    = $this->staff_menu_model->get_parent_staff_menu();
 		$data['children']   = $this->staff_menu_model->get_child_staff_menu();
 
 		$data['title']      = 'SoftLine | Staff Permission';	
 		
 		$username = $this->session->userdata('username'); 			
 		$data['username']   = ucfirst($username);		
+		// added 12/28/2014
+		// query for staff permissions
+		//$data['staff_perm'] = $this->staff_menu_model->get_staff_perm();
 
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
@@ -55,38 +58,65 @@ class Access_level extends CI_Controller {
 		$this->load->view('slcs_staff/blank');
 		$this->load->view('layout/footer');	
 	}
-
+	// tested 12/28/2014
 	public function assign_permission()
+	{	
+		// added 12/28/2014		
+        $staff_id    = $this->input->post('staff_id');
+        // clear staff permission from tb_staff_permissions
+        //$this->staff_menu_model->del_staff_perm();
+
+        $staff_menus = $this->staff_menu_model->get_staff_menu();
+        $menu_name   = $this->input->post('menu_name');
+
+        $actual_name = strtolower(str_replace('_', ' ', $menu_name));
+        foreach($staff_menus as $row){
+            if($actual_name==strtolower($row['menu'])){                        
+                // insert into tb_staff_permissions
+                $this->staff_menu_model->insert_staff_perm($staff_id, $row['id']);                        
+            }                    
+        }  
+        /*
+        if(isset($menu_name)) {
+            $optionArray = $menu_name;
+            for ($i=0; $i<count($optionArray); $i++) {
+                $optionArray[$i]."<br />";
+                $actual_name = strtolower(str_replace('_', ' ', $optionArray[$i]));
+                foreach($staff_menus as $row){
+                    if($actual_name==strtolower($row['menu'])){                        
+                        // insert into tb_staff_permissions
+                        $this->staff_menu_model->insert_staff_perm($staff_id, $row['id']);                        
+                    }                    
+                }                
+            }
+        }
+        */
+        // end add
+        echo 'insert add';
+	}
+	// tested 12/28/2014
+	// fetch current user permission
+	public function get_user_permission()
 	{
-		//$this->load->helper(array('form', 'url'));
-		//$this->load->library('form_validation');		
-		$data['staffs']     = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections']   = $this->sections_model->get_sections();
-		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
-		$data['children']   = $this->staff_menu_model->get_child_staff_menu();
+		$staff_id = $this->input->post('staff_id');
+		// model to be transfer to user model
+		$query = $this->staff_menu_model->get_staff_perm($staff_id);		        
+        // storage for permitted menu
+        $permitted_lists = array();
 
-		$data['title']      = 'SoftLine | Staff Permission';	
-
-		$username = $this->session->userdata('username'); 					
-		$data['username'] = ucfirst($username);	
-
-		$data = array(              
-   		    'fanta' => ($this->input->post('fanta') === FALSE) ? 0 : 1,
-        	//same for other checkboxes...
-		); 
-	
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->index();			
-		}
-		else
-		{
-			if($query = $this->slcs_staff_model->create_staff()){
-				$data['account_created'] = 'Your account has been created.<br>';
-
-				redirect('slcs_staff/create_member');
-			}
-		}		
+        foreach($query as $row) {
+            //echo '$row["accessable_table_id"]: ', $row['accessable_table_id']."<br>";
+            // find menu name
+            $menu = $this->staff_menu_model->get_staff_menu($row['accessable_table_id']);
+            //echo strtolower(str_replace(' ', '_', $menu['menu']));
+            array_push($permitted_lists, strtolower(str_replace(' ', '_', $menu['menu'])));
+        }
+        //print_r($permitted_lists);
+        print json_encode($permitted_lists);
+	}
+	// tested 12/28/2014
+	public function clear_permission(){
+		$delete = $this->staff_menu_model->del_staff_perm();
+		print 'success delete';
 	}
 }

@@ -73,8 +73,32 @@ class Staff_menu_model extends CI_Model {
 		$this->db->delete('staff_menu');
 	}
 
-	public function update_staff_menu($id, $data) {		
+	public function update_staff_menu($id, $data) {	
 		$this->db->where('id', $id);
 		$this->db->update('staff_menu', $data); 		
 	}	
+	// tested 12/28/2014
+	public function del_staff_perm(){
+		$staff_id = $this->input->post('staff_id');
+		$this->db->where('staff_id', $staff_id);
+		$this->db->delete('staff_permissions');
+	}
+	// tested 12/28/2014
+	public function insert_staff_perm($staff_id, $permissions){
+		$data = array(
+			'staff_id' => $staff_id,
+			'accessable_table_id' => $permissions
+		);
+
+		$this->db->insert('staff_permissions', $data); 
+	}
+	// tested 12/28/2014
+	// to be transfered to user model
+	// get user permission
+	public function get_staff_perm($staff_id){
+		$this->db->where('staff_id', $staff_id);
+		$query = $this->db->get('staff_permissions');
+
+		return $query->result_array();
+	}
 }?>

@@ -75,6 +75,7 @@ $route['city/get_city'] = 'city/get_city';
 $route['city/del_city_name'] = 'city/del_city_name';
 $route['city/create_city_name'] = 'city/create_city_name'; 
 
+$route['access_level/assign_permission'] = 'access_level/assign_permission';
 $route['access_level'] = 'access_level';
 
 $route['staff_menu/delete_staff_menu'] = 'staff_menu/delete_staff_menu';

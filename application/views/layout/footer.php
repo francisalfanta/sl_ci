@@ -60,6 +60,138 @@
 	<?php } ?>
 	<script src="<?php echo base_url();?>assets/libs/sweetalert-master/lib/sweet-alert.min.js"></script>
 	
+	<!-- FMA custom added 12/28/2014 -->
+    <?php if($title=='SoftLine | Staff Permission'){ ?>
+    <script>
+        $(document).ready(function(){
+            //var selectall = $('#selectAll').find('.iCheck-helper');             
+            //var select_record = $('.select_record').find('.iCheck-helper');                 // not working
+            //var select_record = $('.select_record').children().children('.iCheck-helper');
+            //$('input[type=checkbox]').click(function(){                                     // not working
+            //$('.icheckbox_square-aero').click(function(){ iCheck-helper                     // not working
+            //select_record.click(function(){ 
+            //    alert('check box');
+            //});
+        	//$('.iCheck-helper').click(function(){											  // not working
+        	//    alert('checkbox click');
+        	//});
+			// on testing 12/28/2014
+			/*
+        	$('.icheckbox_square-aero').find('.iCheck-helper').click(function(){
+            	//alert('checkbox click');
+            	if($(this).parent().hasClass('checked')) { 
+            		alert('checkbox click hasclass');
+            		// get the value which contain the table column name 'menu'
+            		var checkbox_val =  $(this).siblings('input[type="checkbox"]').val();
+            		alert ('checkbox_val: '+checkbox_val);            		
+			    			        
+			    } else {	
+			    	alert('no check hasclass');			    	        			     
+			    } 
+        	});
+			*/
+        	// tested 12/28/2014        	
+        	$('#select_staff').change(function(){
+        		//alert('change select');
+        		var staff_id = $(this).val();
+        		//alert('staff_id: '+staff_id);
+        		// remove all check
+        		// side effect not all check is saved
+        		// solution #1 used ajax when saving
+                $('div.icheckbox_square-aero').removeClass('checked');
+
+        		// insert new value
+	    		$.ajax({
+            	    type: "POST",
+                    url: "<?php echo base_url('access_level/get_user_permission'); ?>",
+                    dataType: "json",
+                    data: {"staff_id": staff_id},
+                    error:  function(xhr, status, error) {
+                        //var err = JSON.parse(xhr.responseText);
+                        //alert(err.Message);
+                        console.log('parseerror: '+ status);
+                    },
+                    success: function (response) {                         
+                    	//alert('response: '+response);
+                        $.each(response, function (i, item) {  
+                        	//alert('item: '+item);                        	
+                        	// add check to indicated checkbox
+                        	// selector input
+                        	var selected_item = $('#'+item).parent();
+                        	//alert('selected_item: '+$.trim(selected_item));                        	
+                        	// adding checked to input checkbox
+                        	selected_item.prop('checked', true);
+                        	selected_item.addClass('checked');
+                        	selected_item.attr('aria-checked', 'true');
+
+                        });
+	                },
+	                complete: function(xhr, status){
+                        var xhr = JSON.parse(xhr.responseText);
+                        //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                        console.log('complete: '+status);
+                    }
+	            });   
+        	});
+			// tested 12/28/2014  
+			// save all checked 
+            $('#submit_btn').click(function(){
+                //alert('submit_btn is click');
+                // clear user permission
+                var staff_id    = $('#select_staff').val();
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url('access_level/clear_permission'); ?>",
+                    dataType: "text",
+                    data: {"staff_id": staff_id                       
+                    },
+                    error:  function(xhr, status, error) {
+                        //var err = JSON.parse(xhr.responseText);
+                        //alert(err.Message);
+                        console.log('parseerror: '+ status);
+                    },
+                    success: function (response) { 
+                        console.log('response: '+response);                        
+                    }
+                });             
+                console.log('Done clearing User permission');
+                //var menu_name   = $this->input->post('menu_name');
+                // scan all checkbox tag
+                $('.icheckbox_square-aero').find('.iCheck-helper').each(function(){
+                    //alert('checkbox click');
+                    // if checkbox is true insert to tb_staff_permissions
+                    if($(this).parent().hasClass('checked')) { 
+                        //alert('checkbox click hasclass');
+                        // get the value which contain the table column name 'menu'
+                        var menu_name =  $(this).siblings('input[type="checkbox"]').val();
+                        console.log('menu_name: '+ menu_name);
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo base_url('access_level/assign_permission'); ?>",
+                            //dataType: "text",
+                            data: {"staff_id" : staff_id,
+                                   "menu_name": menu_name   
+                            },
+                            error:  function(xhr, status, error) {
+                                //var err = JSON.parse(xhr.responseText);
+                                //alert(err.Message);
+                                console.log('parseerror: '+ status);
+                            },
+                            //success: function (response) {                         
+                            //    alert('each response: '+response);                              
+                            //},
+                            complete: function(xhr, status){
+                                var xhr = JSON.parse(xhr.responseText);
+                                //console.log('ajax change status :'+ status + ' with xhr: '+xhr);
+                                console.log('each response: '+status);
+                            }
+                        }); 
+                    }
+                });
+            });         	
+        });
+    </script>
+    <?php } ?>
 	</body>
 	
 </html>

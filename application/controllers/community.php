@@ -59,7 +59,7 @@ class community extends CI_Controller {
 		$this->load->view('slcs_staff/blank');
 		$this->load->view('layout/footer');	
 	}
-
+	/*
 	public function assign_permission()
 	{
 		//$this->load->helper(array('form', 'url'));
@@ -93,5 +93,6 @@ class community extends CI_Controller {
 			}
 		}		
 	}
+	*/
 }
 ?>

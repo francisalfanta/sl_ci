@@ -62,7 +62,7 @@
         <link rel="apple-touch-icon" sizes="152x152" href="<?php echo base_url(); ?>assets/img/apple-touch-icon-152x152.png" />
         
         <!-- custom added by FMA -->    
-        <!-- FMA added 12/02/2014-->
+        <!-- FMA added 12/02/2014 -->
         <link href="<?php echo base_url(); ?>assets/css/custom.css" rel="stylesheet" />
         <!-- DataTables CSS -->
         <link href="<?php echo base_url(); ?>assets/css/added/dataTables.jqueryui.css" type="text/css" rel="stylesheet"/>
@@ -71,7 +71,7 @@
         <link href="<?php echo base_url(); ?>assets/css/dataTables.fixedHeader.css" rel="stylesheet" />        
         <link href="<?php echo base_url(); ?>assets/libs/DataTables-1.10.4/media/css/jquery.dataTables.css" rel="stylesheet" />
 
-        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script>
+        <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.js'); ?>"></script><!-- needed also for declaring $(document).ready(function())-->
         <script type="text/javascript" src="<?php echo base_url('/assets/libs/DataTables-1.10.4/media/js/jquery.dataTables.js'); ?>"></script>
         <script type="text/javascript" src="<?php echo base_url('/assets/js/dataTables.colVis.js'); ?>"></script>
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -96,7 +96,7 @@
         </script> 
         <!-- FMA added 12/16/2014 -->
         
-        <?php if($title='SoftLine | E-Mailer'){ ?>
+        <?php if($title=='SoftLine | E-Mailer'){ ?>
         <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/libs/jquery-datatables/extensions/TableTools/css/dataTables.tableTools.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" type="text/css" />

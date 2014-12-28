@@ -650,7 +650,7 @@ class propertyfinder extends CI_Controller {
 		$this->index();
 	}
 
-	public function view_propertyfinder($re_property_id) {		
+	public function view_propertyfinder($re_property_id) { 
 
 		$data['staffs']     = $this->slcs_staff_model->get_staff();
 		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
@@ -675,10 +675,9 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('layout/admin_left_sidemenu', $data);
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('propertyfinder/propertyfinder_edit', $data);
-		$this->load->view('layout/footer');		
-		
+		$this->load->view('layout/footer');				
 	}
-
+	/*
 	public function assign_permission()	{
 		//$this->load->helper(array('form', 'url'));
 		//$this->load->library('form_validation');		
@@ -711,6 +710,7 @@ class propertyfinder extends CI_Controller {
 			}
 		}		
 	}
+	*/
 	// tested by Lem 12/10/2014
 	public function create_property_owner()
 	{

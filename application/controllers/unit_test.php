@@ -14,11 +14,9 @@ class Unit_test extends CI_Controller {
 		$this->load->model('propertyfinder_model');
         $this->load->library('unit_test');
         //$this->load->helpers('sql_sql_helper');
-        
-      
 	}
 
-    function _header_data(){   
+    function _header_data(){ 
         $data['staffs']    = $this->slcs_staff_model->get_staff();
         $data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();
         $data['sections']  = $this->sections_model->get_sections();
@@ -28,17 +26,25 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $username          = $this->session->userdata('username'); 
-        $query  =  $this->slcs_staff_model->get_slcs_staff_by_username($username);
-        //var_dump($query);
+        $staff_id = $this->input->post('staff_id');
+        print_r($staff_id);
+        // model to be transfer to user model
+        $query = $this->staff_menu_model->get_staff_perm($staff_id);                
+        print_r($query);
+        // storage for permitted menu
+        $permitted_lists = array();
 
         foreach($query as $row) {
-            // split
-            //$user_info = json_encode(explode("\n", $row->email_signature));
-            $user_info = str_replace("\n",'',$row->email_signature);
+            //echo '$row["accessable_table_id"]: ', $row['accessable_table_id']."<br>";
+            // find menu name
+            $menu = $this->staff_menu_model->get_staff_menu($row['accessable_table_id']);
 
+            //echo strtolower(str_replace(' ', '_', $menu['menu']));
+            array_push($permitted_lists, strtolower(str_replace(' ', '_', $menu['menu'])));
         }
-        var_dump($user_info);
+        //print_r($permitted_lists);
+        print json_encode($permitted_lists);
+
         $test_unit = '';
 		if (is_null($test_unit)) 
         {

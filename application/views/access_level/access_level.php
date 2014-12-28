@@ -5,15 +5,18 @@
 			<!-- ============================================================== -->
             <div class="content">
             	<!-- Page Heading Start -->
-                <div class="page-heading"> 
+                <!--<form class="form-horizontal" action="<?php echo base_url();?>access_level/assign_permission" method="post" accept-charset="utf-8" role="form">-->                
+                <!--<form class="form-horizontal" action="<?php echo base_url();?>unit_test" method="post" accept-charset="utf-8" role="form">-->
                 <form class="form-horizontal" action="" method="post" accept-charset="utf-8" role="form">
+                <div class="page-heading">                 
 <!-- Staff List drop down box -->   
                     <div class="form-group">
                         <label class="col-sm-2 control-label text-justify">Staff Priviledge</label>
                         <div class="col-sm-3">
-                            <select class="form-control" name="staff_id">
-                            <?php foreach($staffs as $staff_key => $staff_value){ ?>
-                              <option value="<?php echo $staff_key['id']; ?>"><?php echo $staff_value['fullname']; ?></option>
+                            <select class="form-control" id="select_staff" name="staff_id">
+                                <option value=""></option>
+                            <?php foreach($staffs as $row){ ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['fullname']; ?></option>
                             <?php } ?>
                             </select>
                         </div>
@@ -36,22 +39,22 @@
                                 </div>
                             </div>
                             <div class="widget-content padding">
-                                <!-- check box -->
-                                <form class="form-horizontal" role="form">
+                                <!-- check box 
+                                <form class="form-horizontal" role="form" action="<?php echo base_url();?>/unit_test">-->
                                 <div class="form-group"> 
                                     <div class="col-sm-10">
                                     <?php foreach($children as $child) {
                                         if(strtoupper($child->parent) == strtoupper($section->menu)) {?>
                                         <div class="checkbox">
                                           <label class="select_record">
-                                            <input type="checkbox" name="table_name[]" id="<?php echo strtolower(str_replace(' ', '_', $child->menu)); ?>" value="0" <?php echo set_checkbox('table_name', '1', FALSE); ?>>
+                                            <input type="checkbox" name="menu_name[]" id="<?php echo strtolower(str_replace(' ', '_', $child->menu)); ?>" value="<?php echo strtolower(str_replace(' ', '_', $child->menu)); ?>">
                                              <?php echo $child->menu; ?>
                                           </label>
                                         </div>
                                     <?php }} ?>                                      
                                     </div>
                                 </div>
-                                </form>
+                                
                                 <!-- end check box -->
                             </div>
                         </div>                      
@@ -59,15 +62,14 @@
                     </div><!-- first-column -->
                     <?php } ?>
                 </div><!-- row -->
-                <?php } ?>
-               
-                </jQuery(document).ready(function(){
+                <?php } ?>               
+                
                 <div class="row">
-                <div class="form-group">
-                    <div class="col-sm-10 col-md-12 text-right">
-                        <button type="submit" name="submitForm" value="formUpdate" class="btn btn-default">Save</button>
-                    </div><!-- col-sm-offset-2 col-sm-10 -->
-                </div><!-- form-group -->  
+                    <div class="form-group">
+                        <div class="col-sm-10 col-md-12 text-right">
+                            <a href="#" id="submit_btn" name="submitForm" value="formUpdate" class="btn btn-default">Save</a>
+                        </div><!-- col-sm-offset-2 col-sm-10 -->
+                    </div><!-- form-group -->  
                 </div><!-- row -->
                 </form>	
     			<!-- Footer Start -->
@@ -85,15 +87,4 @@
 
         </div>
 		<!-- End right content -->
-        <script>
-        $(document).ready(function(){
-            var selectall = $('#selectAll').find('.iCheck-helper');             
-            var select_record = $('.select_record').find('.iCheck-helper');                 // not working
-            var select_record = $('.select_record').children().children('.iCheck-helper');
-            //$('input[type=checkbox]').click(function(){                                   // not working
-            //$('.icheckbox_square-aero').click(function(){ iCheck-helper                   // not working
-            select_record.click(function(){ 
-                alert('check box');
-            });
-        });
-        </script>
+        
