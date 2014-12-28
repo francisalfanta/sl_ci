@@ -148,7 +148,7 @@
                     error:  function(xhr, status, error) {
                         //var err = JSON.parse(xhr.responseText);
                         //alert(err.Message);
-                        console.log('parseerror: '+ status);
+                        console.log('clear_perm parseerror: '+ status);
                     },
                     success: function (response) { 
                         console.log('response: '+response);                        
@@ -175,7 +175,7 @@
                             error:  function(xhr, status, error) {
                                 //var err = JSON.parse(xhr.responseText);
                                 //alert(err.Message);
-                                console.log('parseerror: '+ status);
+                                console.log('assign perm parseerror: '+ status);
                             },
                             //success: function (response) {                         
                             //    alert('each response: '+response);                              

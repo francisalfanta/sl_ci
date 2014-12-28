@@ -26,25 +26,32 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $staff_id = $this->input->post('staff_id');
-        print_r($staff_id);
-        // model to be transfer to user model
-        $query = $this->staff_menu_model->get_staff_perm($staff_id);                
-        print_r($query);
-        // storage for permitted menu
-        $permitted_lists = array();
+        $username = 'admin';//$this->session->userdata('username');
+        $user = $this->slcs_staff_model->get_staff($username);
+        print_r($user);
+        $parent_lists   = $this->staff_menu_model->get_parent_staff_menu();
 
-        foreach($query as $row) {
-            //echo '$row["accessable_table_id"]: ', $row['accessable_table_id']."<br>";
-            // find menu name
-            $menu = $this->staff_menu_model->get_staff_menu($row['accessable_table_id']);
+        $permitted_lists = $this->staff_menu_model->get_staff_perm($user['id']);
+        //print_r($parent_lists);
+        $permitted_parent = array();
 
-            //echo strtolower(str_replace(' ', '_', $menu['menu']));
-            array_push($permitted_lists, strtolower(str_replace(' ', '_', $menu['menu'])));
+        foreach($permitted_lists as $perm){
+            //echo "perm parent: ".$perm['accessable_table_id']."<br>";
+            // loop to existing parent menu
+            foreach($parent_lists as $row){
+                //echo "parent_list: ".$row->id."<br>";
+                if($row->id==$perm['accessable_table_id']){
+                    //echo "parent_list: ".$row->id."==perm parent: ".$perm['accessable_table_id']."<br>";
+                    array_push($permitted_parent, $perm['accessable_table_id']);
+                }
+            }
         }
-        //print_r($permitted_lists);
-        print json_encode($permitted_lists);
+        //print_r($permitted_parent);
 
+        $this->db->where_in('id',$permitted_parent);
+        $query = $this->db->get('staff_menu');
+        //print_r($query->result_array());
+        
         $test_unit = '';
 		if (is_null($test_unit)) 
         {
