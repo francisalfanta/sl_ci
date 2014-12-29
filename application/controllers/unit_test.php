@@ -12,7 +12,8 @@ class Unit_test extends CI_Controller {
 		parent::__construct();
 		$this->load->database();
 		$this->load->model('propertyfinder_model');
-        $this->load->library('unit_test');
+        $this->load->library('unit_test');        
+        $this->load->helper('sl_auth');
         //$this->load->helpers('sql_sql_helper');
 	}
 
@@ -22,35 +23,29 @@ class Unit_test extends CI_Controller {
         $data['sections']  = $this->sections_model->get_sections();
         $data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 
+        $data['parent_lists']    = $this->staff_menu_model->get_parent_staff_menu();
+        $data['children_lists']  = $this->staff_menu_model->get_child_staff_menu();
+        $data['username']        = $this->session->userdata('username');
+        $user                    = $this->slcs_staff_model->get_staff($data['username']);
+        $data['permitted_lists'] = $this->staff_menu_model->get_staff_perm($user['id']);
+
         return $data;
     }
 
-	public function index($property_owner_id = null, $propertyfinder_id =null) {
-        $username = 'admin';//$this->session->userdata('username');
-        $user = $this->slcs_staff_model->get_staff($username);
-        print_r($user);
-        $parent_lists   = $this->staff_menu_model->get_parent_staff_menu();
+	public function index($property_owner_id = null, $propertyfinder_id =null) {       
+        $query = $this->staff_menu_model->get_staff_perm(105);                
+        // storage for permitted menu
+        $permitted_lists = array();
 
-        $permitted_lists = $this->staff_menu_model->get_staff_perm($user['id']);
-        //print_r($parent_lists);
-        $permitted_parent = array();
-
-        foreach($permitted_lists as $perm){
-            //echo "perm parent: ".$perm['accessable_table_id']."<br>";
-            // loop to existing parent menu
-            foreach($parent_lists as $row){
-                //echo "parent_list: ".$row->id."<br>";
-                if($row->id==$perm['accessable_table_id']){
-                    //echo "parent_list: ".$row->id."==perm parent: ".$perm['accessable_table_id']."<br>";
-                    array_push($permitted_parent, $perm['accessable_table_id']);
-                }
-            }
+        foreach($query as $row) {
+            //echo '$row["accessable_table_id"]: ', $row['accessable_table_id']."<br>";
+            // find menu name
+            $menu = $this->staff_menu_model->get_staff_menu($row['accessable_table_id']);
+            //echo strtolower(str_replace(' ', '_', $menu['menu']));
+            array_push($permitted_lists, strtolower(str_replace(' ', '_', $menu['menu'])));
         }
-        //print_r($permitted_parent);
-
-        $this->db->where_in('id',$permitted_parent);
-        $query = $this->db->get('staff_menu');
-        //print_r($query->result_array());
+        //print_r($permitted_lists);
+        print json_encode($permitted_lists);
         
         $test_unit = '';
 		if (is_null($test_unit)) 

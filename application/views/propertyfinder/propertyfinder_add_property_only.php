@@ -149,13 +149,13 @@
                 
                 </form>	
     			<!-- Footer Start -->
-                <footer >
-                  Soft Line Cleaning Services &copy; 2014
-                    <span class="footer-links">
-                    <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-                  </span>
-                </footer>              
-                <!-- Footer End -->	
+                <footer>
+                    Soft Line Cleaning Services &copy; 2014
+                    <div class="footer-links pull-right">
+                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact </a>
+                    </div>
+                </footer>
+                <!-- Footer End -->
                 <script type="text/javascript">                    
                 $(document).ready(function() { 
 

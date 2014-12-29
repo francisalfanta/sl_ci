@@ -8,7 +8,21 @@
 			<!-- ============================================================== -->
 			<!-- Start Content here -->
 			<!-- ============================================================== -->
-            <div class="content">			
+            <div class="content">
+			<script>
+			$(document).ready(function() {
+				$('a[data-confirm]').click(function(ev) {
+					var href = $(this).attr('href');
+					if (!$('#dataConfirmModal').length) {
+						$('body').append('<div class="modal fade" id="dataConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Confirmation</div><div class="modal-body"></div>            <div class="modal-footer">                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                <a class="btn btn-danger danger" id="dataConfirmOK">Delete</a>   </div></div></div></div>');
+					} 
+					$('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+					$('#dataConfirmOK').attr('href', href);
+					$('#dataConfirmModal').modal({show:true});
+					return false;
+				});
+			});
+			</script>
 				<!-- Page Heading Start 
 				<div class="page-heading">
             		<h1><i class='fa fa-table'></i> Tables</h1>
@@ -21,7 +35,7 @@
 					<div class="col-md-12">
 						<div class="widget">
 							<div class="widget-header transparent">
-								<h2><strong>Soft Line Staff</strong> Table</h2>
+								<h2><strong>Soft Line Staff</strong> Table </h2>
 
 								<div class="additional-btn">									
 									<a href="#" class="hidden reload"><i class="icon-ccw-1"></i></a>
@@ -32,7 +46,6 @@
 							</div>
 							<div class="widget-content">					
 								<div class="table-responsive">
-                
 									<table id="slcs_staff_table" data-sortable class="table table-striped table-bordered display compact"  cellspacing="0" width="100%">
 										<thead>
 											<tr>
@@ -82,7 +95,7 @@
 												<td  style="text-align: center;width:80px;">
 													<div class="btn-group btn-group-xs">
 														<a href="<?php echo base_url('slcs_staff/edit/'.$staff['id']); ?>" data-toggle="tooltip" title="Edit" ><i class="fa fa-pencil"></i></a>
-														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-confirm="Are you sure you want to delete?,<br> <?php echo '<br><b>'.$staff['fullname'].'</b>'; ?>"><i class="glyphicon glyphicon-remove"></i></a>
+														<a href="<?php echo base_url('slcs_staff/del/'.$staff['id']); ?>" data-confirm="Are you sure you want to delete? <?php echo $staff['fullname']; ?>"><i class="glyphicon glyphicon-remove"></i></a>
 													</div>
 												</td>
 											</tr>
@@ -99,33 +112,21 @@
                 
                 </form>	
     			<!-- Footer Start -->
-                <footer >
-                  Soft Line Cleaning Services &copy; 2014
-                  <span class="footer-links">
-                  <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-                </span>
+                <footer>
+                    Soft Line Cleaning Services &copy; 2014                    
+                    <div class="footer-links pull-right">
+                    	<a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact </a>
+                    </div>
                 </footer>
-                <!-- Footer End -->             
-                <script type="text/javascript">                                     
-                    $(document).ready(function() { 
-                      
-                      // added by Prime 12/15/2014
-                      $('a[data-confirm]').click(function(ev) {
-                        var href = $(this).attr('href');
-                        if (!$('#dataConfirmModal').length) {
-                          $('body').append('<div class="modal fade" id="dataConfirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content"><div class="modal-header">Confirmation</div><div class="modal-body"></div>            <div class="modal-footer">                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>                <a class="btn btn-danger danger" id="dataConfirmOK">Delete</a>   </div></div></div></div>');
-                        } 
-                        $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
-                        $('#dataConfirmOK').attr('href', href);
-                        $('#dataConfirmModal').modal({show:true});
-                        return false;
-                      });                     
+                <!-- Footer End -->
+                <script type="text/javascript">                    
+                    $(document).ready(function() {                      
                       // Setup - add a text input to each footer cell
                       if ($("table#slcs_staff_table tbody tr").length > 0) {
                         //$(this).tablesorter({ sortList: [[0,0]]});
                         $('#slcs_staff_table tfoot th').each( function () {
-                            var title = $('#owner_table thead th').eq( $(this).index() ).text();
-                            if(title!='Action' && title!='Status'){
+                            var title = $('#slcs_staff_table thead th').eq( $(this).index() ).text();
+                            if(title!='Actions' && title!='Status' && title!='Print'){
                               $(this).html( '<input type="text" placeholder="Search '+title+'" style="font-size: 12px;width:100%;" />' );
                             }
                         });
@@ -169,7 +170,7 @@
                             ]
                         } ,*/
                         "scrollX"     : true,
-                        "scrollY"     : 325,
+                        "scrollY"     : 525,
                         "scrollCollapse": true,
                         "jQueryUI":       true,
                         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],

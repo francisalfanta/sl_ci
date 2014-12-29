@@ -263,9 +263,16 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-3"><h6><?php echo form_error('toc'); ?></h6><input type="text" name="toc" value="<?php echo set_value('toc'); ?>" class="form-control input-sm" placeholder="Type of Contract"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo set_value('dh'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Hired"></div>
-												<div class="col-md-3"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo set_value('ds'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Started"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo set_value('dr'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Release"></div>
+												<div class="col-md-2"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo set_value('dh'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Hired"></div>
+												<div class="col-md-2"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo set_value('ds'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Started"></div>
+												<div class="col-md-2"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo set_value('dr'); ?>" class="form-control datepicker-input input-sm" placeholder="Date Release"></div>
+												<div class="col-md-3"><h6><?php echo form_error('office'); ?></h6>
+												<select class="form-control input-sm" name="office">
+														  <option value="" <?php echo set_select('office', '', TRUE); ?> >-- Designate Office --</option>
+														  <option value="Cleaning Service" <?php echo set_select('office', 'Cleaning Service'); ?> >Cleaning Service</option>
+														  <option value="Real Estate" <?php echo set_select('office', 'Real Estate'); ?> >Real Estate</option>														 
+												</select>
+												</div>
 											</div>
 										</div>
 										

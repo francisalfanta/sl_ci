@@ -61,7 +61,28 @@
 <div class="topbar">
     <div class="topbar-left">
         <div class="logo">
-            <h1><a href="#"><img src="<?php echo base_url(); ?>assets/img/logo.png" alt="Logo"></a></h1>
+            
+			<?php foreach($staffs as $staff)
+				  {
+					if(strtolower($username)==strtolower($staff['username']))
+					{
+						if ($staff['office'] == "")
+						{
+							echo  '<h1><a href="#">'; ?> <img src="<?php echo base_url(); ?>assets/img/ADMIN.png" alt="Logo"> <?php echo '</a></h1>';
+						}
+						
+						if ($staff['office'] == "Cleaning Service")
+						{
+							echo  '<h1><a href="#">'; ?> <img src="<?php echo base_url(); ?>assets/img/CS.png" alt="Logo"> <?php echo '</a></h1>';
+						}
+						
+						if ($staff['office'] == "Real Estate")
+						{
+							echo  '<h1><a href="#">'; ?> <img src="<?php echo base_url(); ?>assets/img/RE.png" alt="Logo"> <?php echo '</a></h1>';
+						}
+					}
+				  }
+			?>
         </div>
         <button class="button-menu-mobile open-left">
         <i class="fa fa-bars"></i>
@@ -201,7 +222,7 @@
 								if(strtolower($username)==strtolower($staff['username']))
 									{ $profilepic = $staff['file_name'];
 									  //echo $profilepic;
-									  echo '<span class="rounded-image topbar-profile-image"><img src=http://localhost/sl_ci/images/profile_pic/'.$profilepic.'></span>';
+									echo '<span class="rounded-image topbar-profile-image"><img src=http://localhost/sl_ci/images/profile_pic/'.$profilepic.'></span>';
 									//echo '<span class="rounded-image topbar-profile-image"><img src=http://192.168.10.121/sl_ci/images/profile_pic/'.$profilepic.'></span>';
 									}
 							  }

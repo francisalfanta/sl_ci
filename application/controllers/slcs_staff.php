@@ -7,8 +7,36 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Slcs_staff extends CI_Controller {
 
+	// added 12/29/2014
+	function _header_data(){ 
+        $data['staffs']          = $this->slcs_staff_model->get_staff();
+        //$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();  // replacement for staff_permissions
+        //$data['sections']  = $this->sections_model->get_sections();      // replacement for staff_menu
+
+        $data['parent_lists']    = $this->staff_menu_model->get_parent_staff_menu();
+        $data['children_lists']  = $this->staff_menu_model->get_child_staff_menu();
+        $data['username']        = $this->session->userdata('username');
+        $user                    = $this->slcs_staff_model->get_staff($data['username']);
+        $data['permitted_lists'] = $this->staff_menu_model->get_staff_perm($user['id']);
+        // check user permission on menus
+        $data['staff_menus'] 	 = $this->staff_menu_model->get_staff_menu($user['id']);
+   		// set $data['parents'] to be placed in menu header
+        // $permitted_parent = permitted_parent_menu($parent_lists, $username, $permitted_lists);
+        $permitted_parent = permitted_parent_menu($data['parent_lists'], $data['username'], $data['permitted_lists']);
+        $data['parents']  = $this->staff_menu_model->permitted_menus($permitted_parent);
+
+        // set $data['children'] to be placed in sub-menus
+        //$permitted_child  = permitted_child_menu($children_lists, $username, $permitted_lists);
+        $permitted_child = permitted_child_menu($data['children_lists'], $data['username'], $data['permitted_lists']);
+        $data['children'] = $this->staff_menu_model->permitted_menus($permitted_child);   
+
+        return $data;
+    }
+
 	public function index()
 	{	
+		$data = $this->_header_data(); 
+
 		$this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username');
 
 		$data['base_url']   = "/sl_ci/slcs_staff/index/";
@@ -18,17 +46,16 @@ class Slcs_staff extends CI_Controller {
 		$data['records']    = $this->db->select('fullname, passport_no, nationality, date_hired, email, mnumber, username')->get('slcs_staff', $data['per_page'], $this->uri->segment(3));
 
 		$this->pagination->initialize($data);
-
 		
-		$data['staffs'] 	= $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections'] 	= $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		//$data['staffs'] 	= $this->slcs_staff_model->get_staff();
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		//$data['sections'] 	= $this->sections_model->get_sections();
+		//$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
 		$data['title'] 		= 'SoftLine | Staff';
 		$data['description']= '';	
 		
-		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);	
+		//$username = $this->session->userdata('username'); 			
+		//$data['username'] = ucfirst($username);	
 		
 		$this->load->helper('url');
 		$this->load->view('layout/header', $data);
@@ -41,13 +68,15 @@ class Slcs_staff extends CI_Controller {
 
 	public function view($username)
 	{
-		$data['staff'] = $this->slcs_staff_model->get_staff($username);
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections'] = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		$data = $this->_header_data(); 
 
-		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);	
+		//$data['staff'] = $this->slcs_staff_model->get_staff($username);
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		//$data['sections'] = $this->sections_model->get_sections();
+		//$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+
+		//$username = $this->session->userdata('username'); 			
+		//$data['username'] = ucfirst($username);	
 		$data['title'] = 'SoftLine | Staff';
 
 		if (empty($data['staff']))
@@ -71,13 +100,15 @@ class Slcs_staff extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		
-		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections'] = $this->sections_model->get_sections();
-		$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+		$data = $this->_header_data();
 
-		$username = $this->session->userdata('username'); 					
-		$data['username'] = ucfirst($username);	
+		//$data['staffs'] = $this->slcs_staff_model->get_staff();
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		//$data['sections'] = $this->sections_model->get_sections();
+		//$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+
+		//$username = $this->session->userdata('username'); 					
+		//$data['username'] = ucfirst($username);	
 		$data['title'] = 'SoftLine | Add new staff';
 		//Biodata
 		$this->form_validation->set_rules('fname', 'First name', 'trim|required|min_length[2]|alpha_space_hypen');
@@ -96,6 +127,7 @@ class Slcs_staff extends CI_Controller {
 		$this->form_validation->set_rules('dh', 'Date hired', 'required||valid_date');
 		$this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
 		$this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
+		$this->form_validation->set_rules('office', 'Designate office', 'required');
 		//Contact
 		$this->form_validation->set_rules('vno', 'Villa no.', 'numeric');
 		$this->form_validation->set_rules('st', 'Street', 'alpha_space_hypen');
@@ -193,6 +225,7 @@ class Slcs_staff extends CI_Controller {
 				$data['img'] = base_url().'/images/profile_pic/'.$file_data['file_name'];
 									
 				$this->slcs_staff_model->create_staff($filename);
+				
 				redirect('slcs_staff/slcs_staff', $data);
 			 }
 			 else{
@@ -250,16 +283,17 @@ class Slcs_staff extends CI_Controller {
 		
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
+
+		$data = $this->_header_data();
 		
-		$data['staffs'] = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections'] = $this->sections_model->get_sections();
-		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
+		//$data['staffs'] = $this->slcs_staff_model->get_staff();
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+		//$data['sections'] = $this->sections_model->get_sections();
+		//$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
 		
-		$username = $this->session->userdata('username'); 					
-		$data['username'] = ucfirst($username);	
-		$data['title'] = 'SoftLine | Edit staff';
-		
+		//$username = $this->session->userdata('username'); 					
+		//$data['username'] = ucfirst($username);	
+		$data['title'] = 'SoftLine | Edit staff';		
 		
 		$this->load->helper('url','form');
 		$this->load->view('layout/header', $data);
@@ -298,6 +332,7 @@ class Slcs_staff extends CI_Controller {
 		 $this->form_validation->set_rules('dh', 'Date hired', 'required||valid_date');
 		 $this->form_validation->set_rules('ds', 'Date started', 'required|valid_date');
 		 $this->form_validation->set_rules('dr', 'Date release', 'required|valid_date');
+		 $this->form_validation->set_rules('office', 'Designate office', 'required');
 		 //Contact
 		 $this->form_validation->set_rules('vno', 'Villa no.', 'numeric');
 		 $this->form_validation->set_rules('st', 'Street', 'alpha_space_hypen');
@@ -434,38 +469,39 @@ class Slcs_staff extends CI_Controller {
 			      }
 				  
 				 }		
-		}else{
-					
-				$row = $this->slcs_staff_model->get_slcs_staff($id);
-				$data['r'] = $row;
-				
-				$this->load->helper(array('form', 'url'));
-				$this->load->library('form_validation');
-				
-				$data['staffs'] = $this->slcs_staff_model->get_staff();
-				$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-				$data['sections'] = $this->sections_model->get_sections();
-				$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
-				
-				$username = $this->session->userdata('username'); 					
-				$data['username'] = ucfirst($username);	
-				$data['title'] = 'SoftLine | Edit staff';
-				
-				$this->load->helper('url','form');
-				$this->load->view('layout/header', $data);
-				$this->load->view('layout/topbar');
-				$this->load->view('layout/admin_left_sidemenu');
-				$this->load->view('layout/right_sidemenu');				
-				$this->load->view('slcs_staff/editbiodata',$data);
-				$this->load->view('slcs_staff/editbiodatapic', $data);
-				$this->load->view('slcs_staff/editcontact',$data);
-				$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
-				$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
-				$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
-				$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
-				$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
-				$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
-				$this->load->view('layout/footer');
+		}else{					
+			$row = $this->slcs_staff_model->get_slcs_staff($id);
+			$data['r'] = $row;
+			
+			$this->load->helper(array('form', 'url'));
+			$this->load->library('form_validation');
+			
+			$data = $this->_header_data();
+
+			//$data['staffs'] = $this->slcs_staff_model->get_staff();
+			//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
+			//$data['sections'] = $this->sections_model->get_sections();
+			//$data['staff_menus']=$this->staff_menu_model->get_staff_menu();
+			
+			//$username = $this->session->userdata('username'); 					
+			//$data['username'] = ucfirst($username);	
+			$data['title'] = 'SoftLine | Edit staff';
+			
+			$this->load->helper('url','form');
+			$this->load->view('layout/header', $data);
+			$this->load->view('layout/topbar');
+			$this->load->view('layout/admin_left_sidemenu');
+			$this->load->view('layout/right_sidemenu');				
+			$this->load->view('slcs_staff/editbiodata',$data);
+			$this->load->view('slcs_staff/editbiodatapic', $data);
+			$this->load->view('slcs_staff/editcontact',$data);
+			$this->load->view('slcs_staff/editemergency'); //added by prime 12/1/2014
+			$this->load->view('slcs_staff/editbanking'); //added by prime 12/1/2014
+			$this->load->view('slcs_staff/editposition'); //added by prime 12/1/2014
+			$this->load->view('slcs_staff/editsalary'); //added by prime 12/1/2014		
+			$this->load->view('slcs_staff/editbenefits'); //added by prime 12/1/2014
+			$this->load->view('slcs_staff/editlicense'); //added by prime 12/1/2014
+			$this->load->view('layout/footer');
 		
 			}
 	}
@@ -476,8 +512,6 @@ class Slcs_staff extends CI_Controller {
 		$data['r'] = $row;
 		$username = $this->session->userdata('username'); 					
 		$data['username'] = ucfirst($username);	
-		$data['title'] = 'SoftLine | Edit staff';
-				
 		
 		$this->load->view('slcs_staff/print_form',$data);
 	}

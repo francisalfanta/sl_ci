@@ -21,10 +21,8 @@
 							  { 
 								if(strtolower($username)==strtolower($staff['username']))
 									{ $profilepic = $staff['file_name'];
-                                      $url='images/profile_pic/'.$profilepic;   
-									  //echo $profilepic;
-									  echo '<a href="profile.html" class="rounded-image profile-image"><img src="'.base_url($url).'"></a>';
-									//echo '<a href="profile.html" class="rounded-image profile-image"><img src=http://192.168.10.121/sl_ci/images/profile_pic/'.$profilepic.'></a>';
+                                      $url='images/profile_pic/'.$profilepic;   									  
+									  echo '<a href="profile.html" class="rounded-image profile-image"><img src="'.base_url($url).'"></a>';									
 									}
 							  }
 					  ?>
@@ -34,8 +32,7 @@
                         <div class="profile-buttons">
                           <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
                           <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
-                          <a href="<?php echo base_url('login/logout');?>" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
-                          <!--<a href="<?php base_url('login/logout');?>" class="md-trigger" data-modal="logout-modal" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a> <!-- Modified by: Lemuel 11/27/2014 -->
+                          <a href="<?php echo base_url('login/logout');?>" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>                          
                         </div>
                     </div>
                 </div>
@@ -54,7 +51,7 @@
                                 <span class="pull-right"><i class="fa fa-angle-down"></i></span>
                             </a>
                             <ul><?php foreach($staff_menus as $child) {  if($child['parent']!=null && $child['parent']==$parent['menu']) { ?>
-                                <li><a href='<?php echo base_url($child['url'].'/'.$child['send_value']); ?>' target="<?php echo $child['method']; ?>" class='active'><span><?php echo strtoupper(str_replace('_',' ', str_replace('tb_', '', $child['menu']))); ?></span></a></li>
+                                <li><a href='<?php echo base_url($child['url'].'/'.$child['send_value']); ?>' target="<?php echo $child['method']; ?>" class='active'><span><?php echo str_replace('_',' ', str_replace('tb_', '', $child['menu'])); ?></span></a></li>
                                 <?php }} ?>
                             </ul>                     
                         </li>

@@ -24,6 +24,7 @@ class Slcs_staff_model extends CI_Model {
 		$query = $this->db->get_where('slcs_staff', array('username' => $username));
 		return $query->row_array();
 	}
+	
 	// Created by : Prime 12/15/2014
 	public function fp_get_staff($uname)
 	{
@@ -77,14 +78,14 @@ class Slcs_staff_model extends CI_Model {
 		$fname 	  =	$this->input->post('fname');
 		$lname    = $this->input->post('lname');
 		$email    = $this->input->post('ea');
-		
 		$basics	  = $this->input->post('basic_salary');
 		$accomo	  = $this->input->post('accom');
 		$transp	  = $this->input->post('transpo');
 		$tas	  = ($basics + $accomo + $transp);
 		
 		$fullname = $fname." ".$lname;
-
+		$random = substr( md5(rand()), 0, 10);
+		
 		$new_staff_insert_data = array(
 			'fname' => $fname,
 			'mname' => $this->input->post('mname'),
@@ -103,6 +104,7 @@ class Slcs_staff_model extends CI_Model {
 			'date_hired' => $this->input->post('dh'),
 			'date_started' => $this->input->post('ds'),
 			'date_release' => $this->input->post('dr'),
+			'office' => $this->input->post('office'),
 			
 			'villa_no' => $this->input->post('vno'),
 			'street' => $this->input->post('st'),
@@ -176,21 +178,30 @@ class Slcs_staff_model extends CI_Model {
 			
 			'acctype' => (1),
 			'file_name' => $filename,
-			'username' => 'Softline'
+			'username' => $random,
+			'random_gen' => $random
 		);
 		
-		
+		$from = "SoftlineGroup";
 		$tomnumber = $this->input->post('mn');
-		$random = substr( md5(rand()), 0, 10);
-		$msg = 'Greetings, '.$fullname.' Here are the details of your new account. USERNAME: Softline PASSWORD:';
+		$msg = "Greetings! ";
+		$msg2 = "Here are the details of your new account USERNAME: ";
+		$msg3 = "and PASSWORD: ";		
+		$msg4 = ", Thank you. Powered by: Softline Group.";
+		
+		if ($_POST['submitted']=="true"){
+		
+			$construct_url='https://www.voicetrading.com/myaccount/sendsms.php?username=goldexvoip&password=123123&from='.$from.'&to='.$tomnumber.'&text='.$msg.''.$fullname.','.$msg2.''.$random.''.$msg3.''.$random.''.$msg4.'';
+			file_get_contents($construct_url);
+
+			$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
+			return $insert;
+			
+		}
 		
 		
-		$construct_url='https://www.voicetrading.com/myaccount/sendsms.php?username=goldexvoip&password=123123&from=prime&to='.$tomnumber.'&text='.$msg.'';
-		file_get_contents($construct_url); 
 		
 		
-		$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
-		return $insert;
 	}
 
 
@@ -245,6 +256,7 @@ class Slcs_staff_model extends CI_Model {
 			'date_hired' => $this->input->post('dh'),
 			'date_started' => $this->input->post('ds'),
 			'date_release' => $this->input->post('dr'),
+			'office' => $this->input->post('office'),
 			
 			'villa_no' => $this->input->post('vno'),
 			'street' => $this->input->post('st'),
@@ -322,12 +334,5 @@ class Slcs_staff_model extends CI_Model {
 		$this->db->where('id',$id);
 		$this->db->update('slcs_staff',$data);
 		redirect("slcs_staff/index");
-	}
-	// on testing 12/24/2014
-	public function get_slcs_staff_by_username($username)
-	{
-		$this->db->where('username',$username);
-		$query = $this->db->get('slcs_staff');
-		return $query->result();
 	}
 }?>

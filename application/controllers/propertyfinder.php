@@ -7,19 +7,40 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class propertyfinder extends CI_Controller {
 
+	function _header_data(){ 
+	    $data['staffs']          = $this->slcs_staff_model->get_staff();
+	    //$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();  // replacement for staff_permissions
+	    //$data['sections']  = $this->sections_model->get_sections();      // replacement for staff_menu
+	    $data['staff_menus'] 	 = $this->staff_menu_model->get_staff_menu();
+
+	    $data['parent_lists']    = $this->staff_menu_model->get_parent_staff_menu();
+	    $data['children_lists']  = $this->staff_menu_model->get_child_staff_menu();
+	    $data['username']        = $this->session->userdata('username');
+	    $user                    = $this->slcs_staff_model->get_staff($data['username']);
+	    $data['permitted_lists'] = $this->staff_menu_model->get_staff_perm($user['id']);
+
+		// set $data['parents'] to be placed in menu header
+	    // $permitted_parent = permitted_parent_menu($parent_lists, $username, $permitted_lists);
+	    $permitted_parent = permitted_parent_menu($data['parent_lists'], $data['username'], $data['permitted_lists']);
+	    $data['parents']  = $this->staff_menu_model->permitted_menus($permitted_parent);
+
+	    // set $data['children'] to be placed in sub-menus
+	    //$permitted_child  = permitted_child_menu($children_lists, $username, $permitted_lists);
+	    $permitted_child = permitted_child_menu($data['children_lists'], $data['username'], $data['permitted_lists']);
+	    $data['children'] = $this->staff_menu_model->permitted_menus($permitted_child);   
+
+    return $data;
+    }
+
 	public function index()
-	{		
-		$data['staffs']      = $this->slcs_staff_model->get_staff();
-		$data['depttasks']   = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections']    = $this->sections_model->get_sections();
-
-		$data['staff_menus'] = $this->staff_menu_model->get_staff_menu();
-		$data['children']    = $this->staff_menu_model->get_child_staff_menu();
-
+	{	
+		$data = $this->_header_data(); 	
+		
 		$data['city']        = $this->city_model->get_city();
 		$data['community']   = $this->community_model->get_community();
 		$data['subcommunity']= $this->subcommunity_model->get_subcommunity();
 		$data['properties']  = $this->propertyfinder_model->get_propertyfinder();
+
 		// title with word LIST will add optional JS
 		$data['title']       = 'SoftLine | Property Finder List';	
 		$data['propertyfinder_tb_fieldnames'] =$this->get_field_name_propertyfinder();
@@ -63,10 +84,6 @@ class propertyfinder extends CI_Controller {
 		$this->load->view('propertyfinder/propertyfinder_add_property_only', $data);
 		$this->load->view('layout/footer');	
 	}
-
-	//public function toggle_fieldnames(){
-		
-	//}
 	// tested 12/05/2014
 	public function get_field_name_propertyfinder(){
 		

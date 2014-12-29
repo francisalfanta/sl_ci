@@ -73,6 +73,9 @@ class Staff_menu extends CI_Controller {
 		$data['parents']   = $parents;
 		$data['children']  = $children;
 		$data['fields_meta']= $this->staff_menu_model->get_field_name_staff_menu();
+		
+		$row = $this->staff_menu_model->get_staff_menu_data($id);
+		$data['r'] = $row;
 
 		// Parameter : tab-index, tag-attributes, label, tag-type, select-values		// TO DO: Refractor this
 		$data['table_fields'] = array(
@@ -142,20 +145,51 @@ class Staff_menu extends CI_Controller {
 		$formSubmit = $this->input->post('submitForm');
 		if($formSubmit == 'formUpdate') { 
 			//redirect($this->config->item('backend_folder').'/categories/form');
-			$id = $this->input->post('id');		
-			$data = array(
-				'menu' 		 => ucfirst($this->input->post('menu')),
-				'url' 		 => $this->input->post('url'),
-				'send_value' => $this->input->post('send_value'),
-				'method'     => $this->input->post('method'),
-				'order'      => $this->input->post('order'),
-				'parent'     => $this->input->post('parent'),
-				'include'    => $this->input->post('include'),
-				'active'     => $this->input->post('active')
-			);
-			$this->staff_menu_model->update_staff_menu($id, $data);				
-			$this->view_staff_menu($id);
+			
+			$id = $this->input->post('id');			
+			$dir = APPPATH . 'controllers/';
+			$oldfilename = $this->input->post('oldinclude');
+			$oldsendvalue = $this->input->post('oldsendvalue');
+			$newsendvalue = $this->input->post('send_value');
+			$dollar = $this->input->post('dollar');
+			
+			
+			$editline  = " <?php
+					   if (! defined('BASEPATH')) exit('No direct script access allowed');
+					   
+					   class ".$oldsendvalue." extends CI_Controller
+					   {
+							public function __construct(){
+									parent::__construct();
+							}
 
+							public function index(){
+							".$dollar."data['staffs']    = ".$dollar."this->slcs_staff_model->get_staff();
+							".$dollar."data['depttasks'] = ".$dollar."this->dept_tasks_model->get_dept_tasks();
+							".$dollar."data['sections']  = ".$dollar."this->sections_model->get_sections();
+							".$dollar."data['staff_menus']=".$dollar."this->staff_menu_model->get_staff_menu();
+							
+							".$dollar."data['title'] = 'SoftLine | Under Construction';
+							".$dollar."username = ".$dollar."this->session->userdata('username');
+							".$dollar."data['username']  = ucfirst(".$dollar."username);
+
+							".$dollar."this->load->helper('url');
+							".$dollar."this->load->view('layout/header', ".$dollar."data);
+							".$dollar."this->load->view('layout/topbar');
+							".$dollar."this->load->view('layout/admin_left_sidemenu', ".$dollar."data);
+							".$dollar."this->load->view('layout/right_sidemenu');
+							".$dollar."this->load->view('layout/maintenance');
+							".$dollar."this->load->view('layout/footer');
+							}
+					   }
+				   ";
+				   
+			$editedline = str_replace($oldsendvalue,ucfirst($newsendvalue),$editline);
+			file_put_contents($dir.$oldfilename, $editedline);
+			
+			$this->staff_menu_model->update_staff_menu($id);				
+			$this->view_staff_menu($id);	
+			
 		} else if ($formSubmit == 'formDelete'){
 			$id = $this->input->post('id');
 			$this->delete_staff_menu($id);	    			
@@ -165,7 +199,19 @@ class Staff_menu extends CI_Controller {
 	}
 
 	public function delete_staff_menu(){		
+		
+		
 		$id = $this->input->post('id');
+		
+		$this->load->helper('file');		
+		$this->db->where('id', $id);
+		
+		$q = $this->db->get('staff_menu')->row();
+		
+		$inc = $q->include;		
+		$filestring = APPPATH.'controllers/'.$inc;
+		unlink ($filestring);		
+		
 		$this->staff_menu_model->delete_staff_menu($id);
 		$this->index();
 	}

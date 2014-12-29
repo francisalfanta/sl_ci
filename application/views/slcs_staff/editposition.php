@@ -18,19 +18,13 @@
 										<div class="col-md-2"><h6><?php echo form_error('pos_t'); ?></h6>
 											<input type="text" name="pos_t" value="<?php echo $r->position; ?>" class="form-control input-sm" placeholder="Position Title">
 										</div>
-										<div class="col-md-2"><h6><?php echo form_error('estat'); ?></h6>
-											<input type="text" name="estat" value="<?php echo $r->employment_status; ?>" class="form-control input-sm" placeholder="Employment Status">											
-										</div>
-										<!--
 										<div class="col-md-10"><h6><?php echo form_error('estat'); ?></h6>
 											<label>Employment Status:</label>
-											<label class="radio-inline"> <input type="radio" name="estat" value="fulltime" <?php echo set_radio('estat', 'fulltime'); ?> /> Full time </label>											
-											<label class="radio-inline"> <input type="radio" name="estat" value="parttime" <?php echo set_radio('estat', 'parttime'); ?> /> Part Time </label>
-											<label class="radio-inline"> <input type="radio" name="estat" value="temporary" <?php echo set_radio('estat', 'temporary'); ?> /> Temporary </label>
-											<label class="radio-inline"> <input type="radio" name="estat" value="casual" <?php echo set_radio('estat', 'casual'); ?> /> Casual </label>
-											
-										</div>
-										-->
+											<label class="radio-inline"> <input type="radio" name="estat" value="fulltime" <?php if($r->employment_status == "fulltime"){echo "checked";} ?> /> Full time </label>											
+											<label class="radio-inline"> <input type="radio" name="estat" value="parttime" <?php if($r->employment_status == "parttime"){echo "checked";} ?> /> Part Time </label>
+											<label class="radio-inline"> <input type="radio" name="estat" value="temporary" <?php if($r->employment_status == "temporary"){echo "checked";} ?> /> Temporary </label>
+											<label class="radio-inline"> <input type="radio" name="estat" value="casual" <?php if($r->employment_status == "casual"){echo "checked";} ?> /> Casual </label>
+										</div>									
 									</div>
 								</div>
 															

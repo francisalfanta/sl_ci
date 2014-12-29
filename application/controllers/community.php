@@ -7,6 +7,32 @@ if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class community extends CI_Controller {	
 
+	// added 12/29/2014
+	function _header_data(){ 
+        $data['staffs']          = $this->slcs_staff_model->get_staff();
+        //$data['depttasks'] = $this->dept_tasks_model->get_dept_tasks();  // replacement for staff_permissions
+        //$data['sections']  = $this->sections_model->get_sections();      // replacement for staff_menu
+
+        $data['parent_lists']    = $this->staff_menu_model->get_parent_staff_menu();
+        $data['children_lists']  = $this->staff_menu_model->get_child_staff_menu();
+        $data['username']        = $this->session->userdata('username');
+        $user                    = $this->slcs_staff_model->get_staff($data['username']);
+        $data['permitted_lists'] = $this->staff_menu_model->get_staff_perm($user['id']);
+        // check user permission on menus
+        $data['staff_menus'] 	 = $this->staff_menu_model->get_staff_menu($user['id']);
+   		// set $data['parents'] to be placed in menu header
+        // $permitted_parent = permitted_parent_menu($parent_lists, $username, $permitted_lists);
+        $permitted_parent = permitted_parent_menu($data['parent_lists'], $data['username'], $data['permitted_lists']);
+        $data['parents']  = $this->staff_menu_model->permitted_menus($permitted_parent);
+
+        // set $data['children'] to be placed in sub-menus
+        //$permitted_child  = permitted_child_menu($children_lists, $username, $permitted_lists);
+        $permitted_child = permitted_child_menu($data['children_lists'], $data['username'], $data['permitted_lists']);
+        $data['children'] = $this->staff_menu_model->permitted_menus($permitted_child);   
+
+        return $data;
+    }
+
 	public function create_comm_name(){		
 		var_dump('create_comm_name entered');
 		//$this->community_model->create_community();		
@@ -18,8 +44,6 @@ class community extends CI_Controller {
 
 	public function get_comm(){
 		$comm = $this->input->post('community_name');
-
-
 	}
 
 	public function getCommunity()
@@ -36,12 +60,14 @@ class community extends CI_Controller {
 
 	public function view($username)
 	{
-		$data['staff'] = $this->slcs_staff_model->get_staff($username);
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
-		$data['sections'] = $this->sections_model->get_sections();
+		$data = $this->_header_data();
 
-		$username = $this->session->userdata('username'); 			
-		$data['username'] = ucfirst($username);	
+		//$data['staff'] = $this->slcs_staff_model->get_staff($username);
+		//$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();
+		//$data['sections'] = $this->sections_model->get_sections();
+
+		//$username = $this->session->userdata('username'); 			
+		//$data['username'] = ucfirst($username);	
 		$data['title'] = 'SoftLine | Staff';
 
 		if (empty($data['staff']))
@@ -58,41 +84,6 @@ class community extends CI_Controller {
 		$this->load->view('layout/right_sidemenu');
 		$this->load->view('slcs_staff/blank');
 		$this->load->view('layout/footer');	
-	}
-	/*
-	public function assign_permission()
-	{
-		//$this->load->helper(array('form', 'url'));
-		//$this->load->library('form_validation');		
-		$data['staffs']     = $this->slcs_staff_model->get_staff();
-		$data['depttasks']  = $this->dept_tasks_model->get_dept_tasks();		
-		$data['sections']   = $this->sections_model->get_sections();
-		$data['staff_menus']= $this->staff_menu_model->get_staff_menu();
-		$data['children']   = $this->staff_menu_model->get_child_staff_menu();
-
-		$data['title']      = 'SoftLine | Staff Permission';	
-
-		$username = $this->session->userdata('username'); 					
-		$data['username'] = ucfirst($username);	
-
-		$data = array(              
-   		    'fanta' => ($this->input->post('fanta') === FALSE) ? 0 : 1,
-        	//same for other checkboxes...
-		); 
-	
-		if ($this->form_validation->run() == FALSE)
-		{
-			$this->index();			
-		}
-		else
-		{
-			if($query = $this->slcs_staff_model->create_staff()){
-				$data['account_created'] = 'Your account has been created.<br>';
-
-				redirect('slcs_staff/create_member');
-			}
-		}		
-	}
-	*/
+	}	
 }
 ?>

@@ -14,6 +14,7 @@ class Model_users extends CI_Model{
 	}
 	
 	public function can_log_in(){
+		//Administrator Page
 		$this->db->where('username', $this->input->post('username'));
 		$this->db->where('password', md5($this->input->post('password')));
 		$this->db->where('acctype = 0');
@@ -22,13 +23,26 @@ class Model_users extends CI_Model{
 		if ($query->num_rows() == 1){
 			return true;
 		} else {
+		
+			//Staff Page
+			$this->db->where('username', $this->input->post('username'));
+			$this->db->where('password', md5($this->input->post('password')));
+			$this->db->where('acctype = 1');
+			$query = $this->db->get('tb_slcs_staff');  	// Added by: Prime
+			
+			if ($query->num_rows() == 1){
+				return true;
+			} else {
+				return false;
+			}
+			
 			return false;
 		}
 	}
 	// Created by: Prime 12/15/2014
 	public function fp_can_log_in(){
 		$this->db->where('username', $this->input->post('username'));
-		$this->db->where('acctype = 0');
+		//$this->db->where('acctype = 0');
 		$query = $this->db->get('tb_slcs_staff');
 		
 		if ($query->num_rows() == 1){
@@ -49,12 +63,5 @@ class Model_users extends CI_Model{
 			return false;
 		}
 	}
-	// on testing 12/23/2014
-	public function update_user_signature($data){
-		$this->db->where('username', $this->session->userdata('username'));
-		$update = $this->db->update('slcs_staff', $data);
-		return $update;
-	}
-
 }
 ?>

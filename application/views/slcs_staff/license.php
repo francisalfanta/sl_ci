@@ -138,6 +138,7 @@
 					<div class="form-group">
 								<div class="row">
 									<div class="col-md-3">
+										<input type="hidden" name="submitted" value="true">
 										<button type="submit" class="btn btn-green-3" value="Submit">Submit</button>
 										<a href="<?php echo base_url(); ?>slcs_staff/slcs_staff"<button type="text" class="btn btn-default" tabindex="10">Cancel</button></a>
 									</div>

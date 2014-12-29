@@ -1,0 +1,37 @@
+TO DO:
+Property List: Price Background & Rent to be transparent
+               Remove all reduced
+               GPS - Include building Name for more accurate GPS Report
+ 
+Contact Us Page: Change Address &  Call Us Content
+                 Add Hot-Line (also in Footer 2)
+                     Land Line
+                     Mobile No (Sir Said)
+
+                 Email: add the following infosoftline@.. & Sir Said e-mail
+                 All E-mail to Sir Said
+	         GPS Location Exact			     
+
+Bottom LInks - Remove
+
+Filter - City - Remove The Greens
+         Change Contract to Purpose
+         Beds start in Studio up to 12 numbers
+         Add Bed Range e.g. Bed From - Bed To
+         Remove Bath
+	 Remove Area From and Area To
+         Try Filter To Vertical
+
+Agents - Mobile# should be Company Mobile # per Agent and Mobile# Sir Said
+       - To be place below Feature
+
+Feature Widget to be place in Container. or Top
+Recent Widget to be place in Primary.
+
+Create Social Media for Facebook, Google+, Twitter
+
+
+ 
+
+ 
+

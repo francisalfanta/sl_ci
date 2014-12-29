@@ -18,11 +18,21 @@ class Staff_menu_model extends CI_Model {
 		if ($id === FALSE)
 		{
 			$query = $this->db->get('staff_menu');
-			return $query->result_array();
-		}
+			return $query->result_array();		
+		}		
+		$permitted_menu_id = array();
 
-		$query = $this->db->get_where('staff_menu', array('id' => $id));
-		return $query->row_array();
+		$staff_permissions = $this->get_staff_perm($id); 		
+ 		$array_length = count($staff_permissions);
+        
+        $permitted_menu_id = array();
+        for($i=0; $i<$array_length; ++$i){            
+            array_push($permitted_menu_id, $staff_permissions[$i]['accessable_table_id']);
+        }   
+		$this->db->where_in('id', $permitted_menu_id);   		
+		$query = $this->db->get('staff_menu');
+		
+		return $query->result_array();
 	}
 
 	public function get_field_name_staff_menu(){
@@ -101,4 +111,21 @@ class Staff_menu_model extends CI_Model {
 
 		return $query->result_array();
 	}
+	// tested 12/29/2014
+	public function permitted_menus($permitted_parent){
+		// to be place in model staff menu 
+        if(count($permitted_parent)>0) { // contain lists then set parent permitted
+            $this->db->where_in('id', $permitted_parent);    
+        }       
+        $permitted_parent_lists = $this->db->get('staff_menu');
+
+        if($permitted_parent_lists){ // contain lists then set only permitted
+            $query = $permitted_parent_lists->result(); 
+        } else { // dont contain anything set to default
+            $query = $this->staff_menu_model->get_parent_staff_menu();
+        }
+
+        return $query;        
+	}
+
 }?>

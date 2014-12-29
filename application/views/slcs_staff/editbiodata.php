@@ -3,8 +3,7 @@
      Script Lines: All unless noted otherwise
 -->
 		<!-- Start right content -->
-		<?php echo form_open_multipart('slcs_staff/update/'.$r->id);
-								echo validation_errors();?>
+		<?php echo form_open_multipart('slcs_staff/update/'.$r->id);?>
         <div class="content-page">
 			<!-- ============================================================== -->
 			<!-- Start Content here -->
@@ -266,9 +265,16 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-3"><h6><?php echo form_error('toc'); ?></h6><input type="text" name="toc" value="<?php echo $r->type_of_contract; ?>" class="form-control input-sm" placeholder="Type of Contract"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo $r->date_hired; ?>" class="form-control datepicker-input input-sm" placeholder="Date Hired"></div>
-												<div class="col-md-3"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo $r->date_started; ?>" class="form-control datepicker-input input-sm" placeholder="Date Started"></div>
-												<div class="col-md-3"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo $r->date_release; ?>" class="form-control datepicker-input input-sm" placeholder="Date Release"></div>
+												<div class="col-md-2"><h6><?php echo form_error('dh'); ?></h6><input type="text" name="dh" value="<?php echo $r->date_hired; ?>" class="form-control datepicker-input input-sm" placeholder="Date Hired"></div>
+												<div class="col-md-2"><h6><?php echo form_error('ds'); ?></h6><input type="text" name="ds" value="<?php echo $r->date_started; ?>" class="form-control datepicker-input input-sm" placeholder="Date Started"></div>
+												<div class="col-md-2"><h6><?php echo form_error('dr'); ?></h6><input type="text" name="dr" value="<?php echo $r->date_release; ?>" class="form-control datepicker-input input-sm" placeholder="Date Release"></div>
+												<div class="col-md-3"><h6><?php echo form_error('office'); ?></h6>
+												<select class="form-control input-sm" name="office">
+														  <option value="<?php echo $r->office; ?>" ><?php echo $r->office; ?></option>
+														  <option value="Cleaning Service" <?php echo set_select('office', 'Cleaning Service'); ?> >Cleaning Service</option>
+														  <option value="Real Estate" <?php echo set_select('office', 'Real Estate'); ?> >Real Estate</option>														 
+												</select>
+												</div>
 											</div>
 										</div>
 										

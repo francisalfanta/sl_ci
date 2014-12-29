@@ -18,10 +18,7 @@
 										<div class="col-md-2"><h6><?php echo form_error('pos_t'); ?></h6>
 											<input type="text" name="pos_t" value="<?php echo set_value('pos_t'); ?>" class="form-control input-sm" placeholder="Position Title">
 										</div>
-										<div class="col-md-2"><h6><?php echo form_error('estat'); ?></h6>
-											<input type="text" name="estat" value="<?php echo set_value('estat'); ?>" class="form-control input-sm" placeholder="Employment Status">											
-										</div>
-										<!--
+										
 										<div class="col-md-10"><h6><?php echo form_error('estat'); ?></h6>
 											<label>Employment Status:</label>
 											<label class="radio-inline"> <input type="radio" name="estat" value="fulltime" <?php echo set_radio('estat', 'fulltime'); ?> /> Full time </label>											
@@ -30,7 +27,7 @@
 											<label class="radio-inline"> <input type="radio" name="estat" value="casual" <?php echo set_radio('estat', 'casual'); ?> /> Casual </label>
 											
 										</div>
-										-->
+										
 									</div>
 								</div>
 															

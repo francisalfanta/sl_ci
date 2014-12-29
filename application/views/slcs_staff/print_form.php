@@ -46,9 +46,9 @@
 	//echo $image1;
 	
 	$pdf->AddPage();
-	$pdf->Image('http://192.168.10.121/sl_ci/images/profile_pic/RE.jpg',9,5);
+	$pdf->Image('http://192.168.10.121/sl_ci/images/profile_pic/SLCS.jpg',9,5);
 	$pdf->Image('http://192.168.10.121/sl_ci/images/profile_pic/'.$profpic,165,5,35,0);
-	//$pdf->Image('http://chart.googleapis.com/chart?cht=p3&chd=t:60,40&chs=250x100&chl=Hello|World',144,75,60,0,'PNG');
+		$pdf->Rect(165, 5, 35, 35);
 	$pdf->SetFont("Arial","B","17");
 	$pdf->Cell(190,5,"SOFT LINE GROUP SERVICES LLC",0,1,"C");
 	$pdf->SetFont("Arial","","9");

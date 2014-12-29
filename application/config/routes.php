@@ -108,9 +108,7 @@ $route['nationality']  = 'nationality';
 $route['login'] = 'login';
 $route['tables'] = 'tables';
 
-//$route['default_controller'] = 'login';
-
-$route['default_controller'] = "subscriber";  //for deletion
+$route['default_controller'] = 'login';
 
 $route['propertyfinder/add_propertyfinder'] = 'propertyfinder/add_propertyfinder';
 $route['propertyfinder/count_record_by_subcommunity'] = 'propertyfinder/count_record_by_subcommunity';
@@ -122,8 +120,7 @@ $route['propertyfinder/view_propertyfinder/(:any)'] = 'propertyfinder/view_prope
 $route['propertyfinder/del/(:any)'] = 'propertyfinder/del/$1';
 $route['propertyfinder/get_city'] = 'propertyfinder/get_city';
 $route['propertyfinder/create_property'] = 'propertyfinder/create_property';
-$route['propertyfinder'] = 'propertyfinder';    
-
+$route['propertyfinder'] = 'propertyfinder'; 
 
 // for deletion
 $route['propertyfinder/extract_data_per_area'] = 'propertyfinder/extract_data_per_area';
