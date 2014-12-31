@@ -196,14 +196,7 @@ class Slcs_staff_model extends CI_Model {
 
 			$insert = $this->db->insert('slcs_staff', $new_staff_insert_data);
 			return $insert;
-			
-		}
-		
-		
-		
-		
 	}
-
 
 	public function check_if_username_exists($username) {
 
@@ -334,5 +327,12 @@ class Slcs_staff_model extends CI_Model {
 		$this->db->where('id',$id);
 		$this->db->update('slcs_staff',$data);
 		redirect("slcs_staff/index");
+	}
+	// on testing 12/24/2014
+	public function get_slcs_staff_by_username($username)
+	{
+		$this->db->where('username',$username);
+		$query = $this->db->get('slcs_staff');
+		return $query->result();
 	}
 }?>
