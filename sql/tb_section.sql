@@ -1,1 +1,0 @@
-create table `tb_sections`(`id` int(20) NOT NULL AUTO_INCREMENT, `section_name` varchar(100), PRIMARY KEY (`id`) ) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=latin1

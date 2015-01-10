@@ -25,14 +25,20 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tb_email`
 --
+Use softlinecsdb;
 
-CREATE TABLE IF NOT EXISTS `tb_email` (
-  `tb_email_id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) DEFAULT NULL,
-  `tb_property_owner_id` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `softlinecsdb`.`tb_email` (
+  `tb_email_id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(100) NULL,
+  `tb_property_owner_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`tb_email_id`),
-  KEY `fk_tb_email_tb_property_owner1_idx` (`tb_property_owner_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4096 ;
+  INDEX `fk_tb_email_tb_property_owner1_idx` (`tb_property_owner_id` ASC),
+  CONSTRAINT `fk_tb_email_tb_property_owner1`
+    FOREIGN KEY (`tb_property_owner_id`)
+    REFERENCES `softlinecsdb`.`tb_property_owner` (`tb_property_owner_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    )ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4096 ;
 
 --
 -- Dumping data for table `tb_email`

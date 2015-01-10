@@ -3,5 +3,5 @@ CREATE TABLE `softlinecsdb`.`tb_letter_templates` (
   `name` VARCHAR(100) NULL,
   `message` VARCHAR(2000) NULL,
   `tb_slcs_staff_id` BIGINT(20) NULL,
-  PRIMARY KEY (`tb_letter_templates`))
+  PRIMARY KEY (`tb_letter_templates_id`))
 COMMENT = 'Real Estate Letter Template';

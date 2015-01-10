@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tb_address`
 --
+USE softlinecsdb;
 
 CREATE TABLE IF NOT EXISTS `tb_address` (
   `tb_address_id` bigint(20) NOT NULL AUTO_INCREMENT,

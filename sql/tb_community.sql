@@ -3,10 +3,7 @@ CREATE TABLE IF NOT EXISTS `tb_community` (
   `community_name` varchar(255) DEFAULT NULL,
   `city_id` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_city_id_idx` (`city_id`),
-  KEY `fk_com_city_id_idx` (`city_id`),
-  KEY `fk_comcity_id_idx` (`city_id`),
-  KEY `fk_comnty_city_id_idx` (`city_id`)
+  KEY `fk_city_id_idx` (`city_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=311 ;
 
 --

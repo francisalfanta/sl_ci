@@ -33,19 +33,20 @@ class Unit_test extends CI_Controller {
     }
 
 	public function index($property_owner_id = null, $propertyfinder_id =null) {       
-        $query = $this->staff_menu_model->get_staff_perm(105);                
-        // storage for permitted menu
-        $permitted_lists = array();
+        $building_name = "Marina Crown";
+        $subcommunity = "Dubai Marina";
+        $community = "Marina District";
+        $city = "Dubai";
+        $Address = $building_name.",".$subcommunity.",".$community.",".$city;
+        $Address = urlencode($Address);
+        $request_url = "http://maps.googleapis.com/maps/api/geocode/xml?address=".$Address."&sensor=true";
+        $xml = simplexml_load_file($request_url) or die("url not loading");
+        $status = $xml->status;
 
-        foreach($query as $row) {
-            //echo '$row["accessable_table_id"]: ', $row['accessable_table_id']."<br>";
-            // find menu name
-            $menu = $this->staff_menu_model->get_staff_menu($row['accessable_table_id']);
-            //echo strtolower(str_replace(' ', '_', $menu['menu']));
-            array_push($permitted_lists, strtolower(str_replace(' ', '_', $menu['menu'])));
+        if ($status=="OK") {           
+            $Lon = $xml->result->geometry->location->lng;          
         }
-        //print_r($permitted_lists);
-        print json_encode($permitted_lists);
+        echo $Lon;
         
         $test_unit = '';
 		if (is_null($test_unit)) 

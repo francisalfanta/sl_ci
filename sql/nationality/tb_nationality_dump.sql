@@ -25,13 +25,19 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tb_nationality`
 --
+USE softlinecsdb;
 
 CREATE TABLE IF NOT EXISTS `tb_nationality` (
   `tb_nationality_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nationality` varchar(100) DEFAULT NULL,
   `tb_property_owner_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`tb_nationality_id`),
-  KEY `national_prop_owner_fk_idx` (`tb_property_owner_id`)
+  KEY `national_prop_owner_fk_idx` (`tb_property_owner_id`),
+  CONSTRAINT `national_prop_owner_fk`
+    FOREIGN KEY (`tb_property_owner_id`)
+    REFERENCES `softlinecsdb`.`tb_property_owner` (`tb_property_owner_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8490 ;
 
 --

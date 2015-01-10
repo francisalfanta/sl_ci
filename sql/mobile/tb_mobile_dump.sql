@@ -25,14 +25,21 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tb_mobile_no`
 --
+use softlinecsdb;
 
-CREATE TABLE IF NOT EXISTS `tb_mobile_no` (
-  `tb_mobile_id` int(11) NOT NULL AUTO_INCREMENT,
-  `mobile_no` bigint(20) DEFAULT NULL,
-  `tb_property_owner_id` bigint(20) NOT NULL,
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `softlinecsdb`.`tb_mobile_no` (
+  `tb_mobile_id` INT NOT NULL AUTO_INCREMENT,
+  `mobile_no` INT NULL,
+  `tb_property_owner_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`tb_mobile_id`),
-  KEY `fk_tb_mobile_tb_property_owner1_idx` (`tb_property_owner_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4096 ;
+  INDEX `fk_tb_mobile_tb_property_owner1_idx` (`tb_property_owner_id` ASC),
+  CONSTRAINT `fk_tb_mobile_tb_property_owner1`
+    FOREIGN KEY (`tb_property_owner_id`)
+    REFERENCES `softlinecsdb`.`tb_property_owner` (`tb_property_owner_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4096 ;
 
 --
 -- Dumping data for table `tb_mobile_no`

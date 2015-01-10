@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `tb_propertyfinder`
 --
+Use softlinecsdb;
 
 CREATE TABLE IF NOT EXISTS `tb_propertyfinder` (
   `tb_propertyfinder_id` bigint(20) NOT NULL AUTO_INCREMENT,
