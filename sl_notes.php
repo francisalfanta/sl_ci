@@ -198,12 +198,18 @@ NOTES:
     -- to make the map smaller {# originally <div class="top-wrapper"> #}                                           // added FMA 01/10/2015 
     <div class="container">
 
+- js in aviators/plugins/properties/assets/js/aviator-maps.js
+    // position: google.maps.ControlPosition.LEFT_BOTTOM                     // added FMA 01/10/2015 adjusted to be viewable - line 119
+    position: google.maps.ControlPosition.TOP_RIGHT
+
+
 - new files
 	-- page template located in realia
 		--- page-properties-grid-comm-buy.php
 		--- page-properties-grid-comm-rent.php
 		--- page-properties-grid-resi-buy.php
 		--- page-properties-grid-reso-buy.php
+    -- style.css added new contents
 
 
 
