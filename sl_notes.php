@@ -205,10 +205,16 @@ NOTES:
 
 - new files
 	-- page template located in realia
-		--- page-properties-grid-comm-buy.php
-		--- page-properties-grid-comm-rent.php
-		--- page-properties-grid-resi-buy.php
-		--- page-properties-grid-reso-buy.php
+		--- page-properties-grid-comm-buy.php           // located in realia  
+		--- page-properties-grid-comm-rent.php          // located in realia  
+		--- page-properties-grid-resi-buy.php           // located in realia  
+		--- page-properties-grid-reso-buy.php           // located in realia  
+        // added 01/11/2015
+        --- upload images for all free hold area lists
+        --- page-properties-grid-free-hold.php          // located in realia
+        --- page-free-area.twig                         // located in realia/templates/
+        --- free-area.twig                              // located in realia/aviators/plugins/properties/templates/properties
+        --- free-area-box-small.twig                    // located in realia/aviators/plugins/properties/templates/properties
     -- style.css added new contents
 
 
