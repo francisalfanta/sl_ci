@@ -215,7 +215,10 @@ NOTES:
         --- page-free-area.twig                         // located in realia/templates/
         --- free-area.twig                              // located in realia/aviators/plugins/properties/templates/properties
         --- free-area-box-small.twig                    // located in realia/aviators/plugins/properties/templates/properties
+        // added 01/12/2015
+        --- page-properties-grid-free-zone.php          // located in realia
     -- style.css added new contents
+
 
 
 
