@@ -1,30 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.1.13
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Dec 07, 2014 at 01:11 PM
--- Server version: 5.1.36
--- PHP Version: 5.3.29
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-
---
--- Database: `softlinecsdb`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tb_slcs_staff`
---
+use softlinecsdb;
 
 CREATE TABLE IF NOT EXISTS `tb_slcs_staff` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -124,7 +98,4 @@ INSERT INTO `tb_slcs_staff` (`id`, `fullname`, `fname`, `mname`, `lname`, `gende
 (105, 'Juan Dela Cruz', 'Juan', 'Manuel', 'Dela Cruz', 'male', '10/15/1986', 28, 'Manila', 'filipino', 'single', 'Some Values', 'Tagalog', 'EB1234567890', 'Full Time', '11/01/2014', '11/02/2014', '11/03/2014', '2256', 'Granate', 'Manila', '2256 Granate St. San Andres Bukid Manila', 'admin@email.com', '09278350348', '5590684', 'Juana', 'Sister', '09271111111', 'Makati City', 'June', 'Brother', '09272222222', 'Muntinlupa City', 'James', 'Cousin', '09273333333', 'Metro Manila', 'BPI', 'Harrison', 'Juan Dela Cruz', '123456789', 'Accountant', 'Some Values', 100, 'resign', 'unlimited', 200, 2, 12, 300, 21600, 200, '111122223333', '12/04/2014', '12/04/2019', 'Some Values', 1, 1, 1, '100', '200', 111111, '12/04/2014', '12/04/2019', 'AAA', 222222, '12/05/2014', '12/05/2019', 'BBBB', 333333, '12/06/2014', '12/06/2019', 'CCC', 444444, '12/07/2014', '12/07/2019', 'DDD', 555555, '12/08/2014', '12/08/2019', 'EEE', 'admin.png', 'admin', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 0),
 (110, 'Prime Lemuel Rio', 'Prime Lemuel', 'Pena', 'Rio', 'male', '10/15/1986', 28, 'Manila', 'filipino', 'single', '', 'Tagalog', 'EBAAAABBBB', 'Full time', '11/01/2014', '11/02/2014', '11/03/2014', '2256', 'Granate', 'San Andres Bukid Manila', '2256 Granate San Andres Bukid Manila', 'prymerio@rocketmail.com', '09278350348', '5590684', 'Juana Dela Cruz', 'Sister', '09278350348', 'Makati City, Philippines', '', '', '', '', '', '', '', '', 'BPI', 'Harrison', 'Prime Lemuel Rio', '1321313213', 'Information Technology', 'Some Values', 100, 'resign', 'unlimited', 200, 2, 12, 300, 21600, 600, '123456789', '12/04/2014', '12/05/2014', '', 1, 1, 1, '0', '0', 123, '12/04/2014', '12/05/2014', '', 0, '', '', '', 0, '', '', '', 0, '', '', '', 0, '', '', '', 'Prime.jpg', 'prymerio@rocketmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 1),
 (111, 'Ma. Sheryl Marzan', 'Ma. Sheryl', 'Dadiz', 'Marzan', 'female', '11/15/1989', 25, 'Philippines', 'filipino', 'single', '', 'English', 'EB123456789', 'Limited', '10/22/2014', '10/22/2014', '10/22/2014', '416', 'Al Rigga', 'Dubai', '416 Al Salmiya Bldg. Al Rigga Deira Dubai, UAE', 'xhiemme08@gmail.com', '0564758005', '09307033068', ' Marissa M. Villanueva', 'Auntie', '0552505089', '416 Al Salmiya Bldg. Al Rigga Deira Dubai, UAE', '', '', '', '', '', '', '', '', '', '', '', '', 'Archive Clerk', 'Employment ', 3000, 'terminated', 'unlimited', 0, 0, 0, 0, 0, 3000, '', '', '', '', 0, 0, 0, '0', '0', 0, '', '', '', 0, '', '', '', 0, '', '', '', 0, '', '', '', 0, '', '', '', 'Sheryl.jpg', 'xhiemme08@gmail.com', '5f4dcc3b5aa765d61d8327deb882cf99', 1, 1);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+tb_slcs_staff

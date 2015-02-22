@@ -1,3 +1,4 @@
+use softlinecsdb;
 CREATE TABLE IF NOT EXISTS `tb_ci_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(45) NOT NULL DEFAULT '0',
@@ -6,5 +7,5 @@ CREATE TABLE IF NOT EXISTS `tb_ci_sessions` (
   `user_data` text NOT NULL,
   PRIMARY KEY (`session_id`),
   KEY `last_activity_idx` (`last_activity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
